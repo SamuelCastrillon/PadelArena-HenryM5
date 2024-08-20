@@ -2,7 +2,7 @@
 import FormComponent from "@/components/MainComponents/ReusableFormComponent/FormComponent";
 import React from "react";
 import {
-  butonsSignInForm,
+  butonsRegisterForm,
   inputsFormValues,
   registerSchema,
   signInInitialValues,
@@ -20,7 +20,7 @@ const RegisterView = () => {
         valiSchema={registerSchema}
         handelerSubmit={handlerSubmit}
         dataContructor={inputsFormValues}
-        butonsForm={butonsSignInForm}
+        butonsForm={butonsRegisterForm}
       />
     </section>
   );

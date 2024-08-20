@@ -32,7 +32,6 @@ export const registerSchema = yup.object({
 
 //? Data constructor form
 export const inputsFormValues: IDataConstructorInput[] = [
-
   { LabelText: "Nombre", FieldType: "text", FieldName: "name", FieldPH: "UserName..." },
   { LabelText: "Aapellido", FieldType: "text", FieldName: "lastName", FieldPH: "UserName..." },
   { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "example@mail.com" },
@@ -47,3 +46,5 @@ export const inputsFormValues: IDataConstructorInput[] = [
   { LabelText: "Ciudad", FieldType: "text", FieldName: "city", FieldPH: "Buenos Aires" },
   { LabelText: "Phone", FieldType: "number", FieldName: "phone", FieldPH: "000 000 0000" },
 ];
+
+export const butonsRegisterForm: IButtonForm[] = [{ name: "Crear Cuenta", type: "submit" }];
