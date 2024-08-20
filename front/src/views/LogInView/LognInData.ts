@@ -4,13 +4,13 @@ import {
   IDataConstructorInput,
 } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 
-export const SignInInitialValues = {
+export const LogInInitialValues = {
   email: "",
   password: "",
 };
 
 //? Validations Inpusts form
-export const SingInSchema = yup.object({
+export const LogInSchema = yup.object({
   email: yup
     .string()
     .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, "Invalid email")
@@ -19,7 +19,7 @@ export const SingInSchema = yup.object({
 });
 
 //? Data constructor form
-export const InputsFormValues: IDataConstructorInput[] = [
+export const InputsLogIngFormValues: IDataConstructorInput[] = [
   {
     LabelText: "User Email",
     FieldType: "email",
@@ -29,4 +29,4 @@ export const InputsFormValues: IDataConstructorInput[] = [
   { LabelText: "Password", FieldType: "password", FieldName: "password", FieldPH: "********" },
 ];
 
-export const ButonsSignInForm: IButtonForm[] = [{ name: "Sign In", type: "submit" }];
+export const ButonsLogInForm: IButtonForm[] = [{ name: "Sign In", type: "submit" }];
