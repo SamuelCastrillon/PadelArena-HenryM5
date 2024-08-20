@@ -15,7 +15,7 @@ const ImputForm: React.FC<IDataConstructorInput> = ({
         type={FieldType}
         name={FieldName}
         placeholder={FieldPH}
-        className="p-1 rounded"></Field>
+        className="p-1 text-gray-800 rounded"></Field>
       <span className="font-bold text-red-600">
         <ErrorMessage name={FieldName} />
       </span>

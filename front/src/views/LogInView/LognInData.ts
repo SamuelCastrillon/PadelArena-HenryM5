@@ -15,7 +15,7 @@ export const LogInSchema = yup.object({
     .string()
     .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, "Invalid email")
     .defined("Required!"),
-  password: yup.string().defined("Required!"),
+  password: yup.string().min(8, "Too Short!").max(40, "Too Long!").defined("Required!"),
 });
 
 //? Data constructor form
