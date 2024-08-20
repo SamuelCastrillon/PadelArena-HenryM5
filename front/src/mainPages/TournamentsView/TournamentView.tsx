@@ -4,7 +4,7 @@ import SearchBar from "@/components/MainComponents/SearchBar/SearchBar";
 import React from "react";
 
 const handleSearch = () => {
-  console.log("Search");
+  console.log("Search here");
 };
 
 const TournamentsView: React.FC = () => {
