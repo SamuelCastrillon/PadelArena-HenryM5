@@ -1,9 +1,12 @@
-import React from 'react'
+import TournamentsView from "@/mainPages/TournamentsView/TournamentView";
+import React from "react";
 
-const page = () => {
+const Tournaments = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      <TournamentsView />
+    </div>
+  );
+};
 
-export default page
+export default Tournaments;

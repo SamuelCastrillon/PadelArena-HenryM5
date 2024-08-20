@@ -1,11 +1,14 @@
 "use client";
 
+
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
+
 import React from "react";
 
 const HomeReception: React.FC = () => {
   return (
     <>
+
     <div className="global-container flex justify-start items-center min-h-screen w-full">
         <div className="text-container m-[30px] p-4 flex flex-col justify-start items-start">
           <div className="tittles text-[#BEF164] font-bold font-radhiumz">
@@ -20,6 +23,7 @@ const HomeReception: React.FC = () => {
           </NavigateButton>
         </div>
     </div>
+
     </>
   );
 };
