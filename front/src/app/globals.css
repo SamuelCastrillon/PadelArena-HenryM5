@@ -31,3 +31,21 @@ body {
     text-wrap: balance;
   }
 }
+
+@font-face {
+  font-family: "sfBold";
+  src: url("../../public/fonts/SFPRODISPLAYBOLD.OTF");
+}
+
+@font-face {
+  font-family: "sfRegular";
+  src: url("../../public/fonts/SFPRODISPLAYREGULAR.OTF");
+}
+@font-face {
+  font-family: "sfMedium";
+  src: url("../../public/fonts/SFPRODISPLAYMEDIUM.OTF");
+}
+@font-face {
+  font-family: "radhiumz";
+  src: url("../../public/fonts/NCS\ Radhiumz.ttf");
+}
