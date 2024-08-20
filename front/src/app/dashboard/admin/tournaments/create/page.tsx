@@ -1,7 +1,8 @@
+import CreateTournamentView from "@/mainPages/CreateTournamentView/CreateTournamentView";
 import React from "react";
 
-const page = () => {
-  return <div>page</div>;
+const page: React.FC = () => {
+  return <CreateTournamentView />;
 };
 
 export default page;
