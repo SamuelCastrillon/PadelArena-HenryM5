@@ -14,6 +14,7 @@ export const signInInitialValues = {
 
 //? Validations Inpusts form
 export const registerSchema = yup.object({
+<<<<<<< Updated upstream
   name: yup
     .string()
     .min(2, "Too Short!")
@@ -37,10 +38,24 @@ export const registerSchema = yup.object({
     .min(9, "Invalid Number!")
     .max(12, "Invalid Number!")
     .defined("Required!"),
+=======
+  name: yup.string().min(2, "Too Short!").max(40, "Too Long!").defined("Required!"),
+  lastName: yup.string().min(2, "Too Short!").max(40, "Too Long!").defined("Required!"),
+  email: yup
+    .string()
+    .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, "Invalid email")
+    .defined("Required!"),
+  address: yup.string().defined("Required!"),
+  password: yup.string().min(8, "Too Short!").max(12, "Too Long!").defined("Required!"),
+  country: yup.string().defined("Required!"),
+  city: yup.string().defined("Required!"),
+  phone: yup.string().min(9, "Invalid Number!").max(12, "Invalid Number!").defined("Required!"),
+>>>>>>> Stashed changes
 });
 
 //? Data constructor form
 export const inputsFormValues: IDataConstructorInput[] = [
+<<<<<<< Updated upstream
   {
     LabelText: "User Name",
     FieldType: "text",
@@ -55,10 +70,19 @@ export const inputsFormValues: IDataConstructorInput[] = [
   },
   {
     LabelText: "Password (8-12 Characters)",
+=======
+  { LabelText: "Nombre", FieldType: "text", FieldName: "name", FieldPH: "UserName..." },
+  { LabelText: "Aapellido", FieldType: "text", FieldName: "lastName", FieldPH: "UserName..." },
+  { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "example@mail.com" },
+  { LabelText: "Direccion", FieldType: "address", FieldName: "address", FieldPH: "address" },
+  {
+    LabelText: "Contraseña (8-12 Characters)",
+>>>>>>> Stashed changes
     FieldType: "password",
     FieldName: "password",
     FieldPH: "********",
   },
+<<<<<<< Updated upstream
   {
     LabelText: "Address",
     FieldType: "address",
@@ -76,3 +100,11 @@ export const inputsFormValues: IDataConstructorInput[] = [
 export const butonsSignInForm: IButtonForm[] = [
   { name: "Create Account", type: "submit" },
 ];
+=======
+  { LabelText: "País", FieldType: "text", FieldName: "country", FieldPH: "Argentina" },
+  { LabelText: "Ciudad", FieldType: "text", FieldName: "city", FieldPH: "Buenos Aires" },
+  { LabelText: "Phone", FieldType: "number", FieldName: "phone", FieldPH: "000 000 0000" },
+];
+
+export const butonsSignInForm: IButtonForm[] = [{ name: "Create Account", type: "submit" }];
+>>>>>>> Stashed changes
