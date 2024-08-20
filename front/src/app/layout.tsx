@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="sfRegular">
+      <body className="sfRegular bg-limeBlue-gradient">
         <header className="flex justify-center w-full">
           <NavBarComponent />
         </header>
