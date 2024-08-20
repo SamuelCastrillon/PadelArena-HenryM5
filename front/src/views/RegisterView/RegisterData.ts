@@ -4,7 +4,7 @@ import {
 } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import * as yup from "yup";
 
-export const SignInInitialValues = {
+export const signInInitialValues = {
   name: "",
   email: "",
   password: "",
@@ -13,7 +13,7 @@ export const SignInInitialValues = {
 };
 
 //? Validations Inpusts form
-export const SingInSchema = yup.object({
+export const registerSchema = yup.object({
   name: yup.string().min(2, "Too Short!").max(40, "Too Long!").defined("Required!"),
   email: yup
     .string()
@@ -25,7 +25,7 @@ export const SingInSchema = yup.object({
 });
 
 //? Data constructor form
-export const InputsFormValues: IDataConstructorInput[] = [
+export const inputsFormValues: IDataConstructorInput[] = [
   { LabelText: "User Name", FieldType: "text", FieldName: "name", FieldPH: "UserName..." },
   { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "example@mail.com" },
   {
@@ -38,4 +38,4 @@ export const InputsFormValues: IDataConstructorInput[] = [
   { LabelText: "Phone", FieldType: "number", FieldName: "phone", FieldPH: "000 000 0000" },
 ];
 
-export const ButonsSignInForm: IButtonForm[] = [{ name: "Create Account", type: "submit" }];
+export const butonsSignInForm: IButtonForm[] = [{ name: "Create Account", type: "submit" }];
