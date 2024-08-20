@@ -13,7 +13,6 @@ export const logInInitialValues = {
 export const logInSchema = yup.object({
   email: yup
     .string()
-
     .matches(
       /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/,
       "Invalid email"
@@ -24,7 +23,6 @@ export const logInSchema = yup.object({
     .min(8, "Too Short!")
     .max(40, "Too Long!")
     .defined("Required!"),
-
 });
 
 //? Data constructor form
@@ -35,7 +33,6 @@ export const inputsLogIngFormValues: IDataConstructorInput[] = [
     FieldName: "email",
     FieldPH: "example@mail.com",
   },
-
   {
     LabelText: "Password",
     FieldType: "password",
