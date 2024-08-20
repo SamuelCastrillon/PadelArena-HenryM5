@@ -1,6 +1,7 @@
 "use client";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
+import { Bars3Icon } from "@heroicons/react/20/solid";
 
 import React from "react";
 
@@ -13,8 +14,9 @@ const NavBarComponent: React.FC = () => {
     <nav className="flex flex-col gap-2 md:flex-row md:gap-4 mt-8 h-fit py-5 sm:py-0 sm:h-[64px] w-screen md:w-[95%] bg-[#808080b7] justify-center bg-opacity-80 items-center rounded-2xl font-bold ">
       <img src="logoApp.png" alt="Logo" className="w-auto h-[60px] sm:h-[85%]" />
       <ActionButton className="block sm:hidden" onClick={handleDropDown}>
-        <div className="h-[30px] w-[30px] bg-slate-200 rounded-[50%]"></div>
+        <Bars3Icon className="h-10 font-bold" />
       </ActionButton>
+      <hr className="w-[90%] h-[2px] border-none bg-white sm:hidden" />
       <div
         className={`flex-col items-center ${
           dropDawn ? "flex" : "hidden"
