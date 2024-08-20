@@ -1,9 +1,11 @@
-import React from 'react'
+import React from "react";
 
-const page = () => {
+const Tournaments = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div className="flex items-center justify-center w-screen h-screen bg-limeBlue-gradient">
+      page
+    </div>
+  );
+};
 
-export default page
+export default Tournaments;
