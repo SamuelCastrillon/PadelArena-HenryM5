@@ -1,14 +1,15 @@
-import { ErrorMessage, Field } from "formik";
 import React from "react";
+import { ErrorMessage, Field } from "formik";
 import { IDataConstructor } from "../FormInterface";
 
-const ImputForm: React.FC<IDataConstructor> = ({ LabelText, FieldType, FieldName, FieldPH }) => {
+const TextArea: React.FC<IDataConstructor> = ({ LabelText, FieldType, FieldName, FieldPH }) => {
   return (
-    <div className="flex flex-col h-[100px] w-[240px] gap-1">
+    <div className="flex flex-col h-[100px] w-full gap-1">
       <label className="text-lg font-bold text-customBlue">{LabelText}</label>
       <Field
-        type={FieldType}
         name={FieldName}
+        type={FieldType}
+        as="textarea"
         placeholder={FieldPH}
         className="p-1 text-gray-800 rounded"></Field>
       <span className="font-bold text-red-600">
@@ -18,4 +19,4 @@ const ImputForm: React.FC<IDataConstructor> = ({ LabelText, FieldType, FieldName
   );
 };
 
-export default ImputForm;
+export default TextArea;
