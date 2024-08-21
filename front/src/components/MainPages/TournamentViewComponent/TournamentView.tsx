@@ -55,8 +55,8 @@ const TournamentsView: React.FC = () => {
       </div>
       <section className="bg-white py-6 mt-4">
         <div className="w-[80%] mx-auto mt-32">
-          <div className="flex items-center justify-between w-[30%] mb-4">
-            <h2 className="text-xl radhiumz">Torneos por Comenzar</h2>
+          <div className="flex items-center justify-between w-[50%] mb-4">
+            <h2 className="text-4xl radhiumz">Torneos por Comenzar</h2>
             <ActionButton
               className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               onClick={() => {
@@ -70,8 +70,8 @@ const TournamentsView: React.FC = () => {
         </div>
 
         <div className="w-[80%] mx-auto mt-32">
-          <div className="flex items-center justify-between w-[30%] mb-4">
-            <h2 className="text-xl radhiumz mb-4 ">Torneos en Progreso</h2>
+          <div className="flex items-center justify-between w-[50%] mb-4">
+            <h2 className="text-4xl radhiumz mb-4 ">Torneos en Progreso</h2>
             <ActionButton
               className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               onClick={() => {
@@ -85,8 +85,8 @@ const TournamentsView: React.FC = () => {
         </div>
 
         <div className="w-[80%] mx-auto mt-32">
-          <div className="flex items-center justify-between w-[30%] mb-4">
-            <h2 className="text-xl radhiumz mb-4 ">Torneos Finalizados</h2>
+          <div className="flex items-center justify-between w-[50%] mb-4">
+            <h2 className="text-4xl radhiumz mb-4 ">Torneos Finalizados</h2>
             <ActionButton
               className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
               onClick={() => {

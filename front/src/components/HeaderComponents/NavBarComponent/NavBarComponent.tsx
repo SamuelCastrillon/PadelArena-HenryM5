@@ -11,7 +11,7 @@ const NavBarComponent: React.FC = () => {
     setDropDown(!dropDawn);
   }
   return (
-    <nav className="flex flex-col gap-2 md:flex-row md:gap-4 mt-8 h-fit py-5 sm:py-0 sm:h-[64px] w-screen md:w-[95%] bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 shadow-glass justify-center bg-opacity-80 items-center rounded-2xl font-bold text-white">
+    <nav className="flex flex-col gap-2 md:flex-row md:gap-4 mt-8 h-fit py-5 sm:py-0 sm:h-[64px] w-screen md:w-[95%] bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 shadow-glass justify-center bg-opacity-80 items-center rounded-2xl  text-white radhiumz ">
       <img
         src="logoApp.png"
         alt="Logo"
@@ -28,7 +28,7 @@ const NavBarComponent: React.FC = () => {
       >
         <NavigateButton
           href="/"
-          className="px-5 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg"
+          className="px-5 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg "
         >
           INICIO
         </NavigateButton>

@@ -15,6 +15,7 @@ export interface Tournament {
   description: string;
   imageUrl: string;
   courtsAvailable: number;
+  inscripciones: "abierta" | "cerrada";
   status: "upcoming" | "inProgress" | "finished";
   categoria:
     | "primera"
@@ -44,6 +45,7 @@ export const upcomingTournaments: Tournament[] = [
     status: "upcoming",
     categoria: "quinta",
     genero: "femenino",
+    inscripciones: "abierta",
   },
   {
     id: "2",
@@ -59,6 +61,7 @@ export const upcomingTournaments: Tournament[] = [
     status: "upcoming",
     categoria: "quinta",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   {
     id: "3",
@@ -81,6 +84,7 @@ export const upcomingTournaments: Tournament[] = [
     status: "upcoming",
     categoria: "cuarta",
     genero: "femenino",
+    inscripciones: "abierta",
   },
   {
     id: "4",
@@ -97,6 +101,7 @@ export const upcomingTournaments: Tournament[] = [
     status: "upcoming",
     categoria: "tercera",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   {
     id: "5",
@@ -113,6 +118,7 @@ export const upcomingTournaments: Tournament[] = [
     status: "upcoming",
     categoria: "sexta",
     genero: "femenino",
+    inscripciones: "abierta",
   },
   // ... puedes añadir más torneos aquí
 ];
@@ -133,6 +139,7 @@ export const inProgressTournaments: Tournament[] = [
     status: "inProgress",
     categoria: "primera",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   {
     id: "8",
@@ -149,6 +156,7 @@ export const inProgressTournaments: Tournament[] = [
     status: "inProgress",
     categoria: "primera",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   {
     id: "9",
@@ -172,6 +180,7 @@ export const inProgressTournaments: Tournament[] = [
     status: "inProgress",
     categoria: "cuarta",
     genero: "femenino",
+    inscripciones: "abierta",
   },
   {
     id: "10",
@@ -200,6 +209,7 @@ export const inProgressTournaments: Tournament[] = [
     status: "inProgress",
     categoria: "sexta",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   {
     id: "11",
@@ -223,6 +233,7 @@ export const inProgressTournaments: Tournament[] = [
     status: "inProgress",
     categoria: "tercera",
     genero: "femenino",
+    inscripciones: "abierta",
   },
   // ... puedes añadir más torneos aquí
 ];
@@ -243,6 +254,7 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "primera",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   {
     id: "14",
@@ -266,6 +278,7 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "cuarta",
     genero: "femenino",
+    inscripciones: "abierta",
   },
   {
     id: "15",
@@ -288,6 +301,7 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "tercera",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   {
     id: "16",
@@ -311,6 +325,7 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "primera",
     genero: "femenino",
+    inscripciones: "abierta",
   },
   {
     id: "17",
@@ -334,6 +349,7 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "segunda",
     genero: "masculino",
+    inscripciones: "abierta",
   },
   // ... puedes añadir más torneos aquí
 ];
