@@ -20,7 +20,7 @@ const FormComponent: React.FC<IFormikConstructor> = ({
     <>
       <Formik initialValues={iniValues} validationSchema={valiSchema} onSubmit={handelerSubmit}>
         <Form className="flex flex-col items-center p-5 w-fit md:w-[600px] m-5 bg-gray-300 rounded-md">
-          <div className="flex flex-col flex-wrap gap-2 md:flex-row justify-evenly">
+          <div className="flex flex-col flex-wrap items-center gap-2 md:flex-row md:justify-evenly">
             {fieldsForm.length > 0 &&
               fieldsForm.map((field, i) => {
                 //? if else to check the type of the input

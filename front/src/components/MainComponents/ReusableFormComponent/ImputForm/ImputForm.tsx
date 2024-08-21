@@ -1,16 +1,11 @@
 import { ErrorMessage, Field } from "formik";
 import React from "react";
-import { IDataConstructorInput } from "../FormInterface";
+import { IDataConstructor } from "../FormInterface";
 
-const ImputForm: React.FC<IDataConstructorInput> = ({
-  LabelText,
-  FieldType,
-  FieldName,
-  FieldPH,
-}) => {
+const ImputForm: React.FC<IDataConstructor> = ({ LabelText, FieldType, FieldName, FieldPH }) => {
   return (
     <div className="flex flex-col h-[100px] w-[240px] gap-1">
-      <label className="text-lg font-bold text-blue-800">{LabelText}</label>
+      <label className="text-lg font-bold text-customBlue">{LabelText}</label>
       <Field
         type={FieldType}
         name={FieldName}
