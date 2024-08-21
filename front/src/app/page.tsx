@@ -1,3 +1,4 @@
+import FooterPadelCarousel from "@/components/FooterComponent/FooterPadelCarousel";
 import HomeReception from "@/components/MainPages/HomeView/HomeReception";
 
 export default function Home() {
@@ -6,6 +7,7 @@ export default function Home() {
 
       <div className="p-8 m-8">
         <HomeReception />
+        <FooterPadelCarousel/>
       </div>
 
     </>

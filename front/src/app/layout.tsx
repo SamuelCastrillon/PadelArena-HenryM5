@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBarComponent from "@/components/HeaderComponents/NavBarComponent/NavBarComponent";
 import BackGroudComponent from "@/components/GeneralComponents/BackGroudComponent/BackGroudComponent";
-import FooterPadelCarousel from "@/components/FooterComponent/FooterPadelCarousel";
+import Footer from "@/components/FooterComponent/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +23,7 @@ export default function RootLayout({
           <NavBarComponent />
         </header>
         <main>{children}</main>
-        <FooterPadelCarousel />
+        <Footer/>
         <footer></footer>
       </body>
     </html>
