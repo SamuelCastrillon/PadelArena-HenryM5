@@ -4,8 +4,8 @@ import { Field } from "formik";
 
 const ChecBoxForm: React.FC<IDataConstructor> = ({ LabelText, FieldType, FieldName }) => {
   return (
-    <div className="flex flex-col gap-1 sm:flex-row w-fit h-fit">
-      <label className="font-bold text-blue-800">{LabelText}</label>
+    <div className="flex gap-1 w-fit h-fit">
+      <label className="font-bold text-customBlue">{LabelText}</label>
       <Field name={FieldName} type={FieldType}></Field>
     </div>
   );
