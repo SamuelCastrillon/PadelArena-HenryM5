@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import { IDataConstructorInput, IFormikConstructor } from "./FormInterface";
 import ImputForm from "./ImputForm/ImputForm";
 import ButtonForm from "./ButtonForm/ButtonForm";
+import TextArea from "./TextArea/TextArea";
 
 const FormComponent: React.FC<IFormikConstructor> = ({
   iniValues,
@@ -21,6 +22,18 @@ const FormComponent: React.FC<IFormikConstructor> = ({
           <div className="flex flex-col flex-wrap gap-2 md:flex-row justify-evenly">
             {fieldsForm.length > 0 &&
               fieldsForm.map((fileld, i) => {
+                if (fileld.FieldType === "textarea") {
+                  return (
+                    <TextArea
+                      key={i}
+                      LabelText={fileld.LabelText}
+                      FieldName={fileld.FieldName}
+                      FieldType={fileld.FieldType}
+                      FieldPH={fileld.FieldPH}
+                    />
+                  );
+                }
+
                 return (
                   <ImputForm
                     key={i}
