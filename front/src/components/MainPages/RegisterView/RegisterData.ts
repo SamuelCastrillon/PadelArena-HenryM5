@@ -46,7 +46,7 @@ export const registerSchema = yup.object({
 export const inputsFormValues: IDataConstructor[] = [
   { LabelText: "Nombre", FieldType: "text", FieldName: "name", FieldPH: "Nombre..." },
   { LabelText: "Aapellido", FieldType: "text", FieldName: "lastName", FieldPH: "Apellido..." },
-  { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "example@mail.com" },
+  { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "ejemplo@mail.com" },
   { LabelText: "Direccion", FieldType: "address", FieldName: "address", FieldPH: "Calle 123" },
   {
     LabelText: "Contraseña (8-12 Caracteres)",
