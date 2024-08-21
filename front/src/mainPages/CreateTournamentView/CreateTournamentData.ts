@@ -16,7 +16,7 @@ export const createTournamentInitialValues = {
 //? Validations Inpusts form
 export const createTournamentSchema = yup.object({
   name: yup.string().min(2, "Too Short!").max(40, "Too Long!").defined("Required!"),
-  password: yup.string().min(8, "Too Short!").max(40, "Too Long!").defined("Required!"),
+  date: yup.string().min(8, "Too Short!").max(40, "Too Long!").defined("Required!"),
 });
 
 //? Data constructor form
@@ -53,7 +53,7 @@ export const inputsCreateTournamentFormValues: IDataConstructorInput[] = [
   },
   {
     LabelText: "Descripción",
-    FieldType: "text",
+    FieldType: "textarea",
     FieldName: "description",
     FieldPH: "Descripción del Torneo",
   },
