@@ -3,7 +3,7 @@ export interface IFormikConstructor {
   valiSchema: Object;
   handelerSubmit: any;
   butonsForm: IButtonForm[];
-  dataContructor: [];
+  dataContructor: IDataConstructor[];
 }
 
 export interface IDataConstructor {
