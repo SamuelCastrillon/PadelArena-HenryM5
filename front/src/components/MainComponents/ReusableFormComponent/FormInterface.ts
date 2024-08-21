@@ -3,13 +3,15 @@ export interface IFormikConstructor {
   valiSchema: Object;
   handelerSubmit: any;
   butonsForm: IButtonForm[];
-  dataContructor: IDataConstructorInput[];
+  dataContructor: [];
 }
-export interface IDataConstructorInput {
+
+export interface IDataConstructor {
   LabelText: string;
-  FieldType: string;
+  FieldType: "textarea" | "checkboxContainer" | string;
   FieldName: string;
-  FieldPH: string;
+  FieldPH?: string;
+  containerCheckBox?: IDataConstructor[];
 }
 
 export interface IButtonForm {
