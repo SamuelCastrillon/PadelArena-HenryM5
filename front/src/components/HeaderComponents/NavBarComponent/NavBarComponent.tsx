@@ -27,7 +27,7 @@ const NavBarComponent: React.FC = () => {
           INICIO
         </NavigateButton>
         <NavigateButton
-          href="#"
+          href="/tournaments"
           className="px-5 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg">
           TORNEOS
         </NavigateButton>
