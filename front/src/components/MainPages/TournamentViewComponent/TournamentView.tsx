@@ -53,7 +53,7 @@ const TournamentsView: React.FC = () => {
       <div className="w-1/2 p-4 mx-auto mt-20 bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
         <SearchBarDrop onSearch={handleSearch} categorias={categoriasHelper} />
       </div>
-      <section className="bg-white py-6 mt-4">
+      <section className="bg-white py-6 mt-4 mb-14 min-h-screen">
         <div className="w-[80%] mx-auto mt-32">
           <div className="flex items-center justify-between w-[50%] mb-4">
             <h2 className="text-4xl radhiumz">Torneos por Comenzar</h2>
@@ -84,7 +84,7 @@ const TournamentsView: React.FC = () => {
           <Carousel images={mapTournamentsToCarousel(inProgressTournaments)} />
         </div>
 
-        <div className="w-[80%] mx-auto mt-32">
+        <div className="w-[80%] mx-auto mt-32 mb-32">
           <div className="flex items-center justify-between w-[50%] mb-4">
             <h2 className="text-4xl radhiumz mb-4 ">Torneos Finalizados</h2>
             <ActionButton

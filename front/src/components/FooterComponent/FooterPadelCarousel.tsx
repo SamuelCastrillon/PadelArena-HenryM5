@@ -29,7 +29,7 @@ const FooterPadelCarousel = () => {
   };
 
   return (
-    <div className="absolute bottom-0 w-full h-12 overflow-hidden">
+    <div className=" w-full h-12 overflow-hidden">
       <div className="flex w-full animate-scroll">{renderRepeatPadel()}</div>
     </div>
   );
