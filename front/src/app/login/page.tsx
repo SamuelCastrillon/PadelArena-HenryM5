@@ -1,4 +1,4 @@
-import LogInView from "@/mainPages/LogInView/LogInView";
+import LogInView from "@/components/MainPages/LogInView/LogInView";
 import React from "react";
 
 const page = () => {

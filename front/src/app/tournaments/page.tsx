@@ -1,4 +1,4 @@
-import TournamentsView from "@/mainPages/TournamentsView/TournamentView";
+import TournamentsView from "@/components/MainPages/TournamentsView/TournamentView";
 import React from "react";
 
 const Tournaments = () => {
