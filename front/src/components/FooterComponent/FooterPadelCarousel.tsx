@@ -9,7 +9,7 @@ const FooterPadelCarousel = () => {
       elements.push(
         <h3
           key={`padel-${i}`}
-          className="flex items-center justify-center w-52 px-12 py-2 border-2 border-white rounded-2xl text-center text-lg uppercase text-white"
+          className="flex items-center justify-center w-52 px-12 py-2 mt-5 text-center text-lg uppercase text-white radhiumz"
         >
           PadelArena
         </h3>
@@ -18,7 +18,7 @@ const FooterPadelCarousel = () => {
         elements.push(
           <h3
             key={`plus-${i}`}
-            className="mx-5 my-2 text-xl uppercase text-white"
+            className="mx-5 my-2 text-xl mt-7 uppercase text-white radhiumz"
           >
             +
           </h3>
@@ -29,7 +29,7 @@ const FooterPadelCarousel = () => {
   };
 
   return (
-    <div className=" w-full h-12 overflow-hidden">
+    <div className="w-full h-12">
       <div className="flex w-full animate-scroll">{renderRepeatPadel()}</div>
     </div>
   );
