@@ -1,7 +1,7 @@
 "use client";
 
+import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import Carousel from "@/components/MainComponents/ReusableCarouselComponent/ReusableCarousel";
-import SearchBar from "@/components/MainComponents/SearchBar/SearchBar";
 import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchBarDrop";
 import {
   finishedTournaments,
@@ -10,6 +10,7 @@ import {
   upcomingTournaments,
 } from "@/helpers/tournamentsData";
 import React from "react";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
 const handleSearch = () => {
   console.log("Search here and here and here");
@@ -41,30 +42,60 @@ const TournamentsView: React.FC = () => {
   return (
     <div className="min-h-screen">
       <div className="mt-20 justify-start items-center flex-col flex">
-        <h1 className="radhiumz text-4xl uppercase">
+        <h1 className="radhiumz text-4xl uppercase text-white">
           Torneos de hoy, ayer y siempre{" "}
         </h1>
-        <h2 className="sfRegular text-xl">
-          Una mirada a nuestros mas recientes torneos
+        <h2 className="sfRegular text-xl text-white">
+          Una mirada a nuestros más recientes torneos
         </h2>
       </div>
 
-      <div className="w-1/2 mx-auto mt-20 bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
+      <div className="w-1/2 p-4 mx-auto mt-20 bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
         <SearchBarDrop onSearch={handleSearch} categorias={categoriasHelper} />
       </div>
-      <section className="bg-white">
+      <section className="bg-white py-6 mt-4">
         <div className="w-[80%] mx-auto mt-32">
-          <h2 className="text-xl radhiumz mb-4">Torneos por Comenzar</h2>
+          <div className="flex items-center justify-between w-[30%] mb-4">
+            <h2 className="text-xl radhiumz">Torneos por Comenzar</h2>
+            <ActionButton
+              className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={() => {
+                console.log("click");
+              }}
+            >
+              <PlusIcon className="h-6 w-6" />
+            </ActionButton>
+          </div>
           <Carousel images={mapTournamentsToCarousel(upcomingTournaments)} />
         </div>
 
         <div className="w-[80%] mx-auto mt-32">
-          <h2 className="text-xl radhiumz  mb-4">Torneos en Progreso</h2>
+          <div className="flex items-center justify-between w-[30%] mb-4">
+            <h2 className="text-xl radhiumz mb-4 ">Torneos en Progreso</h2>
+            <ActionButton
+              className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={() => {
+                console.log("click");
+              }}
+            >
+              <PlusIcon className="h-6 w-6" />
+            </ActionButton>
+          </div>
           <Carousel images={mapTournamentsToCarousel(inProgressTournaments)} />
         </div>
 
         <div className="w-[80%] mx-auto mt-32">
-          <h2 className="text-xl radhiumz  mb-4">Torneos Finalizados</h2>
+          <div className="flex items-center justify-between w-[30%] mb-4">
+            <h2 className="text-xl radhiumz mb-4 ">Torneos Finalizados</h2>
+            <ActionButton
+              className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onClick={() => {
+                console.log("click");
+              }}
+            >
+              <PlusIcon className="h-6 w-6" />
+            </ActionButton>
+          </div>
           <Carousel images={mapTournamentsToCarousel(finishedTournaments)} />
         </div>
       </section>
