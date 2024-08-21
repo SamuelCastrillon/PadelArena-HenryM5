@@ -13,7 +13,7 @@ export const logInInitialValues = {
 export const logInSchema = yup.object({
   email: yup
     .string()
-    .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, "Invalid email")
+    .matches(/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/, "Email no valido")
     .defined("Requerido!"),
   password: yup
     .string()
