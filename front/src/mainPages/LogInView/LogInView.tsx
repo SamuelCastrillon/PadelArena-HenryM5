@@ -24,11 +24,12 @@ const LogInView: React.FC = () => {
       />
 
       {/* Navigate Button to create an account */}
-      <div className="flex items-center gap-8 ">
+      <div className="flex items-center gap-8  border-2 border-violet-600">
         <strong>Need an account?</strong>
         <NavigateButton
           href="/register"
-          className="rounded-md bg-customBlue w-full h-fit py-[5px] px-[10px] text-white hover:shadow-lg">
+          className="rounded-md bg-customBlue w-full h-fit py-[5px] px-[10px] text-white hover:shadow-lg"
+        >
           Create a new account
         </NavigateButton>
       </div>
