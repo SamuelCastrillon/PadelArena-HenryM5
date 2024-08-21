@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import NavBarComponent from "@/components/HeaderComponents/NavBarComponent/NavBarComponent";
+import BackGroudComponent from "@/components/GeneralComponents/BackGroudComponent/BackGroudComponent";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,10 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="sfRegular bg-white-200">
+      <body className="relative sfRegular bg-white-200">
+        <BackGroudComponent />
         <header className="flex justify-center w-full">
-          <div className="absolute inset-0 -z-10 bg-image"></div>
-          <div className="absolute inset-0 -z-10 bg-black opacity-40"></div>
           <NavBarComponent />
         </header>
         <main>{children}</main>
