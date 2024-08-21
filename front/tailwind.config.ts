@@ -35,6 +35,15 @@ const config: Config = {
       backdropFilter: {
         glass: "blur(6.1px)", // Backdrop filter for glass effect
       },
+      keyframes: {
+        scroll: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+      },
+      animation: {
+        scroll: "scroll 20s linear infinite",
+      },
     },
   },
   plugins: [],
