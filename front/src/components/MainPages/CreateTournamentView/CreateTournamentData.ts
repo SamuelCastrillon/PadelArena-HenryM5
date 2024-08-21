@@ -1,7 +1,7 @@
 import * as yup from "yup";
 import {
   IButtonForm,
-  IDataConstructorInput,
+  IDataConstructor,
 } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 
 export const createTournamentInitialValues = {
@@ -20,7 +20,7 @@ export const createTournamentSchema = yup.object({
 });
 
 //? Data constructor form
-export const inputsCreateTournamentFormValues: IDataConstructorInput[] = [
+export const inputsCreateTournamentFormValues: IDataConstructor[] = [
   {
     LabelText: "Nombre Del Torneo",
     FieldType: "text",
@@ -50,6 +50,48 @@ export const inputsCreateTournamentFormValues: IDataConstructorInput[] = [
     FieldType: "text",
     FieldName: "categorie",
     FieldPH: "Categoria 01",
+  },
+  {
+    LabelText: "Dias de Juego",
+    FieldType: "checkboxContainer",
+    FieldName: "playingDays",
+    containerCheckBox: [
+      {
+        LabelText: "Lunes",
+        FieldName: "lunes",
+        FieldType: "checkbox",
+      },
+      {
+        LabelText: "Martes",
+        FieldName: "martes",
+        FieldType: "checkbox",
+      },
+      {
+        LabelText: "Miercoles",
+        FieldName: "miercoles",
+        FieldType: "checkbox",
+      },
+      {
+        LabelText: "Jueves",
+        FieldName: "jueves",
+        FieldType: "checkbox",
+      },
+      {
+        LabelText: "Viernes",
+        FieldName: "viernes",
+        FieldType: "checkbox",
+      },
+      {
+        LabelText: "Sabado",
+        FieldName: "sabado",
+        FieldType: "checkbox",
+      },
+      {
+        LabelText: "Domingo",
+        FieldName: "domingo",
+        FieldType: "checkbox",
+      },
+    ],
   },
   {
     LabelText: "Descripción",
