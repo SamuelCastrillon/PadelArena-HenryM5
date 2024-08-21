@@ -1,5 +1,6 @@
 // SearchBarDrop.tsx
 
+import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { ISearchBarDropProps } from "@/interfaces/SearchBarDrop";
 import React, { useState } from "react";
 
@@ -38,11 +39,11 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({
           placeholder="Buscar..."
           className="w-full px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <div className="relative">
+        <div className="relative ">
           <select
             value={selectedCategory || ""}
             onChange={handleCategoryChange}
-            className="px-4 py-2 border border-gray-300 bg-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="px-4 py-4 border border-gray-300 bg-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sfBold"
           >
             <option value="" disabled>
               Categorías
@@ -55,6 +56,7 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({
           </select>
         </div>
       </div>
+
       <button
         onClick={handleSearch}
         className="px-6 py-4 bg-lime text-black sfBold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"

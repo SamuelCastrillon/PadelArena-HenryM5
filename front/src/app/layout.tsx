@@ -18,6 +18,7 @@ export default function RootLayout({
       <body className="sfRegular bg-white-200">
         <header className="flex justify-center w-full">
           <div className="absolute inset-0 -z-10 bg-image"></div>
+          <div className="absolute inset-0 -z-10 bg-black opacity-40"></div>
           <NavBarComponent />
         </header>
         <main>{children}</main>
