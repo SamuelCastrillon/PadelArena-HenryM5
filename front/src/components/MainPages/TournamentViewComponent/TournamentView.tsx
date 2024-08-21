@@ -48,23 +48,26 @@ const TournamentsView: React.FC = () => {
           Una mirada a nuestros mas recientes torneos
         </h2>
       </div>
-      <div className="w-1/2 mx-auto border-2 border-red-600 mt-20 ">
+
+      <div className="w-1/2 mx-auto mt-20 bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
         <SearchBarDrop onSearch={handleSearch} categorias={categoriasHelper} />
       </div>
-      <div className="w-[80%] mx-auto mt-32">
-        <h2 className="text-xl radhiumz mb-4">Torneos por Comenzar</h2>
-        <Carousel images={mapTournamentsToCarousel(upcomingTournaments)} />
-      </div>
+      <section className="bg-white">
+        <div className="w-[80%] mx-auto mt-32">
+          <h2 className="text-xl radhiumz mb-4">Torneos por Comenzar</h2>
+          <Carousel images={mapTournamentsToCarousel(upcomingTournaments)} />
+        </div>
 
-      <div className="w-[80%] mx-auto mt-32">
-        <h2 className="text-xl radhiumz  mb-4">Torneos en Progreso</h2>
-        <Carousel images={mapTournamentsToCarousel(inProgressTournaments)} />
-      </div>
+        <div className="w-[80%] mx-auto mt-32">
+          <h2 className="text-xl radhiumz  mb-4">Torneos en Progreso</h2>
+          <Carousel images={mapTournamentsToCarousel(inProgressTournaments)} />
+        </div>
 
-      <div className="w-[80%] mx-auto mt-32">
-        <h2 className="text-xl radhiumz  mb-4">Torneos Finalizados</h2>
-        <Carousel images={mapTournamentsToCarousel(finishedTournaments)} />
-      </div>
+        <div className="w-[80%] mx-auto mt-32">
+          <h2 className="text-xl radhiumz  mb-4">Torneos Finalizados</h2>
+          <Carousel images={mapTournamentsToCarousel(finishedTournaments)} />
+        </div>
+      </section>
     </div>
   );
 };

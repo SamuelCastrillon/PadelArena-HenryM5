@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
+        glass: "rgba(119, 119, 119, 0.2)",
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
@@ -17,9 +18,26 @@ const config: Config = {
       colors: {
         lime: "#BEF164",
         customBlue: "#1D4ED7",
+        glass: "rgba(119, 119, 119, 0.2)",
+      },
+      boxShadow: {
+        glass: "0 4px 30px rgba(0, 0, 0, 0.1)", // Box shadow for glass effect
+      },
+      borderRadius: {
+        glass: "16px", // Border radius for glass effect
+      },
+      borderColor: {
+        glass: "rgba(119, 119, 119, 0.3)", // Border color for glass effect
+      },
+      backdropBlur: {
+        glass: "6.1px", // Backdrop blur for glass effect
+      },
+      backdropFilter: {
+        glass: "blur(6.1px)", // Backdrop filter for glass effect
       },
     },
   },
   plugins: [],
 };
+
 export default config;
