@@ -1,9 +1,7 @@
+import { SearchBarProps } from "@/interfaces/SearchBar";
 import React from "react";
 import { useState } from "react";
 
-interface SearchBarProps {
-  onSearch?: (searchTerm: string) => void;
-}
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -18,7 +16,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className="flex items-center gap-2 w-full max-w-md border-2 border-black">
+    <div className="flex items-center gap-2 w-full  border-2 border-black">
       <input
         type="text"
         className="w-full p-2 border border-gray-300 rounded-md text-black sfRegular"
