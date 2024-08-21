@@ -10,7 +10,7 @@ export interface CristalCardProps {
 export const Card: React.FC<CristalCardProps> = ({ href, className, children }) => {
   return (
     <Link href={href}>
-      <div className={`p-6 rounded-lg backdrop-filter backdrop-blur-lg bg-white/30 border border-white/30 shadow-lg ${className}`}>
+      <div className={`p-6 rounded-lg backdrop-filter backdrop-blur-lg bg-white/30 border border-white/30 shadow-lg shadow-b ${className}`}>
         <div className="text-white text-center">
           {children}
         </div>
