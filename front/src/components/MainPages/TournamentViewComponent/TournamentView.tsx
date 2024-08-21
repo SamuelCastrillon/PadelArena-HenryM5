@@ -26,6 +26,7 @@ const TournamentsView: React.FC = () => {
 
   return (
     <div className="space-y-10">
+      <h1>Hi commit</h1>
       <div className="w-[80%] mx-auto">
         <h2 className="text-xl radhiumz mb-4">Torneos por Comenzar</h2>
         <Carousel images={mapTournamentsToCarousel(upcomingTournaments)} />
