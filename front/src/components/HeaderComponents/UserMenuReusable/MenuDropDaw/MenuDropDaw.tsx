@@ -13,7 +13,7 @@ const MenuDropDaw: React.FC<IMenuReusableStatus> = ({ menuStatus }) => {
   return (
     <div className={`absolute top-20 right-0 ${menuStatus ? "block" : "hidden"}`}>
       <menu className="flex flex-col   w-[360px] h-auto bg-glass backdrop-blur-glass backdrop-filter-glass bg-opacity-80 rounded-2xl p-8 sfRegular border-glass border-2">
-        <MenuButton text="Crear Torneo">
+        <MenuButton text="Crear Torneo" routeNavigate="dashboard/admin/tournaments/create">
           <PlusCircleIcon className="h-10" />
         </MenuButton>
         <MenuButton text="Gestion de Torneos">
