@@ -11,9 +11,12 @@ import { IMenuReusableStatus } from "../UserMenuReusableInterfaces";
 
 const MenuDropDaw: React.FC<IMenuReusableStatus> = ({ menuStatus }) => {
   return (
-    <div className={`absolute top-20 right-0 ${menuStatus ? "block" : "hidden"}`}>
-      <menu className="flex flex-col   w-[360px] h-auto bg-glass backdrop-filter bg-white/30 border-glass border-2 shadow-glass rounded-2xl p-8 sfRegular">
-        <MenuButton text="Crear Torneo" routeNavigate="/dashboard/admin/tournaments/create">
+    <div
+      className={`absolute top-20 right-0 ${menuStatus ? "block" : "hidden"}`}>
+      <menu className="flex flex-col   w-[360px] h-auto backdrop-filter backdrop-blur-lg text-slate bg-white/30 border-glass border-2 shadow-glass rounded-2xl p-8 sfRegular">
+        <MenuButton
+          text="Crear Torneo"
+          routeNavigate="/dashboard/admin/tournaments/create">
           <PlusCircleIcon className="h-10" />
         </MenuButton>
         <MenuButton
