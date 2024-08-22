@@ -85,16 +85,16 @@ const Card: React.FC<CardProps> = ({
           width={500}
           height={500}
         />
-        <div className="radhiumz text-2xl mb-2 mt-4">{title}</div>
+        <div className="radhiumz text-2xl md:text-4xl mb-2 mt-4">{title}</div>
         <p className="text-gray-700 text-base sfMedium">{description}</p>
         {additionalInfo && (
           <div className="mt-4 sfBold text-black">
             {Object.entries(additionalInfo).map(([key, value]) => (
               <div
                 key={key}
-                className={`text-sm ${
+                className={` text-md ${
                   key === "Inscripciones" && value === "cerrada"
-                    ? "text-red-500"
+                    ? "text-red-500 uppercase"
                     : ""
                 }`}
               >

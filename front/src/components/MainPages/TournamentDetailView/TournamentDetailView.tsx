@@ -14,8 +14,8 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
 
   const statusColor =
     tournament.inscripciones === "abierta"
-      ? "text-lime radhiumz text-6xl"
-      : "text-red-500 radhiumz text-6xl";
+      ? "text-lime radhiumz text-5xl md:text-6xl"
+      : "text-red-500 radhiumz text-5xl md:text-6xl";
   const statusText =
     tournament.inscripciones === "abierta"
       ? "Inscripción Abierta"
@@ -44,16 +44,18 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
               d="M5 1L1 5l4 4"
             />
           </svg>
-          <h1 className="radhiumz text-white text-2xl">vuelve a torneos</h1>
+          <h1 className="radhiumz text-white  text-2xl lg:text-4xl">
+            vuelve a torneos
+          </h1>
         </NavigateButton>
       </div>
-      <div className="w-1/2 mx-auto">
+      <div className=" w-full md:w-3/4 mx-auto mb-20">
         {/* Información del Torneo */}
         <Card
           imageUrl={tournament.imageUrl}
           title={tournament.name}
           description={tournament.description}
-          className="rounded-2xl"
+          className="rounded-2xl shadow-lime shadow-lg"
           additionalInfo={{
             "Fecha de inicio": tournament.startDate,
             "Fecha de fin": tournament.endDate,
@@ -87,7 +89,7 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
       {/* Animación de bolas verdes cuando el modal está abierto */}
       {isModalOpen && (
         <div className="fixed inset-0 z-40 pointer-events-none">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(10)].map((_, i) => (
             <div
               key={i}
               className="absolute w-12 h-12 bg-lime rounded-full animate-bounce-ball"

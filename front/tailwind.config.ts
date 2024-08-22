@@ -42,18 +42,18 @@ const config: Config = {
         },
         bounceBall: {
           "0%, 100%": {
-            transform: "translateY(0)",
+            transform: " translateX(100px)",
             animationTimingFunction: "ease-in",
           },
-          "50%": {
-            transform: "translateY(-100px)",
+          "20%": {
+            transform: " translateX(-100px)",
             animationTimingFunction: "ease-out",
           },
         },
       },
       animation: {
         scroll: "scroll 20s linear infinite",
-        "bounce-ball": "bounceBall 0.6s infinite",
+        "bounce-ball": "bounceBall 0.9s infinite",
       },
     },
   },
