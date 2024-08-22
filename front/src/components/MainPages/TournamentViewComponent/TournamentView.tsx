@@ -1,17 +1,10 @@
-// pages/TournamentsView.tsx
 "use client";
 
 import React from "react";
 import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchBarDrop";
-
-import {
-  finishedTournaments,
-  inProgressTournaments,
-  Tournament,
-  upcomingTournaments,
-} from "@/helpers/tournamentsData";
 import Header from "./TournamentHeader";
 import TournamentSection from "./TournamentSection";
+import { ITournament } from "@/interfaces/Tournament";
 
 const categoriasHelper = [
   "primera",
@@ -24,7 +17,9 @@ const categoriasHelper = [
   "octava",
 ];
 
-const TournamentsView: React.FC = () => {
+const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
+  tournaments,
+}) => {
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
 
   const handleSearch = (selectedCategory: string) => {
@@ -35,10 +30,18 @@ const TournamentsView: React.FC = () => {
     setFilteredCategory("");
   };
 
-  const filterByCategory = (tournaments: Tournament[]) =>
-    tournaments.filter(
-      (tournament) => tournament.categoria === filteredCategory
+  const handlePlusClick = (status: string) => {
+    location.href = `/tournaments/${status}`;
+  };
+
+  const filterTournaments = (status: string) => {
+    if (!tournaments || !Array.isArray(tournaments)) return [];
+    return tournaments.filter(
+      (tournament) =>
+        tournament.status === status &&
+        (filteredCategory ? tournament.categoria === filteredCategory : true)
     );
+  };
 
   return (
     <div className="min-h-screen">
@@ -51,46 +54,26 @@ const TournamentsView: React.FC = () => {
         />
       </div>
       <section className="bg-white py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
-        {filteredCategory ? (
-          <div>
-            <h2 className="text-4xl radhiumz">
-              Resultados de la búsqueda: {filteredCategory}
-            </h2>
-            <TournamentSection
-              title="Torneos por Comenzar"
-              tournaments={filterByCategory(upcomingTournaments)}
-              onActionClick={() => console.log("click")}
-            />
-            <TournamentSection
-              title="Torneos en Progreso"
-              tournaments={filterByCategory(inProgressTournaments)}
-              onActionClick={() => console.log("click")}
-            />
-            <TournamentSection
-              title="Torneos Finalizados"
-              tournaments={filterByCategory(finishedTournaments)}
-              onActionClick={() => console.log("click")}
-            />
-          </div>
-        ) : (
-          <>
-            <TournamentSection
-              title="Torneos por Comenzar"
-              tournaments={upcomingTournaments}
-              onActionClick={() => console.log("click")}
-            />
-            <TournamentSection
-              title="Torneos en Progreso"
-              tournaments={inProgressTournaments}
-              onActionClick={() => console.log("click")}
-            />
-            <TournamentSection
-              title="Torneos Finalizados"
-              tournaments={finishedTournaments}
-              onActionClick={() => console.log("click")}
-            />
-          </>
+        {filteredCategory && (
+          <h2 className="text-4xl radhiumz">
+            Resultados de la búsqueda: {filteredCategory}
+          </h2>
         )}
+        <TournamentSection
+          title="Torneos por Comenzar"
+          tournaments={filterTournaments("upcoming")}
+          onActionClick={() => handlePlusClick("upcoming")}
+        />
+        <TournamentSection
+          title="Torneos en Progreso"
+          tournaments={filterTournaments("inProgress")}
+          onActionClick={() => handlePlusClick("progress")}
+        />
+        <TournamentSection
+          title="Torneos Finalizados"
+          tournaments={filterTournaments("finished")}
+          onActionClick={() => handlePlusClick("finished")}
+        />
       </section>
     </div>
   );

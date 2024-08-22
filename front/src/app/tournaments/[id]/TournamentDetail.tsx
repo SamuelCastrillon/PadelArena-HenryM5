@@ -1,19 +1,13 @@
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import TournamentDetailView from "@/components/MainPages/TournamentDetailView/TournamentDetailView";
-import {
-  finishedTournaments,
-  inProgressTournaments,
-  Tournament,
-  upcomingTournaments,
-} from "@/helpers/tournamentsData";
+import { ITournament } from "@/interfaces/Tournament";
+import { tournaments } from "@/helpers/tournamentsData";
 import React from "react";
 
-export const findTournamentById = (id: string): Tournament | undefined => {
-  return (
-    upcomingTournaments.find((tournament) => tournament.id === id) ||
-    inProgressTournaments.find((tournament) => tournament.id === id) ||
-    finishedTournaments.find((tournament) => tournament.id === id)
-  );
+//peticion get tournament/id
+
+export const findTournamentById = (id: string): ITournament | undefined => {
+  return tournaments.find((tournament: ITournament) => tournament.id === id);
 };
 
 const TournamentDetail = async ({ params }: { params: { id: string } }) => {
