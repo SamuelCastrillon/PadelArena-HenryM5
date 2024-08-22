@@ -24,21 +24,22 @@ const Card: React.FC<CardProps> = ({
         <div className="radhiumz text-2xl mb-2">{title}</div>
         <p className="text-gray-700 text-base sfMedium">{description}</p>
         {additionalInfo && (
-          <div className="mt-4">
+          <div className="mt-4 sfBold text-black">
             {Object.entries(additionalInfo).map(([key, value]) => (
-              <div key={key} className="text-sm text-gray-600">
-                <span className="sfRegular">{key}:</span> {value}
+              <div
+                key={key}
+                className={`text-sm ${
+                  key === "Inscripciones" && value === "cerrada"
+                    ? "text-red-500"
+                    : ""
+                }`}
+              >
+                <span className="sfRegular text-gray-600">{key}:</span> {value}
               </div>
             ))}
           </div>
         )}
       </div>
-      <NavigateButton
-        href="/tournaments/register"
-        className="w-full h-12 bg-lime text-black radhiumz"
-      >
-        Inscribite
-      </NavigateButton>
     </div>
   );
 };

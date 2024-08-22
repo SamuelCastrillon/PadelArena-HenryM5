@@ -32,7 +32,7 @@ export interface Tournament {
 export const upcomingTournaments: Tournament[] = [
   {
     id: "1",
-    name: "Copa Pádel Madrid",
+    name: "Copa Pádel",
     startDate: "2024-09-10",
     endDate: "2024-09-12",
     startingTime: "10:00",
@@ -49,7 +49,7 @@ export const upcomingTournaments: Tournament[] = [
   },
   {
     id: "2",
-    name: "Open de Barcelona",
+    name: "Open Padel",
     startDate: "2024-09-20",
     endDate: "2024-09-22",
     startingTime: "09:00",
@@ -65,7 +65,7 @@ export const upcomingTournaments: Tournament[] = [
   },
   {
     id: "3",
-    name: "Torneo de Verano en Valencia",
+    name: "Torneo de Verano",
     startDate: "2024-10-01",
     endDate: "2024-10-05",
     startingTime: "08:00",
@@ -88,7 +88,7 @@ export const upcomingTournaments: Tournament[] = [
   },
   {
     id: "4",
-    name: "Campeonato de Otoño en Madrid",
+    name: "Campeonato de Otoño",
     startDate: "2024-11-10",
     endDate: "2024-11-12",
     startingTime: "09:00",
@@ -105,7 +105,7 @@ export const upcomingTournaments: Tournament[] = [
   },
   {
     id: "5",
-    name: "Torneo Internacional de Navidad",
+    name: "Torneo de Navidad",
     startDate: "2024-12-20",
     endDate: "2024-12-22",
     startingTime: "10:00",
@@ -126,7 +126,7 @@ export const upcomingTournaments: Tournament[] = [
 export const inProgressTournaments: Tournament[] = [
   {
     id: "7",
-    name: "Pádel Masters Sevilla",
+    name: "Pádel Masters",
     startDate: "2024-08-15",
     endDate: "2024-08-17",
     startingTime: "09:00",
@@ -143,7 +143,7 @@ export const inProgressTournaments: Tournament[] = [
   },
   {
     id: "8",
-    name: "Torneo Internacional de Valencia",
+    name: "Torneo Internacional",
     startDate: "2024-08-18",
     endDate: "2024-08-20",
     startingTime: "09:00",
@@ -160,7 +160,7 @@ export const inProgressTournaments: Tournament[] = [
   },
   {
     id: "9",
-    name: "Torneo de Primavera en Murcia",
+    name: "Torneo de Primavera",
     startDate: "2024-08-25",
     endDate: "2024-08-30",
     startingTime: "08:00",
@@ -184,7 +184,7 @@ export const inProgressTournaments: Tournament[] = [
   },
   {
     id: "10",
-    name: "Torneo de Verano en Málaga",
+    name: "Torneo de Verano ",
     startDate: "2024-08-15",
     endDate: "2024-08-25",
     startingTime: "10:00",
@@ -213,7 +213,7 @@ export const inProgressTournaments: Tournament[] = [
   },
   {
     id: "11",
-    name: "Torneo de Pádel en Santander",
+    name: "Torneo de Pádel",
     startDate: "2024-08-20",
     endDate: "2024-08-25",
     startingTime: "11:00",
@@ -241,7 +241,7 @@ export const inProgressTournaments: Tournament[] = [
 export const finishedTournaments: Tournament[] = [
   {
     id: "13",
-    name: "Campeonato Mundial de Pádel",
+    name: "Campeonato Mundial",
     startDate: "2024-07-05",
     endDate: "2024-07-07",
     startingTime: "11:00",
@@ -254,11 +254,11 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "primera",
     genero: "masculino",
-    inscripciones: "abierta",
+    inscripciones: "cerrada",
   },
   {
     id: "14",
-    name: "Torneo de Invierno en Barcelona",
+    name: "Torneo de Invierno",
     startDate: "2024-01-10",
     endDate: "2024-01-15",
     startingTime: "10:00",
@@ -282,7 +282,7 @@ export const finishedTournaments: Tournament[] = [
   },
   {
     id: "15",
-    name: "Torneo de Pádel en Tenerife",
+    name: "Torneo de Pádel",
     startDate: "2024-06-01",
     endDate: "2024-06-05",
     startingTime: "09:00",
@@ -301,11 +301,11 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "tercera",
     genero: "masculino",
-    inscripciones: "abierta",
+    inscripciones: "cerrada",
   },
   {
     id: "16",
-    name: "Torneo de Verano en Alicante",
+    name: "Torneo de Verano",
     startDate: "2024-07-10",
     endDate: "2024-07-15",
     startingTime: "10:00",
@@ -329,7 +329,7 @@ export const finishedTournaments: Tournament[] = [
   },
   {
     id: "17",
-    name: "Torneo de Otoño en Zaragoza",
+    name: "Torneo de Otoño",
     startDate: "2024-10-10",
     endDate: "2024-10-15",
     startingTime: "11:00",
@@ -349,7 +349,7 @@ export const finishedTournaments: Tournament[] = [
     status: "finished",
     categoria: "segunda",
     genero: "masculino",
-    inscripciones: "abierta",
+    inscripciones: "cerrada",
   },
   // ... puedes añadir más torneos aquí
 ];
