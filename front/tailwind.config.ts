@@ -40,9 +40,20 @@ const config: Config = {
           "0%": { transform: "translateX(100%)" },
           "100%": { transform: "translateX(-100%)" },
         },
+        bounceBall: {
+          "0%, 100%": {
+            transform: " translateX(100px)",
+            animationTimingFunction: "ease-in",
+          },
+          "20%": {
+            transform: " translateX(-100px)",
+            animationTimingFunction: "ease-out",
+          },
+        },
       },
       animation: {
         scroll: "scroll 20s linear infinite",
+        "bounce-ball": "bounceBall 0.9s infinite",
       },
     },
   },

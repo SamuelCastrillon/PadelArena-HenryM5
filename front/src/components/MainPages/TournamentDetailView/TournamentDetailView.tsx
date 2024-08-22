@@ -14,8 +14,8 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
 
   const statusColor =
     tournament.inscripciones === "abierta"
-      ? "text-lime radhiumz text-6xl"
-      : "text-red-500 radhiumz text-6xl";
+      ? "text-lime radhiumz text-5xl md:text-6xl"
+      : "text-red-500 radhiumz text-5xl md:text-6xl";
   const statusText =
     tournament.inscripciones === "abierta"
       ? "Inscripción Abierta"
@@ -44,22 +44,24 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
               d="M5 1L1 5l4 4"
             />
           </svg>
-          <h1 className="radhiumz text-white text-2xl">vuelve a torneos</h1>
+          <h1 className="radhiumz text-white  text-2xl lg:text-4xl">
+            vuelve a torneos
+          </h1>
         </NavigateButton>
       </div>
-      <div className="w-1/2 mx-auto">
+      <div className=" w-full md:w-3/4 mx-auto mb-20">
         {/* Información del Torneo */}
         <Card
           imageUrl={tournament.imageUrl}
           title={tournament.name}
           description={tournament.description}
-          className="rounded-2xl"
+          className="rounded-2xl shadow-lime shadow-lg"
           additionalInfo={{
             "Fecha de inicio": tournament.startDate,
             "Fecha de fin": tournament.endDate,
             "Hora de inicio": tournament.startingTime,
             "Hora de finalización": tournament.finishingTime,
-            "Canchas disponibles": tournament.courtsAvailable,
+            "Canchas disponibles": tournament.courtsAvailable.toString(),
             Categoría: tournament.categoria,
             Género: tournament.genero,
             Inscripciones: tournament.inscripciones,
@@ -69,7 +71,7 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
           {tournament.inscripciones === "abierta" && (
             <NavigateButton
               href="/tournaments/register"
-              className="w-full py-4 px-10 rounded-xl  h-12  bg-lime text-black radhiumz"
+              className="w-full py-4 px-10 rounded-xl h-12 bg-lime text-black radhiumz"
             >
               Inscribite
             </NavigateButton>
@@ -84,17 +86,36 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
           </button>
         </div>
       </div>
+      {/* Animación de bolas verdes cuando el modal está abierto */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-40 pointer-events-none">
+          {[...Array(10)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-12 h-12 bg-lime rounded-full animate-bounce-ball"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+                animationDelay: `${i * 0.2}s`,
+              }}
+            ></div>
+          ))}
+        </div>
+      )}
       {/* Modal del Fixture */}
       <ReusableModal
         isOpen={isModalOpen}
         onClose={closeModal}
         blurBackground={blurBackground}
-        backgroundColor="bg-lime"
+        backgroundColor="bg-white/70"
         textColor="text-black"
+        className="shadow-lg shadow-lime"
+        bgImageUrl={tournament.imageUrl} // Imagen de fondo con efecto animado
       >
-        <h2 className="text-3xl mb-4 radhiumz">{`Fixture del Torneo: ${tournament.name}`}</h2>
-        <table className="w-full min-w-max table-auto text-left bg-white">
-          <thead className="border-b border-zinc-700 bg-blue-gray-50 p-4 radhiumz text-black bg-gray-400">
+        <h2 className="text-4xl  radhiumz text-lime">{`Fixture: ${tournament.name}`}</h2>
+        <hr className="h-1 mb-4 bg-lime"></hr>
+        <table className="w-full min-w-max table-auto text-left bg-white ">
+          <thead className=" bg-blue-gray-50 p-4 radhiumz text-white bg-zinc-800">
             <tr>
               <th className="py-2 px-4 border-b">Etapa</th>
               <th className="py-2 px-4 border-b">Fecha</th>

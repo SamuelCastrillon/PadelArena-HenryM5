@@ -18,7 +18,7 @@ const TournamentDetail = async ({ params }: { params: { id: string } }) => {
   }
 
   return (
-    <div className="w-3/4 mx-auto p-4 justify-center items-center ">
+    <div className=" w-[90%] md:w-3/4 mx-auto p-4 justify-center items-center ">
       <TournamentDetailView {...tournament} />
     </div>
   );

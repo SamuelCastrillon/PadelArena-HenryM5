@@ -30,9 +30,9 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
     }));
 
   return (
-    <div className="w-[80%] mx-auto mt-32">
-      <div className="flex items-center justify-between w-[60%] mb-4">
-        <h2 className="text-4xl radhiumz mb-4">{title}</h2>
+    <div className=" w-[80%] mx-auto mt-10 md:mt-32">
+      <div className="flex flex-row items-center justify-between w-[90%] md:w-[60%] mb-4">
+        <h2 className="text-2xl md:text-4xl radhiumz mb-4">{title}</h2>
         <ActionButton
           className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           onClick={onActionClick}
