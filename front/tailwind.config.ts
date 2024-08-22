@@ -19,6 +19,7 @@ const config: Config = {
         lime: "#BEF164",
         customBlue: "#1D4ED7",
         glass: "rgba(119, 119, 119, 0.2)",
+        slate: "#f8fafc",
       },
       boxShadow: {
         glass: "0 4px 30px rgba(0, 0, 0, 0.1)", // Box shadow for glass effect

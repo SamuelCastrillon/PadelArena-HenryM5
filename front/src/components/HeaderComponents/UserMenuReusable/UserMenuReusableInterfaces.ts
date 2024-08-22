@@ -7,5 +7,5 @@ export interface IMenuReusableStatus {
 export interface IButtonUserMenu {
   children: React.ReactNode;
   text: string;
-  routeNavigate?: string;
+  routeNavigate: string;
 }

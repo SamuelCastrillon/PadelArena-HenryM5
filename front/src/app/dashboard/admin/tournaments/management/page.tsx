@@ -1,7 +1,13 @@
 import React from "react";
+import TournamentsTable from "@/components/MainPages/DashboardAdmin/tournamentsTable";
 
-const page = () => {
-  return <div>page</div>;
-};
+const page: React.FC = () => {
+  return (
+    <>
+    <div>Tabla de torneos</div>
+    <TournamentsTable/>
+    </>
+  )
+}
 
-export default page;
+export default page
