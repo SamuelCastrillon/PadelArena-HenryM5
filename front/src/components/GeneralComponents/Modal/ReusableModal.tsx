@@ -7,17 +7,17 @@ interface ModalProps {
   blurBackground?: boolean; // Controlar el desenfoque del fondo
   backgroundColor?: string; // Color de fondo del modal
   textColor?: string; // Color del texto del modal
-  className?: string; // Clases adicionales para el modal
+  className?: string;
 }
 
 const ReusableModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   children,
-  blurBackground = false, // Valor por defecto
-  backgroundColor = "bg-white", // Fondo por defecto
-  textColor = "text-black", // Color del texto por defecto
-  className = "", // Clases adicionales por defecto
+  blurBackground = false,
+  backgroundColor = "bg-white",
+  textColor = "text-black",
+  className = "",
 }) => {
   if (!isOpen) return null;
 
@@ -26,16 +26,13 @@ const ReusableModal: React.FC<ModalProps> = ({
       className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ${
         blurBackground ? "backdrop-blur-sm" : ""
       }`}
-      onClick={onClose} // Cerrar modal al hacer clic en el fondo
+      onClick={onClose}
     >
       <div
         className={`${backgroundColor} ${textColor} p-8 rounded-lg max-w-3xl w-full relative ${className}`}
-        onClick={(e) => e.stopPropagation()} // Evitar cerrar al hacer clic dentro del modal
+        onClick={(e) => e.stopPropagation()}
       >
-        <button
-          className="absolute top-4 right-4"
-          onClick={onClose} // Cerrar modal al hacer clic en la "X"
-        >
+        <button className="absolute top-4 right-4" onClick={onClose}>
           X
         </button>
         {children}
