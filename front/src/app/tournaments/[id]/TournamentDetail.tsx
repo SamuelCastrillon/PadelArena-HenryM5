@@ -4,6 +4,8 @@ import { ITournament } from "@/interfaces/Tournament";
 import { tournaments } from "@/helpers/tournamentsData";
 import React from "react";
 
+//peticion get tournament/id
+
 export const findTournamentById = (id: string): ITournament | undefined => {
   return tournaments.find((tournament: ITournament) => tournament.id === id);
 };
