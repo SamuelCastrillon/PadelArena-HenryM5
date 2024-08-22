@@ -2,7 +2,6 @@
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import React from "react";
 import Card from "@/components/GeneralComponents/CristalCard/CristalCard";
-import { PlusIcon } from "@heroicons/react/20/solid";
 
 const HomeReception: React.FC = () => {
   return (

@@ -12,8 +12,12 @@ const NavBarComponent: React.FC = () => {
     setDropDown(!dropDawn);
   }
   return (
-    <nav className="flex flex-col gap-2 md:flex-row md:gap-4 mt-8 h-fit py-5 sm:py-0 sm:h-[64px] w-screen md:w-[95%] bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 shadow-glass justify-center bg-opacity-80 items-center rounded-2xl  text-white radhiumz ">
-      <img src="logoApp.png" alt="Logo" className="w-auto h-[60px] sm:h-[85%]" />
+    <nav className="flex flex-col gap-2 md:flex-row md:gap-4 mt-8 h-fit py-5 sm:py-0 sm:h-[64px] w-screen md:w-[95%] backdrop-filter backdrop-blur-lg bg-white/30  border-white/30 justify-center items-center rounded-2xl  text-white radhiumz ">
+      <img
+        src="logoApp.png"
+        alt="Logo"
+        className="w-auto h-[60px] sm:h-[85%]"
+      />
       <ActionButton className="block sm:hidden" onClick={handleDropDown}>
         <Bars3Icon className="h-10 font-bold" />
       </ActionButton>
