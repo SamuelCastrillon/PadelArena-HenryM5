@@ -1,11 +1,11 @@
-"use client";
+// Carousel.tsx
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ICarouselProps } from "@/interfaces/Carousel";
+import HoverBadge from "@/components/GeneralComponents/HoverBadge/HoverBadgeCircular";
 
 const Carousel: React.FC<ICarouselProps> = ({ images }) => {
-  console.log(images);
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
   const imagesPerSlide = 3; // Número de imágenes visibles por slide
@@ -15,20 +15,20 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
 
   // Función para mover al siguiente slide
   const goToNext = () => {
-    const newIndex =
-      currentIndex === Math.ceil(images.length / imagesPerSlide) - 1
+    setCurrentIndex((prevIndex) =>
+      prevIndex === Math.ceil(images.length / imagesPerSlide) - 1
         ? 0
-        : currentIndex + 1;
-    setCurrentIndex(newIndex);
+        : prevIndex + 1
+    );
   };
 
   // Función para mover al slide anterior
   const goToPrevious = () => {
-    const newIndex =
-      currentIndex === 0
-        ? Math.max(0, Math.ceil(images.length / imagesPerSlide) - 1)
-        : currentIndex - 1;
-    setCurrentIndex(newIndex);
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0
+        ? Math.ceil(images.length / imagesPerSlide) - 1
+        : prevIndex - 1
+    );
   };
 
   // Manejo del clic en la imagen para redireccionar
@@ -42,7 +42,7 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
 
     // Limpieza del intervalo cuando el componente se desmonta
     return () => clearInterval(intervalId);
-  }, [currentIndex]);
+  }, []);
 
   return (
     <div className="relative w-full">
@@ -52,12 +52,13 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
           className="flex transition-transform duration-[1.2s] ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
           style={{
             transform: `translateX(-${currentIndex * (100 / imagesPerSlide)}%)`,
+            width: `${100 * Math.ceil(images.length / imagesPerSlide)}%`, // Asegura que el contenedor tenga el ancho correcto
           }}
         >
           {images.map((image, index) => (
             <div
               key={index}
-              className={`flex-none ${imageWidth} ${imageHeight} px-${gap} cursor-pointer`}
+              className={`flex-none ${imageWidth} ${imageHeight} px-${gap} cursor-pointer relative`}
               onClick={() => handleImageClick(image.href)}
             >
               <div className="relative w-full h-full rounded-xl">
@@ -66,13 +67,15 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
                   alt={image.alt}
                   layout="fill" // Llena el contenedor
                   objectFit="cover" // Ajusta la imagen para cubrir el contenedor
-                  className="block w-full h-full rounded-xl"
+                  className="block w-full h-full rounded-xl transition duration-300 ease-in-out filter grayscale hover:grayscale-0"
                 />
-                <div className="absolute bottom-0 left-0 w-full text-white p-4">
-                  <h3 className="text-lg font-bold">{image.title}</h3>
 
-                  <p className="text-sm">{image.genero}</p>
-                  <p className="text-sm">{image.categoria}</p>
+                <div className="absolute bottom-0 left-0 w-full text-white p-4 bg-gradient-to-t from-black ">
+                  <HoverBadge status={image.inscripciones} />
+                  <p className="text-lg sfMedium">{image.title}</p>
+                  <p className="text-sm sfMedium">{image.genero}</p>
+                  <p className="text-sm sfMedium">{image.categoria}</p>
+                  {/* Badge */}
                 </div>
               </div>
             </div>

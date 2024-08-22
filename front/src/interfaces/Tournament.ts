@@ -20,4 +20,5 @@ export interface ITournament {
     | "septima"
     | "octava";
   genero: "femenino" | "masculino";
+  inscripciones: "abierta" | "cerrada";
 }
