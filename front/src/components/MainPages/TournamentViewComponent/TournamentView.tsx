@@ -46,14 +46,14 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
   return (
     <div className="min-h-screen">
       <Header />
-      <div className="w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
+      <div className="w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-blur-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
         <SearchBarDrop
           onSearch={handleSearch}
           onClear={handleClearSearch}
           categorias={categoriasHelper}
         />
       </div>
-      <section className="bg-white py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
+      <section className="bg-white py-2 md:py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
         {filteredCategory && (
           <h2 className="text-4xl radhiumz">
             Resultados de la búsqueda: {filteredCategory}

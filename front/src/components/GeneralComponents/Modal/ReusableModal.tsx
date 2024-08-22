@@ -7,38 +7,49 @@ interface ModalProps {
   blurBackground?: boolean; // Controlar el desenfoque del fondo
   backgroundColor?: string; // Color de fondo del modal
   textColor?: string; // Color del texto del modal
-  className?: string; // Clases adicionales para el modal
+  className?: string;
+  bgImageUrl?: string; // URL de la imagen de fondo opcional
 }
 
 const ReusableModal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   children,
-  blurBackground = false, // Valor por defecto
-  backgroundColor = "bg-white", // Fondo por defecto
-  textColor = "text-black", // Color del texto por defecto
-  className = "", // Clases adicionales por defecto
+  blurBackground = false,
+  backgroundColor = "bg-white",
+  textColor = "text-black",
+  className = "",
+  bgImageUrl, // Imagen de fondo opcional
 }) => {
   if (!isOpen) return null;
 
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 ${
-        blurBackground ? "backdrop-blur-sm" : ""
+        blurBackground ? "backdrop-blur-md" : ""
       }`}
-      onClick={onClose} // Cerrar modal al hacer clic en el fondo
+      onClick={onClose}
     >
       <div
-        className={`${backgroundColor} ${textColor} p-8 rounded-lg max-w-3xl w-full relative ${className}`}
-        onClick={(e) => e.stopPropagation()} // Evitar cerrar al hacer clic dentro del modal
+        className={`${backgroundColor} ${textColor} p-8 rounded-lg max-w-3xl w-full relative overflow-hidden  ${className}`}
+        onClick={(e) => e.stopPropagation()}
       >
+        {/* Imagen de fondo opcional con animación */}
+        {bgImageUrl && (
+          <div
+            className="absolute inset-0 bg-cover bg-center filter grayscale "
+            style={{ backgroundImage: `url(${bgImageUrl}) ` }}
+          >
+            <div className="absolute inset-0 bg-cover bg-center bg-gradient-to-b from-black to-black opacity-40"></div>
+          </div>
+        )}
         <button
-          className="absolute top-4 right-4"
-          onClick={onClose} // Cerrar modal al hacer clic en la "X"
+          className="absolute top-4 right-4 z-10 text-white"
+          onClick={onClose}
         >
           X
         </button>
-        {children}
+        <div className="relative z-10">{children}</div>
       </div>
     </div>
   );
