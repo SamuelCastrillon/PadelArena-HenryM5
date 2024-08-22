@@ -1,10 +1,17 @@
-// components/TournamentDetailView.tsx
+"use client";
+import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { ITournament } from "@/interfaces/Tournament";
-import React from "react";
+import React, { useState } from "react";
 
 const TournamentDetailView: React.FC<ITournament> = (tournament) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [blurBackground, setBlurBackground] = useState(true);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
   const statusColor =
     tournament.inscripciones === "abierta"
       ? "text-lime radhiumz text-6xl"
@@ -59,14 +66,52 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
           }}
         />
         <div className="w-full mt-8 mb-8 mx-auto justify-center flex">
-          <NavigateButton
-            href="/tournaments/register"
-            className="w-full py-4 px-10  h-12  bg-lime text-black radhiumz"
+          {tournament.inscripciones === "abierta" && (
+            <NavigateButton
+              href="/tournaments/register"
+              className="w-full py-4 px-10 rounded-xl  h-12  bg-lime text-black radhiumz"
+            >
+              Inscribite
+            </NavigateButton>
+          )}
+        </div>
+        <div className="w-full mt-4 mx-auto justify-center flex">
+          <button
+            onClick={openModal}
+            className="w-full py-4 px-10 h-12 bg-blue-500 text-white radhiumz"
           >
-            Inscribite
-          </NavigateButton>
+            Fixture
+          </button>
         </div>
       </div>
+      {/* Modal del Fixture */}
+      <ReusableModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        blurBackground={blurBackground}
+        backgroundColor="bg-lime"
+        textColor="text-black"
+      >
+        <h2 className="text-3xl mb-4 radhiumz">{`Fixture del Torneo: ${tournament.name}`}</h2>
+        <table className="w-full min-w-max table-auto text-left bg-white">
+          <thead className="border-b border-zinc-700 bg-blue-gray-50 p-4 radhiumz text-black bg-gray-400">
+            <tr>
+              <th className="py-2 px-4 border-b">Etapa</th>
+              <th className="py-2 px-4 border-b">Fecha</th>
+              <th className="py-2 px-4 border-b">Hora</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tournament.fixture.map((match) => (
+              <tr key={match.id}>
+                <td className="py-2 px-4 border-b">{match.stage}</td>
+                <td className="py-2 px-4 border-b">{match.date}</td>
+                <td className="py-2 px-4 border-b">{match.time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </ReusableModal>
     </div>
   );
 };

@@ -1,3 +1,5 @@
+import { IFixture } from "./Fixture";
+
 export interface ITournament {
   id: string;
   name: string;
@@ -9,6 +11,7 @@ export interface ITournament {
   description: string;
   imageUrl: string;
   courtsAvailable: number;
+  inscripciones: "abierta" | "cerrada";
   status: "upcoming" | "inProgress" | "finished";
   categoria:
     | "primera"
@@ -20,5 +23,5 @@ export interface ITournament {
     | "septima"
     | "octava";
   genero: "femenino" | "masculino";
-  inscripciones: "abierta" | "cerrada";
+  fixture: IFixture[];
 }

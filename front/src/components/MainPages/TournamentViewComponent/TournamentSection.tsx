@@ -3,11 +3,12 @@ import React from "react";
 import Carousel from "@/components/MainComponents/ReusableCarouselComponent/ReusableCarousel";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { PlusIcon } from "@heroicons/react/24/solid";
-import { Tournament } from "@/helpers/tournamentsData";
+
+import { ITournament } from "@/interfaces/Tournament";
 
 interface TournamentSectionProps {
   title: string;
-  tournaments: Tournament[];
+  tournaments: ITournament[];
   onActionClick: () => void;
 }
 
@@ -16,7 +17,7 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
   tournaments,
   onActionClick,
 }) => {
-  const mapTournamentsToCarousel = (tournaments: Tournament[]) =>
+  const mapTournamentsToCarousel = (tournaments: ITournament[]) =>
     tournaments.map((tournament) => ({
       src: tournament.imageUrl,
       alt: `${tournament.name} - ${tournament.description}`,
