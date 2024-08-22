@@ -40,12 +40,6 @@ const Card: React.FC<CardProps> = ({
           </div>
         )}
       </div>
-      <NavigateButton
-        href="/tournaments/register"
-        className="w-full h-12 bg-lime text-black radhiumz"
-      >
-        Inscribite
-      </NavigateButton>
     </div>
   );
 };

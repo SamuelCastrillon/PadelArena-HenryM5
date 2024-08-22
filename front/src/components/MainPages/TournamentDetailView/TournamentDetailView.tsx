@@ -1,4 +1,5 @@
 // components/TournamentDetailView.tsx
+import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { ITournament } from "@/interfaces/Tournament";
 import React from "react";
@@ -16,8 +17,28 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
   return (
     <div className="flex flex-col items-center mt-20">
       {/* Estado del Torneo */}
-      <div className={`p-4 mb-4 w-full text-xl text-center ${statusColor}`}>
+      <div className={`p-4 mb-4 w-full text-2xl text-center ${statusColor}`}>
         {statusText}
+      </div>
+      <div className="mb-10 flex items-center">
+        <NavigateButton href="/tournaments" className="flex items-center gap-2">
+          <svg
+            className="w-4 h-4 text-white"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 6 10"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M5 1L1 5l4 4"
+            />
+          </svg>
+          <h1 className="radhiumz text-white text-2xl">vuelve a torneos</h1>
+        </NavigateButton>
       </div>
       <div className="w-1/2 mx-auto">
         {/* Información del Torneo */}
@@ -37,6 +58,14 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
             Inscripciones: tournament.inscripciones,
           }}
         />
+        <div className="w-full mt-8 mb-8 mx-auto justify-center flex">
+          <NavigateButton
+            href="/tournaments/register"
+            className="w-full py-4 px-10  h-12  bg-lime text-black radhiumz"
+          >
+            Inscribite
+          </NavigateButton>
+        </div>
       </div>
     </div>
   );
