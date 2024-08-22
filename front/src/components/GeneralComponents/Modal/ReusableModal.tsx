@@ -7,7 +7,7 @@ interface ModalProps {
   blurBackground?: boolean; // Controlar el desenfoque del fondo
   backgroundColor?: string; // Color de fondo del modal
   textColor?: string; // Color del texto del modal
-  className?: string; // Clases adicionales para el modal
+  className?: string;
 }
 
 const ReusableModal: React.FC<ModalProps> = ({
