@@ -31,7 +31,11 @@ export const registerSchema = yup.object({
   password: yup
     .string()
     .min(8, "Demasiado Corto!")
-    .max(12, "Demasiado Largo!")
+    .max(15, "Demasiado Largo!")
+    .defined("Requerido!"),
+  passwordConfirm: yup
+    .string()
+    .equals([yup.ref("password")], "Las contraseñas no coinciden")
     .defined("Requerido!"),
   country: yup.string().defined("Requerido!"),
   city: yup.string().defined("Requerido!"),
@@ -47,16 +51,22 @@ export const inputsFormValues: IDataConstructor[] = [
   { LabelText: "Nombre", FieldType: "text", FieldName: "name", FieldPH: "Nombre..." },
   { LabelText: "Aapellido", FieldType: "text", FieldName: "lastName", FieldPH: "Apellido..." },
   { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "ejemplo@mail.com" },
-  { LabelText: "Direccion", FieldType: "address", FieldName: "address", FieldPH: "Calle 123" },
   {
-    LabelText: "Contraseña (8-12 Caracteres)",
+    LabelText: "Contraseña (8-15 Caracteres)",
     FieldType: "password",
     FieldName: "password",
+    FieldPH: "********",
+  },
+  {
+    LabelText: "Confirmar Contraseña",
+    FieldType: "password",
+    FieldName: "passwordConfirm",
     FieldPH: "********",
   },
   { LabelText: "País", FieldType: "text", FieldName: "country", FieldPH: "Argentina" },
   { LabelText: "Ciudad", FieldType: "text", FieldName: "city", FieldPH: "Buenos Aires" },
   { LabelText: "Telefono", FieldType: "number", FieldName: "phone", FieldPH: "000 000 0000" },
+  { LabelText: "Direccion", FieldType: "address", FieldName: "address", FieldPH: "Calle 123" },
 ];
 
 export const butonsRegisterForm: IButtonForm[] = [{ name: "Crear Cuenta", type: "submit" }];

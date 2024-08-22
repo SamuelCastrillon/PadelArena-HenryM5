@@ -7,10 +7,7 @@ import {
   registerSchema,
   signInInitialValues,
 } from "./RegisterData";
-
-function handlerSubmit(data: any) {
-  console.log(data);
-}
+import HandlerRegister from "@/Server/HandlerFormsFuctions/HandlerRegister";
 
 const RegisterView = () => {
   return (
@@ -18,7 +15,7 @@ const RegisterView = () => {
       <FormComponent
         iniValues={signInInitialValues}
         valiSchema={registerSchema}
-        handelerSubmit={handlerSubmit}
+        handelerSubmit={HandlerRegister}
         dataContructor={inputsFormValues}
         butonsForm={butonsRegisterForm}
       />
