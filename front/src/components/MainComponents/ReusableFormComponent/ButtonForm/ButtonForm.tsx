@@ -5,7 +5,7 @@ const ButtonForm: React.FC<IButtonForm> = ({ name, type }) => {
   return (
     <div className="flex flex-col h-fit w-[240px]">
       <button
-        className="rounded-md w-full h-fit py-[5px] px-[10px] bg-customBlue text-white hover:shadow-lg"
+        className="rounded-md w-full h-fit py-[5px] px-[10px] bg-lime text-black hover:shadow-lg font-semibold"
         type={type}>
         {name}
       </button>
