@@ -1,6 +1,7 @@
 export interface IUserLoginReq {
   email: string;
   password: string;
+  userExist: IUserLoginRes;
 }
 
 export interface IUserLoginRes {
@@ -18,4 +19,17 @@ export interface IUserRegisterReq {
   city: string;
   phone: string;
   address: string;
+}
+
+export interface IUserLoginRes {
+  id: string;
+  name: string;
+  lastName: string;
+  email: string;
+  password: string;
+  phone: string;
+  country: string;
+  city: string;
+  address: string;
+  profileImg: string;
 }

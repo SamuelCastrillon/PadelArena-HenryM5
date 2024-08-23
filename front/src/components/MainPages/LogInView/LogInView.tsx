@@ -8,19 +8,18 @@ import {
   logInSchema,
 } from "./LognInData";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
-import HandlerLogIn, {
-  IUserLoginReq,
-  IUserLoginRes,
-} from "@/Server/HandlerFormsFuctions/HandlerLogIn";
+import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 import { useCookies } from "react-cookie";
+import { IUserLoginReq, IUserLoginRes } from "@/interfaces/RequestInterfaces";
 
 const LogInView: React.FC = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
+  const [cookies, setCookie] = useCookies(["userSignIn"]);
 
   async function SaveData(data: IUserLoginReq) {
     const response: IUserLoginRes = await HandlerLogIn(data);
 
     if (response?.token) {
+      console.log(response);
       setCookie("userSignIn", response.token);
     }
   }
