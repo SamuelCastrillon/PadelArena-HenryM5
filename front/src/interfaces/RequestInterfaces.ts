@@ -1,12 +1,12 @@
 export interface IUserLoginReq {
   email: string;
   password: string;
-  userExist: IUserLoginRes;
 }
 
 export interface IUserLoginRes {
   message: string;
   token: string;
+  userExist: IUserLogin;
 }
 
 export interface IUserRegisterReq {
@@ -21,7 +21,7 @@ export interface IUserRegisterReq {
   address: string;
 }
 
-export interface IUserLoginRes {
+export interface IUserLogin {
   id: string;
   name: string;
   lastName: string;

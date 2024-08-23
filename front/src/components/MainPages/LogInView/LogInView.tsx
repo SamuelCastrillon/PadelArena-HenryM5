@@ -11,6 +11,7 @@ import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/Na
 import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 import { useCookies } from "react-cookie";
 import { IUserLoginReq, IUserLoginRes } from "@/interfaces/RequestInterfaces";
+import { saveCurrentUser } from "@/helpers/localDataManagment";
 
 const LogInView: React.FC = () => {
   const [cookies, setCookie] = useCookies(["userSignIn"]);
@@ -20,6 +21,7 @@ const LogInView: React.FC = () => {
 
     if (response?.token) {
       console.log(response);
+      saveCurrentUser(response.userExist);
       setCookie("userSignIn", response.token);
     }
   }
