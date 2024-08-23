@@ -19,14 +19,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GlobalContext>
-        <body className="relative sfRegular bg-white-200">
+        <body className="flex relative sfRegular bg-white-200 min-h-screen flex-col justify-between">
           <BackGroudComponent />
           <header className="flex justify-center w-full">
             <NavBarComponent />
           </header>
           <main>{children}</main>
           <Footer />
-          <footer></footer>
         </body>
       </GlobalContext>
     </html>
