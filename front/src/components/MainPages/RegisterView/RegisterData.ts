@@ -30,6 +30,7 @@ export const registerSchema = yup.object({
   address: yup.string().defined("Requerido!"),
   password: yup
     .string()
+    .matches(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/, "Contraseña no es valida")
     .min(8, "Demasiado Corto!")
     .max(15, "Demasiado Largo!")
     .defined("Requerido!"),
@@ -37,22 +38,23 @@ export const registerSchema = yup.object({
     .string()
     .equals([yup.ref("password")], "Las contraseñas no coinciden")
     .defined("Requerido!"),
-  country: yup.string().defined("Requerido!"),
-  city: yup.string().defined("Requerido!"),
-  phone: yup
+  country: yup
     .string()
-    .min(9, "Numero no valido!")
-    .max(12, "Numero no valido!")
+    .min(2, "Demasiado Corto!")
+    .max(40, "Demasiado Largo!")
     .defined("Requerido!"),
+  city: yup.string().min(2, "Demasiado Corto!").max(40, "Demasiado Largo!").defined("Requerido!"),
+  phone: yup.string().min(9, "Demasiado Corto!").max(12, "Demasiado Largo!").defined("Requerido!"),
 });
-
+/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/;
 //? Data constructor form
 export const inputsFormValues: IDataConstructor[] = [
   { LabelText: "Nombre", FieldType: "text", FieldName: "name", FieldPH: "Nombre..." },
   { LabelText: "Aapellido", FieldType: "text", FieldName: "lastName", FieldPH: "Apellido..." },
   { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "ejemplo@mail.com" },
   {
-    LabelText: "Contraseña (8-15 Caracteres)",
+    LabelText:
+      "Contraseña (8-15 Caracteres) Debe Incluir Letras Mayúsculas, Minúsculas, Números y Caracteres Especiales",
     FieldType: "password",
     FieldName: "password",
     FieldPH: "********",

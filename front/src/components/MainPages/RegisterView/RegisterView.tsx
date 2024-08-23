@@ -11,7 +11,7 @@ import HandlerRegister from "@/Server/HandlerFormsFuctions/HandlerRegister";
 
 const RegisterView = () => {
   return (
-    <section className="flex flex-col items-center justify-center w-screen h-screen gap-2">
+    <section className="flex flex-col items-center justify-center w-screen h-fit gap-2">
       <FormComponent
         iniValues={signInInitialValues}
         valiSchema={registerSchema}

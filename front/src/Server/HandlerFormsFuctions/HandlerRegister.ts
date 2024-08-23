@@ -15,6 +15,7 @@ interface IUserRegisterReq {
 function HandlerRegister(data: IUserRegisterReq) {
   const response = axiosInstance.post("/auth/signup", data);
   response.then((res) => {
+    console.log(res.data);
     return res.data;
   });
   response.catch((err) => {
