@@ -1,16 +1,39 @@
 "use client";
 
 import React from "react";
+import { useEffect } from "react";
 import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchBarDrop";
 import Header from "./TournamentHeader";
 import TournamentSection from "./TournamentSection";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { categoriasHelper } from "@/helpers/categories";
+import { getCategories } from "@/Server/Category/getCategories";
 
 const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
   tournaments,
 }) => {
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
+
+  const [categoriesNames, setCategories] = React.useState<string[]>([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await getCategories();
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const categoryNames = response.data.map(
+          (category: any) => category.name
+        );
+        setCategories(categoryNames);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSearch = (selectedCategory: string) => {
     setFilteredCategory(selectedCategory);
@@ -34,8 +57,8 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
     );
   };
 
-  const categoriesNames = categoriasHelper.map((category) => category.name);
-  console.log(categoriesNames);
+  //const categoriesNames = categoriasHelper.map((category) => category.name);
+  //console.log(categoriesNames);
 
   return (
     <div className="min-h-screen">
