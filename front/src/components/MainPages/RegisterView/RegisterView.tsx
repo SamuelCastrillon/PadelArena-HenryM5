@@ -8,14 +8,21 @@ import {
   signInInitialValues,
 } from "./RegisterData";
 import HandlerRegister from "@/Server/HandlerFormsFuctions/HandlerRegister";
+import { IUserRegisterReq } from "@/interfaces/RequestInterfaces";
+import { useRouter } from "next/navigation";
 
 const RegisterView = () => {
+  const navigate = useRouter();
+  async function RegisterHandeler(data: IUserRegisterReq) {
+    await HandlerRegister(data);
+    navigate.push("/login");
+  }
   return (
-    <section className="flex flex-col items-center justify-center w-screen h-fit gap-2">
+    <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">
       <FormComponent
         iniValues={signInInitialValues}
         valiSchema={registerSchema}
-        handelerSubmit={HandlerRegister}
+        handelerSubmit={RegisterHandeler}
         dataContructor={inputsFormValues}
         butonsForm={butonsRegisterForm}
       />

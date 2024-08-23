@@ -1,12 +1,8 @@
+//? User Interfaces
+
 export interface IUserLoginReq {
   email: string;
   password: string;
-}
-
-export interface IUserLoginRes {
-  message: string;
-  token: string;
-  userExist: IUserLogin;
 }
 
 export interface IUserRegisterReq {
@@ -21,6 +17,12 @@ export interface IUserRegisterReq {
   address: string;
 }
 
+export interface IUserLoginRes {
+  message: string;
+  token: string;
+  userExist: IUserLogin;
+}
+
 export interface IUserLogin {
   id: string;
   name: string;
@@ -32,4 +34,37 @@ export interface IUserLogin {
   city: string;
   address: string;
   profileImg: string;
+}
+
+//? Tournament Interfaces
+
+enum Days {
+  Lunes = "Lunes",
+  Martes = "Martes",
+  Miercoles = "Miercoles",
+  Jueves = "Jueves",
+  Viernes = "Viernes",
+  Sabado = "Sabado",
+  Domingo = "Domingo",
+}
+
+enum TeamsQuantity {
+  Diesiseis = 16,
+  Treintaidos = 32,
+  Secentaidos = 64,
+}
+
+export interface ICreateTournamentReq {
+  name: string;
+  startDate: Date;
+  startTime: string;
+  endTime: string;
+  playingDays: Days[];
+  // status: string;
+  teamsQuantity: TeamsQuantity;
+  matchDuration: number;
+  courts: number;
+  descrption: string;
+  tournamentImg: string;
+  category: string;
 }
