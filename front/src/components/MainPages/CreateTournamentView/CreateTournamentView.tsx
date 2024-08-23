@@ -7,10 +7,18 @@ import {
   createTournamentSchema,
   inputsCreateTournamentFormValues,
 } from "./CreateTournamentData";
+import { preFormattingData } from "./PreFormattingData";
+import { ICreateTournamentFormData } from "@/interfaces/RequestInterfaces";
+import HandlerNewTournament from "@/Server/HandlerFormsFuctions/HandlerCreateTournament";
 
-function handlerSubmit(values: any) {
-  console.log(values);
+async function handlerSubmit(values: ICreateTournamentFormData) {
+  const dataFormattedToSend = preFormattingData(values);
+  if (dataFormattedToSend) {
+    const response = await HandlerNewTournament(dataFormattedToSend);
+    console.log(response);
+  }
 }
+
 const CreateTournamentView: React.FC = () => {
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">

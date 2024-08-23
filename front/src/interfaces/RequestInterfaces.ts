@@ -20,7 +20,7 @@ export interface IUserRegisterReq {
 export interface IUserLoginRes {
   message: string;
   token: string;
-  userExist: IUserLogin;
+  userClean: IUserLogin;
 }
 
 export interface IUserLogin {
@@ -38,16 +38,6 @@ export interface IUserLogin {
 
 //? Tournament Interfaces
 
-enum Days {
-  Lunes = "Lunes",
-  Martes = "Martes",
-  Miercoles = "Miercoles",
-  Jueves = "Jueves",
-  Viernes = "Viernes",
-  Sabado = "Sabado",
-  Domingo = "Domingo",
-}
-
 enum TeamsQuantity {
   Diesiseis = 16,
   Treintaidos = 32,
@@ -59,12 +49,31 @@ export interface ICreateTournamentReq {
   startDate: Date;
   startTime: string;
   endTime: string;
-  playingDays: Days[];
-  // status: string;
+  playingDays: string[];
   teamsQuantity: TeamsQuantity;
   matchDuration: number;
   courts: number;
-  descrption: string;
+  description: string;
+  tournamentImg: string;
+  category: string;
+}
+
+export interface ICreateTournamentFormData {
+  name: string;
+  startDate: Date;
+  startTime: string;
+  endTime: string;
+  Lunes?: ["on"] | [] | undefined;
+  Martes?: ["on"] | [] | undefined;
+  Miercoles?: ["on"] | [] | undefined;
+  Jueves?: ["on"] | [] | undefined;
+  Viernes?: ["on"] | [] | undefined;
+  Sabado?: ["on"] | [] | undefined;
+  Domingo?: ["on"] | [] | undefined;
+  teamsQuantity: TeamsQuantity;
+  matchDuration: number;
+  courts: number;
+  description: string;
   tournamentImg: string;
   category: string;
 }
