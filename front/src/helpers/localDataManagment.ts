@@ -14,3 +14,7 @@ export function getCurrentUser(): IUserLogin | null {
     return null;
   }
 }
+
+export function deletCurrentUser(): void {
+  localStorage.removeItem(userKeyDefiny);
+}
