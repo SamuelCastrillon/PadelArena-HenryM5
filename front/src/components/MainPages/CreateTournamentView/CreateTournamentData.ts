@@ -5,17 +5,18 @@ import {
 } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 
 export const createTournamentInitialValues = {
-  name: "",
-  startDate: {},
-  startTime: "",
-  endTime: "",
+  name: "Pdel Arena",
+  startDate: "2024-01-01",
+  startTime: "08:00",
+  endTime: "14:00",
   playingDays: [],
   teamsQuantity: 16,
   matchDuration: 90,
   courts: 4,
-  description: "",
+  description:
+    "Un torneo de verano de verano con un premio de 5000€. ¡Prepárate para la competición!",
   tournamentImg: "",
-  categorie: "",
+  categorie: "Cualquier categoria",
 };
 
 //? Validations Inpusts form
@@ -57,37 +58,37 @@ export const inputsCreateTournamentFormValues: IDataConstructor[] = [
     containerCheckBox: [
       {
         LabelText: "Lunes",
-        FieldName: "lunes",
+        FieldName: "Lunes",
         FieldType: "checkbox",
       },
       {
         LabelText: "Martes",
-        FieldName: "martes",
+        FieldName: "Martes",
         FieldType: "checkbox",
       },
       {
         LabelText: "Miercoles",
-        FieldName: "miercoles",
+        FieldName: "Miercoles",
         FieldType: "checkbox",
       },
       {
         LabelText: "Jueves",
-        FieldName: "jueves",
+        FieldName: "Jueves",
         FieldType: "checkbox",
       },
       {
         LabelText: "Viernes",
-        FieldName: "viernes",
+        FieldName: "Viernes",
         FieldType: "checkbox",
       },
       {
         LabelText: "Sabado",
-        FieldName: "sabado",
+        FieldName: "Sabado",
         FieldType: "checkbox",
       },
       {
         LabelText: "Domingo",
-        FieldName: "domingo",
+        FieldName: "Domingo",
         FieldType: "checkbox",
       },
     ],
