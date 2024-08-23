@@ -17,7 +17,9 @@ const categoriasHelper = [
   "octava",
 ];
 
-const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments }) => {
+const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
+  tournaments,
+}) => {
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
 
   const handleSearch = (selectedCategory: string) => {
@@ -34,10 +36,12 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
 
   const filterTournaments = (status: string) => {
     if (!tournaments || !Array.isArray(tournaments)) return [];
+
     return tournaments.filter(
       (tournament) =>
         tournament.status === status &&
-        (filteredCategory ? tournament.categoria === filteredCategory : true)
+        (!filteredCategory ||
+          (tournament.category as unknown as string) === filteredCategory)
     );
   };
 
@@ -53,7 +57,9 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
       </div>
       <section className="bg-white py-2 md:py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
         {filteredCategory && (
-          <h2 className="text-4xl radhiumz">Resultados de la búsqueda: {filteredCategory}</h2>
+          <h2 className="text-4xl radhiumz">
+            Resultados de la búsqueda: {filteredCategory}
+          </h2>
         )}
         <TournamentSection
           title="Torneos por Comenzar"
