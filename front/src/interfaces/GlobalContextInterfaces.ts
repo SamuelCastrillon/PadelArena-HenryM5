@@ -1,6 +1,6 @@
-import { IUserLoginRes } from "./RequestInterfaces";
+import { IUserLogin } from "./RequestInterfaces";
 
 export interface IAuthcontext {
-  currentUser: IUserLoginRes | null;
-  setCurrentUser: (currenUser: IUserLoginRes | null) => void;
+  currentUser: IUserLogin | null;
+  setCurrentUser: (currenUser: IUserLogin | null) => void;
 }
