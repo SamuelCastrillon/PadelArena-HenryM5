@@ -25,15 +25,15 @@ const LogInView: React.FC = () => {
 
     if (response?.token) {
       console.log(response);
-      saveCurrentUser(response.userExist);
-      setCurrentUser(response.userExist);
+      saveCurrentUser(response.userClean);
+      setCurrentUser(response.userClean);
       setCookie("userSignIn", response.token);
       router.push("/");
     }
   }
 
   return (
-    <section className="flex flex-col items-center justify-center w-screen min-h-fit gap-2">
+    <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
       <FormComponent
         iniValues={logInInitialValues}
         valiSchema={logInSchema}

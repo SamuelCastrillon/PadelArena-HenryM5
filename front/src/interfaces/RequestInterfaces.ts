@@ -20,7 +20,7 @@ export interface IUserRegisterReq {
 export interface IUserLoginRes {
   message: string;
   token: string;
-  userExist: IUserLogin;
+  userClean: IUserLogin;
 }
 
 export interface IUserLogin {
