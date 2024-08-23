@@ -9,13 +9,16 @@ import {
 } from "./CreateTournamentData";
 import { preFormattingData } from "./PreFormattingData";
 import { ICreateTournamentFormData } from "@/interfaces/RequestInterfaces";
+import HandlerNewTournament from "@/Server/HandlerFormsFuctions/HandlerCreateTournament";
 
-function handlerSubmit(values: ICreateTournamentFormData) {
+async function handlerSubmit(values: ICreateTournamentFormData) {
   const dataFormattedToSend = preFormattingData(values);
-
-  console.log(values);
-  console.log(dataFormattedToSend);
+  if (dataFormattedToSend) {
+    const response = await HandlerNewTournament(dataFormattedToSend);
+    console.log(response);
+  }
 }
+
 const CreateTournamentView: React.FC = () => {
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">
