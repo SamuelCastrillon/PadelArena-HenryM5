@@ -1,16 +1,5 @@
+import { IUserRegisterReq } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
-
-interface IUserRegisterReq {
-  name: string;
-  lastName: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  country: string;
-  city: string;
-  phone: string;
-  address: string;
-}
 
 function HandlerRegister(data: IUserRegisterReq) {
   const response = axiosInstance.post("/auth/signup", data);

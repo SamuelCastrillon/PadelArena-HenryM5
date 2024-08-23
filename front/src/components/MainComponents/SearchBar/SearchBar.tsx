@@ -1,4 +1,4 @@
-import { SearchBarProps } from "@/interfaces/SearchBar";
+import { SearchBarProps } from "@/interfaces/ComponentsInterfaces/SearchBar";
 import React from "react";
 import { useState } from "react";
 
@@ -24,10 +24,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      <button
-        className="p-2 bg-blue-500 text-black rounded-md"
-        onClick={handleSearch}
-      >
+      <button className="p-2 bg-blue-500 text-black rounded-md" onClick={handleSearch}>
         Search
       </button>
     </div>

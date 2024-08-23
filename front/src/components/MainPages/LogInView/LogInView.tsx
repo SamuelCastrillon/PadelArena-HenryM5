@@ -1,6 +1,6 @@
 "use client";
 import FormComponent from "@/components/MainComponents/ReusableFormComponent/FormComponent";
-import React from "react";
+import React, { useContext } from "react";
 import {
   butonsLogInForm,
   inputsLogIngFormValues,
@@ -8,20 +8,27 @@ import {
   logInSchema,
 } from "./LognInData";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
-import HandlerLogIn, {
-  IUserLoginReq,
-  IUserLoginRes,
-} from "@/Server/HandlerFormsFuctions/HandlerLogIn";
+import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 import { useCookies } from "react-cookie";
+import { IUserLoginReq, IUserLoginRes } from "@/interfaces/RequestInterfaces";
+import { saveCurrentUser } from "@/helpers/localDataManagment";
+import { useRouter } from "next/navigation";
+import { AuthContext } from "@/context/GlobalContext";
 
 const LogInView: React.FC = () => {
-  const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
+  const router = useRouter();
+  const { setCurrentUser } = useContext(AuthContext);
+  const [cookies, setCookie] = useCookies(["userSignIn"]);
 
   async function SaveData(data: IUserLoginReq) {
     const response: IUserLoginRes = await HandlerLogIn(data);
 
     if (response?.token) {
+      console.log(response);
+      saveCurrentUser(response.userExist);
+      setCurrentUser(response.userExist);
       setCookie("userSignIn", response.token);
+      router.push("/");
     }
   }
 
