@@ -7,9 +7,14 @@ import {
   createTournamentSchema,
   inputsCreateTournamentFormValues,
 } from "./CreateTournamentData";
+import { preFormattingData } from "./PreFormattingData";
+import { ICreateTournamentFormData } from "@/interfaces/RequestInterfaces";
 
-function handlerSubmit(values: any) {
+function handlerSubmit(values: ICreateTournamentFormData) {
+  const dataFormattedToSend = preFormattingData(values);
+
   console.log(values);
+  console.log(dataFormattedToSend);
 }
 const CreateTournamentView: React.FC = () => {
   return (

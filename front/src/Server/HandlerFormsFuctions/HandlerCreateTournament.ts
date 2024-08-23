@@ -1,7 +1,7 @@
 import { ICreateTournamentReq } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
 
-async function HandlerLogIn(data: ICreateTournamentReq) {
+async function HandlerNewTournament(data: ICreateTournamentReq) {
   try {
     const response = await axiosInstance.post("/tournament/new", data);
     console.log(response);
@@ -16,4 +16,4 @@ async function HandlerLogIn(data: ICreateTournamentReq) {
   }
 }
 
-export default HandlerLogIn;
+export default HandlerNewTournament;
