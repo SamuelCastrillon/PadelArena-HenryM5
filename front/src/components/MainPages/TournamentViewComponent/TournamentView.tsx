@@ -5,17 +5,7 @@ import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchB
 import Header from "./TournamentHeader";
 import TournamentSection from "./TournamentSection";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-
-const categoriasHelper = [
-  "primera",
-  "segunda",
-  "tercera",
-  "cuarta",
-  "quinta",
-  "sexta",
-  "septima",
-  "octava",
-];
+import { categoriasHelper } from "@/helpers/categories";
 
 const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
   tournaments,
@@ -40,10 +30,12 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
     return tournaments.filter(
       (tournament) =>
         tournament.status === status &&
-        (!filteredCategory ||
-          (tournament.category as unknown as string) === filteredCategory)
+        (!filteredCategory || tournament.category.name === filteredCategory)
     );
   };
+
+  const categoriesNames = categoriasHelper.map((category) => category.name);
+  console.log(categoriesNames);
 
   return (
     <div className="min-h-screen">
@@ -52,7 +44,7 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
         <SearchBarDrop
           onSearch={handleSearch}
           onClear={handleClearSearch}
-          categorias={categoriasHelper}
+          categorias={categoriesNames}
         />
       </div>
       <section className="bg-white py-2 md:py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">

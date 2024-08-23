@@ -6,6 +6,7 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import React, { useState } from "react";
 
 const TournamentDetailView: React.FC<ITournament> = (tournament) => {
+  console.log(tournament);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
 
@@ -62,7 +63,7 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
             "Hora de inicio": tournament.startingTime,
             "Hora de finalización": tournament.finishingTime,
             "Canchas disponibles": tournament.courtsAvailable.toString(),
-            Categoría: tournament.category.toString(),
+            Categoría: tournament.category.name,
             Género: tournament.genero ?? "Unknown",
             Inscripciones: tournament.inscripciones,
           }}

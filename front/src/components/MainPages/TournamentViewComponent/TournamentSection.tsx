@@ -23,7 +23,7 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       alt: `${tournament.name} - ${tournament.description}`,
       title: tournament.name,
       href: `/tournaments/${tournament.id}`,
-      categoria: tournament.category.toString(),
+      categoria: tournament.category.name,
       genero: tournament.genero ?? "Unknown", // provide a default value for genero
       inscripciones: tournament.inscripciones,
     }));
