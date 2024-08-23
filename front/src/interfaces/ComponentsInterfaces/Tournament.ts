@@ -1,4 +1,7 @@
 import { IFixture } from "./Fixture";
+import { IMatch } from "./Match";
+import { ITeam } from "./Team";
+import { ICategories } from "./TournamentCategorias";
 
 export interface ITournament {
   id: string;
@@ -9,19 +12,16 @@ export interface ITournament {
   finishingTime: string;
   playingDays: string[];
   description: string;
-  imageUrl: string;
+  tournamentFlyer: string;
+  gallery?: string[];
   courtsAvailable: number;
   inscripciones: "abierta" | "cerrada";
   status: "upcoming" | "inProgress" | "finished";
-  categoria:
-    | "primera"
-    | "segunda"
-    | "tercera"
-    | "cuarta"
-    | "quinta"
-    | "sexta"
-    | "septima"
-    | "octava";
-  genero: "femenino" | "masculino";
-  fixture: IFixture[];
+  category: ICategories;
+  genero?: "femenino" | "masculino";
+  teamsQuantity: number;
+  matchDuration: number;
+  fixture?: IFixture[];
+  team?: ITeam[];
+  matches?: IMatch[];
 }

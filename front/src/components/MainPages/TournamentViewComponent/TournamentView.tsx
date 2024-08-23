@@ -1,24 +1,39 @@
 "use client";
 
 import React from "react";
+import { useEffect } from "react";
 import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchBarDrop";
 import Header from "./TournamentHeader";
 import TournamentSection from "./TournamentSection";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import { categoriasHelper } from "@/helpers/categories";
+import { getCategories } from "@/Server/Category/getCategories";
 
-const categoriasHelper = [
-  "primera",
-  "segunda",
-  "tercera",
-  "cuarta",
-  "quinta",
-  "sexta",
-  "septima",
-  "octava",
-];
-
-const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments }) => {
+const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
+  tournaments,
+}) => {
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
+
+  const [categoriesNames, setCategories] = React.useState<string[]>([]);
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await getCategories();
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const categoryNames = response.data.map(
+          (category: any) => category.name
+        );
+        setCategories(categoryNames);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSearch = (selectedCategory: string) => {
     setFilteredCategory(selectedCategory);
@@ -34,12 +49,16 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
 
   const filterTournaments = (status: string) => {
     if (!tournaments || !Array.isArray(tournaments)) return [];
+
     return tournaments.filter(
       (tournament) =>
         tournament.status === status &&
-        (filteredCategory ? tournament.categoria === filteredCategory : true)
+        (!filteredCategory || tournament.category.name === filteredCategory)
     );
   };
+
+  //const categoriesNames = categoriasHelper.map((category) => category.name);
+  //console.log(categoriesNames);
 
   return (
     <div className="min-h-screen">
@@ -48,12 +67,14 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
         <SearchBarDrop
           onSearch={handleSearch}
           onClear={handleClearSearch}
-          categorias={categoriasHelper}
+          categorias={categoriesNames}
         />
       </div>
       <section className="bg-white py-2 md:py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
         {filteredCategory && (
-          <h2 className="text-4xl radhiumz">Resultados de la búsqueda: {filteredCategory}</h2>
+          <h2 className="text-4xl radhiumz">
+            Resultados de la búsqueda: {filteredCategory}
+          </h2>
         )}
         <TournamentSection
           title="Torneos por Comenzar"

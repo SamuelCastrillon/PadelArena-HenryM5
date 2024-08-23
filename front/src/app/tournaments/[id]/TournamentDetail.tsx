@@ -1,13 +1,15 @@
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import TournamentDetailView from "@/components/MainPages/TournamentDetailView/TournamentDetailView";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-import { tournaments } from "@/helpers/tournamentsData";
+import { tournamentsHelper } from "@/helpers/tournamentsData";
 import React from "react";
 
 //peticion get tournament/id
 
 export const findTournamentById = (id: string): ITournament | undefined => {
-  return tournaments.find((tournament: ITournament) => tournament.id === id);
+  return tournamentsHelper.find(
+    (tournament: ITournament) => tournament.id === id
+  );
 };
 
 const TournamentDetail = async ({ params }: { params: { id: string } }) => {
