@@ -8,15 +8,29 @@ import {
   logInSchema,
 } from "./LognInData";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
-import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
+import HandlerLogIn, {
+  IUserLoginReq,
+  IUserLoginRes,
+} from "@/Server/HandlerFormsFuctions/HandlerLogIn";
+import { useCookies } from "react-cookie";
 
 const LogInView: React.FC = () => {
+  const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
+
+  async function SaveData(data: IUserLoginReq) {
+    const response: IUserLoginRes = await HandlerLogIn(data);
+
+    if (response?.token) {
+      setCookie("userSignIn", response.token);
+    }
+  }
+
   return (
     <section className="flex flex-col items-center justify-center w-screen h-screen gap-2">
       <FormComponent
         iniValues={logInInitialValues}
         valiSchema={logInSchema}
-        handelerSubmit={HandlerLogIn}
+        handelerSubmit={SaveData}
         butonsForm={butonsLogInForm}
         dataContructor={inputsLogIngFormValues}
       />
