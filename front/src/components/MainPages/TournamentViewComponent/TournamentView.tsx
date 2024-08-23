@@ -8,6 +8,7 @@ import TournamentSection from "./TournamentSection";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { categoriasHelper } from "@/helpers/categories";
 import { getCategories } from "@/Server/Category/getCategories";
+import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategorias";
 
 const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
   tournaments,
@@ -15,18 +16,16 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
 
   const [categoriesNames, setCategories] = React.useState<string[]>([]);
+
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await getCategories();
-        if (!response.ok) {
-          throw new Error("Network response failed");
+        const data: ICategories[] = await getCategories();
+        if (data) {
+          const categoryNames = data.map((category) => category.name);
+          setCategories(categoryNames);
+          console.log(categoryNames);
         }
-
-        const categoryNames = response.data.map(
-          (category: any) => category.name
-        );
-        setCategories(categoryNames);
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -57,6 +56,7 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
     );
   };
 
+  console.log(categoriesNames);
   //const categoriesNames = categoriasHelper.map((category) => category.name);
   //console.log(categoriesNames);
 

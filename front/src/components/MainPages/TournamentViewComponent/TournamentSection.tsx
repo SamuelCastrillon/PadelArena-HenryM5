@@ -39,7 +39,11 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
           <PlusIcon className="h-6 w-6" />
         </ActionButton>
       </div>
-      <Carousel images={mapTournamentsToCarousel(tournaments)} />
+      {tournaments.length === 0 ? (
+        <p className="sfBold text-2xl">{`No hay torneos disponibles :(`} </p>
+      ) : (
+        <Carousel images={mapTournamentsToCarousel(tournaments)} />
+      )}
     </div>
   );
 };

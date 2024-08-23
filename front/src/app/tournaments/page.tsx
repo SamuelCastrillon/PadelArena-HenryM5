@@ -5,7 +5,7 @@ import { getTournaments } from "@/Server/Tournament/getTournaments";
 
 //peticion get tournaments
 const Tournaments = async () => {
-  //const tournaments = await getTournaments();
+  //const tournaments:ITournament[] = await getTournaments();
   //console.log(tournaments);
   return (
     <div>
