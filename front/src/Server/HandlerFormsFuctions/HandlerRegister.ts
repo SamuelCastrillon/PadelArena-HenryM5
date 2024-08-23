@@ -1,15 +1,15 @@
 import { IUserRegisterReq } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
 
-function HandlerRegister(data: IUserRegisterReq) {
-  const response = axiosInstance.post("/auth/signup", data);
-  response.then((res) => {
-    console.log(res.data);
-    return res.data;
-  });
-  response.catch((err) => {
-    return err.response.data;
-  });
+async function HandlerRegister(data: IUserRegisterReq) {
+  try {
+    const response = await axiosInstance.post("/auth/signup", data);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 }
 
 export default HandlerRegister;

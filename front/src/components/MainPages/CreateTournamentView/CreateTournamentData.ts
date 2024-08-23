@@ -6,17 +6,22 @@ import {
 
 export const createTournamentInitialValues = {
   name: "",
-  date: "",
+  startDate: {},
   startTime: "",
   endTime: "",
-  categorie: "",
+  playingDays: [],
+  teamsQuantity: 16,
+  matchDuration: 90,
+  courts: 4,
   description: "",
+  tournamentImg: "",
+  categorie: "",
 };
 
 //? Validations Inpusts form
 export const createTournamentSchema = yup.object({
   name: yup.string().min(2, "Too Short!").max(40, "Too Long!").defined("Required!"),
-  date: yup.string().min(8, "Too Short!").max(40, "Too Long!").defined("Required!"),
+  startDate: yup.string().defined("Required!"),
 });
 
 //? Data constructor form
@@ -30,7 +35,7 @@ export const inputsCreateTournamentFormValues: IDataConstructor[] = [
   {
     LabelText: "Fecha de Inicio",
     FieldType: "date",
-    FieldName: "date",
+    FieldName: "startDate",
     FieldPH: "01/01/2025",
   },
   {
@@ -44,12 +49,6 @@ export const inputsCreateTournamentFormValues: IDataConstructor[] = [
     FieldType: "time",
     FieldName: "endTime",
     FieldPH: "00:00",
-  },
-  {
-    LabelText: "Categoria del Torneo",
-    FieldType: "text",
-    FieldName: "categorie",
-    FieldPH: "Categoria 01",
   },
   {
     LabelText: "Dias de Juego",
@@ -94,10 +93,40 @@ export const inputsCreateTournamentFormValues: IDataConstructor[] = [
     ],
   },
   {
+    LabelText: "Cantidad de equipos",
+    FieldType: "number",
+    FieldName: "teamsQuantity",
+    FieldPH: "16",
+  },
+  {
+    LabelText: "Duracion media de partido en minutos",
+    FieldType: "number",
+    FieldName: "matchDuration",
+    FieldPH: "90",
+  },
+  {
+    LabelText: "Numero de canchas disponibles para el Torneo",
+    FieldType: "number",
+    FieldName: "courts",
+    FieldPH: "2",
+  },
+  {
     LabelText: "Descripción",
     FieldType: "textarea",
     FieldName: "description",
     FieldPH: "Descripción del Torneo",
+  },
+  {
+    LabelText: "Imagen de portada del Torneo",
+    FieldType: "file",
+    FieldName: "tournamentImg",
+    FieldPH: "Categoria 01",
+  },
+  {
+    LabelText: "Categoria del Torneo",
+    FieldType: "text",
+    FieldName: "categorie",
+    FieldPH: "Categoria 01",
   },
 ];
 
