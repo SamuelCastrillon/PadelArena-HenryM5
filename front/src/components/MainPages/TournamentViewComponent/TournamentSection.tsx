@@ -4,7 +4,7 @@ import Carousel from "@/components/MainComponents/ReusableCarouselComponent/Reus
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { PlusIcon } from "@heroicons/react/24/solid";
 
-import { ITournament } from "@/interfaces/Tournament";
+import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 
 interface TournamentSectionProps {
   title: string;
@@ -35,8 +35,7 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
         <h2 className="text-2xl md:text-4xl radhiumz mb-4">{title}</h2>
         <ActionButton
           className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          onClick={onActionClick}
-        >
+          onClick={onActionClick}>
           <PlusIcon className="h-6 w-6" />
         </ActionButton>
       </div>

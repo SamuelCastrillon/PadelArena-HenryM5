@@ -1,14 +1,5 @@
+import { IUserLoginReq } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
-
-export interface IUserLoginReq {
-  email: string;
-  password: string;
-}
-
-export interface IUserLoginRes {
-  message: string;
-  token: string;
-}
 
 async function HandlerLogIn(data: IUserLoginReq) {
   try {

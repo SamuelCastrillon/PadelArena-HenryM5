@@ -1,6 +1,6 @@
 // tournamentsData.ts
 
-import { ITournament } from "@/interfaces/Tournament";
+import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 
 export const tournaments: ITournament[] = [
   {

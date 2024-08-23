@@ -1,6 +1,6 @@
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import TournamentDetailView from "@/components/MainPages/TournamentDetailView/TournamentDetailView";
-import { ITournament } from "@/interfaces/Tournament";
+import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { tournaments } from "@/helpers/tournamentsData";
 import React from "react";
 
