@@ -1,11 +1,8 @@
 import axios from "axios";
 
-const backUrl = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// const instance = axios.create({
-//   baseURL: backUrl,
-//   timeout: 1000,
-//   headers: { "X-Custom-Header": "foobar" },
-// });
-
-console.log("backUrl: ", backUrl);
+export const axiosInstance = axios.create({
+  baseURL: API_URL,
+  headers: { "Content-Type": "application/json" },
+});

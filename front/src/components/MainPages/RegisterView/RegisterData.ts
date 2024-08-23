@@ -30,33 +30,45 @@ export const registerSchema = yup.object({
   address: yup.string().defined("Requerido!"),
   password: yup
     .string()
+    .matches(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/, "Contraseña no es valida")
     .min(8, "Demasiado Corto!")
-    .max(12, "Demasiado Largo!")
+    .max(15, "Demasiado Largo!")
     .defined("Requerido!"),
-  country: yup.string().defined("Requerido!"),
-  city: yup.string().defined("Requerido!"),
-  phone: yup
+  passwordConfirm: yup
     .string()
-    .min(9, "Numero no valido!")
-    .max(12, "Numero no valido!")
+    .equals([yup.ref("password")], "Las contraseñas no coinciden")
     .defined("Requerido!"),
+  country: yup
+    .string()
+    .min(2, "Demasiado Corto!")
+    .max(40, "Demasiado Largo!")
+    .defined("Requerido!"),
+  city: yup.string().min(2, "Demasiado Corto!").max(40, "Demasiado Largo!").defined("Requerido!"),
+  phone: yup.string().min(9, "Demasiado Corto!").max(12, "Demasiado Largo!").defined("Requerido!"),
 });
-
+/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/;
 //? Data constructor form
 export const inputsFormValues: IDataConstructor[] = [
   { LabelText: "Nombre", FieldType: "text", FieldName: "name", FieldPH: "Nombre..." },
   { LabelText: "Aapellido", FieldType: "text", FieldName: "lastName", FieldPH: "Apellido..." },
   { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "ejemplo@mail.com" },
-  { LabelText: "Direccion", FieldType: "address", FieldName: "address", FieldPH: "Calle 123" },
   {
-    LabelText: "Contraseña (8-12 Caracteres)",
+    LabelText:
+      "Contraseña (8-15 Caracteres) Debe Incluir Letras Mayúsculas, Minúsculas, Números y Caracteres Especiales",
     FieldType: "password",
     FieldName: "password",
+    FieldPH: "********",
+  },
+  {
+    LabelText: "Confirmar Contraseña",
+    FieldType: "password",
+    FieldName: "passwordConfirm",
     FieldPH: "********",
   },
   { LabelText: "País", FieldType: "text", FieldName: "country", FieldPH: "Argentina" },
   { LabelText: "Ciudad", FieldType: "text", FieldName: "city", FieldPH: "Buenos Aires" },
   { LabelText: "Telefono", FieldType: "number", FieldName: "phone", FieldPH: "000 000 0000" },
+  { LabelText: "Direccion", FieldType: "address", FieldName: "address", FieldPH: "Calle 123" },
 ];
 
 export const butonsRegisterForm: IButtonForm[] = [{ name: "Crear Cuenta", type: "submit" }];

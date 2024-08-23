@@ -4,7 +4,7 @@ import { IDataConstructor } from "../FormInterface";
 
 const ImputForm: React.FC<IDataConstructor> = ({ LabelText, FieldType, FieldName, FieldPH }) => {
   return (
-    <div className="flex flex-col h-[100px] w-[240px] gap-1">
+    <div className="flex flex-col h-[100px] w-full gap-1">
       <label className="text-lg font-bold text-customBlue">{LabelText}</label>
       <Field
         type={FieldType}
