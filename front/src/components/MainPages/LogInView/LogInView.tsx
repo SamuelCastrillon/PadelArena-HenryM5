@@ -8,17 +8,15 @@ import {
   logInSchema,
 } from "./LognInData";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
+import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 
-function handlerSubmit(data: any) {
-  console.log(data);
-}
 const LogInView: React.FC = () => {
   return (
     <section className="flex flex-col items-center justify-center w-screen h-screen gap-2">
       <FormComponent
         iniValues={logInInitialValues}
         valiSchema={logInSchema}
-        handelerSubmit={handlerSubmit}
+        handelerSubmit={HandlerLogIn}
         butonsForm={butonsLogInForm}
         dataContructor={inputsLogIngFormValues}
       />
