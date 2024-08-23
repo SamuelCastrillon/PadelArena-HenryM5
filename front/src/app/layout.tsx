@@ -4,6 +4,7 @@ import "./globals.css";
 import NavBarComponent from "@/components/HeaderComponents/NavBarComponent/NavBarComponent";
 import BackGroudComponent from "@/components/GeneralComponents/BackGroudComponent/BackGroudComponent";
 import Footer from "@/components/FooterComponent/Footer";
+import GlobalContext from "@/context/GlobalContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,15 +18,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="relative sfRegular bg-white-200">
-        <BackGroudComponent />
-        <header className="flex justify-center w-full">
-          <NavBarComponent />
-        </header>
-        <main>{children}</main>
-        <Footer/>
-        <footer></footer>
-      </body>
+      <GlobalContext>
+        <body className="relative sfRegular bg-white-200">
+          <BackGroudComponent />
+          <header className="flex justify-center w-full">
+            <NavBarComponent />
+          </header>
+          <main>{children}</main>
+          <Footer />
+          <footer></footer>
+        </body>
+      </GlobalContext>
     </html>
   );
 }
