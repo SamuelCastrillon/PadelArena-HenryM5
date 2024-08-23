@@ -20,7 +20,7 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
       try {
         const response = await getCategories();
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Network response failed");
         }
 
         const categoryNames = response.data.map(
