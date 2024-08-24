@@ -11,9 +11,9 @@ import { IFormTournametInitiaalValues } from "./CreateTournamentFormInterfaces";
 async function handlerSubmit(values: ICreateTournamentFormData) {
   const dataFormattedToSend = preFormattingData(values);
   if (dataFormattedToSend) {
-    // const response = await HandlerNewTournament(dataFormattedToSend);
-    // console.log(response);
-    console.log(dataFormattedToSend);
+    const response = await HandlerNewTournament(dataFormattedToSend);
+    console.log(response);
+    // console.log(dataFormattedToSend);
   }
 }
 
