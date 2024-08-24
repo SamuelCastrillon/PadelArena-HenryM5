@@ -32,7 +32,7 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({ onSearch, categorias, on
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto">
       <div className="flex w-full mb-4">
-        <div className="bg-white flex border-none rounded-xl">
+        <div className="flex bg-white border-none rounded-xl">
           <input
             type="text"
             value={searchTerm}
@@ -42,10 +42,10 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({ onSearch, categorias, on
 
           <ActionButton
             onClick={handleClearSearch}
-            className="px-4 py-2 bg-lime text-black rounded-full hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            className="px-4 py-2 text-black rounded-full bg-lime hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 fill-current"
+              className="w-6 h-6 fill-current"
               viewBox="0 0 384 512">
               <path
                 fill="#000000"
@@ -57,7 +57,7 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({ onSearch, categorias, on
             <select
               value={selectedCategory || ""}
               onChange={handleCategoryChange}
-              className="px-4 py-4 border border-gray-300 bg-white rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sfBold">
+              className="px-4 py-4 bg-white border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-500 sfBold">
               <option value="" disabled>
                 Categorías
               </option>
@@ -73,7 +73,7 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({ onSearch, categorias, on
 
       <button
         onClick={handleSearch}
-        className="px-6 py-2 bg-lime text-black sfBold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        className="px-6 py-2 text-black rounded-lg bg-lime sfBold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
         Buscar
       </button>
     </div>

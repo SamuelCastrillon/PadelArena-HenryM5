@@ -9,29 +9,26 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { categoriasHelper } from "@/helpers/categories";
 import { getCategories } from "@/Server/Category/getCategories";
 
-const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
-  tournaments,
-}) => {
+const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments }) => {
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
 
   const [categoriesNames, setCategories] = React.useState<string[]>([]);
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await getCategories();
-        if (!response.ok) {
-          throw new Error("Network response failed");
-        }
 
-        const categoryNames = response.data.map(
-          (category: any) => category.name
-        );
-        setCategories(categoryNames);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
+  const fetchCategories = async () => {
+    try {
+      const response = await getCategories();
+      if (!response) {
+        throw new Error("Network response failed");
       }
-    };
 
+      const categoryNames = response.map((category: any) => category.name);
+      setCategories(categoryNames);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchCategories();
   }, []);
 
@@ -72,9 +69,7 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
       </div>
       <section className="bg-white py-2 md:py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
         {filteredCategory && (
-          <h2 className="text-4xl radhiumz">
-            Resultados de la búsqueda: {filteredCategory}
-          </h2>
+          <h2 className="text-4xl radhiumz">Resultados de la búsqueda: {filteredCategory}</h2>
         )}
         <TournamentSection
           title="Torneos por Comenzar"
