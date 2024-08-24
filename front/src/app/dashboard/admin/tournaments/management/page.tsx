@@ -1,13 +1,15 @@
 import React from "react";
 import TournamentsTable from "@/components/MainPages/DashboardAdmin/tournamentsTable";
+import { getTournaments } from "@/Server/Tournament/getTournaments";
 
-const page: React.FC = () => {
+const Page: React.FC = async () => {
+  const tableData = await getTournaments();
+
   return (
     <>
-    <div>Tabla de torneos</div>
-    <TournamentsTable/>
+      <TournamentsTable tableData={tableData} />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default Page;
