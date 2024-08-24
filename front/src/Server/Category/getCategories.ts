@@ -1,4 +1,3 @@
-import axios from "axios";
 import { axiosInstance } from "../AxiosConfig";
 export const getCategories = async () => {
   try {

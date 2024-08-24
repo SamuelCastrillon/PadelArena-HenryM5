@@ -3,7 +3,9 @@ import CreateTournamentView from "@/components/MainPages/CreateTournamentView/Cr
 import React from "react";
 
 const page: React.FC = async () => {
-  return <CreateTournamentView dataContructor={await getDataToContructFormCreateTournaments()} />;
+  return (
+    <CreateTournamentView formDataContructor={await getDataToContructFormCreateTournaments()} />
+  );
 };
 
 export default page;

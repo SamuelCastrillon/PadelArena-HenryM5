@@ -4,23 +4,8 @@ import {
   IDataConstructor,
 } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { getCategories } from "@/Server/Category/getCategories";
-import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategorias";
 import { ICategoryRes } from "@/interfaces/RequestInterfaces";
-
-export const createTournamentInitialValues = {
-  name: "Pdel Arena",
-  startDate: "2024-01-01",
-  startTime: "08:00",
-  endTime: "14:00",
-  playingDays: [],
-  teamsQuantity: 16,
-  matchDuration: 90,
-  courts: 4,
-  description:
-    "Un torneo de verano de verano con un premio de 5000€. ¡Prepárate para la competición!",
-  tournamentImg: "",
-  category: "",
-};
+import { IFormTournametInitiaalValues } from "./CreateTournamentFormInterfaces";
 
 //? Validations Inpusts form
 export const createTournamentSchema = yup.object({
@@ -34,7 +19,6 @@ export async function getDataToContructFormCreateTournaments() {
     return { value: category.id, name: category.name };
   });
 
-  console.log(categoriesToback);
   //? Data constructor form
   const inputsCreateTournamentFormValues: IDataConstructor[] = [
     {
@@ -144,7 +128,23 @@ export async function getDataToContructFormCreateTournaments() {
       selectOptions: categories,
     },
   ];
-  return inputsCreateTournamentFormValues;
+
+  const createTournamentInitialValues: IFormTournametInitiaalValues = {
+    name: "Pdel Arena",
+    startDate: "2024-01-01",
+    startTime: "08:00",
+    endTime: "14:00",
+    playingDays: [],
+    teamsQuantity: 16,
+    matchDuration: 90,
+    courts: 4,
+    description:
+      "Un torneo de verano de verano con un premio de 5000€. ¡Prepárate para la competición!",
+    tournamentImg: "",
+    category: categoriesToback ? categoriesToback[0].id : "",
+  };
+
+  return { inputsCreateTournamentFormValues, createTournamentInitialValues };
 }
 
 export const butonsCreateTournamentForm: IButtonForm[] = [{ name: "Crear Torneo", type: "submit" }];
