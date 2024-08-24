@@ -1,35 +1,38 @@
 "use client";
 
-import React from "react";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+
+import TournamentSection from "./TournamentSection";
 import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchBarDrop";
 import Header from "./TournamentHeader";
-import TournamentSection from "./TournamentSection";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-import { categoriasHelper } from "@/helpers/categories";
 import { getCategories } from "@/Server/Category/getCategories";
 import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategorias";
+import { useRouter } from "next/navigation";
+// Otros imports...
 
-const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments }) => {
+const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
+  tournaments,
+}) => {
+  const router = useRouter();
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
 
   const [categoriesNames, setCategories] = React.useState<string[]>([]);
 
-  const fetchCategories = async () => {
-    try {
-      const response = await getCategories();
-      if (!response) {
-        throw new Error("Network response failed");
-      }
-
-      const categoryNames = response.map((category: any) => category.name);
-      setCategories(categoryNames);
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const data: ICategories[] = await getCategories();
+        if (data) {
+          const categoryNames = data.map((category) => category.name);
+          setCategories(categoryNames);
+          console.log(categoryNames);
+        }
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+
     fetchCategories();
   }, []);
 
@@ -42,7 +45,7 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
   };
 
   const handlePlusClick = (status: string) => {
-    location.href = `/tournaments/${status}`;
+    router.push(`/tournaments/${status}`);
   };
 
   const filterTournaments = (status: string) => {
@@ -54,10 +57,6 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
         (!filteredCategory || tournament.category.name === filteredCategory)
     );
   };
-
-  console.log(categoriesNames);
-  //const categoriesNames = categoriasHelper.map((category) => category.name);
-  //console.log(categoriesNames);
 
   return (
     <div className="min-h-screen">
@@ -71,7 +70,9 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
       </div>
       <section className="bg-white py-2 md:py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
         {filteredCategory && (
-          <h2 className="text-4xl radhiumz">Resultados de la búsqueda: {filteredCategory}</h2>
+          <h2 className="text-4xl radhiumz">
+            Resultados de la búsqueda: {filteredCategory}
+          </h2>
         )}
         <TournamentSection
           title="Torneos por Comenzar"
@@ -81,7 +82,7 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({ tournaments
         <TournamentSection
           title="Torneos en Progreso"
           tournaments={filterTournaments("inProgress")}
-          onActionClick={() => handlePlusClick("progress")}
+          onActionClick={() => handlePlusClick("inProgress")}
         />
         <TournamentSection
           title="Torneos Finalizados"
