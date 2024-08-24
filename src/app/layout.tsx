@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GlobalContext>
-        <body className="flex relative sfRegular bg-white-200 min-h-screen flex-col justify-between">
+        <body className="relative flex flex-col justify-between min-h-screen sfRegular bg-white-200 max-h-fit">
           <BackGroudComponent />
           <header className="flex justify-center w-full">
             <NavBarComponent />
