@@ -77,3 +77,11 @@ export interface ICreateTournamentFormData {
   tournamentImg: string;
   category: string;
 }
+
+//? Category Interfaces
+
+export interface ICategoryRes {
+  id: string;
+  name: string;
+  description: string;
+}
