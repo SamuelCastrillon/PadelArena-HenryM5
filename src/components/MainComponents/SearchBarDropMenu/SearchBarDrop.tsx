@@ -53,7 +53,7 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({ onSearch, categorias, on
               />
             </svg>
           </ActionButton>
-          <div className="relative ">
+          <div>
             <select
               value={selectedCategory || ""}
               onChange={handleCategoryChange}
