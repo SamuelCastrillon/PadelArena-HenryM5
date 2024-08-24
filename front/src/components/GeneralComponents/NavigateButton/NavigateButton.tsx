@@ -7,7 +7,11 @@ export interface ButtonProps {
   href: string;
 }
 
-export const NavigateButton: React.FC<ButtonProps> = ({ href, className, children }) => {
+export const NavigateButton: React.FC<ButtonProps> = ({
+  href,
+  className,
+  children,
+}) => {
   return (
     <Link href={href}>
       <button className={className}>{children}</button>

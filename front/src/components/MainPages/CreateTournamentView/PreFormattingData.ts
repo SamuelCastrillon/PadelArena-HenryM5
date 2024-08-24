@@ -45,7 +45,7 @@ export function preFormattingData(data: ICreateTournamentFormData): ICreateTourn
     startTime: data.startTime,
     endTime: data.endTime,
     playingDays: daysToSend ? daysToSend : [],
-    teamsQuantity: data.teamsQuantity,
+    teamsQuantity: Number(data.teamsQuantity),
     matchDuration: data.matchDuration,
     courts: data.courts,
     description: data.description,
