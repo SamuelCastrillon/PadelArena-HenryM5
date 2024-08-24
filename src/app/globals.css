@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* :root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+} */
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 190, 241, 100;
+    --background-end-rgb: 29, 78, 215;
+    /* --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0; */
+/* }
+} */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@font-face {
+  font-family: "sfBold";
+  src: url("../../public/fonts/SFPRODISPLAYBOLD.OTF");
+}
+
+@font-face {
+  font-family: "sfRegular";
+  src: url("../../public/fonts/SFPRODISPLAYREGULAR.OTF");
+}
+@font-face {
+  font-family: "sfMedium";
+  src: url("../../public/fonts/SFPRODISPLAYMEDIUM.OTF");
+}
+@font-face {
+  font-family: "radhiumz";
+  src: url("../../public/fonts/NCS\ Radhiumz.ttf");
+}
+
+.radhiumz {
+  font-family: "radhiumz";
+}
+
+.sfBold {
+  font-family: "sfBold";
+}
+
+.sfRegular {
+  font-family: "sfRegular";
+}
+
+.sfMedium {
+  font-family: "sfMedium";
+}
+
+.bg-image {
+  background-image: url("../../public/images/imageBackground.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
