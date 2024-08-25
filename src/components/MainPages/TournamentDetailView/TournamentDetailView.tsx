@@ -5,13 +5,31 @@ import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import React, { useState } from "react";
 
-const TournamentDetailView: React.FC<ITournament> = (tournament) => {
+interface TournamentDetailViewProps {
+  tournament: ITournament; // Actualiza aquí
+}
+
+const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
+  tournament,
+}) => {
+  // Cambia aquí
   console.log(tournament);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const getImageUrl = (src: string) => {
+    const defaultImage = "/images/default-image.jpg";
+    const isValidUrl =
+      src.startsWith("http://") ||
+      src.startsWith("https://") ||
+      src.startsWith("/");
+    return isValidUrl ? src : defaultImage;
+  };
+
+  console.log(tournament.tournamentFlyer);
 
   const statusColor =
     tournament.inscripciones === "abierta"
@@ -53,7 +71,7 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
       <div className=" w-full md:w-3/4 mx-auto mb-20">
         {/* Información del Torneo */}
         <Card
-          imageUrl={tournament.tournamentFlyer}
+          imageUrl={getImageUrl(tournament.tournamentFlyer ?? "")}
           title={tournament.name}
           description={tournament.description}
           className="rounded-2xl shadow-lime shadow-lg"
@@ -64,8 +82,9 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
             "Hora de finalización": tournament.finishingTime,
             "Canchas disponibles": tournament.courtsAvailable.toString(),
             Categoría: tournament.category.name,
-            Género: tournament.genero ?? "Unknown",
-            Inscripciones: tournament.inscripciones,
+            Género: tournament.genero ?? "Esta por verse",
+            Inscripciones:
+              tournament.inscripciones ?? "Aun en proceso de definir",
           }}
         />
         <div className="w-full mt-8 mb-8 mx-auto justify-center flex">
@@ -123,7 +142,6 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
               <th className="py-2 px-4 border-b">Hora</th>
             </tr>
           </thead>
-          \
           <tbody>
             {tournament.fixture && tournament.fixture.length > 0 ? (
               tournament.fixture.map((match) => (
