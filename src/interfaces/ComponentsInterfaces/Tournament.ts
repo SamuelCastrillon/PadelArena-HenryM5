@@ -12,11 +12,11 @@ export interface ITournament {
   finishingTime: string;
   playingDays: string[];
   description: string;
-  tournamentFlyer: string;
+  tournamentFlyer?: string;
   gallery?: string[];
   courtsAvailable: number;
   inscripciones: "abierta" | "cerrada";
-  status: "upcoming" | "progress" | "finished";
+  status: "por comenzar" | "en progreso" | "finalizado";
   category: ICategories;
   genero?: "femenino" | "masculino";
   teamsQuantity: number;

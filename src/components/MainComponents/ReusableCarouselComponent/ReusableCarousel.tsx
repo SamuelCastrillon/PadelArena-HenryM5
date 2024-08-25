@@ -73,7 +73,7 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
                 />
                 <div className="absolute bottom-0 left-0 w-full text-white p-4 bg-gradient-to-t from-black ">
                   <h3 className="text-xl sfBold text-lime">{image.title}</h3>
-                  <p className="text-sm sfMedium">{image.genero}</p>
+
                   <p className="text-sm sfMedium">{image.categoria}</p>
                   {/* Badge Optional */}
                   <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">

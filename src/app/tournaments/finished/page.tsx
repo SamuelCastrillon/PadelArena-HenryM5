@@ -4,7 +4,7 @@ import TournamentSectionAll from "@/components/MainComponents/TournamentAllGalle
 
 const FinishedTournamentsPage = () => {
   const filteredTournaments = tournamentsHelper.filter(
-    (tournament) => tournament.status === "finished"
+    (tournament) => tournament.status === "finalizado"
   );
 
   return (

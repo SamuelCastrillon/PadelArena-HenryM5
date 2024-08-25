@@ -20,6 +20,17 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  const getImageUrl = (src: string) => {
+    const defaultImage = "/images/default-image.jpg";
+    const isValidUrl =
+      src.startsWith("http://") ||
+      src.startsWith("https://") ||
+      src.startsWith("/");
+    return isValidUrl ? src : defaultImage;
+  };
+
+  console.log(tournament.tournamentFlyer);
+
   const statusColor =
     tournament.inscripciones === "abierta"
       ? "text-lime radhiumz text-5xl md:text-6xl"
@@ -60,7 +71,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
       <div className=" w-full md:w-3/4 mx-auto mb-20">
         {/* Información del Torneo */}
         <Card
-          imageUrl={tournament.tournamentFlyer}
+          imageUrl={getImageUrl(tournament.tournamentFlyer ?? "")}
           title={tournament.name}
           description={tournament.description}
           className="rounded-2xl shadow-lime shadow-lg"

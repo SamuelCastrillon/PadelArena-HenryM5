@@ -1,10 +1,14 @@
 import React from "react";
 import { tournamentsHelper } from "@/helpers/tournamentsData";
 import TournamentSectionAll from "@/components/MainComponents/TournamentAllGallery/TournamenSectionAll";
+import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import { getTournaments } from "@/Server/Tournament/getTournaments";
 
-const UpcomingTournamentsPage = () => {
-  const filteredTournaments = tournamentsHelper.filter(
-    (tournament) => tournament.status === "upcoming"
+const UpcomingTournamentsPage = async () => {
+  const tournaments: ITournament[] = await getTournaments();
+  console.log(tournaments);
+  const filteredTournaments = tournaments.filter(
+    (tournament) => tournament.status === "por comenzar"
   );
 
   return (

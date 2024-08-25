@@ -1,3 +1,5 @@
+import { ICategories } from "./TournamentCategorias";
+
 export interface ICarouselProps {
   images: {
     src: string;
@@ -5,7 +7,6 @@ export interface ICarouselProps {
     title: string;
     href: string;
     categoria: string;
-    genero: string;
     inscripciones: "abierta" | "cerrada";
   }[];
 }

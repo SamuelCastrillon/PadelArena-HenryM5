@@ -11,6 +11,14 @@ const TournamentGallery: React.FC<TournamentGalleryProps> = ({
   tournaments,
 }) => {
   const [hoveredCard, setHoveredCard] = React.useState<number | null>(null);
+  const getImageUrl = (src: string) => {
+    const defaultImage = "/images/default-image.jpg";
+    const isValidUrl =
+      src.startsWith("http://") ||
+      src.startsWith("https://") ||
+      src.startsWith("/");
+    return isValidUrl ? src : defaultImage;
+  };
 
   return (
     <div className="relative grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -24,11 +32,11 @@ const TournamentGallery: React.FC<TournamentGalleryProps> = ({
           onMouseLeave={() => setHoveredCard(null)}
         >
           <TournamentCard
-            src={tournament.tournamentFlyer}
+            src={getImageUrl(tournament.tournamentFlyer ?? "")}
             alt={tournament.name}
             title={tournament.name}
             genero={tournament.genero || "No especificado"}
-            categoria={tournament.category.name}
+            categoria={tournament.category.name || "Sin categoría"}
             inscripciones={tournament.inscripciones}
             href={`/tournaments/${tournament.id}`}
             className={`relative z-10 ${

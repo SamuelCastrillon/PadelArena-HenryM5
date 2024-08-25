@@ -1,10 +1,14 @@
 import React from "react";
 import { tournamentsHelper } from "@/helpers/tournamentsData";
 import TournamentSectionAll from "@/components/MainComponents/TournamentAllGallery/TournamenSectionAll";
+import { getTournaments } from "@/Server/Tournament/getTournaments";
+import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 
-const ProgressTournamentsPage = () => {
-  const filteredTournaments = tournamentsHelper.filter(
-    (tournament) => tournament.status === "progress"
+const ProgressTournamentsPage = async () => {
+  const tournaments: ITournament[] = await getTournaments();
+  console.log(tournaments);
+  const filteredTournaments = tournaments.filter(
+    (tournament) => tournament.status === "en progreso"
   );
 
   return (

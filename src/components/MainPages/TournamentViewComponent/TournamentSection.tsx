@@ -20,23 +20,23 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
 
   // Función para obtener la URL de la imagen, con respaldo en caso de URL inválida
   const getImageUrl = (src: string) => {
-    // Puedes definir aquí tu URL predeterminada local
     const defaultImage = "/images/default-image.jpg";
-
-    // Comprobar si la URL es válida
-    const isValidUrl = src.startsWith("http://") || src.startsWith("https://");
-
+    const isValidUrl =
+      src.startsWith("http://") ||
+      src.startsWith("https://") ||
+      src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
 
   const mapTournamentsToCarousel = (tournaments: ITournament[]) =>
-    tournaments.map((tournament) => ({
-      src: getImageUrl(tournament.tournamentFlyer), // Usar la función para obtener la URL de la imagen
+    tournaments.map((tournament: ITournament) => ({
+      src: getImageUrl(
+        tournament.tournamentFlyer ?? "/images/default-image.jpg"
+      ),
       alt: `${tournament.name} - ${tournament.description}`,
       title: tournament.name,
+      categoria: tournament.category.name || "Sin categoría",
       href: `/tournaments/${tournament.id}`,
-      categoria: tournament.category?.name || "Sin categoría",
-      genero: tournament.genero ?? "Unknown",
       inscripciones: tournament.inscripciones,
     }));
 
