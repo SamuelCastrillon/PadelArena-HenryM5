@@ -16,7 +16,7 @@ export const tournamentsHelper: ITournament[] = [
     ],
     courtsAvailable: 4,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: { id: "1", name: "Segunda", description: "Categoría segunda" },
     genero: "masculino",
     teamsQuantity: 8,
@@ -79,7 +79,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 4,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "1",
             name: "Segunda",
@@ -110,7 +110,7 @@ export const tournamentsHelper: ITournament[] = [
     ],
     courtsAvailable: 3,
     inscripciones: "cerrada",
-    status: "finished",
+    status: "finalizado",
     category: { id: "2", name: "Cuarta", description: "Categoría cuarta" },
     genero: "femenino",
     teamsQuantity: 6,
@@ -157,7 +157,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 3,
           inscripciones: "cerrada",
-          status: "finished",
+          status: "finalizado",
           category: {
             id: "2",
             name: "Cuarta",
@@ -198,7 +198,7 @@ export const tournamentsHelper: ITournament[] = [
     ],
     courtsAvailable: 5,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: { id: "3", name: "Tercera", description: "Categoría tercera" },
     genero: "masculino",
     teamsQuantity: 10,
@@ -249,7 +249,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 5,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "3",
             name: "Tercera",
@@ -279,7 +279,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 6,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: { id: "4", name: "Primera", description: "Categoría primera" },
     genero: "femenino",
     teamsQuantity: 12,
@@ -330,7 +330,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 6,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "4",
             name: "Primera",
@@ -361,7 +361,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -417,7 +417,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
@@ -447,7 +447,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -503,7 +503,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
@@ -533,7 +533,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -589,7 +589,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
@@ -619,7 +619,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -675,7 +675,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
@@ -705,7 +705,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -761,7 +761,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
@@ -792,7 +792,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -848,7 +848,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
@@ -878,7 +878,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "upcoming",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -934,7 +934,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "upcoming",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
@@ -964,7 +964,7 @@ export const tournamentsHelper: ITournament[] = [
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
     inscripciones: "abierta",
-    status: "progress",
+    status: "por comenzar",
     category: {
       id: "5",
       name: "Internacional",
@@ -1020,7 +1020,7 @@ export const tournamentsHelper: ITournament[] = [
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
           inscripciones: "abierta",
-          status: "progress",
+          status: "por comenzar",
           category: {
             id: "5",
             name: "Internacional",
