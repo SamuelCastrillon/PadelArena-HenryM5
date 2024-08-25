@@ -22,36 +22,38 @@ const NavBarComponent: React.FC = () => {
   }, [navigate]);
 
   return (
-    <nav className="flex flex-col w-[95%] gap-2 md:flex-row md:gap-4 mt-8 h-fit px-5 sm:py-0 md:h-[64px] md:w-[95%] backdrop-filter backdrop-blur-lg bg-white/30  border-white/30 justify-between items-center rounded-2xl  text-white radhiumz ">
-      <img src="logoApp.png" alt="Logo" className="w-auto h-[60px] md:h-[85%]" />
-      <ActionButton className="block md:hidden" onClick={handleDropDown}>
+    <nav className="relative flex flex-col sm:flex-row w-[95%] min-h-[60px] gap-2 md:gap-4 mt-8 sm:h-[60px] md:w-[95%] backdrop-filter backdrop-blur-lg bg-white/30  border-white/30 sm:justify-between items-center rounded-2xl text-white radhiumz ">
+      <NavigateButton href="/" className="absolute top-[10px] left-0 sm:static w-fit h-fit">
+        <img src="logoApp.png" alt="Logo" className="w-auto h-[40px] sm:h-[60px]" />
+      </NavigateButton>
+      {/* <hr className="w-[90%] h-[2px] border-none bg-limeBlue-gradient md:hidden" /> */}
+      <ActionButton className="block mt-1 sm:hidden" onClick={handleDropDown}>
         <Bars3Icon className="h-10 font-bold" />
       </ActionButton>
-      <hr className="w-[90%] h-[2px] border-none bg-white sm:hidden" />
       <div
-        className={`flex-col w-full h-[270px] sm:h-fit items-center ${
+        className={`flex-col min-w-fit max-w-full sm:h-[45px] lg:h-fit items-center ${
           dropDawn ? "flex" : "hidden"
-        } gap-4 md:flex-row md:flex`}>
-        <div className="flex flex-col sm:flex-row w-full justify-center items-center h-full">
-          <NavigateButton
-            href="/"
-            className="px-5 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg ">
-            INICIO
-          </NavigateButton>
-          <NavigateButton
-            href="/tournaments"
-            className="px-5 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg">
-            TORNEOS
-          </NavigateButton>
-          <NavigateButton
-            href="#"
-            className="px-5 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg">
-            NOTICIAS
-          </NavigateButton>
-        </div>
-        <hr className="w-[90%] h-[2px] border-none bg-white  hidden sm:flex md:hidden" />
-        <div className="flex flex-col items-center w-full h-[125px] sm:h-fit md:w-fit md:h-full gap-4 sm:flex-row justify-center p-2">
-          {!currentUser ? (
+        } gap-2 sm:flex-row sm:flex justify-center`}>
+        <NavigateButton
+          href="/"
+          className="px-2 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg ">
+          INICIO
+        </NavigateButton>
+        <NavigateButton
+          href="/tournaments"
+          className="px-2 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg">
+          TORNEOS
+        </NavigateButton>
+        <NavigateButton
+          href="#"
+          className="px-2 py-2 rounded-lg h-fit w-fit hover:mb-[2px] hover:shadow-lg">
+          NOTICIAS
+        </NavigateButton>
+      </div>
+      <UserMenuReusable />
+
+      {/* <div className="flex flex-col items-center justify-center w-full gap-4 p-2 h-fit md:w-fit md:h-full sm:flex-row"> */}
+      {/* {!currentUser ? (
             <>
               <NavigateButton
                 href="/login"
@@ -66,9 +68,8 @@ const NavBarComponent: React.FC = () => {
             </>
           ) : (
             <UserMenuReusable />
-          )}
-        </div>
-      </div>
+          )} */}
+      {/* </div> */}
     </nav>
   );
 };
