@@ -10,7 +10,6 @@ interface TournamentGalleryProps {
 const TournamentGallery: React.FC<TournamentGalleryProps> = ({
   tournaments,
 }) => {
-  const [hoveredCard, setHoveredCard] = React.useState<number | null>(null);
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =
@@ -21,30 +20,18 @@ const TournamentGallery: React.FC<TournamentGalleryProps> = ({
   };
 
   return (
-    <div className="relative grid grid-cols-1 md:grid-cols-3 gap-4">
-      {tournaments.map((tournament, index) => (
-        <div
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      {tournaments.map((tournament) => (
+        <TournamentCard
           key={tournament.id}
-          className={`relative ${
-            index % 3 === 0 ? "md:row-span-2" : "md:row-span-1"
-          }`}
-          onMouseEnter={() => setHoveredCard(index)}
-          onMouseLeave={() => setHoveredCard(null)}
-        >
-          <TournamentCard
-            src={getImageUrl(tournament.tournamentFlyer ?? "")}
-            alt={tournament.name}
-            title={tournament.name}
-            genero={tournament.genero || "No especificado"}
-            categoria={tournament.category.name || "Sin categoría"}
-            inscripciones={tournament.inscripciones}
-            href={`/tournaments/${tournament.id}`}
-            className={`relative z-10 ${
-              index % 3 === 0 ? "h-[32rem]" : "h-60"
-            } hover:scale-105 transition-transform duration-300`}
-            isHovered={hoveredCard !== null && hoveredCard !== index}
-          />
-        </div>
+          src={getImageUrl(tournament.tournamentFlyer ?? "")}
+          alt={tournament.name}
+          title={tournament.name}
+          genero={tournament.genero || ""}
+          categoria={tournament.category.name || "Sin categoría"}
+          inscripciones={tournament.inscripciones}
+          href={`/tournaments/${tournament.id}`}
+        />
       ))}
     </div>
   );

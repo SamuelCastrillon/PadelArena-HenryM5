@@ -10,7 +10,7 @@ const TournamentSectionAll: React.FC<TournamentSectionAllProps> = ({
   tournaments,
 }) => {
   return (
-    <section className="bg-glass shadow-glass border border-glass rounded-glass backdrop-blur-glass p-4">
+    <section className=" bg-white p-4">
       {tournaments.length > 0 ? (
         <TournamentGallery tournaments={tournaments} />
       ) : (

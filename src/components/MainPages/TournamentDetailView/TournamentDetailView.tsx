@@ -82,8 +82,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             "Hora de finalización": tournament.finishingTime,
             "Canchas disponibles": tournament.courtsAvailable.toString(),
             Categoría: tournament.category.name,
-            Género: tournament.genero ?? "Unknown",
-            Inscripciones: tournament.inscripciones,
+            Género: tournament.genero ?? "Esta por verse",
+            Inscripciones:
+              tournament.inscripciones ?? "Aun en proceso de definir",
           }}
         />
         <div className="w-full mt-8 mb-8 mx-auto justify-center flex">

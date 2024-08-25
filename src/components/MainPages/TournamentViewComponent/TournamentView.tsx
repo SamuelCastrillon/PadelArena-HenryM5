@@ -7,27 +7,12 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { getCategories } from "@/Server/Category/getCategories";
 import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategorias";
 import { useRouter } from "next/navigation";
+import useTournamentData from "@/hooks/fetchTournamentData";
 
-const TournamentsView: React.FC<{ tournaments?: ITournament[] }> = ({
-  tournaments = [],
-}) => {
+const TournamentsView: React.FC = ({}) => {
+  const { tournaments, categories } = useTournamentData();
   const router = useRouter();
   const [filteredCategory, setFilteredCategory] = useState<string>("");
-  const [categories, setCategories] = useState<ICategories[]>([]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const data: ICategories[] = await getCategories();
-        setCategories(data);
-        console.log("Fetched Categories:", data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
 
   const handleSearch = (selectedCategory: string) => {
     setFilteredCategory(selectedCategory);

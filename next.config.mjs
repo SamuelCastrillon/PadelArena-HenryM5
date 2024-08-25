@@ -6,6 +6,7 @@ const nextConfig = {
       "another-domain.com",
       "images.unsplash.com",
       "www.2playbook.com",
+      "res.cloudinary.com",
     ],
   },
 };
