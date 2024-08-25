@@ -5,7 +5,14 @@ import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import React, { useState } from "react";
 
-const TournamentDetailView: React.FC<ITournament> = (tournament) => {
+interface TournamentDetailViewProps {
+  tournament: ITournament; // Actualiza aquí
+}
+
+const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
+  tournament,
+}) => {
+  // Cambia aquí
   console.log(tournament);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
@@ -123,7 +130,6 @@ const TournamentDetailView: React.FC<ITournament> = (tournament) => {
               <th className="py-2 px-4 border-b">Hora</th>
             </tr>
           </thead>
-          \
           <tbody>
             {tournament.fixture && tournament.fixture.length > 0 ? (
               tournament.fixture.map((match) => (

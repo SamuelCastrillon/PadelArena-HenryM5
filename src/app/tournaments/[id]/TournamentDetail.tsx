@@ -3,25 +3,28 @@ import TournamentDetailView from "@/components/MainPages/TournamentDetailView/To
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { tournamentsHelper } from "@/helpers/tournamentsData";
 import React from "react";
+import { getTournamentById } from "@/Server/Tournament/getTournamentById";
 
 //peticion get tournament/id
 
-export const findTournamentById = (id: string): ITournament | undefined => {
-  return tournamentsHelper.find(
-    (tournament: ITournament) => tournament.id === id
-  );
-};
+// export const findTournamentById = (id: string): ITournament | undefined => {
+//   return tournamentsHelper.find(
+//     (tournament: ITournament) => tournament.id === id
+//   );
+// };
 
 const TournamentDetail = async ({ params }: { params: { id: string } }) => {
-  const tournament = findTournamentById(params.id);
+  console.log(params.id);
+  const tournamentId: ITournament | null = await getTournamentById(params.id);
+  //const tournament = findTournamentById(params.id);
 
-  if (!tournament) {
+  if (!tournamentId) {
     return <div>Torneo no encontrado</div>;
   }
-
+  console.log(tournamentId);
   return (
     <div className=" w-[90%] md:w-3/4 mx-auto p-4 justify-center items-center ">
-      <TournamentDetailView {...tournament} />
+      <TournamentDetailView tournament={tournamentId} />
     </div>
   );
 };

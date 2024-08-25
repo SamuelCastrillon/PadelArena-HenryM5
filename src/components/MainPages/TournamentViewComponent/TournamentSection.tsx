@@ -1,4 +1,3 @@
-// components/TournamentSection.tsx
 import React from "react";
 import Carousel from "@/components/MainComponents/ReusableCarouselComponent/ReusableCarousel";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
@@ -17,19 +16,32 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
   tournaments,
   onActionClick,
 }) => {
+  console.log(tournaments);
+
+  // Función para obtener la URL de la imagen, con respaldo en caso de URL inválida
+  const getImageUrl = (src: string) => {
+    // Puedes definir aquí tu URL predeterminada local
+    const defaultImage = "/images/default-image.jpg";
+
+    // Comprobar si la URL es válida
+    const isValidUrl = src.startsWith("http://") || src.startsWith("https://");
+
+    return isValidUrl ? src : defaultImage;
+  };
+
   const mapTournamentsToCarousel = (tournaments: ITournament[]) =>
     tournaments.map((tournament) => ({
-      src: tournament.tournamentFlyer,
+      src: getImageUrl(tournament.tournamentFlyer), // Usar la función para obtener la URL de la imagen
       alt: `${tournament.name} - ${tournament.description}`,
       title: tournament.name,
       href: `/tournaments/${tournament.id}`,
-      categoria: tournament.category.name,
-      genero: tournament.genero ?? "Unknown", // provide a default value for genero
+      categoria: tournament.category?.name || "Sin categoría",
+      genero: tournament.genero ?? "Unknown",
       inscripciones: tournament.inscripciones,
     }));
 
   return (
-    <div className=" w-[80%] mx-auto mt-10 md:mt-32">
+    <div className="w-[80%] mx-auto mt-10 md:mt-32">
       <div className="flex flex-row items-center justify-between w-[90%] md:w-[60%] mb-4">
         <h2 className="text-2xl md:text-4xl radhiumz mb-4">{title}</h2>
         <ActionButton

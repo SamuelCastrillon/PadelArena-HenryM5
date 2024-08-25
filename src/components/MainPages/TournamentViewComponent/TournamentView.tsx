@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
   tournaments,
 }) => {
+  console.log(tournaments);
   const router = useRouter();
   const [filteredCategory, setFilteredCategory] = React.useState<string>("");
 
@@ -58,6 +59,7 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
     );
   };
 
+  console.log(filterTournaments);
   return (
     <div className="min-h-screen">
       <Header />
@@ -76,17 +78,17 @@ const TournamentsView: React.FC<{ tournaments: ITournament[] }> = ({
         )}
         <TournamentSection
           title="Torneos por Comenzar"
-          tournaments={filterTournaments("upcoming")}
+          tournaments={filterTournaments("por comenzar")}
           onActionClick={() => handlePlusClick("upcoming")}
         />
         <TournamentSection
           title="Torneos en Progreso"
-          tournaments={filterTournaments("inProgress")}
-          onActionClick={() => handlePlusClick("inProgress")}
+          tournaments={filterTournaments("en progreso")}
+          onActionClick={() => handlePlusClick("progress")}
         />
         <TournamentSection
           title="Torneos Finalizados"
-          tournaments={filterTournaments("finished")}
+          tournaments={filterTournaments("finalizado")}
           onActionClick={() => handlePlusClick("finished")}
         />
       </section>

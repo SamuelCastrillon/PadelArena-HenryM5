@@ -16,7 +16,7 @@ export interface ITournament {
   gallery?: string[];
   courtsAvailable: number;
   inscripciones: "abierta" | "cerrada";
-  status: "upcoming" | "inProgress" | "finished";
+  status: "upcoming" | "progress" | "finished";
   category: ICategories;
   genero?: "femenino" | "masculino";
   teamsQuantity: number;
