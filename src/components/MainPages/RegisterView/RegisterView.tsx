@@ -10,12 +10,29 @@ import {
 import HandlerRegister from "@/Server/HandlerFormsFuctions/HandlerRegister";
 import { IUserRegisterReq } from "@/interfaces/RequestInterfaces";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const RegisterView = () => {
   const navigate = useRouter();
   async function RegisterHandeler(data: IUserRegisterReq) {
-    await HandlerRegister(data);
-    navigate.push("/login");
+    try {
+      const response = await HandlerRegister(data);
+
+      Swal.fire({
+        title: "Registro exitoso",
+        text: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      });
+      navigate.push("/login");
+    } catch (error) {
+      Swal.fire({
+        title: "Error al registrarse",
+        text: "Hubo un problema al crear tu cuenta. Por favor, intenta nuevamente.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+      });
+    }
   }
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">

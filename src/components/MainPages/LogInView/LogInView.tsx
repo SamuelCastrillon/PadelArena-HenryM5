@@ -14,6 +14,7 @@ import { IUserLoginReq, IUserLoginRes } from "@/interfaces/RequestInterfaces";
 import { saveCurrentUser } from "@/helpers/localDataManagment";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/GlobalContext";
+import Swal from "sweetalert2";
 
 const LogInView: React.FC = () => {
   const router = useRouter();
@@ -21,14 +22,29 @@ const LogInView: React.FC = () => {
   const [cookies, setCookie] = useCookies(["userSignIn"]);
 
   async function SaveData(data: IUserLoginReq) {
-    const response: IUserLoginRes = await HandlerLogIn(data);
+    try {
+      const response: IUserLoginRes = await HandlerLogIn(data);
 
-    if (response?.token) {
-      console.log(response);
-      saveCurrentUser(response.userClean);
-      setCurrentUser(response.userClean);
-      setCookie("userSignIn", response.token);
-      router.push("/");
+      if (response?.token) {
+        console.log(response);
+        saveCurrentUser(response.userClean);
+        setCurrentUser(response.userClean);
+        setCookie("userSignIn", response.token);
+        Swal.fire({
+          title: "Te has logueado con éxito.",
+          width: 400,
+          padding: "3em",
+        });
+        router.push("/");
+      }
+    } catch (error: any) {
+      Swal.fire({
+        title: "No eres un usuario registrado. Por favor completa el registro.",
+        width: 400,
+        padding: "3em",
+      });
+      router.push("/register");
+      console.error(error);
     }
   }
 
@@ -43,7 +59,7 @@ const LogInView: React.FC = () => {
       />
 
       {/* Navigate Button to create an account */}
-      <div className="flex items-center gap-8">
+      <div className="flex items-center gap-8 m-8">
         <span className="text-white">Necesitas una cuenta?</span>
         <NavigateButton
           href="/register"
