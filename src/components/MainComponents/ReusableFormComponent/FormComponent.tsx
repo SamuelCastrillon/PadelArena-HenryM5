@@ -19,8 +19,11 @@ const FormComponent: React.FC<IFormikConstructor> = ({
 
   return (
     <>
-      <Formik initialValues={iniValues} validationSchema={valiSchema} onSubmit={handelerSubmit}>
-        <Form className="flex flex-col items-center p-5 w-fit md:w-[600px] m-5 bg-gray-300 rounded-md">
+      <Formik
+        initialValues={iniValues}
+        validationSchema={valiSchema}
+        onSubmit={handelerSubmit}>
+        <Form className="flex flex-col items-center p-5 w-fit md:w-[600px] m-5 bg-gray-300 rounded-md backdrop-filter backdrop-blur-lg bg-white/30  border-white/30 justify-between ">
           <div className="flex flex-col flex-wrap items-center gap-2 md:flex-row md:justify-evenly">
             {fieldsForm.length > 0 &&
               fieldsForm.map((field, i) => {
