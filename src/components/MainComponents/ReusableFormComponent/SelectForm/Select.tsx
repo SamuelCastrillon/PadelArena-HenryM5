@@ -5,7 +5,7 @@ import { IDataConstructor } from "../FormInterface";
 const Select: React.FC<IDataConstructor> = ({ LabelText, FieldName, selectOptions }) => {
   return (
     <div className="flex flex-col h-[100px] w-full gap-1">
-      <label className="text-lg font-bold text-customBlue">{LabelText}</label>
+      <label className="text-lg text-slate">{LabelText}</label>
       <Field name={FieldName} as="select" className="p-1 text-gray-800 rounded">
         {selectOptions?.length &&
           selectOptions.map((option, i) => (

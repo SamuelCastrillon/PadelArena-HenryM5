@@ -10,7 +10,7 @@ const CheckboxContainer: React.FC<IDataConstructor> = ({
 }) => {
   return (
     <div className="flex flex-col w-full gap-2 min-h-[100px] h-fit">
-      <label className="text-lg font-bold text-customBlue">{LabelText}</label>
+      <label className="text-lg text-slate">{LabelText}</label>
       <div className="flex flex-wrap items-center gap-2 p-2 bg-white rounded">
         {containerCheckBox?.map((checkBox, i) => {
           return <ChecBoxForm key={i} {...checkBox} />;

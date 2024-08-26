@@ -5,8 +5,8 @@ import Card from "@/components/GeneralComponents/CristalCard/CristalCard";
 const HomeReception: React.FC = () => {
   return (
     <>
-      <div className="flex items-center justify-start w-full global-container min-h-auto">
-        <div className="flex flex-col items-start justify-start p-4 m-4 md:p-8 md:m-8 text-container">
+      <div className="flex items-center justify-start w-full min-h-auto">
+        <div className="flex flex-col items-start justify-start p-4 m-4 mt-16 md:p-8 md:m-8">
           <div className="leading-none text-white tittles radhiumz">
             <h1 className="text-[40px] sm:text-[60px]">TORNEOS</h1>
             <h1 className="text-[28px] sm:text-[40px]">en un solo</h1>
@@ -21,15 +21,15 @@ const HomeReception: React.FC = () => {
           </div>
           <NavigateButton
             href="/tournaments"
-            className="mt-10 p-8 rounded-md bg-[#BEF164] min-w-[150px] px-4 py-2 text-black radhiumz transition-transform transform hover:translate-y-[-2px] hover:shadow-lg">
+            className="mt-10 p-8 rounded-md bg-[#BEF164] min-w-[150px] px-4 py-2 text-black radhiumz hover:translate-y-[-2px] hover:shadow-lg">
             VER TORNEOS
           </NavigateButton>
         </div>
       </div>
-      <div className="Cards-container p-4 sm:p-8 sm:ml-8 flex flex-col lg:flex-row justify-start items-start gap-4 relative sm:w-[80%]">
+      <div className="p-4 sm:p-8 sm:ml-8 flex flex-col lg:flex-row justify-start items-start gap-4 sm:w-[80%]">
         <Card
           href="/"
-          className="transition-transform transform hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
+          className=" hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
           <div className="flex items-center gap-4">
             <img
               src="https://cdn-blog.superprof.com/blog_es/wp-content/uploads/2022/12/ganadores.jpg.webp"
@@ -46,7 +46,7 @@ const HomeReception: React.FC = () => {
 
         <Card
           href="/"
-          className="transition-transform transform hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
+          className=" hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
           <div className="flex items-center gap-4">
             <img
               src="https://padelmagazine.fr/wp-content/uploads/2022/03/Victoire-Reus-Open-WPT-2022-Salazar-Triay.jpg"
@@ -63,7 +63,7 @@ const HomeReception: React.FC = () => {
 
         <Card
           href="/"
-          className="transition-transform transform hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
+          className=" hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
           <div className="flex items-center gap-4">
             <img
               src="https://www.padeladdict.com/wp-content/uploads/2022/08/reparto-premios-pruebas-world-padel-tour-foto-interior.jpg"
