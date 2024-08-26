@@ -53,25 +53,6 @@ const NavBarComponent: React.FC = () => {
         </NavigateButton>
       </div>
       <UserMenuReusable />
-
-      {/* <div className="flex flex-col items-center justify-center w-full gap-4 p-2 h-fit md:w-fit md:h-full sm:flex-row"> */}
-      {/* {!currentUser ? (
-            <>
-              <NavigateButton
-                href="/login"
-                className="px-5 py-2 rounded-lg text-black bg-lime h-fit w-fit bg-lime-300 hover:mb-[2px] hover:shadow-lg">
-                INGRESAR
-              </NavigateButton>
-              <NavigateButton
-                href="/register"
-                className="px-5 py-2 bg-blue-700  rounded-lg h-[40px] w-[200px]  hover:mb-[2px] hover:shadow-lg">
-                CREAR CUENTA
-              </NavigateButton>
-            </>
-          ) : (
-            <UserMenuReusable />
-          )} */}
-      {/* </div> */}
     </nav>
   );
 };

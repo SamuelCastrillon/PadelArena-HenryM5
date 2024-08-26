@@ -30,7 +30,10 @@ export const registerSchema = yup.object({
   address: yup.string().defined("Requerido!"),
   password: yup
     .string()
-    .matches(/^(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/, "Contraseña no es valida")
+    .matches(/^(?=.*[a-z])[A-Za-z\d!@#$%^&*]+$/, "Debe incluir letras Minúsculas")
+    .matches(/^(?=.*[A-Z])[A-Za-z\d!@#$%^&*]+$/, "Debe incluir letras mayúsculas")
+    .matches(/^(?=.*\d)[A-Za-z\d!@#$%^&*]+$/, "Debe Incluir minimo un numero")
+    .matches(/^(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]+$/, "Debe Incluir un caracter especial")
     .min(8, "Demasiado Corto!")
     .max(15, "Demasiado Largo!")
     .defined("Requerido!"),
@@ -53,8 +56,7 @@ export const inputsFormValues: IDataConstructor[] = [
   { LabelText: "Aapellido", FieldType: "text", FieldName: "lastName", FieldPH: "Apellido..." },
   { LabelText: "Email", FieldType: "email", FieldName: "email", FieldPH: "ejemplo@mail.com" },
   {
-    LabelText:
-      "Contraseña (8-15 Caracteres) Debe Incluir Letras Mayúsculas, Minúsculas, Números y Caracteres Especiales",
+    LabelText: "Contraseña (8-15 Caracteres)",
     FieldType: "password",
     FieldName: "password",
     FieldPH: "********",
