@@ -22,7 +22,7 @@ const useTournamentData = () => {
         setCategories(categoriesData);
         setLoading(false);
       } catch (error) {
-        setError("Error fetching data");
+        setError("Error fetching data tournament");
         setLoading(false);
       }
     };
