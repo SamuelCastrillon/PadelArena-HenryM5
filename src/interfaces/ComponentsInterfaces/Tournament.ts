@@ -9,14 +9,14 @@ export interface ITournament {
   startDate: string;
   endDate: string;
   startingTime: string;
-  finishingTime: string;
-  playingDays: string[];
+  finishTime: string;
+  playingDay: string[];
   description: string;
-  tournamentFlyer: string;
+  tournamentFlyer?: string;
   gallery?: string[];
   courtsAvailable: number;
   inscripciones: "abierta" | "cerrada";
-  status: "upcoming" | "inProgress" | "finished";
+  status: "por comenzar" | "en progreso" | "finalizado";
   category: ICategories;
   genero?: "femenino" | "masculino";
   teamsQuantity: number;
