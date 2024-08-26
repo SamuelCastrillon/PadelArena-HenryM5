@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const SuscribeNews: React.FC = () => {
   return (
-    <div className="mt-10 w-screen flex items-center justify-center">
+    <div className="mt-10 w-screen flex  items-center justify-center">
       <div className="bg-white rounded-lg shadow-lg w-3/4 flex overflow-hidden">
         <div className="w-1/2">
           <Image
