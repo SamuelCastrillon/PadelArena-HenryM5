@@ -75,14 +75,14 @@ const NotFoundPage = () => {
           <div className="relative">
             <Link href="/">
               <Image
-                src="/images/foto-samu.webp"
+                src="/images/agus.png"
                 alt="Samu"
                 width={200}
                 height={200}
                 className="rounded-full mb-4 shadow-lg transition-opacity duration-300 hover:opacity-0"
               />
               <Image
-                src="/images/skull.png"
+                src="/images/agus2.png"
                 alt="Samu Hover"
                 width={200}
                 height={200}
