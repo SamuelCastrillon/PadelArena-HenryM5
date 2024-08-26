@@ -56,14 +56,15 @@ const TournamentsView: React.FC = ({}) => {
 
       <section className="bg-white py-2 md:py-6 my-14 min-h-screen w-[90%] mx-auto rounded-3xl">
         {filteredCategory && (
-          <h2 className="text-4xl radhiumz">
-            Resultados de la búsqueda: {filteredCategory}
+          <h2 className="text-4xl radhiumz mt-4 ml-10">
+            Resultados de la búsqueda:{" "}
+            <span className="text-blue-700 underline">{filteredCategory}</span>
           </h2>
         )}
 
         {categories?.length === 0 && (
           <div className="text-center text-gray-500 mt-10">
-            <p>No hay categorías disponibles en este momento.</p>
+            <p>No hay categorías disponibles en este momento!</p>
           </div>
         )}
 

@@ -40,7 +40,7 @@ const UpcomingTournamentsPage = async () => {
         </>
       ) : (
         <div className="flex w-full mx-auto">
-          <p className="text-white">No hay torneos disponibles por comenzar.</p>
+          <p className="text-white">No hay torneos disponibles.</p>
           <NavigateButton
             className="bg-lime text-black sfBold px-4 rounded-lg hover:bg-black hover:text-white
             py-2"
