@@ -1,6 +1,10 @@
-import { ISearchBarProps } from "@/interfaces/ComponentsInterfaces/SearchBar";
+"use client";
 import React from "react";
 import { useState } from "react";
+
+interface ISearchBarProps {
+  onSearch?: (searchTerm: string) => void;
+}
 
 const SearchBar: React.FC<ISearchBarProps> = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,7 +28,10 @@ const SearchBar: React.FC<ISearchBarProps> = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      <button className="p-2 text-black bg-blue-500 rounded-md" onClick={handleSearch}>
+      <button
+        className="p-2 text-black bg-blue-500 rounded-md"
+        onClick={handleSearch}
+      >
         Search
       </button>
     </div>

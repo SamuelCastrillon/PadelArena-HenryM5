@@ -7,8 +7,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-09-01",
     endDate: "2024-09-05",
     startingTime: "10:00 AM",
-    finishingTime: "04:00 PM",
-    playingDays: ["2024-09-01", "2024-09-03", "2024-09-05"],
+    finishTime: "04:00 PM",
+    playingDay: ["2024-09-01", "2024-09-03", "2024-09-05"],
     description: "Torneo de pádel para la categoría de segunda.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: [
@@ -72,8 +72,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-09-01",
           endDate: "2024-09-05",
           startingTime: "10:00 AM",
-          finishingTime: "04:00 PM",
-          playingDays: ["2024-09-01", "2024-09-03", "2024-09-05"],
+          finishTime: "04:00 PM",
+          playingDay: ["2024-09-01", "2024-09-03", "2024-09-05"],
           description: "Torneo de pádel para la categoría de segunda.",
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -101,8 +101,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-07-15",
     endDate: "2024-07-20",
     startingTime: "09:00 AM",
-    finishingTime: "03:00 PM",
-    playingDays: ["2024-07-15", "2024-07-17", "2024-07-20"],
+    finishTime: "03:00 PM",
+    playingDay: ["2024-07-15", "2024-07-17", "2024-07-20"],
     description: "Torneo de pádel para la categoría de cuarta.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: [
@@ -150,8 +150,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-07-15",
           endDate: "2024-07-20",
           startingTime: "09:00 AM",
-          finishingTime: "03:00 PM",
-          playingDays: ["2024-07-15", "2024-07-17", "2024-07-20"],
+          finishTime: "03:00 PM",
+          playingDay: ["2024-07-15", "2024-07-17", "2024-07-20"],
           description: "Torneo de pádel para la categoría de cuarta.",
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -189,8 +189,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-12-01",
     endDate: "2024-12-15",
     startingTime: "11:00 AM",
-    finishingTime: "05:00 PM",
-    playingDays: ["2024-12-01", "2024-12-05", "2024-12-10", "2024-12-15"],
+    finishTime: "05:00 PM",
+    playingDay: ["2024-12-01", "2024-12-05", "2024-12-10", "2024-12-15"],
     description: "Torneo de pádel para la categoría de tercera.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: [
@@ -242,8 +242,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-12-01",
           endDate: "2024-12-15",
           startingTime: "11:00 AM",
-          finishingTime: "05:00 PM",
-          playingDays: ["2024-12-01", "2024-12-05", "2024-12-10", "2024-12-15"],
+          finishTime: "05:00 PM",
+          playingDay: ["2024-12-01", "2024-12-05", "2024-12-10", "2024-12-15"],
           description: "Torneo de pádel para la categoría de tercera.",
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -272,8 +272,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-10-10",
     endDate: "2024-10-20",
     startingTime: "12:00 PM",
-    finishingTime: "06:00 PM",
-    playingDays: ["2024-10-10", "2024-10-12", "2024-10-15", "2024-10-20"],
+    finishTime: "06:00 PM",
+    playingDay: ["2024-10-10", "2024-10-12", "2024-10-15", "2024-10-20"],
     description: "Torneo de pádel para la categoría de primera.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
@@ -323,8 +323,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-10-10",
           endDate: "2024-10-20",
           startingTime: "12:00 PM",
-          finishingTime: "06:00 PM",
-          playingDays: ["2024-10-10", "2024-10-12", "2024-10-15", "2024-10-20"],
+          finishTime: "06:00 PM",
+          playingDay: ["2024-10-10", "2024-10-12", "2024-10-15", "2024-10-20"],
           description: "Torneo de pádel para la categoría de primera.",
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -353,8 +353,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -409,8 +409,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:
@@ -439,8 +439,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -495,8 +495,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:
@@ -525,8 +525,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -581,8 +581,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:
@@ -611,8 +611,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -667,8 +667,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:
@@ -697,8 +697,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -753,8 +753,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:
@@ -784,8 +784,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -840,8 +840,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:
@@ -870,8 +870,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -926,8 +926,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:
@@ -956,8 +956,8 @@ export const tournamentsHelper: ITournament[] = [
     startDate: "2024-11-05",
     endDate: "2024-11-15",
     startingTime: "01:00 PM",
-    finishingTime: "07:00 PM",
-    playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+    finishTime: "07:00 PM",
+    playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
     description:
       "Torneo de pádel internacional con jugadores de todo el mundo.",
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
@@ -1012,8 +1012,8 @@ export const tournamentsHelper: ITournament[] = [
           startDate: "2024-11-05",
           endDate: "2024-11-15",
           startingTime: "01:00 PM",
-          finishingTime: "07:00 PM",
-          playingDays: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
+          finishTime: "07:00 PM",
+          playingDay: ["2024-11-05", "2024-11-07", "2024-11-10", "2024-11-15"],
           description:
             "Torneo de pádel internacional con jugadores de todo el mundo.",
           tournamentFlyer:

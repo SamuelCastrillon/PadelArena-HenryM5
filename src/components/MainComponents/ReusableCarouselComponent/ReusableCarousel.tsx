@@ -2,8 +2,19 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ICarouselProps } from "@/interfaces/ComponentsInterfaces/Carousel";
+
 import HoverBadge from "@/components/GeneralComponents/HoverBadge/HoverBadgeCircular";
+
+interface ICarouselProps {
+  images: {
+    src: string;
+    alt: string;
+    title: string;
+    href: string;
+    categoria: string;
+    inscripciones: "abierta" | "cerrada";
+  }[];
+}
 
 const Carousel: React.FC<ICarouselProps> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
