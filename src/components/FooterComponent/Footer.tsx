@@ -2,12 +2,12 @@ import React from "react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="backdrop-filter backdrop-blur-lg bg-white/30 text-white py-8 mt-0">
-      <div className="container mx-auto px-8">
-        <div className="flex flex-wrap align-center text-center justify-center">
+    <footer className="w-screen py-8 mt-0 text-white  backdrop-filter backdrop-blur-lg bg-white/30">
+      <div className="container px-8 mx-auto">
+        <div className="flex flex-wrap justify-center text-center align-center">
           {/* Sección de enlaces rápidos */}
-          <div className="w-full md:w-1/3 lg:w-1/4 mb-6">
-            <h2 className="font-medium text-lg mb-4 radhiumz">ENLACES</h2>
+          <div className="w-full mb-6 md:w-1/3 lg:w-1/4">
+            <h2 className="mb-4 text-lg font-medium radhiumz">ENLACES</h2>
             <ul className="space-y-2">
               <li>
                 <a href="/" className="hover:underline">
@@ -33,8 +33,8 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Sección de contacto */}
-          <div className="w-full md:w-1/3 lg:w-1/4 mb-6">
-            <h2 className="font-medium text-lg mb-4 radhiumz">CONTACTÁNOS</h2>
+          <div className="w-full mb-6 md:w-1/3 lg:w-1/4">
+            <h2 className="mb-4 text-lg font-medium radhiumz">CONTACTÁNOS</h2>
             <ul className="space-y-2">
               <li>
                 Email:{" "}
@@ -53,9 +53,9 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Sección de redes sociales */}
-          <div className="w-full md:w-1/3 lg:w-1/4 mb-6">
-            <h2 className="font-medium text-lg mb-4 radhiumz">SEGUINOS</h2>
-            <ul className="flex space-x-4 justify-center">
+          <div className="w-full mb-6 md:w-1/3 lg:w-1/4">
+            <h2 className="mb-4 text-lg font-medium radhiumz">SEGUINOS</h2>
+            <ul className="flex justify-center space-x-4">
               <li>
                 <a
                   href="https://facebook.com"
@@ -117,9 +117,8 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        <div className="mt-8 text-center text-white font-Medium text-sm">
-          &copy; {new Date().getFullYear()} Padel Arena. Todos los derechos
-          reservados.
+        <div className="mt-8 text-sm text-center text-white font-Medium">
+          &copy; {new Date().getFullYear()} Padel Arena. Todos los derechos reservados.
         </div>
       </div>
     </footer>
