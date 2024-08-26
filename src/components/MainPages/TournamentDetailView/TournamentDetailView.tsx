@@ -35,8 +35,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
   const statusColor =
     tournament.inscripciones === "abierta"
-      ? "text-lime radhiumz text-5xl md:text-6xl"
-      : "text-red-500 radhiumz text-5xl md:text-6xl";
+      ? "text-lime radhiumz text-4xl md:text-6xl uppercase"
+      : "text-red-500 radhiumz text-4xl md:text-6xl uppercase";
   const statusText =
     tournament.inscripciones === "abierta"
       ? "Inscripción Abierta"
@@ -44,7 +44,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
   return (
     <div className="flex flex-col items-center mt-20">
-      <div className={`p-4 mb-4 w-full text-2xl text-center ${statusColor}`}>
+      <div className={` mb-4  w-full text-center ${statusColor}`}>
         {statusText}
       </div>
       <div className="mb-10 flex items-center">
