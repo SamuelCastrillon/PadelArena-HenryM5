@@ -49,7 +49,7 @@ const TournamentsView: React.FC = ({}) => {
           categorias={categories.map((cat) => cat.name)}
         />
       </div>
-      <section className="bg-white py-2 md:py-6 mt-4 mb-14 min-h-screen w-[90%] mx-auto rounded-3xl">
+      <section className="bg-white py-2 md:py-6 my-14 min-h-screen w-[90%] mx-auto rounded-3xl">
         {filteredCategory && (
           <h2 className="text-4xl radhiumz">
             Resultados de la búsqueda: {filteredCategory}
