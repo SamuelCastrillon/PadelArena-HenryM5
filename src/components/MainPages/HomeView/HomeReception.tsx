@@ -26,10 +26,10 @@ const HomeReception: React.FC = () => {
           </NavigateButton>
         </div>
       </div>
-      <div className="Cards-container p-4 sm:p-8 sm:ml-8 flex flex-col lg:flex-row justify-start items-start gap-4 relative sm:w-[80%]">
+      <div className="p-4 sm:p-8 sm:ml-8 flex flex-col lg:flex-row justify-start items-start gap-4 sm:w-[80%]">
         <Card
           href="/"
-          className="transition-transform transform hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
+          className=" hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
           <div className="flex items-center gap-4">
             <img
               src="https://cdn-blog.superprof.com/blog_es/wp-content/uploads/2022/12/ganadores.jpg.webp"
@@ -46,7 +46,7 @@ const HomeReception: React.FC = () => {
 
         <Card
           href="/"
-          className="transition-transform transform hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
+          className=" hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
           <div className="flex items-center gap-4">
             <img
               src="https://padelmagazine.fr/wp-content/uploads/2022/03/Victoire-Reus-Open-WPT-2022-Salazar-Triay.jpg"
@@ -63,7 +63,7 @@ const HomeReception: React.FC = () => {
 
         <Card
           href="/"
-          className="transition-transform transform hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
+          className=" hover:translate-y-[-2px] hover:shadow-lg w-[345px] sm:w-[370px] h-[160px] hover:bg-lime/80 rounded-lg overflow-hidden flex items-center">
           <div className="flex items-center gap-4">
             <img
               src="https://www.padeladdict.com/wp-content/uploads/2022/08/reparto-premios-pruebas-world-padel-tour-foto-interior.jpg"

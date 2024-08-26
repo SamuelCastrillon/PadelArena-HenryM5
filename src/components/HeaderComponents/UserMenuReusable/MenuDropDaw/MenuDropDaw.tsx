@@ -12,7 +12,7 @@ import { IMenuReusableStatus } from "../UserMenuReusableInterfaces";
 const MenuDropDaw: React.FC<IMenuReusableStatus> = ({ menuStatus, handlerLogOut }) => {
   return (
     <div
-      className={`absolute top-[60px] sm:top-[68px] -right-[20px] sm:-right-4 ${
+      className={`absolute top-[60px] sm:top-[68px] -right-[20px]  sm:sm:right-0 ${
         menuStatus ? "block" : "hidden"
       } z-50`}>
       <menu className="flex flex-col w-screen sm:w-[360px] h-auto backdrop-filter-glass text-slate bg-slate border-glass border-2 shadow-glass rounded-2xl p-8 sfRegular">
