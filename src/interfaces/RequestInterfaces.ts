@@ -34,6 +34,7 @@ export interface IUserLogin {
   city: string;
   address: string;
   profileImg: string;
+  role?: "admin" | "jugador";
 }
 
 //? Tournament Interfaces
