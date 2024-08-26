@@ -7,6 +7,11 @@ const nextConfig = {
       "images.unsplash.com",
       "www.2playbook.com",
       "res.cloudinary.com",
+      "parade.com",
+      "via.placeholder.com",
+      "flowbite.s3.amazonaws.com",
+      "img.redbull.com",
+      "resizer.glanacion.com",
     ],
   },
 };

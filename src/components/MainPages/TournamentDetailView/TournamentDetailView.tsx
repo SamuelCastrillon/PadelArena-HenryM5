@@ -3,19 +3,16 @@ import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
-
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import React, { useState } from "react";
 
 interface TournamentDetailViewProps {
-  tournament: ITournament; // Actualiza aquí
+  tournament: ITournament;
 }
 
 const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   tournament,
 }) => {
-  // Cambia aquí
-  console.log(tournament);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
 
@@ -31,8 +28,6 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
     return isValidUrl ? src : defaultImage;
   };
 
-  console.log(tournament.tournamentFlyer);
-
   const statusColor =
     tournament.inscripciones === "abierta"
       ? "text-lime radhiumz text-4xl md:text-6xl uppercase"
@@ -44,9 +39,12 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
   return (
     <div className="flex flex-col items-center mt-20">
-      <div className={` mb-4  w-full text-center ${statusColor}`}>
+      {/* Status del Torneo */}
+      <div className={`mb-4 w-full text-center ${statusColor}`}>
         {statusText}
       </div>
+
+      {/* Botón de Navegación */}
       <div className="mb-10 flex items-center">
         <NavigateButton href="/tournaments" className="flex items-center gap-2">
           <svg
@@ -64,12 +62,14 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
               d="M5 1L1 5l4 4"
             />
           </svg>
-          <h1 className="radhiumz text-white  text-2xl lg:text-4xl">
-            vuelve a torneos
+          <h1 className="radhiumz text-white text-2xl lg:text-4xl">
+            Vuelve a torneos
           </h1>
         </NavigateButton>
       </div>
-      <div className=" w-full md:w-3/4 mx-auto mb-20">
+
+      {/* Detalle del Torneo */}
+      <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto mb-20">
         <Card
           imageUrl={getImageUrl(tournament.tournamentFlyer ?? "")}
           title={tournament.name}
@@ -81,32 +81,37 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             "Hora de inicio": formatTime(tournament.startingTime),
             "Hora de finalización": formatTime(tournament.finishTime),
             "Canchas disponibles": tournament.courtsAvailable.toString(),
-            "Dias de juego": tournament.playingDay?.toString(),
+            "Días de juego": tournament.playingDay?.toString(),
             Categoría: tournament.category.name,
             Género: tournament.genero ?? "Esta por verse",
             Inscripciones:
               tournament.inscripciones ?? "Aun en proceso de definir",
           }}
         />
-        <div className="w-full mt-8 mb-8 mx-auto justify-center flex">
-          {tournament.inscripciones === "abierta" && (
+
+        {/* Botón de Inscripción */}
+        {tournament.inscripciones === "abierta" && (
+          <div className="w-full mt-8 mb-8 mx-auto flex justify-center">
             <NavigateButton
               href="/tournaments/register"
-              className="w-full py-4 px-10 rounded-xl h-12 bg-lime text-black radhiumz"
+              className="w-full max-w-xs py-4 px-10 rounded-xl h-12 bg-lime text-black radhiumz"
             >
               Inscribite
             </NavigateButton>
-          )}
-        </div>
-        <div className="w-full mt-4 mx-auto justify-center flex">
+          </div>
+        )}
+
+        {/* Botón para Fixture */}
+        <div className="w-full mt-4 mx-auto flex justify-center">
           <button
             onClick={openModal}
-            className="w-full py-4 px-10 h-12 bg-blue-500 text-white radhiumz"
+            className="w-full max-w-xs py-4 px-10 h-12 bg-lime text-black radhiumz"
           >
-            Fixture
+            Ver Fixture
           </button>
         </div>
       </div>
+
       {/* Animación de bolas verdes cuando el modal está abierto */}
       {isModalOpen && (
         <div className="fixed inset-0 z-40 pointer-events-none">
@@ -123,6 +128,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
           ))}
         </div>
       )}
+
       {/* Modal del Fixture */}
       <ReusableModal
         isOpen={isModalOpen}
@@ -131,12 +137,12 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         backgroundColor="bg-white/70"
         textColor="text-black"
         className="shadow-lg shadow-lime"
-        bgImageUrl={tournament.tournamentFlyer} // Imagen de fondo con efecto animado
+        bgImageUrl={tournament.tournamentFlyer}
       >
-        <h2 className="text-4xl  radhiumz text-lime">{`Fixture: ${tournament.name}`}</h2>
+        <h2 className="text-4xl radhiumz text-lime">{`Fixture: ${tournament.name}`}</h2>
         <hr className="h-1 mb-4 bg-lime"></hr>
-        <table className="w-full min-w-max table-auto text-left bg-white ">
-          <thead className=" bg-blue-gray-50 p-4 radhiumz text-white bg-zinc-800">
+        <table className="w-full min-w-max table-auto text-left bg-white">
+          <thead className="bg-zinc-800 text-white">
             <tr>
               <th className="py-2 px-4 border-b">Etapa</th>
               <th className="py-2 px-4 border-b">Fecha</th>
