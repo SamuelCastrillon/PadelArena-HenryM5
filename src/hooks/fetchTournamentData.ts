@@ -1,4 +1,3 @@
-// hooks/useTournamentData.ts
 "use client";
 import { useState, useEffect } from "react";
 import { getTournaments } from "@/Server/Tournament/getTournaments";

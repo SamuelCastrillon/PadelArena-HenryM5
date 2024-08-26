@@ -1,5 +1,5 @@
 import React from "react";
-import { tournamentsHelper } from "@/helpers/tournamentsData";
+
 import TournamentSectionAll from "@/components/MainComponents/TournamentAllGallery/TournamenSectionAll";
 import { getTournaments } from "@/Server/Tournament/getTournaments";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
@@ -20,7 +20,7 @@ const ProgressTournamentsPage = async () => {
 
       {filteredTournaments.length > 0 ? (
         <>
-          <div className="flex w-full mx-auto ">
+          <div className="flex w-full mx-auto my-20 ">
             <div className="flex">
               <p className="text-white text-xl md:text-2xl sfRegular mb-10">
                 Aun estas a tiempo de anotarte!
