@@ -9,8 +9,8 @@ export interface ITournament {
   startDate: string;
   endDate: string;
   startingTime: string;
-  finishingTime: string;
-  playingDays: string[];
+  finishTime: string;
+  playingDay: string[];
   description: string;
   tournamentFlyer?: string;
   gallery?: string[];
