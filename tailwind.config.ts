@@ -22,19 +22,19 @@ const config: Config = {
         slate: "#f8fafc",
       },
       boxShadow: {
-        glass: "0 4px 30px rgba(0, 0, 0, 0.1)", // Box shadow for glass effect
+        glass: "0 4px 30px rgba(0, 0, 0, 0.1)",
       },
       borderRadius: {
-        glass: "16px", // Border radius for glass effect
+        glass: "16px",
       },
       borderColor: {
-        glass: "rgba(119, 119, 119, 0.3)", // Border color for glass effect
+        glass: "rgba(119, 119, 119, 0.3)",
       },
       backdropBlur: {
         glass: "6.1px", // Backdrop blur for glass effect
       },
       backdropFilter: {
-        glass: "blur(6.1px)", // Backdrop filter for glass effect
+        glass: "blur(6.1px)",
       },
       keyframes: {
         scroll: {

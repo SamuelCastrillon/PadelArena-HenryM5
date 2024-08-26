@@ -9,7 +9,7 @@ import { deletCurrentUser } from "@/helpers/localDataManagment";
 import { useCookies } from "react-cookie";
 
 const UserMenuReusable: React.FC<IMenuReusableData> = () => {
-  const { setCurrentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [menuStatus, setMenuStatus] = React.useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
 
@@ -28,11 +28,18 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
   }, [navigate]);
 
   return (
-    <div className=" flex justify-center gap-5 h-fit">
-      <button type="button" className="rounded-[50%]" onClick={() => setMenuStatus(!menuStatus)}>
+    <div className="absolute top-[10px] right-[10px] flex justify-center gap-5 sm:static h-fit sm:w-fit">
+      <button
+        type="button"
+        className="rounded-[50%] sm:mr-[10px]"
+        onClick={() => setMenuStatus(!menuStatus)}>
         <UserCircleIcon className={`w-[40px] h-auto ${menuStatus ? "text-lime" : "text-white"}`} />
       </button>
-      <MenuDropDaw menuStatus={menuStatus} handlerLogOut={handlerLogOut} />
+      <MenuDropDaw
+        menuStatus={menuStatus}
+        handlerLogOut={handlerLogOut}
+        currentUser={currentUser}
+      />
     </div>
   );
 };

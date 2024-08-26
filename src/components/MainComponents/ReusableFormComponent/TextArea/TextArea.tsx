@@ -5,7 +5,7 @@ import { IDataConstructor } from "../FormInterface";
 const TextArea: React.FC<IDataConstructor> = ({ LabelText, FieldType, FieldName, FieldPH }) => {
   return (
     <div className="flex flex-col h-[100px] w-full gap-1">
-      <label className="text-lg font-bold text-customBlue">{LabelText}</label>
+      <label className="text-lg text-slate">{LabelText}</label>
       <Field
         name={FieldName}
         type={FieldType}
