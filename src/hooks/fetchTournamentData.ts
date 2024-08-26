@@ -29,7 +29,7 @@ const useTournamentData = () => {
 
     fetchData();
   }, []);
-  console.log(tournaments, categories);
+  console.log(tournaments, categories, loading, error);
   return { tournaments, categories, loading, error };
 };
 
