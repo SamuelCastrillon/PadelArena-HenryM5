@@ -93,7 +93,7 @@ const NotFoundPage = () => {
           <h3 className="text-2xl radhiumz mb-2">Agustin</h3>
           <p className="text-center text-gray-300 bg-black/40 px-6 py-4 rounded-xl">
             La mente maestra detrás de las entidades, pero esta página se les
-            escapó. ¡Promete un mejor diseño la próxima vez!
+            escapó. ¡Promete mejores funcionalidades la próxima vez!
           </p>
         </div>
 
