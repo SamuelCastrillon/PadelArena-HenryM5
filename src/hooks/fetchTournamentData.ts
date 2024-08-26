@@ -34,3 +34,5 @@ const useTournamentData = () => {
 };
 
 export default useTournamentData;
+
+//para llevarme la info
