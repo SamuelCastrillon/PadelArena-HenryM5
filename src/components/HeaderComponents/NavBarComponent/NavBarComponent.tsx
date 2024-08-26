@@ -23,16 +23,8 @@ const NavBarComponent: React.FC = () => {
 
   return (
     <nav className="relative flex flex-col sm:flex-row w-[95%] min-h-[60px] gap-2 md:gap-4 mt-8 sm:h-[60px] md:w-[95%] backdrop-filter backdrop-blur-lg bg-white/30  border-white/30 sm:justify-between items-center rounded-2xl text-white radhiumz ">
-      <NavigateButton
-        href="/"
-        className="absolute top-[10px] left-0 sm:static w-fit h-fit sm:mt-[6px]">
-        <Image
-          src="/logoApp.png"
-          alt="Logo"
-          className="w-auto sm:h-[60px]"
-          width={150}
-          height={150}
-        />
+      <NavigateButton href="/" className="absolute top-0 left-0 sm:static w-fit h-fit sm:mt-[6px]">
+        <Image src="/logoApp.png" alt="Logo" className="w-auto h-[60px]" width={150} height={150} />
       </NavigateButton>
       {/* <hr className="w-[90%] h-[2px] border-none bg-limeBlue-gradient md:hidden" /> */}
       <ActionButton className="block mt-1 sm:hidden" onClick={handleDropDown}>
