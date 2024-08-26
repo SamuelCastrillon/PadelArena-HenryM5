@@ -2,7 +2,7 @@
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import { Bars3Icon } from "@heroicons/react/20/solid";
-
+import Image from "next/image";
 import React, { useContext, useEffect } from "react";
 import UserMenuReusable from "../UserMenuReusable/UserMenuReusable";
 import { AuthContext } from "@/context/GlobalContext";
@@ -27,10 +27,12 @@ const NavBarComponent: React.FC = () => {
         href="/"
         className="absolute top-[10px] left-0 sm:static w-fit h-fit sm:mt-[6px]"
       >
-        <img
-          src="logoApp.png"
+        <Image
+          src="/logoApp.png"
           alt="Logo"
-          className="w-auto h-[40px] sm:h-[60px]"
+          className="w-auto sm:h-[60px]"
+          width={150}
+          height={150}
         />
       </NavigateButton>
       {/* <hr className="w-[90%] h-[2px] border-none bg-limeBlue-gradient md:hidden" /> */}
