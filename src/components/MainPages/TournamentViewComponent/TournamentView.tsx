@@ -64,7 +64,7 @@ const TournamentsView: React.FC = ({}) => {
 
         {categories?.length === 0 && (
           <div className="text-center text-gray-500 mt-10">
-            <p>No hay categorías disponibles en este momento.</p>
+            <p>No hay categorías disponibles en este momento!</p>
           </div>
         )}
 
