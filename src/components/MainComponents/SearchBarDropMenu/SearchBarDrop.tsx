@@ -1,12 +1,12 @@
 "use client";
 
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
-
+import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import React, { useState } from "react";
 
 interface ISearchBarDropProps {
   onSearch: (category: string) => void;
-  categorias: string[]; // Cambiado de [] a string[]
+  categorias: string[];
   onClear: () => void;
 }
 
@@ -19,16 +19,23 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
     undefined
   );
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newCategory = e.target.value;
     setSelectedCategory(newCategory);
 
-    // Si la categoría seleccionada es válida, actualiza el campo de búsqueda
     if (newCategory) {
       setSearchTerm(newCategory);
     }
   };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = e.target.value;
+    setSearchTerm(newSearchTerm);
+    setSelectedCategory(undefined); // Reset the selected category when typing manually
+  };
+
   const handleClearSearch = () => {
     setSearchTerm("");
     setSelectedCategory(undefined);
@@ -36,11 +43,19 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({
   };
 
   const handleSearch = () => {
-    // Asigna una categoría predeterminada si no se ha seleccionado ninguna
-    const categoryToSearch = selectedCategory || categorias[0];
+    const categoryToSearch = searchTerm || categorias[0] || "";
+    const lowerCaseCategoryToSearch = categoryToSearch.toLowerCase();
+    const lowerCaseCategorias = categorias.map((category) =>
+      category.toLowerCase()
+    );
+
+    if (!lowerCaseCategorias.includes(lowerCaseCategoryToSearch)) {
+      setIsModalOpen(true);
+      return;
+    }
+
     onSearch(categoryToSearch);
   };
-
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto">
       <div className="flex w-full mb-4">
@@ -48,14 +63,14 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({
           <input
             type="text"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleInputChange}
             placeholder="Buscar..."
             className="w-full px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           ></input>
 
           <ActionButton
             onClick={handleClearSearch}
-            className="px-4 py-2 text-black rounded-full  hover:scale-125"
+            className="px-4 py-2 text-black rounded-full hover:scale-125"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,6 +83,7 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({
               />
             </svg>
           </ActionButton>
+
           <div>
             <select
               value={selectedCategory || ""}
@@ -93,6 +109,21 @@ const SearchBarDrop: React.FC<ISearchBarDropProps> = ({
       >
         Buscar
       </button>
+      {/* Modal para mostrar alerta */}
+      <ReusableModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        backgroundColor="bg-red-500" // Color de fondo del modal
+        textColor="text-white" // Color del texto del modal
+      >
+        <p>Por favor, ingresa una categoría válida.</p>
+        <button
+          className="mt-4 px-4 py-2 bg-white text-red-500 rounded-lg"
+          onClick={() => setIsModalOpen(false)}
+        >
+          Cerrar
+        </button>
+      </ReusableModal>
     </div>
   );
 };
