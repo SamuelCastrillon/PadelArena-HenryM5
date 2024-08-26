@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-const NotFound = () => {
+const NotFound: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-white px-4 ">
       {/* Header Section */}
