@@ -1,4 +1,5 @@
-import React from "react";
+import { AuthContext } from "@/context/GlobalContext";
+import React, { useContext } from "react";
 
 interface IPayment {
   orderId: string;
@@ -10,17 +11,20 @@ interface IPayment {
 const PaymentHistoryPanel: React.FC<{ payments: IPayment[] }> = ({
   payments,
 }) => {
+  const { currentUser } = useContext(AuthContext);
   return (
     <div className="bg-white p-6 rounded-lg">
-      <h3 className="text-lg font-semibold mb-4">Payment Overview</h3>
+      <h3 className="text-lg font-semibold mb-4">
+        Historial de Pagos de:{" "}
+        <span className="uppercase radhiumz">{currentUser?.name}</span>
+      </h3>
       <table className="w-full table-auto">
         <thead>
           <tr>
-            <th className="px-4 py-2 text-left">Order ID</th>
+            <th className="px-4 py-2 text-left">Id de Orden</th>
             <th className="px-4 py-2 text-left">Status</th>
-            <th className="px-4 py-2 text-left">Total Amount</th>
-            <th className="px-4 py-2 text-left">Order Date</th>
-            <th className="px-4 py-2 text-left">Options</th>
+            <th className="px-4 py-2 text-left">Importe Total</th>
+            <th className="px-4 py-2 text-left">Fecha de la Orden</th>
           </tr>
         </thead>
         <tbody>
@@ -38,11 +42,6 @@ const PaymentHistoryPanel: React.FC<{ payments: IPayment[] }> = ({
               </td>
               <td className="px-4 py-2">${payment.amount}</td>
               <td className="px-4 py-2">{payment.date}</td>
-              <td className="px-4 py-2">
-                <button className="text-blue-500 hover:underline">
-                  Options
-                </button>
-              </td>
             </tr>
           ))}
         </tbody>
