@@ -15,7 +15,7 @@ const PaymentHistoryPanel: React.FC<{ payments: IPayment[] }> = ({
   return (
     <div className="bg-white p-6 rounded-lg">
       <h3 className="text-lg font-semibold mb-4">
-        Historial de Pagos de:{" "}
+        Historial de Pagos de el usuario:{" "}
         <span className="uppercase radhiumz">{currentUser?.name}</span>
       </h3>
       <table className="w-full table-auto">
