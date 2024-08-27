@@ -2,6 +2,8 @@ import { IUserLogin } from "@/interfaces/RequestInterfaces";
 
 const userKeyDefiny = "dataCurrentUser";
 export function saveCurrentUser(newCurrentUser: IUserLogin): void {
+  //LO USO PARA GUARDAR LA RESPUESTA DEL POST NEXT AUTH DEL BACK
+  //ES MEJOR GUARDARLO EN COOKIES NO EN LOCAL STORAGE
   const dataToSreing = JSON.stringify(newCurrentUser);
   localStorage.setItem(userKeyDefiny, dataToSreing);
 }
