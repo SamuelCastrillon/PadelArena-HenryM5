@@ -47,23 +47,23 @@ const TournamentLineChart = ({
       {
         label: "Torneos Ganados",
         data: gano,
-        borderColor: "#4CAF50",
-        backgroundColor: "rgba(76, 175, 80, 0.2)",
+        borderColor: "#00FF00", // Lime
+        backgroundColor: "rgba(0, 255, 0, 0.2)", // Lime con transparencia
         tension: 0.4,
         fill: true,
-        pointBackgroundColor: "#4CAF50",
-        pointBorderColor: "#4CAF50",
+        pointBackgroundColor: "#00FF00", // Lime
+        pointBorderColor: "#00FF00", // Lime
         pointHoverRadius: 8,
       },
       {
         label: "Torneos Perdidos",
         data: perdio,
-        borderColor: "#F44336",
-        backgroundColor: "rgba(244, 67, 54, 0.2)",
+        borderColor: "#0000FF", // Blue
+        backgroundColor: "rgba(0, 0, 255, 0.2)", // Blue con transparencia
         tension: 0.4,
         fill: true,
-        pointBackgroundColor: "#F44336",
-        pointBorderColor: "#F44336",
+        pointBackgroundColor: "#0000FF", // Blue
+        pointBorderColor: "#0000FF", // Blue
         pointHoverRadius: 8,
       },
     ],
@@ -75,7 +75,7 @@ const TournamentLineChart = ({
       legend: {
         position: "top" as const,
         labels: {
-          color: "#333",
+          color: "white",
           font: {
             size: 14,
             family: "sfRegular",
@@ -86,11 +86,11 @@ const TournamentLineChart = ({
       title: {
         display: true,
         text: "Estadísticas de Torneos Ganados y Perdidos",
-        color: "#1F2937",
+        color: "white",
         font: {
           size: 20,
           family: "radhiumz",
-          weight: "bold" as const, // Corregido el tipo de 'weight'
+          weight: "bold" as const,
         },
         padding: {
           top: 20,
@@ -100,8 +100,9 @@ const TournamentLineChart = ({
       tooltip: {
         backgroundColor: "rgba(0, 0, 0, 0.8)",
         titleFont: {
+          family: "sfRegular",
           size: 16,
-          weight: "bold" as const, // Corregido el tipo de 'weight'
+          weight: "bold" as const,
         },
         bodyFont: {
           size: 14,
@@ -120,10 +121,10 @@ const TournamentLineChart = ({
           display: false,
         },
         ticks: {
-          color: "#4B5563",
+          color: "white",
           font: {
             size: 12,
-            family: "Arial, sans-serif",
+            family: "sfRegular",
           },
         },
       },
@@ -133,10 +134,10 @@ const TournamentLineChart = ({
           color: "#D1D5DB",
         },
         ticks: {
-          color: "#4B5563",
+          color: "white",
           font: {
             size: 12,
-            family: "Arial, sans-serif",
+            family: "sfRegular",
           },
           padding: 10,
         },
@@ -145,7 +146,7 @@ const TournamentLineChart = ({
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-4 bg-white rounded-lg shadow-md">
+    <div className="w-full max-w-lg mx-auto p-4 bg-black/30 rounded-lg shadow-md">
       <Line data={data} options={options} />
     </div>
   );

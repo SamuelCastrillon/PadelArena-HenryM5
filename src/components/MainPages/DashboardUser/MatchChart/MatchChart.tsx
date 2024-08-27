@@ -25,7 +25,7 @@ const MatchStatsChart = ({
 
   return (
     <div className="w-full max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-xl font-semibold mb-4 text-center">
+      <h3 className="text-xl radhiumz mb-4 text-center">
         Estadísticas de Partidos
       </h3>
       <Pie data={data} />
