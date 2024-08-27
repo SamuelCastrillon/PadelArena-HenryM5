@@ -87,3 +87,9 @@ export interface ICategoryRes {
   name: string;
   description: string;
 }
+
+export interface IUserGoogle {
+  name: string;
+  email: string;
+  image: string;
+}
