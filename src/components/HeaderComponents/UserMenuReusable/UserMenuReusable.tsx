@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { AuthContext } from "@/context/GlobalContext";
 import { deletCurrentUser } from "@/helpers/localDataManagment";
 import { useCookies } from "react-cookie";
-
+import { signOut } from "next-auth/react";
 const UserMenuReusable: React.FC<IMenuReusableData> = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [menuStatus, setMenuStatus] = React.useState(false);
@@ -18,6 +18,7 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
 
   async function handlerLogOut() {
     removeCookie("userSignIn");
+    signOut();
     setCurrentUser(null);
     await deletCurrentUser();
     router.push("/login");
@@ -32,8 +33,13 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
       <button
         type="button"
         className="rounded-[50%] sm:mr-[10px]"
-        onClick={() => setMenuStatus(!menuStatus)}>
-        <UserCircleIcon className={`w-[40px] h-auto ${menuStatus ? "text-lime" : "text-white"}`} />
+        onClick={() => setMenuStatus(!menuStatus)}
+      >
+        <UserCircleIcon
+          className={`w-[40px] h-auto ${
+            menuStatus ? "text-lime" : "text-white"
+          }`}
+        />
       </button>
       <MenuDropDaw
         menuStatus={menuStatus}
