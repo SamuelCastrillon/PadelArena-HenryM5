@@ -3,9 +3,7 @@ import { IUserGoogle } from "@/interfaces/RequestInterfaces";
 
 export const postNextAuthSession = async (user: IUserGoogle) => {
   try {
-    const response = await axiosInstance.post("/auth/signin", {
-      user,
-    });
+    const response = await axiosInstance.post("/auth/google", user);
     console.log(response.data);
     return response.data;
   } catch (error) {
