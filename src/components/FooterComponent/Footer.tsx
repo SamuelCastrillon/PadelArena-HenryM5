@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
               <li>
                 Email:{" "}
                 <a href="mailto:info@ecommerce.com" className="hover:underline">
-                  info@ecommerce.com
+                  arenapaddle@gmail.com
                 </a>
               </li>
               <li>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
                   +123 456 7890
                 </a>
               </li>
-              <li>Address: St. 123, SDE City, Argentina</li>
+              <li>Address: St. 123, Argentina</li>
             </ul>
           </div>
 
@@ -118,7 +118,8 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="mt-8 text-sm text-center text-white font-Medium">
-          &copy; {new Date().getFullYear()} Padel Arena. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} Padel Arena. Todos los derechos
+          reservados.
         </div>
       </div>
     </footer>
