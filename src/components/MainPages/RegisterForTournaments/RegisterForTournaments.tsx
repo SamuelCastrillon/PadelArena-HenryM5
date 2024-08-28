@@ -8,6 +8,8 @@ import {
 } from "./RegisterForTournamentsData";
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
+import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
+import { useRouter } from "next/navigation";
 
 interface IRegisterForTournaments {
   id: string;
@@ -17,13 +19,34 @@ interface IDataToForm {
   inputsRegisterTournamentFormValues: IDataConstructor[];
   registerTournementInitialValues: any;
 }
-const handlerPayment = (values: any) => {
-  console.log(values);
+
+const dataToPay = {
+  title: "Padel Arena",
+  quantity: 1,
+  price: 6000,
 };
 
 const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ id }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
+  const navigate = useRouter();
+
+  async function payToInscription() {
+    try {
+      const urlToPay = await postPaymentToMP(dataToPay);
+      if (!urlToPay) {
+        throw new Error("Error al realizar el pago");
+      }
+      navigate.push(urlToPay);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  const handlerPayment = (values: any) => {
+    console.log(values);
+    payToInscription();
+  };
 
   useEffect(() => {
     async function dataConstructor() {
