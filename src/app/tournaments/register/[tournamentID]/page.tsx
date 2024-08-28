@@ -1,7 +1,8 @@
 import RegisterForTournaments from "@/components/MainPages/RegisterForTournaments/RegisterForTournaments";
+import { getDataToContructFormRegisterTournament } from "@/components/MainPages/RegisterForTournaments/RegisterForTournamentsData";
 import React from "react";
 
-const page = ({ params }: { params: { tournamentID: string } }) => {
+const page = async ({ params }: { params: { tournamentID: string } }) => {
   return <RegisterForTournaments id={params.tournamentID} />;
 };
 
