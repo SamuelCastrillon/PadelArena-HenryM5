@@ -23,7 +23,7 @@ interface IDataToForm {
 const dataToPay = {
   title: "Padel Arena",
   quantity: 1,
-  price: 6000,
+  price: 12,
 };
 
 const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ id }) => {
@@ -33,11 +33,11 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ id }) => {
 
   async function payToInscription() {
     try {
-      const urlToPay = await postPaymentToMP(dataToPay);
-      if (!urlToPay) {
+      const { redirectUrl } = await postPaymentToMP(dataToPay);
+      if (!redirectUrl) {
         throw new Error("Error al realizar el pago");
       }
-      navigate.push(urlToPay);
+      navigate.push(redirectUrl);
     } catch (error) {
       console.error(error);
     }
