@@ -28,13 +28,14 @@ import {
   updateUserProfile,
 } from "@/Server/User/updateUserProfile";
 import useTournamentData from "@/hooks/fetchTournamentData";
+import { useUserCookies } from "@/hooks/useUserCookies";
 
 const LogInView: React.FC = () => {
   const router = useRouter();
   const { data: session } = useSession();
   const { setCurrentUser, setUserIdGoogle, userIdGoogle } =
     useContext(AuthContext);
-  const [cookies, setCookie] = useCookies(["userSignIn"]);
+  const { saveGoogleUser } = useUserCookies();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<IUpdateUser>({
@@ -64,12 +65,26 @@ const LogInView: React.FC = () => {
 
       if (response?.message.includes("realizado con exito")) {
         const newUser = response.googleUserFromDb;
+        const { phone, country, city, address, category } = newUser;
         const existingUser = response.newUser;
 
-        if (existingUser) {
+        console.log(existingUser);
+
+        if (
+          phone !== null &&
+          country !== null &&
+          city !== null &&
+          address !== null &&
+          category !== null
+        ) {
+          saveGoogleUser(newUser);
+          setCurrentUser(newUser);
           router.push("/dashboard/user/profile");
         } else if (newUser) {
+          console.log(newUser);
+          console.log(phone);
           setUserIdGoogle(newUser.id);
+
           console.log(userIdGoogle);
           setIsModalOpen(true);
         }
@@ -94,6 +109,8 @@ const LogInView: React.FC = () => {
         const updatedUser = await updateUserProfile(userId, formData);
         console.log(updatedUser.newUser);
         if (updatedUser) {
+          saveGoogleUser(updatedUser.newUser);
+          setCurrentUser(updatedUser.newUser);
           handleCloseModal();
           Swal.fire({
             title: "Tu perfil se actualizó correctamente.",
@@ -124,7 +141,6 @@ const LogInView: React.FC = () => {
         console.log(response);
 
         setCurrentUser(response.userClean);
-        setCookie("userSignIn", response.token);
 
         Swal.fire({
           title: "Te has logueado con éxito.",

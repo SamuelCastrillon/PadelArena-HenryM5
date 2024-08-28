@@ -42,7 +42,7 @@ export interface IUserLogin {
   name: string;
   lastName?: string;
   email: string;
-  password: string;
+  password?: string;
   phone: string;
   country: string;
   city: string;

@@ -8,16 +8,20 @@ import { AuthContext } from "@/context/GlobalContext";
 import { deletCurrentUser } from "@/helpers/localDataManagment";
 import { useCookies } from "react-cookie";
 import { signOut } from "next-auth/react";
+import { useUserCookies } from "@/hooks/useUserCookies";
 const UserMenuReusable: React.FC<IMenuReusableData> = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [menuStatus, setMenuStatus] = React.useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
+  const { deleteGoogleUser } = useUserCookies();
 
   const navigate = usePathname();
   const router = useRouter();
 
   async function handlerLogOut() {
     removeCookie("userSignIn");
+
+    deleteGoogleUser();
     signOut();
     setCurrentUser(null);
     await deletCurrentUser();

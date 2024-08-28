@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useEffect, useState } from "react";
 import { IAuthcontext } from "../interfaces/GlobalContextInterfaces";
-import { IUserLogin } from "@/interfaces/RequestInterfaces";
+import { IUserGooglePut, IUserLogin } from "@/interfaces/RequestInterfaces";
 import { getCurrentUser } from "@/helpers/localDataManagment";
 
 export const AuthContext = createContext<IAuthcontext>({
@@ -13,6 +13,8 @@ export const AuthContext = createContext<IAuthcontext>({
 const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<IUserLogin | null>(null);
   const [userIdGoogle, setUserIdGoogle] = useState<string | null>(null);
+  const [currentUserGoogle, setCurrentUserGoogle] =
+    useState<IUserGooglePut | null>(null);
 
   useEffect(() => {
     if (!currentUser) {
