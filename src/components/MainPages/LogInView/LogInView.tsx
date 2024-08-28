@@ -1,6 +1,6 @@
 "use client";
 import FormComponent from "@/components/MainComponents/ReusableFormComponent/FormComponent";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   butonsLogInForm,
   inputsLogIngFormValues,
@@ -10,17 +10,41 @@ import {
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 import { useCookies } from "react-cookie";
-import { IUserLoginReq, IUserLoginRes } from "@/interfaces/RequestInterfaces";
+import {
+  IUserGoogle,
+  IUserLoginReq,
+  IUserLoginRes,
+} from "@/interfaces/RequestInterfaces";
 import { saveCurrentUser } from "@/helpers/localDataManagment";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/GlobalContext";
 import Swal from "sweetalert2";
 import ButtonNextAuthSignIn from "@/components/MainComponents/NextAuthButtonSignIn/NextAuthButtonSignIn";
+import { useSession } from "next-auth/react";
+import { postNextAuthSession } from "@/Server/User/postNextAuthSession";
 
 const LogInView: React.FC = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const { setCurrentUser } = useContext(AuthContext);
   const [cookies, setCookie] = useCookies(["userSignIn"]);
+
+  useEffect(() => {
+    if (session) {
+      handlePostSession();
+    }
+  }, [session]);
+
+  console.log(session);
+  const handlePostSession = async () => {
+    const userGoogleData = session?.user as IUserGoogle;
+    if (userGoogleData) {
+      const response = await postNextAuthSession(userGoogleData);
+      //pregunto si es userfromdb(login)/newuserfromgoogle(register)->voy al form de editar o newuser->for al perfil de user
+      console.log(response);
+      return response;
+    }
+  };
 
   async function SaveData(data: IUserLoginReq) {
     try {
