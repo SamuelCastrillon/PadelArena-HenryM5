@@ -24,6 +24,7 @@ export interface IUserLoginRes {
 }
 
 export interface IUserLogin {
+  //RESPUESTA DEL BACK DEL POST NEXT AUTH  SAVE CURRENT USER
   id: string;
   name: string;
   lastName: string;
@@ -34,6 +35,7 @@ export interface IUserLogin {
   city: string;
   address: string;
   profileImg: string;
+  role?: "admin" | "jugador";
 }
 
 //? Tournament Interfaces
@@ -84,4 +86,10 @@ export interface ICategoryRes {
   id: string;
   name: string;
   description: string;
+}
+
+export interface IUserGoogle {
+  name: string;
+  email: string;
+  image: string;
 }

@@ -6,6 +6,10 @@ import {
   DocumentCurrencyDollarIcon,
   PlusCircleIcon,
   UsersIcon,
+  InformationCircleIcon,
+  CheckBadgeIcon,
+  UserCircleIcon,
+  ChartBarIcon,
 } from "@heroicons/react/24/outline";
 import { IMenuReusableStatus } from "../UserMenuReusableInterfaces";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
@@ -22,7 +26,13 @@ const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
       } z-50`}>
       <menu className="flex flex-col w-screen sm:w-[360px] h-auto backdrop-filter-glass text-slate bg-slate border-glass border-2 shadow-glass rounded-2xl p-8 sfRegular">
         {currentUser ? (
-          <AdminMenu handlerLogOut={handlerLogOut} />
+          currentUser.role === "admin" ? (
+            <AdminMenu handlerLogOut={handlerLogOut} />
+          ) : currentUser.role === "jugador" ? (
+            <UserMenu handlerLogOut={handlerLogOut} />
+          ) : (
+            <PublicButtons />
+          )
         ) : (
           <PublicButtons />
         )}
@@ -73,6 +83,35 @@ const AdminMenu = ({ handlerLogOut }: { handlerLogOut: () => void }) => {
         <DocumentCurrencyDollarIcon className="h-10" />
       </MenuButton>
       <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-gradient-to-l from-lime to-customBlue" />
+      <MenuButton
+        text="Cerrar Sesión"
+        routeNavigate="#"
+        onClick={handlerLogOut}>
+        <ArrowLeftStartOnRectangleIcon className="h-10" />
+      </MenuButton>
+    </>
+  );
+};
+
+const UserMenu = ({ handlerLogOut }: { handlerLogOut: () => void }) => {
+  return (
+    <>
+      <MenuButton text="Perfil" routeNavigate="/dashboard/user/profile">
+        <UserCircleIcon className="h-10" />
+      </MenuButton>
+      <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />
+      <MenuButton
+        text="Estadisticas"
+        routeNavigate="/dashboard/user/stadistics">
+        <ChartBarIcon className="h-10" />
+      </MenuButton>
+      <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />
+      <MenuButton
+        text="Mis Torneos"
+        routeNavigate="/dashboard/user/tournaments">
+        <CheckBadgeIcon className="h-10" />
+      </MenuButton>
+      <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />
       <MenuButton
         text="Cerrar Sesión"
         routeNavigate="#"

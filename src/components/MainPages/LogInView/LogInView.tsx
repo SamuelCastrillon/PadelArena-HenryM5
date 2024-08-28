@@ -15,6 +15,7 @@ import { saveCurrentUser } from "@/helpers/localDataManagment";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/GlobalContext";
 import Swal from "sweetalert2";
+import ButtonNextAuthSignIn from "@/components/MainComponents/NextAuthButtonSignIn/NextAuthButtonSignIn";
 
 const LogInView: React.FC = () => {
   const router = useRouter();
@@ -57,13 +58,16 @@ const LogInView: React.FC = () => {
         butonsForm={butonsLogInForm}
         dataContructor={inputsLogIngFormValues}
       />
-
+      <ButtonNextAuthSignIn className="rounded-md bg-black text-white">
+        Iniciar sesión con Google
+      </ButtonNextAuthSignIn>
       {/* Navigate Button to create an account */}
       <div className="flex items-center gap-8 m-8">
         <span className="text-white">Necesitas una cuenta?</span>
         <NavigateButton
           href="/register"
-          className="rounded-md bg-customBlue w-full h-fit py-[5px] px-[10px] text-white hover:shadow-lg">
+          className="rounded-md bg-customBlue w-full h-fit py-[5px] px-[10px] text-white hover:shadow-lg"
+        >
           Crear Cuenta
         </NavigateButton>
       </div>
