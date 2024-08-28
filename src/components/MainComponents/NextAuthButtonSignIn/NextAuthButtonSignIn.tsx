@@ -29,7 +29,7 @@ const ButtonNextAuthSignIn: React.FC<ButtonNextAuthProps> = ({
         image: session.user.image,
       };
       postNextAuthSession(user);
-      //la ruta al form de completar los datos de perfil sino esta registrado
+      //la ruta al form de completar los datos de perfil sino esta registrado!!
     }
   }, [session]);
   const signInGoogle = () => {
