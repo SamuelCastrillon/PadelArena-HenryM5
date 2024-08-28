@@ -17,6 +17,19 @@ export interface IUserRegisterReq {
   address: string;
 }
 
+export interface IUserGooglePut {
+  id: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  city: string;
+  address: string;
+  profileImg: string;
+  role?: "admin" | "jugador";
+}
+
 export interface IUserLoginRes {
   message: string;
   token: string;

@@ -5,6 +5,7 @@ export interface IUpdateUser {
   city: string;
   phone: string;
   country: string;
+  category: string;
 }
 
 export const updateUserProfile = async (
@@ -13,7 +14,7 @@ export const updateUserProfile = async (
 ) => {
   try {
     const response = await axiosInstance.put(
-      `/users/${userId}/updateProfile`,
+      `/users/updateProfile/${userId}`,
       updateData
     );
     return response.data;

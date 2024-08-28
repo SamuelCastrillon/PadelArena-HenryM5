@@ -15,7 +15,7 @@ import {
   IUserLoginReq,
   IUserLoginRes,
 } from "@/interfaces/RequestInterfaces";
-import { saveCurrentUser } from "@/helpers/localDataManagment";
+
 import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/GlobalContext";
 import Swal from "sweetalert2";
@@ -27,26 +27,29 @@ import {
   IUpdateUser,
   updateUserProfile,
 } from "@/Server/User/updateUserProfile";
-// Asegúrate de tener esta función en tu archivo de servidor
+import useTournamentData from "@/hooks/fetchTournamentData";
 
 const LogInView: React.FC = () => {
   const router = useRouter();
   const { data: session } = useSession();
-
   const { setCurrentUser, setUserIdGoogle, userIdGoogle } =
     useContext(AuthContext);
   const [cookies, setCookie] = useCookies(["userSignIn"]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<IUpdateUser>({
     phone: "",
     country: "",
     city: "",
     address: "",
+    category: "",
   });
+  const { categories, error } = useTournamentData();
 
   useEffect(() => {
     console.log(userIdGoogle);
   }, [userIdGoogle]);
+
   useEffect(() => {
     if (session) {
       handlePostSession();
@@ -89,13 +92,11 @@ const LogInView: React.FC = () => {
 
       if (userId) {
         const updatedUser = await updateUserProfile(userId, formData);
+        console.log(updatedUser.newUser);
         if (updatedUser) {
-          //guardo en context y cookies
-          setCurrentUser(updatedUser);
-          setCookie("userSignIn", updatedUser.token);
           handleCloseModal();
           Swal.fire({
-            title: "Tu perfil se actualizo correctamente.",
+            title: "Tu perfil se actualizó correctamente.",
             width: 400,
             padding: "3em",
           });
@@ -108,7 +109,9 @@ const LogInView: React.FC = () => {
     }
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
@@ -119,9 +122,10 @@ const LogInView: React.FC = () => {
 
       if (response?.token) {
         console.log(response);
-        saveCurrentUser(response.userClean);
+
         setCurrentUser(response.userClean);
         setCookie("userSignIn", response.token);
+
         Swal.fire({
           title: "Te has logueado con éxito.",
           width: 400,
@@ -219,6 +223,25 @@ const LogInView: React.FC = () => {
               className="w-full border border-gray-300 p-2 rounded"
               placeholder="Dirección"
             />
+          </div>
+          <div className="mb-4">
+            <label className="block mb-2">Categoría</label>
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              className="w-full border border-gray-300 p-2 rounded"
+            >
+              <option value="">Selecciona una categoría</option>
+
+              {error && <option>Error al cargar categorías</option>}
+              {categories &&
+                categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))}
+            </select>
           </div>
           <button type="submit" className="bg-blue-500 text-white p-2 rounded">
             Guardar
