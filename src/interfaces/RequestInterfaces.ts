@@ -27,7 +27,7 @@ export interface IUserLogin {
   //RESPUESTA DEL BACK DEL POST NEXT AUTH  SAVE CURRENT USER
   id: string;
   name: string;
-  lastName: string;
+  lastName?: string;
   email: string;
   password: string;
   phone: string;
