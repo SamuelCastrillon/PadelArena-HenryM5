@@ -37,23 +37,21 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ id }) => {
     dataConstructor();
   }, []);
 
-  return (
-    dataToForm && (
-      <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
-        <h1 className="text-3xl font-bold text-white">REGISTRO DE TORNEOS</h1>
-        <FormComponent
-          iniValues={dataToForm?.registerTournementInitialValues}
-          valiSchema={registerTournamentSchema}
-          handelerSubmit={handlerPayment}
-          dataContructor={dataToForm?.inputsRegisterTournamentFormValues}
-          butonsForm={butonsRegisterTournamentForm}
-        />
-      </section>
-    )
-
-    // <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
-    //   <h1 className="text-3xl font-bold text-white">CARGANDO...</h1>
-    // </section>
+  return dataToForm ? (
+    <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
+      <h1 className="text-3xl font-bold text-white">REGISTRO DE TORNEOS</h1>
+      <FormComponent
+        iniValues={dataToForm?.registerTournementInitialValues}
+        valiSchema={registerTournamentSchema}
+        handelerSubmit={handlerPayment}
+        dataContructor={dataToForm?.inputsRegisterTournamentFormValues}
+        butonsForm={butonsRegisterTournamentForm}
+      />
+    </section>
+  ) : (
+    <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
+      <h1 className="text-3xl font-bold text-white">CARGANDO...</h1>
+    </section>
   );
 };
 export default RegisterForTournaments;
