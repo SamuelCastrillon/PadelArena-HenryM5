@@ -9,3 +9,20 @@ export const getAllUsers = async () => {
     console.log(error);
   }
 };
+
+export const updateUserCategory = async (userId: string, category: string) => {
+  try {
+    const response = await axiosInstance.put(
+      `/users/updateCategory/${userId}`,
+      { category }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error(
+      "Error en la solicitud de actualización de categoría:",
+      error
+    );
+    throw error;
+  }
+};
