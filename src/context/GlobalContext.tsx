@@ -1,8 +1,9 @@
 "use client";
+
 import React, { createContext, useEffect, useState } from "react";
 import { IAuthcontext } from "../interfaces/GlobalContextInterfaces";
 import { IUserGooglePut, IUserLogin } from "@/interfaces/RequestInterfaces";
-import { getCurrentUser } from "@/helpers/localDataManagment";
+import { useUserCookies } from "@/hooks/useUserCookies";
 
 export const AuthContext = createContext<IAuthcontext>({
   currentUser: null,
@@ -10,22 +11,30 @@ export const AuthContext = createContext<IAuthcontext>({
   userIdGoogle: null,
   setUserIdGoogle: () => {},
 });
+
 const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<IUserLogin | null>(null);
   const [userIdGoogle, setUserIdGoogle] = useState<string | null>(null);
   const [currentUserGoogle, setCurrentUserGoogle] =
     useState<IUserGooglePut | null>(null);
 
+  const { getGoogleUser } = useUserCookies();
+
   useEffect(() => {
-    if (!currentUser) {
-      const dataUser = getCurrentUser();
-      dataUser && setCurrentUser(dataUser);
+    const userGoogle = getGoogleUser();
+    if (userGoogle) {
+      setCurrentUserGoogle(userGoogle);
     }
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, setCurrentUser, userIdGoogle, setUserIdGoogle }}
+      value={{
+        currentUser,
+        setCurrentUser,
+        userIdGoogle,
+        setUserIdGoogle,
+      }}
     >
       {children}
     </AuthContext.Provider>

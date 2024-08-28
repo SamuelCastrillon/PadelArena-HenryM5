@@ -12,7 +12,7 @@ import { IUserRegisterReq } from "@/interfaces/RequestInterfaces";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import ButtonNextAuthSignIn from "@/components/MainComponents/NextAuthButtonSignIn/NextAuthButtonSignIn";
-import usePostSession from "@/hooks/usePostSession";
+
 const RegisterView = () => {
   const navigate = useRouter();
 

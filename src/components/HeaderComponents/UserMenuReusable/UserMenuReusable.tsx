@@ -19,10 +19,10 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
   const router = useRouter();
 
   async function handlerLogOut() {
-    removeCookie("userSignIn");
-
-    deleteGoogleUser();
     signOut();
+    removeCookie("userSignIn");
+    deleteGoogleUser();
+
     setCurrentUser(null);
     await deletCurrentUser();
     router.push("/login");
