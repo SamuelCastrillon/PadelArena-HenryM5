@@ -11,9 +11,11 @@ import HandlerRegister from "@/Server/HandlerFormsFuctions/HandlerRegister";
 import { IUserRegisterReq } from "@/interfaces/RequestInterfaces";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
-
+import ButtonNextAuthSignIn from "@/components/MainComponents/NextAuthButtonSignIn/NextAuthButtonSignIn";
+import usePostSession from "@/hooks/usePostSession";
 const RegisterView = () => {
   const navigate = useRouter();
+
   async function RegisterHandeler(data: IUserRegisterReq) {
     try {
       const response = await HandlerRegister(data);
@@ -36,6 +38,9 @@ const RegisterView = () => {
   }
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">
+      <ButtonNextAuthSignIn className="bg-black text-white">
+        Registrate con Google
+      </ButtonNextAuthSignIn>
       <FormComponent
         iniValues={signInInitialValues}
         valiSchema={registerSchema}
