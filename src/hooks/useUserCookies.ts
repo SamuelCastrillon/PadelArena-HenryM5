@@ -47,5 +47,6 @@ export function useUserCookies() {
     saveRegularUser,
     getGoogleUser,
     deleteRegularUser,
+    deleteGoogleUser,
   };
 }

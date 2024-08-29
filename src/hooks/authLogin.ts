@@ -45,7 +45,7 @@ const useAuth = () => {
     if (userGoogleData) {
       const response = await postNextAuthSession(userGoogleData);
       if (response?.message.includes("realizado con exito")) {
-        const newUser = response.googleUserFromDb;
+        const newUser = response.googleUserWithoutPassword;
         const { phone, country, city, address, category } = newUser;
         const existingUser = response.newUser;
 
@@ -116,7 +116,7 @@ const useAuth = () => {
           width: 400,
           padding: "3em",
         });
-        router.push("/");
+        router.push("/dashboard/user/profile");
       }
     } catch (error: any) {
       Swal.fire({
