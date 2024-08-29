@@ -20,6 +20,9 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
+const API_URL = `${process.env.CURRENT_APP_URL}`;
+const TOURNAAMENT_REGISTER_URL: string = `${API_URL}/tournaments/register/`;
+
 const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ params }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
@@ -30,7 +33,10 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ params }) =
   const dataToPay = {
     title: "Padel Arena",
     quantity: 1,
-    price: 12,
+    unit_price: 12000,
+    successUrl: TOURNAAMENT_REGISTER_URL,
+    pendingUrl: API_URL,
+    failureUrl: TOURNAAMENT_REGISTER_URL,
   };
 
   async function payToInscription() {

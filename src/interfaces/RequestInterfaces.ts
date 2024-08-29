@@ -113,5 +113,8 @@ export interface IUserGoogle {
 export interface IProductPaymentDataReq {
   title: string;
   quantity: number;
-  price: number;
+  unit_price: number;
+  successUrl: string;
+  pendingUrl: string;
+  failureUrl: string;
 }
