@@ -18,15 +18,13 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   const [currentUserGoogle, setCurrentUserGoogle] =
     useState<IUserGooglePut | null>(null);
 
-  const { getGoogleUser, getRegularUser } = useUserCookies(); // Asumiendo que tienes este hook
+  const { getGoogleUser, getRegularUser } = useUserCookies();
 
   const syncUserWithCookies = () => {
-    // Obtén el usuario de Google desde las cookies
     const userGoogle = getGoogleUser();
     if (userGoogle) {
       setCurrentUserGoogle(userGoogle);
     } else {
-      // Obtén el usuario regular desde las cookies
       const regularUser = getRegularUser();
       if (regularUser) {
         setCurrentUser(regularUser);
@@ -37,12 +35,6 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // Sincroniza el estado del usuario con las cookies cuando el componente se monta
     syncUserWithCookies();
-
-    // También puedes agregar un listener para cambios en las cookies si es necesario
-    // window.addEventListener('cookiechange', syncUserWithCookies);
-
-    // Cleanup (opcional)
-    // return () => window.removeEventListener('cookiechange', syncUserWithCookies);
   }, []);
 
   return (
