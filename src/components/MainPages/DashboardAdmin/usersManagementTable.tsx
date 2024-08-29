@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
-import { getAllUsers, updateUserCategory } from "@/Server/Users/getUsers"; // Asume que tienes una función para actualizar la categoría
+import { getAllUsers, updateUserCategory } from "@/Server/Users/getUsers";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { getCategories } from "@/Server/Category/getCategories";
 import Swal from "sweetalert2";
 
 interface UserProp {
-  id: string; // Necesitamos el ID para hacer la actualización
+  id: string;
   name: string;
   lastName: string;
   email: string;
@@ -30,11 +30,13 @@ const UsersManagement: React.FC = () => {
   const [selectedCategories, setSelectedCategories] = useState<{
     [key: string]: string;
   }>({});
+  const [selectedFilterCategory, setSelectedFilterCategory] =
+    useState<string>(""); // Nuevo estado para la categoría seleccionada para filtrar
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const categoriesData = await getCategories(); // Espera a que se resuelva la promesa
+        const categoriesData = await getCategories();
         setCategories(categoriesData);
       } catch (error) {
         console.error("Error fetching categories:", error);
@@ -61,49 +63,12 @@ const UsersManagement: React.FC = () => {
     }));
   };
 
-  // const handleSaveCategory = async (userId: string) => {
-  //   const newCategoryId = selectedCategories[userId];
-  //   if (!newCategoryId) return;
-
-  //   try {
-  //     await updateUserCategory(userId, newCategoryId);
-  //     const updatedUsers = users.map((user) =>
-  //       user.id === userId
-  //         ? {
-  //             ...user,
-  //             category: categories.find((cat) => cat.id === newCategoryId), // Usa el estado `categories` ya resuelto
-  //           }
-  //         : user
-  //     );
-  //     setUsers(updatedUsers);
-  //     console.log(
-  //       `Categoría del usuario ${userId} actualizada a ${newCategoryId}`
-  //     );
-  //     Swal.fire({
-  //       title: "Categoría actualizada con éxito.",
-  //       width: 400,
-  //       padding: "3em",
-  //     });
-  //   } catch (error) {
-  //     console.error("Error al actualizar la categoría:", error);
-  //     Swal.fire({
-  //       title: "Error al actualizar categoría.",
-  //       text: "Comprueba que la categoría que seleccionaste es diferente a la que ya tiene asignada el usuario.",
-  //       width: 400,
-  //       padding: "3em",
-  //     });
-  //   }
-  // };
-
   const handleSaveCategory = async (userId: string) => {
     const newCategoryId = selectedCategories[userId];
     if (!newCategoryId) return;
 
     try {
-      // Actualiza la categoría en el backend
       await updateUserCategory(userId, newCategoryId);
-
-      // Refresca los usuarios desde el backend para asegurar los datos actualizados
       const updatedUsers = await getAllUsers();
       setUsers(updatedUsers);
 
@@ -123,6 +88,15 @@ const UsersManagement: React.FC = () => {
     }
   };
 
+  const handleFilterChange = (categoryId: string) => {
+    setSelectedFilterCategory(categoryId);
+  };
+
+  // Filtrar usuarios por categoría seleccionada
+  const filteredUsers = selectedFilterCategory
+    ? users.filter((user) => user.category?.id === selectedFilterCategory)
+    : users;
+
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-start">
@@ -132,6 +106,25 @@ const UsersManagement: React.FC = () => {
         <h2 className="text-xl text-[#f8fafc] sfRegular">
           Seguimiento de todos los usuarios registrados.
         </h2>
+        <div className="flex items-center justify-center w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
+          <label
+            htmlFor="category-filter"
+            className="px-4 py-4 bg-lime rounded-l-lg sfBold">
+            Filtrar por Categoría:
+          </label>
+          <select
+            id="category-filter"
+            value={selectedFilterCategory}
+            onChange={(e) => handleFilterChange(e.target.value)}
+            className="px-4 py-4 bg-white border-2 border-slate rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
+            <option value="">Todas las categorías</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       <CustomTable
         headers={[
@@ -142,7 +135,7 @@ const UsersManagement: React.FC = () => {
           "CATEGORÍA",
           "ACCIONES",
         ]}>
-        {users.map((user, index) => (
+        {filteredUsers.map((user, index) => (
           <tr key={index} className="text-center">
             <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
               <h5 className="font-medium text-black">{`${user.name} ${user.lastName}`}</h5>

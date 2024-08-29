@@ -2,11 +2,11 @@
 import React from "react";
 
 interface HoverBadgeProps {
-  status: "abierta" | "cerrada";
+  status: "abiertas" | "cerradas";
 }
 
 const HoverBadge: React.FC<HoverBadgeProps> = ({ status }) => {
-  const isOpen = status === "abierta";
+  const isOpen = status === "abiertas";
 
   return (
     <div className="relative inline-block">

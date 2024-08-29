@@ -13,6 +13,8 @@ import { getTournamentById } from "@/Server/Tournament/getTournamentById";
 //   );
 // };
 
+//!con retraso para mostrar el loading
+
 const TournamentDetail = async ({ params }: { params: { id: string } }) => {
   console.log(params.id);
   const tournamentId: ITournament | null = await getTournamentById(params.id);

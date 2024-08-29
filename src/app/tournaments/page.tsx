@@ -1,6 +1,6 @@
 import TournamentsView from "@/components/MainPages/TournamentViewComponent/TournamentView";
 
-import React from "react";
+import React, { Suspense } from "react";
 
 //peticion get tournaments
 const Tournaments = async () => {

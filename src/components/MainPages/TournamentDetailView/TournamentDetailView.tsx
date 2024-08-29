@@ -25,11 +25,11 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
   };
 
   const statusColor =
-    tournament.inscripciones === "abierta"
+    tournament.inscription === "abiertas"
       ? "text-lime radhiumz text-4xl md:text-6xl uppercase"
       : "text-red-500 radhiumz text-4xl md:text-6xl uppercase";
   const statusText =
-    tournament.inscripciones === "abierta" ? "Inscripción Abierta" : "Inscripción Cerrada";
+    tournament.inscription === "abiertas" ? "Inscripción Abierta" : "Inscripción Cerrada";
 
   return (
     <div className="flex flex-col items-center mt-20">
@@ -73,7 +73,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
             "Días de juego": tournament.playingDay?.toString(),
             Categoría: tournament.category.name,
             Género: tournament.genero ?? "Esta por verse",
-            Inscripciones: tournament.inscripciones ?? "Aun en proceso de definir",
+            Inscripciones: tournament.inscription ?? "Aun en proceso de definir",
           }}
         />
 

@@ -15,7 +15,7 @@ export interface ITournament {
   tournamentFlyer?: string;
   gallery?: string[];
   courtsAvailable: number;
-  inscripciones: "abierta" | "cerrada";
+  inscription: "abiertas" | "cerradas";
   status: "por comenzar" | "en progreso" | "finalizado";
   category: ICategories;
   genero?: "femenino" | "masculino";
