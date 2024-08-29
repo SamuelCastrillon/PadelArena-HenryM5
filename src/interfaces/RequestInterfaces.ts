@@ -111,10 +111,7 @@ export interface IUserGoogle {
 //? Payment Interfaces
 
 export interface IProductPaymentDataReq {
-  title: string;
-  quantity: number;
-  unit_price: number;
-  successUrl: string;
-  pendingUrl: string;
-  failureUrl: string;
+  tournament: string;
+  host: string;
+  // notification_url: string;
 }

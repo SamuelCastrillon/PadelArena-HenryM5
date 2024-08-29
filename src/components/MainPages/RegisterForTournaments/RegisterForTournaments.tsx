@@ -9,10 +9,11 @@ import {
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface IRegisterForTournaments {
-  params: any;
+  allParams: any;
+  currentHost: string;
 }
 
 interface IDataToForm {
@@ -20,24 +21,20 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
-const API_URL = `${process.env.CURRENT_APP_URL}`;
-const TOURNAAMENT_REGISTER_URL: string = `${API_URL}/tournaments/register/`;
-
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ params }) => {
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams, currentHost }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const navigate = useRouter();
-  console.log(currentUser);
-  console.log(params);
+  const currentPath = usePathname();
+
+  const tournamentId = allParams.params[0];
+  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
 
   const dataToPay = {
-    title: "Padel Arena",
-    quantity: 1,
-    unit_price: 12000,
-    successUrl: TOURNAAMENT_REGISTER_URL,
-    pendingUrl: API_URL,
-    failureUrl: TOURNAAMENT_REGISTER_URL,
+    tournament: tournamentId,
+    host: TOURNAAMENT_REGISTER_URL,
   };
+  console.log(dataToPay);
 
   async function payToInscription() {
     try {
