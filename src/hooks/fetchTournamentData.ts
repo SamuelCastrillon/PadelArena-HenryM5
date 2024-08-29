@@ -36,6 +36,7 @@ const useTournamentData = () => {
 
 export default useTournamentData;
 
+//delay loading component
 // "use client";
 // import { useState, useEffect } from "react";
 // import { getTournaments } from "@/Server/Tournament/getTournaments";
