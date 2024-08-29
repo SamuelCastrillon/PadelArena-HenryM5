@@ -45,12 +45,10 @@ export function useUserCookies() {
     }
   };
 
-  // Borrar el usuario de Google de la cookie
   const deleteGoogleUser = () => {
     Cookies.remove(googleUserKey);
   };
 
-  // Borrar el usuario regular de la cookie
   const deleteRegularUser = () => {
     Cookies.remove(regularUserKey);
   };
