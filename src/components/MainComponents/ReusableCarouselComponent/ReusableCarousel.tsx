@@ -12,7 +12,7 @@ interface ICarouselProps {
     title: string;
     href: string;
     categoria: string;
-    inscripciones: "abierta" | "cerrada";
+    inscription: "abiertas" | "cerradas";
   }[];
 }
 
@@ -44,6 +44,7 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
 
   // Manejo del clic en la imagen para redireccionar
   const handleImageClick = (href: string) => {
+    console.log(href);
     router.push(href);
   };
 
@@ -88,7 +89,7 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
                   <p className="text-sm sfMedium">{image.categoria}</p>
                   {/* Badge Optional */}
                   <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
-                    <HoverBadge status={image.inscripciones} />
+                    <HoverBadge status={image.inscription} />
                   </div>
                 </div>
               </div>

@@ -16,9 +16,8 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
   tournaments,
   onActionClick,
 }) => {
-  console.log(tournaments);
-
   // Función para obtener la URL de la imagen, con respaldo en caso de URL inválida
+  console.log(tournaments);
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =
@@ -27,7 +26,6 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
-
   const mapTournamentsToCarousel = (tournaments: ITournament[]) =>
     tournaments.map((tournament: ITournament) => ({
       src: getImageUrl(
@@ -37,9 +35,9 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       title: tournament.name,
       categoria: tournament.category.name || "Sin categoría",
       href: `/tournaments/${tournament.id}`,
-      inscripciones: tournament.inscripciones,
+      inscription: tournament.inscription, // Renamed from inscripciones to inscription
     }));
-
+  console.log(mapTournamentsToCarousel(tournaments));
   return (
     <div className="w-[80%] mx-auto mt-10 md:mt-32">
       <div className="flex flex-row items-center justify-between w-[90%] md:w-[60%] mb-4">

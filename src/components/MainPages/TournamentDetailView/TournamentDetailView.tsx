@@ -13,6 +13,9 @@ interface TournamentDetailViewProps {
 const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   tournament,
 }) => {
+  console.log(tournament);
+  console.log("Inscripciones:", tournament.inscription);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
 
@@ -29,11 +32,11 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   };
 
   const statusColor =
-    tournament.inscripciones === "abierta"
+    tournament.inscription === "abiertas"
       ? "text-lime radhiumz text-4xl md:text-6xl uppercase"
       : "text-red-500 radhiumz text-4xl md:text-6xl uppercase";
   const statusText =
-    tournament.inscripciones === "abierta"
+    tournament.inscription === "abiertas"
       ? "Inscripción Abierta"
       : "Inscripción Cerrada";
 
@@ -85,15 +88,15 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             Categoría: tournament.category.name,
             Género: tournament.genero ?? "Esta por verse",
             Inscripciones:
-              tournament.inscripciones ?? "Aun en proceso de definir",
+              tournament.inscription ?? "Aun en proceso de definir",
           }}
         />
 
         {/* Botón de Inscripción */}
-        {tournament.inscripciones === "abierta" && (
+        {tournament.inscription === "abiertas" && (
           <div className="w-full mt-8 mb-8 mx-auto flex justify-center">
             <NavigateButton
-              href="/tournaments/register"
+              href={`/tournaments/register/${tournament.id}`}
               className="w-full max-w-xs py-4 px-10 rounded-xl h-12 bg-lime text-black radhiumz"
             >
               Inscribite
