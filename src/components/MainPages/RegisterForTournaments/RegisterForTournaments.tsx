@@ -12,7 +12,7 @@ import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 
 interface IRegisterForTournaments {
-  id: string;
+  params: any;
 }
 
 interface IDataToForm {
@@ -20,16 +20,18 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
-const dataToPay = {
-  title: "Padel Arena",
-  quantity: 1,
-  price: 12,
-};
-
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ id }) => {
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ params }) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const navigate = useRouter();
+  console.log(currentUser);
+  console.log(params);
+
+  const dataToPay = {
+    title: "Padel Arena",
+    quantity: 1,
+    price: 12,
+  };
 
   async function payToInscription() {
     try {
