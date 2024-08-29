@@ -19,6 +19,7 @@ const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
   handlerLogOut,
   currentUser,
 }) => {
+  console.log(currentUser);
   return (
     <div
       className={`absolute top-[60px] sm:top-[68px] -right-[20px]  sm:sm:right-0 ${
@@ -110,10 +111,7 @@ const UserMenu = ({ handlerLogOut }: { handlerLogOut: () => void }) => {
         <ChartBarIcon className="h-10" />
       </MenuButton>
       <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />
-      <MenuButton
-        text="Mis Torneos"
-        routeNavigate="/dashboard/user/tournaments"
-      >
+      <MenuButton text="Pagos" routeNavigate="/dashboard/user/payments">
         <CheckBadgeIcon className="h-10" />
       </MenuButton>
       <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />

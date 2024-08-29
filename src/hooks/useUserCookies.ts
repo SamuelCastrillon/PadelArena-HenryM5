@@ -20,14 +20,18 @@ export function useUserCookies() {
   // Obtener el usuario de Google desde la cookie
   const getGoogleUser = (): IUserGooglePut | null => {
     const googleUser = Cookies.get(googleUserKey);
+    console.log(googleUser);
     if (googleUser) {
-      try {
-        return JSON.parse(googleUser);
-      } catch (error) {
-        console.error("Error parsing Google User from cookies:", error);
-        return null;
-      }
-    } else {
+      // try {
+      const cookieParse = JSON.parse(googleUser);
+      console.log("aqui estas maldita", cookieParse);
+      return cookieParse;
+    }
+    //  } catch (error) {
+    //  console.error("Error parsing Google User from cookies:", error);
+    //  return null;
+    // }
+    else {
       return null;
     }
   };

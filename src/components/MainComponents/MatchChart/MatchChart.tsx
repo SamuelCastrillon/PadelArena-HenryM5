@@ -17,7 +17,7 @@ const MatchStatsChart = ({
       {
         label: "Partidos",
         data: [wins, losses],
-        backgroundColor: ["#4CAF50", "#F44336"], // Verde para ganados, rojo para perdidos
+        backgroundColor: ["blue", "lime"], // Verde para ganados, rojo para perdidos
         hoverBackgroundColor: ["#45a049", "#e35d5b"],
       },
     ],

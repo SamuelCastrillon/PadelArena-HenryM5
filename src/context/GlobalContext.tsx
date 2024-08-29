@@ -10,6 +10,7 @@ export const AuthContext = createContext<IAuthcontext>({
   setCurrentUser: () => {},
   userIdGoogle: null,
   setUserIdGoogle: () => {},
+  currentUserGoogle: null,
 });
 
 const GlobalContext = ({ children }: { children: React.ReactNode }) => {
@@ -22,8 +23,10 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
 
   const syncUserWithCookies = () => {
     const userGoogle = getGoogleUser();
+    console.log("aqui el maldito user", userGoogle);
     if (userGoogle) {
       setCurrentUserGoogle(userGoogle);
+      console.log(userGoogle);
     } else {
       const regularUser = getRegularUser();
       if (regularUser) {
@@ -33,7 +36,6 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
-    // Sincroniza el estado del usuario con las cookies cuando el componente se monta
     syncUserWithCookies();
   }, []);
 
@@ -42,7 +44,9 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
       value={{
         currentUser,
         setCurrentUser,
+        currentUserGoogle,
         userIdGoogle,
+
         setUserIdGoogle,
       }}
     >
