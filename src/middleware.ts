@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
   if (googleUserCookie) {
     try {
       user = JSON.parse(googleUserCookie);
-      role = user.role; // Saco el rol del usuario
+      role = user.role; // Saco el rol del usuario para comparar
       console.log("Usuario autenticado (Google):", user);
     } catch (error) {
       console.error("Error al analizar la cookie de Google User:", error);
