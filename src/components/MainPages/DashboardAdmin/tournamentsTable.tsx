@@ -22,6 +22,38 @@ const TournamentsTable: React.FC = () => {
     filteredCategory ? tournament.category?.name === filteredCategory : true
   );
 
+  //   return (
+  //     <>
+  //       <div className="mt-20 flex flex-col items-center justify-start">
+  //         <h1 className="text-4xl text-[#f8fafc] uppercase radhiumz">
+  //           Tabla de torneos
+  //         </h1>
+  //         <h2 className="text-xl text-[#f8fafc] sfRegular">
+  //           Organización, gestión y seguimiento de todos tus torneos.
+  //         </h2>
+  //       </div>
+  //       {tournaments && tournaments.length > 0 ? (
+  //         <>
+  //           <div className="w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
+  //             <div className="flex items-center justify-center w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
+  //               <label
+  //                 htmlFor="category-filter"
+  //                 className="px-4 py-4 bg-lime rounded-l-lg sfBold">
+  //                 Filtrar por Categoría:
+  //               </label>
+  //               <select
+  //                 id="category-filter"
+  //                 value={filteredCategory}
+  //                 onChange={(e) => handleSearch(e.target.value)}
+  //                 className="px-4 py-4 bg-white border-2 border-slate rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
+  //                 <option value="">Todas las categorías</option>
+  //                 {categories.map((cat) => (
+  //                   <option key={cat.id} value={cat.name}>
+  //                     {cat.name}
+  //                   </option>
+  //                 ))}
+  //               </select>
+
   return (
     <>
       <div className="mt-20 flex flex-col items-center justify-start">
@@ -34,14 +66,24 @@ const TournamentsTable: React.FC = () => {
       </div>
       {tournaments && tournaments.length > 0 ? (
         <>
-          <div className="w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
-            <SearchBarDrop
-              onSearch={handleSearch}
-              onClear={handleClearSearch}
-              categorias={
-                categories?.length ? categories.map((cat) => cat.name) : []
-              }
-            />
+          <div className="flex items-center justify-center w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
+            <label
+              htmlFor="category-filter"
+              className="px-4 py-4 bg-lime rounded-l-lg sfBold">
+              Filtrar por Categoría:
+            </label>
+            <select
+              id="category-filter"
+              value={filteredCategory}
+              onChange={(e) => handleSearch(e.target.value)}
+              className="px-4 py-4 bg-white border-2 border-slate rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
+              <option value="">Todas las categorías</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.name}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className=" w-[70%] mx-auto my-8 bg-[#f8fafc] rounded-3xl py-6">
             <div className="overflow-x-auto overflow-y-auto max-h-[600px]">

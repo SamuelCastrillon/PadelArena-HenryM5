@@ -4,7 +4,6 @@ import UsersManagement from "@/components/MainPages/DashboardAdmin/usersManageme
 const page = () => {
   return (
     <div>
-      page
       <UsersManagement />
     </div>
   );
