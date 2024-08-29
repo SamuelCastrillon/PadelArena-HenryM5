@@ -15,11 +15,11 @@ export async function middleware(request: NextRequest) {
   let user = null;
   let role = null;
 
-  // Si existe la cookie de Google, la mira
+  // Si existe la cookie de Google, la analiza
   if (googleUserCookie) {
     try {
       user = JSON.parse(googleUserCookie); // Analiza la cookie de Google
-      role = user.role; // saco el rol del usuario
+      role = user.role; // Saco el rol del usuario
       console.log("Usuario autenticado (Google):", user);
     } catch (error) {
       console.error("Error al analizar la cookie de Google User:", error);
@@ -27,8 +27,8 @@ export async function middleware(request: NextRequest) {
   } else if (regularUserCookie) {
     // Si no existe la cookie de Google pero existe la de usuario regular
     try {
-      user = JSON.parse(regularUserCookie); // veo la cookie de usuario regular
-      role = user.role; // saco el rol del usuario
+      user = JSON.parse(regularUserCookie); // Analiza la cookie de usuario regular
+      role = user.role; // Saco el rol del usuario
       console.log("Usuario autenticado (Regular):", user);
     } catch (error) {
       console.error("Error al analizar la cookie de Regular User:", error);
@@ -49,17 +49,7 @@ export async function middleware(request: NextRequest) {
 
   // Si el usuario está autenticado
   if (user) {
-    // Si el usuario intenta acceder a una ruta pública, redirigir al dashboard del usuario
-    if (publicRoutes.includes(currentPath)) {
-      console.log(
-        `Redirigiendo autenticado desde ruta pública: ${currentPath}`
-      );
-      return NextResponse.redirect(
-        new URL("/dashboard/user/profile", request.url)
-      );
-    }
-
-    // Verificar rol del user
+    // Verificar rol del usuario
     if (role === "admin") {
       // Rutas prohibidas para admins
       const userRestrictedRoutes = ["/dashboard/user"];
@@ -71,23 +61,33 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/dashboard/admin", request.url));
       }
     } else if (role === "user" || role === "jugador") {
-      // Rutas prohibidas para usuarios
+      // Rutas prohibidas para usuarios o jugadores
       if (currentPath.startsWith("/dashboard/admin")) {
         console.log(
           `Redirigiendo usuario desde ruta restringida: ${currentPath}`
         );
         return NextResponse.redirect(new URL("/dashboard/user", request.url));
       }
+      // Permitir acceso a rutas públicas y dashboard para "jugador"
+      if (
+        publicRoutes.includes(currentPath) ||
+        currentPath.startsWith("/dashboard/user")
+      ) {
+        console.log(
+          `Permitiendo acceso a jugador en ruta pública: ${currentPath}`
+        );
+        return NextResponse.next();
+      }
     }
   }
 
-  //si el user no tiene token y la ruta es publica lo llevo a
+  // Si el usuario no está autenticado y la ruta no es pública
   if (!user && !publicRoutes.includes(currentPath)) {
     console.log(`Redirigiendo a login desde ruta protegida: ${currentPath}`);
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // aca permito el accceso
+  // Permitir el acceso si no se cumple ninguna de las condiciones anteriores
   console.log(`Permitiendo acceso a: ${currentPath}`);
   return NextResponse.next();
 }

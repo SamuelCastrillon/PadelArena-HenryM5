@@ -31,6 +31,19 @@ export function useUserCookies() {
       return null;
     }
   };
+  const getRegularUser = (): IUserLogin | null => {
+    const regularUser = Cookies.get(regularUserKey);
+    if (regularUser) {
+      try {
+        return JSON.parse(regularUser);
+      } catch (error) {
+        console.error("Error parsing Regular User from cookies:", error);
+        return null;
+      }
+    } else {
+      return null;
+    }
+  };
 
   // Borrar el usuario de Google de la cookie
   const deleteGoogleUser = () => {
@@ -46,6 +59,7 @@ export function useUserCookies() {
     saveGoogleUser,
     saveRegularUser,
     getGoogleUser,
+    getRegularUser,
     deleteRegularUser,
     deleteGoogleUser,
   };
