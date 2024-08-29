@@ -15,6 +15,7 @@ export interface IUserRegisterReq {
   city: string;
   phone: string;
   address: string;
+  category: string;
 }
 
 export interface IUserGooglePut {

@@ -19,7 +19,11 @@ const FormComponent: React.FC<IFormikConstructor> = ({
 
   return (
     <>
-      <Formik initialValues={iniValues} validationSchema={valiSchema} onSubmit={handelerSubmit}>
+      <Formik
+        initialValues={iniValues}
+        validationSchema={valiSchema}
+        onSubmit={handelerSubmit}
+      >
         <Form className="flex flex-col items-center p-5 w-screen sm:w-fit md:w-[600px] m-5  rounded-md  bg-gray-500/90  border-white/30 justify-between ">
           <div className="flex flex-col flex-wrap items-center gap-2 md:flex-row md:justify-evenly">
             {fieldsForm.length > 0 &&
@@ -32,7 +36,9 @@ const FormComponent: React.FC<IFormikConstructor> = ({
                     return <TextArea key={i} {...field} />;
 
                   case "select":
-                    return <Select key={i} {...field} />;
+                    return (
+                      <Select {...field} selectOptions={field.selectOptions} />
+                    );
 
                   default:
                     return <ImputForm key={i} {...field} />;
