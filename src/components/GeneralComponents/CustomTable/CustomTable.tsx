@@ -15,7 +15,8 @@ const CustomTable: React.FC<CustomTableProps> = ({ headers, children }) => {
               {headers.map((header, index) => (
                 <th
                   key={index}
-                  className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
+                  className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz"
+                >
                   {header}
                 </th>
               ))}
