@@ -17,7 +17,7 @@ import useTournamentData from "@/hooks/fetchTournamentData";
 
 const RegisterView = () => {
   const navigate = useRouter();
-  const { categories, loading, error } = useTournamentData();
+  const { categories, error } = useTournamentData();
   console.log(categories);
 
   async function RegisterHandeler(data: IUserRegisterReq) {
@@ -47,11 +47,6 @@ const RegisterView = () => {
       });
     }
   }
-
-  if (loading)
-    return <div className="p-4 text-lg text-center">Cargando...</div>;
-  if (error)
-    return <div className="p-4 text-lg text-center text-red-600">{error}</div>;
 
   const categoryOptions = categories.map((category) => ({
     value: category.id,
