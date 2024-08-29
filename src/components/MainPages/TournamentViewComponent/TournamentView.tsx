@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import useTournamentData from "@/hooks/fetchTournamentData";
 
 const TournamentsView: React.FC = ({}) => {
-  const { tournaments, categories, loading, error } = useTournamentData();
-  console.log(tournaments, categories, loading);
+  const { tournaments, categories } = useTournamentData();
+  console.log(tournaments, categories);
   const router = useRouter();
   const [filteredCategory, setFilteredCategory] = useState<string>("");
 

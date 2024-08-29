@@ -70,7 +70,7 @@ export interface ICreateTournamentReq {
   matchDuration: number;
   courts: number;
   description: string;
-  tournamentImg: string;
+  tournamentFlyer: string;
   category: string;
 }
 
@@ -90,7 +90,7 @@ export interface ICreateTournamentFormData {
   matchDuration: number;
   courts: number;
   description: string;
-  tournamentImg: string;
+  tournamentFlyer: string;
   category: string;
 }
 
