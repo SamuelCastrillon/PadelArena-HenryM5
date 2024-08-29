@@ -25,7 +25,7 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
       src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
-
+  console.log(userInfo.profileImg);
   return (
     <div className="bg-gray-100 p-6 rounded-lg text-center">
       <Image

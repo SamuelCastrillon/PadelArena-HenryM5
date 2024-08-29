@@ -44,8 +44,10 @@ const useAuth = () => {
     const userGoogleData = session?.user as IUserGoogle;
     if (userGoogleData) {
       const response = await postNextAuthSession(userGoogleData);
+      console.log(response);
       if (response?.message.includes("realizado con exito")) {
         const newUser = response.googleUserWithoutPassword;
+        console.log(newUser);
         const { phone, country, city, address, category } = newUser;
         const existingUser = response.newUser;
 
@@ -56,6 +58,7 @@ const useAuth = () => {
           address !== null &&
           category !== null
         ) {
+          console.log(newUser);
           saveGoogleUser(newUser);
           setCurrentUser(newUser);
           router.push("/dashboard/user/profile");
