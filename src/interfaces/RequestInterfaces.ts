@@ -107,3 +107,11 @@ export interface IUserGoogle {
   email: string;
   image: string;
 }
+
+//? Payment Interfaces
+
+export interface IProductPaymentDataReq {
+  title: string;
+  quantity: number;
+  price: number;
+}
