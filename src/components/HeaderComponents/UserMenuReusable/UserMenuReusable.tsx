@@ -8,22 +8,29 @@ import { AuthContext } from "@/context/GlobalContext";
 import { deletCurrentUser } from "@/helpers/localDataManagment";
 import { useCookies } from "react-cookie";
 import { signOut } from "next-auth/react";
+import { useUserCookies } from "@/hooks/useUserCookies";
 const UserMenuReusable: React.FC<IMenuReusableData> = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [menuStatus, setMenuStatus] = React.useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
+  const { deleteGoogleUser, deleteRegularUser } = useUserCookies();
 
   const navigate = usePathname();
   const router = useRouter();
-
-  async function handlerLogOut() {
-    removeCookie("userSignIn");
-    signOut();
-    setCurrentUser(null);
-    await deletCurrentUser();
-    router.push("/login");
-  }
-
+  const handlerLogOut = async () => {
+    try {
+      console.log("Iniciando cierre de sesión...");
+      await signOut();
+      console.log("Sesión cerrada. Eliminando cookies...");
+      deleteGoogleUser();
+      deleteRegularUser();
+      setCurrentUser(null);
+      console.log("Redireccionando al home...");
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
+  };
   useEffect(() => {
     setMenuStatus(false);
   }, [navigate]);

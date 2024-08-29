@@ -1,9 +1,13 @@
-import { IUserLogin } from "@/interfaces/RequestInterfaces";
+import React from "react";
 
+import {
+  IUserGoogle,
+  IUserGooglePut,
+  IUserLogin,
+} from "@/interfaces/RequestInterfaces";
+import { useCookies } from "react-cookie";
 const userKeyDefiny = "dataCurrentUser";
 export function saveCurrentUser(newCurrentUser: IUserLogin): void {
-  //LO USO PARA GUARDAR LA RESPUESTA DEL POST NEXT AUTH DEL BACK
-  //ES MEJOR GUARDARLO EN COOKIES NO EN LOCAL STORAGE
   const dataToSreing = JSON.stringify(newCurrentUser);
   localStorage.setItem(userKeyDefiny, dataToSreing);
 }

@@ -15,6 +15,20 @@ export interface IUserRegisterReq {
   city: string;
   phone: string;
   address: string;
+  category: string;
+}
+
+export interface IUserGooglePut {
+  id: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  city: string;
+  address: string;
+  profileImg: string;
+  role?: "admin" | "jugador";
 }
 
 export interface IUserLoginRes {
@@ -27,9 +41,9 @@ export interface IUserLogin {
   //RESPUESTA DEL BACK DEL POST NEXT AUTH  SAVE CURRENT USER
   id: string;
   name: string;
-  lastName: string;
+  lastName?: string;
   email: string;
-  password: string;
+  password?: string;
   phone: string;
   country: string;
   city: string;

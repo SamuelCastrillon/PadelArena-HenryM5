@@ -1,6 +1,8 @@
 "use client";
-import FormComponent from "@/components/MainComponents/ReusableFormComponent/FormComponent";
 import React from "react";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import FormComponent from "@/components/MainComponents/ReusableFormComponent/FormComponent";
 import {
   butonsRegisterForm,
   inputsFormValues,
@@ -9,16 +11,25 @@ import {
 } from "./RegisterData";
 import HandlerRegister from "@/Server/HandlerFormsFuctions/HandlerRegister";
 import { IUserRegisterReq } from "@/interfaces/RequestInterfaces";
-import { useRouter } from "next/navigation";
-import Swal from "sweetalert2";
+
 import ButtonNextAuthSignIn from "@/components/MainComponents/NextAuthButtonSignIn/NextAuthButtonSignIn";
-import usePostSession from "@/hooks/usePostSession";
+import useTournamentData from "@/hooks/fetchTournamentData";
+
 const RegisterView = () => {
   const navigate = useRouter();
+  const { categories, loading, error } = useTournamentData();
+  console.log(categories);
 
   async function RegisterHandeler(data: IUserRegisterReq) {
+    const transformedData = {
+      ...data,
+      phone: String(data.phone),
+    };
+
+    console.log(transformedData.phone);
+
     try {
-      const response = await HandlerRegister(data);
+      const response = await HandlerRegister(transformedData);
 
       Swal.fire({
         title: "Registro exitoso",
@@ -36,6 +47,28 @@ const RegisterView = () => {
       });
     }
   }
+
+  if (loading)
+    return <div className="p-4 text-lg text-center">Cargando...</div>;
+  if (error)
+    return <div className="p-4 text-lg text-center text-red-600">{error}</div>;
+
+  const categoryOptions = categories.map((category) => ({
+    value: category.id,
+    name: category.name,
+  }));
+  console.log(categoryOptions);
+
+  const updatedInputsFormValues = inputsFormValues.map((input) => {
+    if (input.FieldType === "select" && input.FieldName === "category") {
+      return {
+        ...input,
+        selectOptions: categoryOptions,
+      };
+    }
+    return input;
+  });
+
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">
       <ButtonNextAuthSignIn className="bg-black text-white">
@@ -45,7 +78,7 @@ const RegisterView = () => {
         iniValues={signInInitialValues}
         valiSchema={registerSchema}
         handelerSubmit={RegisterHandeler}
-        dataContructor={inputsFormValues}
+        dataContructor={updatedInputsFormValues}
         butonsForm={butonsRegisterForm}
       />
     </section>

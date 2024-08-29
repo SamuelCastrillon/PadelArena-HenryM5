@@ -20,19 +20,19 @@ const useTournamentData = () => {
         ]);
         setTournaments(tournamentsData);
         setCategories(categoriesData);
-        setLoading(false);
       } catch (error) {
-        setError("Error fetching tournament data");
+        setError(
+          "Error al obtener los datos. Por favor, intenta de nuevo más tarde."
+        );
+      } finally {
         setLoading(false);
       }
     };
 
     fetchData();
   }, []);
-  console.log(tournaments, categories, loading, error);
+
   return { tournaments, categories, loading, error };
 };
 
 export default useTournamentData;
-
-//para llevarme la info
