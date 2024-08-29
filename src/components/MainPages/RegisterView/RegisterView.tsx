@@ -21,17 +21,23 @@ const RegisterView = () => {
   console.log(categories);
 
   async function RegisterHandeler(data: IUserRegisterReq) {
+    const transformedData = {
+      ...data,
+      phone: String(data.phone),
+    };
+
+    console.log(transformedData.phone);
+
     try {
-      const response = await HandlerRegister(data);
-      if (response.data) {
-        Swal.fire({
-          title: "Registro exitoso",
-          text: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
-          icon: "success",
-          confirmButtonText: "Aceptar",
-        });
-        navigate.push("/login");
-      }
+      const response = await HandlerRegister(transformedData);
+
+      Swal.fire({
+        title: "Registro exitoso",
+        text: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      });
+      navigate.push("/login");
     } catch (error) {
       Swal.fire({
         title: "Error al registrarse",
@@ -47,14 +53,12 @@ const RegisterView = () => {
   if (error)
     return <div className="p-4 text-lg text-center text-red-600">{error}</div>;
 
-  // Transforma las categorías en un formato adecuado para el select
   const categoryOptions = categories.map((category) => ({
     value: category.id,
     name: category.name,
   }));
   console.log(categoryOptions);
 
-  // Actualiza `inputsFormValues` con las opciones de selección
   const updatedInputsFormValues = inputsFormValues.map((input) => {
     if (input.FieldType === "select" && input.FieldName === "category") {
       return {
@@ -74,7 +78,7 @@ const RegisterView = () => {
         iniValues={signInInitialValues}
         valiSchema={registerSchema}
         handelerSubmit={RegisterHandeler}
-        dataContructor={updatedInputsFormValues} // Utiliza los valores actualizados
+        dataContructor={updatedInputsFormValues}
         butonsForm={butonsRegisterForm}
       />
     </section>

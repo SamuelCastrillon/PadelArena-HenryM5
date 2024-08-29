@@ -137,7 +137,6 @@ export const inputsFormValues: IDataConstructor[] = [
     FieldType: "select",
     FieldName: "category",
     FieldPH: "Categoría...",
-    selectOptions: [], // Agregaremos las opciones dinámicamente más adelante
   },
 ];
 
