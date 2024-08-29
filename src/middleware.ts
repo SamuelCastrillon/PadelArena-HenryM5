@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Definición de claves de cookies
 const googleUserKey = "googleUser";
 const regularUserKey = "regularUser";
 
 export async function middleware(request: NextRequest) {
-  // Obtener las cookies del usuario de Google y del usuario regular
   const googleUserCookie = request.cookies.get(googleUserKey)?.value;
   const regularUserCookie = request.cookies.get(regularUserKey)?.value;
   console.log(regularUserCookie);
@@ -15,10 +13,9 @@ export async function middleware(request: NextRequest) {
   let user = null;
   let role = null;
 
-  // Si existe la cookie de Google, la analiza
   if (googleUserCookie) {
     try {
-      user = JSON.parse(googleUserCookie); // Analiza la cookie de Google
+      user = JSON.parse(googleUserCookie);
       role = user.role; // Saco el rol del usuario
       console.log("Usuario autenticado (Google):", user);
     } catch (error) {
@@ -27,7 +24,7 @@ export async function middleware(request: NextRequest) {
   } else if (regularUserCookie) {
     // Si no existe la cookie de Google pero existe la de usuario regular
     try {
-      user = JSON.parse(regularUserCookie); // Analiza la cookie de usuario regular
+      user = JSON.parse(regularUserCookie);
       role = user.role; // Saco el rol del usuario
       console.log("Usuario autenticado (Regular):", user);
     } catch (error) {
