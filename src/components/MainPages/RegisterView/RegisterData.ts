@@ -85,7 +85,7 @@ export const inputsFormValues: IDataConstructor[] = [
     FieldPH: "Nombre...",
   },
   {
-    LabelText: "Aapellido",
+    LabelText: "Apellido",
     FieldType: "text",
     FieldName: "lastName",
     FieldPH: "Apellido...",

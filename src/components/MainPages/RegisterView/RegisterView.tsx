@@ -65,10 +65,15 @@ const RegisterView = () => {
   });
 
   return (
-    <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">
-      <ButtonNextAuthSignIn className="bg-black text-white">
-        Registrate con Google
-      </ButtonNextAuthSignIn>
+    <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit my-20">
+      <h1 className="text-white text-3xl sfRegular ">
+        Registrate para ser parte de
+        <br></br>
+        <span className="radhiumz text-5xl text-lime uppercase">
+          {" "}
+          la accion
+        </span>
+      </h1>
       <FormComponent
         iniValues={signInInitialValues}
         valiSchema={registerSchema}
@@ -76,6 +81,9 @@ const RegisterView = () => {
         dataContructor={updatedInputsFormValues}
         butonsForm={butonsRegisterForm}
       />
+      <ButtonNextAuthSignIn className="bg-black text-white">
+        Registrate con Google
+      </ButtonNextAuthSignIn>
     </section>
   );
 };
