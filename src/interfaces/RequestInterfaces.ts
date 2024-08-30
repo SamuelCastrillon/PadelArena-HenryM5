@@ -28,6 +28,7 @@ export interface IUserGooglePut {
   city: string;
   address: string;
   profileImg: string;
+  category: string;
   role?: "admin" | "jugador";
 }
 
