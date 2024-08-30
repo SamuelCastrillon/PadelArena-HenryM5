@@ -2,20 +2,35 @@
 import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
+import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
 }
 
 const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament }) => {
+  console.log(tournament);
+  console.log("Inscripciones:", tournament.inscription);
+  const { currentUser, currentUserGoogle } = useContext(AuthContext);
+  const user = currentUser || currentUserGoogle;
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleInscriptionClick = () => {
+    if (user) {
+      router.push(`/tournaments/register/${tournament.id}`);
+    } else {
+      router.push("/register");
+    }
+  };
 
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
@@ -81,14 +96,13 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
         />
 
         {/* Botón de Inscripción */}
-        {/* {tournament.inscripciones === "abierta" && ( */}
-        {tournament && ( // TODO: Comente el codigo de arriva de manera temporar paar ahacer pruebas
+        {tournament.inscription === "abiertas" && user?.role !== "admin" && (
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
-            <NavigateButton
-              href={`/tournaments/register/${tournament.id}`}
+            <button
+              onClick={handleInscriptionClick}
               className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz">
               Inscribite
-            </NavigateButton>
+            </button>
           </div>
         )}
 

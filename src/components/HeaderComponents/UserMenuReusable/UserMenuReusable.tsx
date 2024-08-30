@@ -10,7 +10,10 @@ import { useCookies } from "react-cookie";
 import { signOut } from "next-auth/react";
 import { useUserCookies } from "@/hooks/useUserCookies";
 const UserMenuReusable: React.FC<IMenuReusableData> = () => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const { currentUser, setCurrentUser, currentUserGoogle } =
+    useContext(AuthContext);
+  const user = currentUser || currentUserGoogle;
+  console.log(user);
   const [menuStatus, setMenuStatus] = React.useState(false);
   const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
   const { deleteGoogleUser, deleteRegularUser } = useUserCookies();
@@ -51,7 +54,7 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
       <MenuDropDaw
         menuStatus={menuStatus}
         handlerLogOut={handlerLogOut}
-        currentUser={currentUser}
+        currentUser={user}
       />
     </div>
   );
