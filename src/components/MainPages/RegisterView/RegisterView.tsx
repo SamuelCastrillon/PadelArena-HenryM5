@@ -71,10 +71,10 @@ const RegisterView = () => {
 
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit my-20">
-      <h1 className="text-white text-3xl sfRegular ">
+      <h1 className="text-white text-2xl sfRegular text-center">
         Registrate para ser parte de
         <br />
-        <span className="radhiumz text-5xl text-lime uppercase">
+        <span className="radhiumz text-6xl text-lime uppercase">
           {" "}
           la accion
         </span>
@@ -87,7 +87,7 @@ const RegisterView = () => {
         butonsForm={butonsRegisterForm}
       />
       {/* Botón para registrarse con Google */}
-      <ButtonNextAuthSignIn className="bg-black text-white">
+      <ButtonNextAuthSignIn className=" bg-black text-white">
         Registrate con Google
       </ButtonNextAuthSignIn>
 
@@ -99,8 +99,7 @@ const RegisterView = () => {
         backgroundColor="bg-white"
         textColor="text-black"
         className="p-4"
-        bgImageUrl="https://example.com/your-background-image.jpg"
-      >
+        bgImageUrl="https://example.com/your-background-image.jpg">
         <h2 className="text-xl font-bold mb-4">Completa tu perfil</h2>
         <form onSubmit={handleUpdateProfile}>
           {/* Campos para completar el perfil */}
@@ -154,8 +153,7 @@ const RegisterView = () => {
               name="category"
               value={formData.category}
               onChange={handleInputChange}
-              className="w-full border border-gray-300 p-2 rounded"
-            >
+              className="w-full border border-gray-300 p-2 rounded">
               <option value="">Selecciona una categoría</option>
               {error && <option>Error al cargar categorías</option>}
               {categories &&
@@ -168,8 +166,7 @@ const RegisterView = () => {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded"
-          >
+            className="bg-blue-500 text-white py-2 px-4 rounded">
             Actualizar Perfil
           </button>
         </form>
