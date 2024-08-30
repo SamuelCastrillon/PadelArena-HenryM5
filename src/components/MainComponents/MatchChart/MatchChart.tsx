@@ -23,12 +23,23 @@ const MatchStatsChart = ({
     ],
   };
 
+  // Opciones para personalizar el color de las etiquetas de la leyenda
+  const options = {
+    plugins: {
+      legend: {
+        labels: {
+          color: "white", // Cambia el color de las etiquetas de la leyenda aquí
+        },
+      },
+    },
+  };
+
   return (
-    <div className="w-full max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
-      <h3 className="text-xl radhiumz mb-4 text-center">
+    <div className="w-full max-w-md mx-auto p-4 bg-black/25 rounded-lg shadow-md">
+      <h3 className="text-xl radhiumz mb-4 text-white text-center">
         Estadísticas de Partidos
       </h3>
-      <Pie data={data} />
+      <Pie data={data} options={options} />
     </div>
   );
 };

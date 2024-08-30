@@ -7,7 +7,7 @@ import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButt
 const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   const [userInfo, setUserInfo] = useState<IUserLogin>(user);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-
+  console.log(user);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
