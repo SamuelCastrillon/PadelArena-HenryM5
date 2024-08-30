@@ -14,6 +14,8 @@ import { IFilerProp } from "@/components/MainPages/TournamentByUserCategory/Tour
 //   );
 // };
 
+//!con retraso para mostrar el loading
+
 const TournamentDetail = async ({ params }: { params: { id: string } }) => {
   console.log(params.id);
   const tournamentId: ITournament | null = await getTournamentById(params.id);

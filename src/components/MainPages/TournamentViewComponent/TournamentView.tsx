@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import useTournamentData from "@/hooks/fetchTournamentData";
 
 const TournamentsView: React.FC = ({}) => {
-  const { tournaments, categories, loading, error } = useTournamentData();
-  console.log(tournaments, categories, loading);
+  const { tournaments, categories } = useTournamentData();
+  console.log(tournaments, categories);
   const router = useRouter();
   const [filteredCategory, setFilteredCategory] = useState<string>("");
 
@@ -29,17 +29,25 @@ const TournamentsView: React.FC = ({}) => {
       return [];
     }
 
-    const normalizedStatus = status.trim();
+    // Normaliza el estado para la comparación
+    const normalizedStatus = status.trim().toLowerCase();
 
     return tournaments.filter((tournament) => {
-      const normalizedTournamentStatus = tournament.status.trim();
+      // Asegúrate de que todas las propiedades estén presentes
+      const tournamentStatus = tournament?.status?.trim().toLowerCase();
+      const tournamentCategoryName = tournament?.category?.name
+        ?.trim()
+        .toLowerCase();
+      const selectedCategory = filteredCategory.trim().toLowerCase();
 
       return (
-        normalizedTournamentStatus === normalizedStatus &&
-        (!filteredCategory || tournament.category.name === filteredCategory)
+        tournamentStatus === normalizedStatus &&
+        (!filteredCategory || tournamentCategoryName === selectedCategory)
       );
     });
   };
+
+  console.log("Datos de torneos antes del filtrado:", tournaments);
 
   return (
     <div className="min-h-screen">

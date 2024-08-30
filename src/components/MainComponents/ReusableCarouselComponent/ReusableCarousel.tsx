@@ -1,5 +1,4 @@
-// Carousel.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -12,7 +11,7 @@ interface ICarouselProps {
     title: string;
     href: string;
     categoria: string;
-    inscripciones: "abierta" | "cerrada";
+    inscription: "abiertas" | "cerradas";
   }[];
 }
 
@@ -44,18 +43,11 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
 
   // Manejo del clic en la imagen para redireccionar
   const handleImageClick = (href: string) => {
+    console.log(href);
     router.push(href);
   };
 
   console.log(images);
-
-  // Efecto para mover el carrusel automáticamente
-  useEffect(() => {
-    const intervalId = setInterval(goToNext, 3000); // Cambia de slide cada 3 segundos
-
-    // Limpieza del intervalo cuando el componente se desmonta
-    return () => clearInterval(intervalId);
-  }, []);
 
   return (
     <div className="relative w-full">
@@ -65,7 +57,7 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
           className="flex transition-transform duration-[1.2s] ease-[cubic-bezier(0.25, 0.1, 0.25, 1)]"
           style={{
             transform: `translateX(-${currentIndex * (100 / imagesPerSlide)}%)`,
-            width: `${100 * Math.ceil(images.length / imagesPerSlide)}%`, // Asegura que el contenedor tenga el ancho correcto
+            width: `${100 * Math.ceil(images.length / imagesPerSlide)}%`,
           }}
         >
           {images.map((image, index) => (
@@ -78,17 +70,16 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  layout="fill" // Llena el contenedor
-                  objectFit="cover" // Ajusta la imagen para cubrir el contenedor
+                  layout="fill"
+                  objectFit="cover"
                   className="block w-full h-full rounded-xl transition duration-300 ease-in-out filter grayscale hover:grayscale-0"
                 />
-                <div className="absolute bottom-0 left-0 w-full text-white p-4 bg-gradient-to-t from-black ">
+                <div className="absolute bottom-0 left-0 w-full text-white p-4 bg-gradient-to-t from-black">
                   <h3 className="text-xl sfBold text-lime">{image.title}</h3>
-
                   <p className="text-sm sfMedium">{image.categoria}</p>
                   {/* Badge Optional */}
                   <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
-                    <HoverBadge status={image.inscripciones} />
+                    <HoverBadge status={image.inscription} />
                   </div>
                 </div>
               </div>
