@@ -1,7 +1,7 @@
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import TournamentDetailView from "@/components/MainPages/TournamentDetailView/TournamentDetailView";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-import { tournamentsHelper } from "@/helpers/tournamentsData";
+
 import React from "react";
 import { getTournamentById } from "@/Server/Tournament/getTournamentById";
 import { IFilerProp } from "@/components/MainPages/TournamentByUserCategory/TournamentByUserCategory";
