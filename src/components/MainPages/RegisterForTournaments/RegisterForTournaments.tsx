@@ -30,13 +30,13 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams, 
   const tournamentId = allParams.params[0];
   const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
 
-  const dataToPay = {
-    tournament: tournamentId,
-    host: TOURNAAMENT_REGISTER_URL,
-  };
-  console.log(dataToPay);
-
   async function payToInscription() {
+    const dataToPay = {
+      tournament: tournamentId,
+      host: TOURNAAMENT_REGISTER_URL,
+      user: currentUser?.id,
+    };
+    console.log(dataToPay);
     try {
       const { redirectUrl } = await postPaymentToMP(dataToPay);
       if (!redirectUrl) {
