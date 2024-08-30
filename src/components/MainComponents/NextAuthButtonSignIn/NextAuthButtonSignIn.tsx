@@ -21,7 +21,7 @@ const ButtonNextAuthSignIn: React.FC<ButtonNextAuthProps> = ({
   return (
     <button
       onClick={signInGoogle}
-      className={`flex items-center justify-center px-2 rounded-xl bg-white/20 shadow-md shadow-lime  text-black  ${className}`}
+      className={`flex items-center justify-center px-2 rounded-xl bg-white/20 shadow-md shadow-lime  text-black hover:shadow-blue-700 ${className}`}
     >
       <div className="flex items-center text-center">
         <Image
