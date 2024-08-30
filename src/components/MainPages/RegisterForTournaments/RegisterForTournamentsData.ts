@@ -25,13 +25,16 @@ export async function getDataToContructFormRegisterTournament() {
   //? Data constructor form
   const inputsRegisterTournamentFormValues: IDataConstructor[] = [
     {
-      LabelText: "Companero de equipo",
+      LabelText: "Compañero de equipo",
       FieldType: "select",
       FieldName: "teammate",
       selectOptions: usersToSelect,
     },
   ];
-  return { inputsRegisterTournamentFormValues, registerTournementInitialValues };
+  return {
+    inputsRegisterTournamentFormValues,
+    registerTournementInitialValues,
+  };
 }
 export const butonsRegisterTournamentForm: IButtonForm[] = [
   { name: "Inscribir Equipo", type: "submit" },

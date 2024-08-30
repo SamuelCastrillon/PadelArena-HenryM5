@@ -35,7 +35,6 @@ const payments = [
 const PaymentsView = () => {
   return (
     <div>
-      PaymentsView
       <div className="md:col-span-2">
         <PaymentHistoryPanel payments={payments} />
       </div>
