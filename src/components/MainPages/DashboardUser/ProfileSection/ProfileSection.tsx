@@ -11,7 +11,7 @@ const ProfileSection: React.FC = () => {
   console.log(user);
 
   return (
-    <div className="w-3/4">
+    <div className="w-3/4 mx-auto">
       {user ? (
         <UserInfoPanel user={user} />
       ) : (
