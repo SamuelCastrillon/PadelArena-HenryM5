@@ -30,7 +30,7 @@ export interface IUserGooglePut {
   city: string;
   address: string;
   profileImg: string;
-  category: string;
+  category: { name: string };
   role?: "admin" | "jugador";
 }
 
@@ -53,7 +53,7 @@ export interface IUserLogin {
   address: string;
   profileImg: string;
   role?: "admin" | "jugador";
-  category: string;
+  category: { name: string };
 }
 
 //? Tournament Interfaces

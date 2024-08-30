@@ -7,6 +7,7 @@ import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButt
 const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   const [userInfo, setUserInfo] = useState<IUserLogin>(user);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  console.log(userInfo);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -118,7 +119,8 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
         </ul>
         <ActionButton
           onClick={toggleEdit}
-          className="mt-4 bg-lime text-black px-4 py-2 rounded hover:bg-black hover:text-white">
+          className="mt-4 bg-lime text-black px-4 py-2 rounded hover:bg-black hover:text-white"
+        >
           {isEditing ? "Guardar" : "Editar"}
         </ActionButton>
       </div>
