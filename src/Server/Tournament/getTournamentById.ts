@@ -37,3 +37,18 @@ export const getTournamentById = async (
     return null;
   }
 };
+
+export const getTournamentByCategory = async (
+  category: string
+): Promise<ITournament | null> => {
+  try {
+    const response = await axiosInstance.get(
+      `/tournament/category/${category}`
+    );
+    console.log(response.data);
+    return response.data; // Asegúrate de que response.data sea del tipo ITournament
+  } catch (error) {
+    console.error("Error fetching tournament by Category:", error);
+    return null;
+  }
+};
