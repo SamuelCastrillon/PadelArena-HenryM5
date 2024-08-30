@@ -24,8 +24,9 @@ const FormComponent: React.FC<IFormikConstructor> = ({
         validationSchema={valiSchema}
         onSubmit={handelerSubmit}
       >
-        <Form className="flex flex-col items-center p-5 w-screen sm:w-fit md:w-[600px] m-5  rounded-md  bg-gray-500/90  border-white/30 justify-between ">
-          <div className="flex flex-col flex-wrap items-center gap-2 md:flex-row md:justify-evenly">
+        <Form className="flex flex-col items-center p-5 w-[90%] md:w-[60%] m-5 rounded-md bg-blue-950/60 border-blue-950  shadow-md shadow-lime border-2 justify-between">
+          {/* Usamos grid para tener dos columnas */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 w-full">
             {fieldsForm.length > 0 &&
               fieldsForm.map((field, i) => {
                 //? if else to check the type of the input
@@ -34,21 +35,26 @@ const FormComponent: React.FC<IFormikConstructor> = ({
                     return <CheckboxContainer key={i} {...field} />;
                   case "textarea":
                     return <TextArea key={i} {...field} />;
-
                   case "select":
                     return (
-                      <Select {...field} selectOptions={field.selectOptions} />
+                      <Select
+                        key={i}
+                        {...field}
+                        selectOptions={field.selectOptions}
+                      />
                     );
-
                   default:
                     return <ImputForm key={i} {...field} />;
                 }
               })}
           </div>
 
-          {butonsForm.map((data, i) => {
-            return <ButtonForm key={i} name={data.name} type={data.type} />;
-          })}
+          {/* Botones del formulario */}
+          <div className="flex gap-4 mt-4">
+            {butonsForm.map((data, i) => {
+              return <ButtonForm key={i} name={data.name} type={data.type} />;
+            })}
+          </div>
         </Form>
       </Formik>
     </>

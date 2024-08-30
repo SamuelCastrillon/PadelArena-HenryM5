@@ -3,9 +3,8 @@ import React from "react";
 
 const Header: React.FC = () => (
   <div className="mt-20 justify-start items-center flex-col flex">
-    <h1 className="radhiumz text-3xl mx-4 md:mx-0 md:text-4xl text-center uppercase text-white">
+    <h1 className="radhiumz text-3xl mx-4 md:mx-0 md:text-4xl text-center uppercase p-2 text-white shadow-md shadow-blue-700">
       Torneos de hoy, ayer y siempre
-      <hr className="h-2 w-full text-white"></hr>
     </h1>
     <h2 className="sfRegular text-md md:text-xl text-white mt-8">
       Una mirada a nuestros más recientes torneos

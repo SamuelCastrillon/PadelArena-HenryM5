@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="/tournaments" className="hover:underline">
+                <a href="/terms" className="hover:underline">
                   Terminos y condiciones
                 </a>
               </li>

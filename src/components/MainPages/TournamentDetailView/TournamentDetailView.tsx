@@ -32,9 +32,12 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
     tournament.inscription === "abiertas" ? "Inscripción Abierta" : "Inscripción Cerrada";
 
   return (
-    <div className="flex flex-col items-center mt-20">
+    <div className="flex flex-col items-center p-8 mt-20 bg-blue-700/20 rounded-xl">
       {/* Status del Torneo */}
-      <div className={`mb-4 w-full text-center ${statusColor}`}>{statusText}</div>
+      <div className={`mb-4 w-full text-center ${statusColor}`}>
+        {statusText}
+        <hr className="w-full my-2 text-white" />
+      </div>
 
       {/* Botón de Navegación */}
       <div className="flex items-center mb-10">
@@ -83,7 +86,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
             <NavigateButton
               href={`/tournaments/register/${tournament.id}`}
-              className="w-full h-12 max-w-xs px-10 py-4 text-black rounded-xl bg-lime radhiumz">
+              className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz">
               Inscribite
             </NavigateButton>
           </div>
