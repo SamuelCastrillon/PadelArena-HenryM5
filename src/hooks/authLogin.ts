@@ -111,6 +111,7 @@ const useAuth = () => {
   const logIn = async (data: IUserLoginReq) => {
     try {
       const response: IUserLoginRes = await HandlerLogIn(data);
+      console.log(response);
       if (response?.token) {
         console.log(response.userClean);
         saveRegularUser(response.userClean);

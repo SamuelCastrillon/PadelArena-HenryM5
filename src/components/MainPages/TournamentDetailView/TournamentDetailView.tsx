@@ -2,9 +2,11 @@
 import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
+import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -15,12 +17,22 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 }) => {
   console.log(tournament);
   console.log("Inscripciones:", tournament.inscription);
-
+  const { currentUser, currentUserGoogle } = useContext(AuthContext);
+  const user = currentUser || currentUserGoogle;
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleInscriptionClick = () => {
+    if (user) {
+      router.push(`/tournaments/register/${tournament.id}`);
+    } else {
+      router.push("/register");
+    }
+  };
 
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
@@ -96,12 +108,12 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         {/* Botón de Inscripción */}
         {tournament.inscription === "abiertas" && (
           <div className="w-full mt-8 mb-8 mx-auto flex justify-center">
-            <NavigateButton
-              href={`/tournaments/register/${tournament.id}`}
+            <button
+              onClick={handleInscriptionClick}
               className="w-full  py-6 px-12 rounded-xl text-xl bg-white shadow-lg shadow-blue-700 text-black uppercase radhiumz"
             >
               Inscribite
-            </NavigateButton>
+            </button>
           </div>
         )}
 
