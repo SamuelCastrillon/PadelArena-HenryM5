@@ -10,9 +10,11 @@ const perdio = [3, 4, 2, 5, 6, 3, 7, 4, 6, 5, 2, 4];
 
 const StadisticsView = () => {
   return (
-    <div>
-      <div className="flex w-full my-20">
+    <div className="flex flex-wrap w-full my-20">
+      <div className="w-full md:w-1/2 p-2">
         <MatchStatsChart wins={wins} losses={losses} />
+      </div>
+      <div className="w-full md:w-1/2 p-2">
         <TournamentLineChart gano={gano} perdio={perdio} />
       </div>
     </div>
