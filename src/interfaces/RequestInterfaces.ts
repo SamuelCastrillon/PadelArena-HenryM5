@@ -1,5 +1,7 @@
 //? User Interfaces
 
+import { ICategories } from "./ComponentsInterfaces/TournamentCategorias";
+
 export interface IUserLoginReq {
   email: string;
   password: string;

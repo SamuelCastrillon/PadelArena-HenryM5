@@ -296,6 +296,7 @@ const LogInView: React.FC = () => {
     logIn,
   } = useAuth();
   const { categories, error } = useTournamentData();
+  console.log(categories);
 
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit mt-20">
@@ -321,7 +322,8 @@ const LogInView: React.FC = () => {
         </span>
         <NavigateButton
           href="/register"
-          className="rounded-lg bg-customBlue w-full h-fit py-4 px-4 sfRegular text-xl text-white hover:shadow-lg">
+          className="rounded-lg bg-customBlue w-full h-fit py-4 px-4 sfRegular text-xl text-white hover:shadow-lg"
+        >
           Registrate
         </NavigateButton>
       </div>
@@ -333,7 +335,8 @@ const LogInView: React.FC = () => {
         backgroundColor="bg-white"
         textColor="text-black"
         className="p-4"
-        bgImageUrl="https://example.com/your-background-image.jpg">
+        bgImageUrl="https://example.com/your-background-image.jpg"
+      >
         <h2 className="text-xl font-bold mb-4">Completa tu perfil</h2>
         <form onSubmit={handleUpdateProfile}>
           {/* Campos para completar el perfil */}
@@ -385,9 +388,13 @@ const LogInView: React.FC = () => {
             <label className="block mb-2">Categoría</label>
             <select
               name="category"
-              value={formData.category}
+              value={
+                categories.find((category) => category.id === formData.category)
+                  ?.name || ""
+              } // Muestra el nombre correspondiente al ID seleccionado
               onChange={handleInputChange}
-              className="w-full border border-gray-300 p-2 rounded">
+              className="w-full border border-gray-300 p-2 rounded"
+            >
               <option value="">Selecciona una categoría</option>
               {error && <option>Error al cargar categorías</option>}
               {categories &&
@@ -400,7 +407,8 @@ const LogInView: React.FC = () => {
           </div>
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded">
+            className="bg-blue-500 text-white py-2 px-4 rounded"
+          >
             Actualizar Perfil
           </button>
         </form>

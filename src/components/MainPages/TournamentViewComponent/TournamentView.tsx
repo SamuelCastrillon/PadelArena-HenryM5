@@ -12,14 +12,20 @@ import TournamentFilters, {
 const TournamentsView: React.FC = () => {
   const { tournaments, categories } = useTournamentData();
   const router = useRouter();
-  const [filteredTournaments, setFilteredTournaments] =
-    useState<ITournament[]>(tournaments);
+  const [filteredTournaments, setFilteredTournaments] = useState<ITournament[]>(
+    tournaments || []
+  ); // Asegúrate de que inicialice como array vacío si tournaments es undefined
 
   // Aplicar filtros cuando se actualicen
   const applyFilters = (filters: Filters) => {
+    if (!tournaments || tournaments.length === 0) {
+      console.warn("No hay torneos disponibles para filtrar.");
+      setFilteredTournaments([]);
+      return;
+    }
+
     const filtered = tournaments.filter((tournament) => {
-      // Extraer el mes de la fecha de inicio del torneo
-      const tournamentMonth = new Date(tournament.startDate).getMonth() + 1; // getMonth() devuelve 0-11, así que sumamos 1
+      const tournamentMonth = new Date(tournament.startDate).getMonth() + 1;
       const tournamentMonthFormatted =
         tournamentMonth < 10 ? `0${tournamentMonth}` : `${tournamentMonth}`;
 
@@ -37,7 +43,7 @@ const TournamentsView: React.FC = () => {
   };
 
   const resetFilters = () => {
-    setFilteredTournaments(tournaments);
+    setFilteredTournaments(tournaments || []);
   };
 
   // Aplicar filtros iniciales
@@ -62,7 +68,6 @@ const TournamentsView: React.FC = () => {
 
     return filteredTournaments.filter((tournament) => {
       const tournamentStatus = tournament?.status?.trim().toLowerCase();
-
       return tournamentStatus === normalizedStatus;
     });
   };
@@ -72,19 +77,19 @@ const TournamentsView: React.FC = () => {
       <Header />
 
       <TournamentFilters
-        categories={categories}
+        categories={categories || []} // Asegura que sea un array vacío si categories es undefined
         onApplyFilters={applyFilters}
         onResetFilters={resetFilters}
       />
 
       <section className="bg-white py-2 md:py-6 my-14 min-h-screen w-[90%] mx-auto rounded-3xl">
-        {categories?.length === 0 && (
+        {(!categories || categories.length === 0) && (
           <div className="text-center text-gray-500 mt-10">
             <p>No hay categorías disponibles en este momento!</p>
           </div>
         )}
 
-        {filteredTournaments?.length === 0 ? (
+        {filteredTournaments.length === 0 ? (
           <div className="text-center text-gray-500 mt-10">
             <p>No hay torneos disponibles en este momento.</p>
           </div>

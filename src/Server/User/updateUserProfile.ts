@@ -1,3 +1,4 @@
+import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategorias";
 import { axiosInstance } from "../AxiosConfig";
 
 export interface IUpdateUser {
@@ -17,6 +18,7 @@ export const updateUserProfile = async (
       `/users/updateProfile/${userId}`,
       updateData
     );
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);
