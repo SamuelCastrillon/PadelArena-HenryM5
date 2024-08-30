@@ -13,9 +13,9 @@ const TermsAndConditions: React.FC = () => {
           Conocé la letra chica detrás de la web:
         </h2>
       </div>
-      <div className="max-w-4xl mx-auto p-8 bg-white shadow-md rounded-lg my-[50px]">
-        <div className="overflow-auto w-full h-96 bg-white">
-          <section className="mb-6">
+      <div className="max-w-4xl p-8 shadow-md  bg-white py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl">
+        <div className="overflow-auto w-full h-96 bg-white m-2">
+          <section className="m-6">
             <h2
               className="text-2xl font-thin mb-4 underline"
               style={{ fontFamily: "Radhiumz" }}>
@@ -175,7 +175,7 @@ const TermsAndConditions: React.FC = () => {
             </p>
           </section>
         </div>
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center my-6">
           <NavigateButton
             href="/"
             className="bg-lime text-black sfBold px-4 rounded-lg hover:bg-customBlue hover:text-white py-2 Radhiumz">
