@@ -106,7 +106,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         />
 
         {/* Botón de Inscripción */}
-        {tournament.inscription === "abiertas" && (
+        {tournament.inscription === "abiertas" && user?.role !== "admin" && (
           <div className="w-full mt-8 mb-8 mx-auto flex justify-center">
             <button
               onClick={handleInscriptionClick}
