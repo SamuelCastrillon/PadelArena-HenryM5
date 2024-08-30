@@ -26,7 +26,7 @@ export const getTournamentById = async (
 ): Promise<ITournament | null> => {
   try {
     // Simula un retraso de 3 segundos
-    await simulateDelay(3000);
+    await simulateDelay(2000);
 
     const response = await axiosInstance.get(`/tournament/${id}`);
     console.log(response.data);
