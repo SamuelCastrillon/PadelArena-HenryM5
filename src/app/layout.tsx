@@ -5,6 +5,7 @@ import NavBarComponent from "@/components/HeaderComponents/NavBarComponent/NavBa
 import BackGroudComponent from "@/components/GeneralComponents/BackGroudComponent/BackGroudComponent";
 import Footer from "@/components/FooterComponent/Footer";
 import GlobalContext from "@/context/GlobalContext";
+import SessionWrapper from "@/auth/SessionWrapper";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,16 +19,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <GlobalContext>
-        <body className="relative flex flex-col justify-between min-h-screen sfRegular bg-white-200 max-h-fit">
-          <BackGroudComponent />
-          <header className="flex justify-center w-full">
-            <NavBarComponent />
-          </header>
-          <main>{children}</main>
-          <Footer />
-        </body>
-      </GlobalContext>
+      <SessionWrapper>
+        <GlobalContext>
+          <body className="relative flex flex-col justify-between min-h-screen sfRegular bg-white-200 max-h-fit">
+            <BackGroudComponent />
+            <header className="flex justify-center w-full">
+              <NavBarComponent />
+            </header>
+            <main>{children}</main>
+            <Footer />
+          </body>
+        </GlobalContext>
+      </SessionWrapper>
     </html>
   );
 }

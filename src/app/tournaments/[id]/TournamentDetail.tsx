@@ -1,9 +1,10 @@
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import TournamentDetailView from "@/components/MainPages/TournamentDetailView/TournamentDetailView";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-import { tournamentsHelper } from "@/helpers/tournamentsData";
+
 import React from "react";
 import { getTournamentById } from "@/Server/Tournament/getTournamentById";
+import { IFilerProp } from "@/components/MainPages/TournamentByUserCategory/TournamentByUserCategory";
 
 //peticion get tournament/id
 
@@ -12,6 +13,8 @@ import { getTournamentById } from "@/Server/Tournament/getTournamentById";
 //     (tournament: ITournament) => tournament.id === id
 //   );
 // };
+
+//!con retraso para mostrar el loading
 
 const TournamentDetail = async ({ params }: { params: { id: string } }) => {
   console.log(params.id);

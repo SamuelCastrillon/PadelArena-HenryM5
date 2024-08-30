@@ -1,26 +1,57 @@
 "use client";
+
 import React, { createContext, useEffect, useState } from "react";
 import { IAuthcontext } from "../interfaces/GlobalContextInterfaces";
-import { IUserLogin } from "@/interfaces/RequestInterfaces";
-import { getCurrentUser } from "@/helpers/localDataManagment";
+import { IUserGooglePut, IUserLogin } from "@/interfaces/RequestInterfaces";
+import { useUserCookies } from "@/hooks/useUserCookies";
 
 export const AuthContext = createContext<IAuthcontext>({
   currentUser: null,
   setCurrentUser: () => {},
+  userIdGoogle: null,
+  setUserIdGoogle: () => {},
+  currentUserGoogle: null,
 });
+
 const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<IUserLogin | null>(null);
+  const [userIdGoogle, setUserIdGoogle] = useState<string | null>(null);
+  const [currentUserGoogle, setCurrentUserGoogle] =
+    useState<IUserGooglePut | null>(null);
 
-  //? get current user from local storage and set it in state
-  useEffect(() => {
-    if (!currentUser) {
-      const dataUser = getCurrentUser();
-      dataUser && setCurrentUser(dataUser);
+  const { getGoogleUser, getRegularUser } = useUserCookies();
+
+  const syncUserWithCookies = () => {
+    const userGoogle = getGoogleUser();
+    console.log("aqui el maldito user", userGoogle);
+    if (userGoogle) {
+      setCurrentUserGoogle(userGoogle);
+      console.log(userGoogle);
+    } else {
+      const regularUser = getRegularUser();
+      if (regularUser) {
+        setCurrentUser(regularUser);
+      }
     }
+  };
+
+  useEffect(() => {
+    syncUserWithCookies();
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, setCurrentUser }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        currentUser,
+        setCurrentUser,
+        currentUserGoogle,
+        userIdGoogle,
+
+        setUserIdGoogle,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   );
 };
 

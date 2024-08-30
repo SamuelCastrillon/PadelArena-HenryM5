@@ -1,42 +1,69 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TournamentSection from "./TournamentSection";
-import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchBarDrop";
 import Header from "./TournamentHeader";
 import { useRouter } from "next/navigation";
 import useTournamentData from "@/hooks/fetchTournamentData";
+import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import TournamentFilters, {
+  Filters,
+} from "@/components/MainComponents/TournamentsFilters/TournamentsFilters";
 
-const TournamentsView: React.FC = ({}) => {
+const TournamentsView: React.FC = () => {
   const { tournaments, categories } = useTournamentData();
   const router = useRouter();
-  const [filteredCategory, setFilteredCategory] = useState<string>("");
+  const [filteredTournaments, setFilteredTournaments] =
+    useState<ITournament[]>(tournaments);
 
-  const handleSearch = (selectedCategory: string) => {
-    setFilteredCategory(selectedCategory);
+  // Aplicar filtros cuando se actualicen
+  const applyFilters = (filters: Filters) => {
+    const filtered = tournaments.filter((tournament) => {
+      // Extraer el mes de la fecha de inicio del torneo
+      const tournamentMonth = new Date(tournament.startDate).getMonth() + 1; // getMonth() devuelve 0-11, así que sumamos 1
+      const tournamentMonthFormatted =
+        tournamentMonth < 10 ? `0${tournamentMonth}` : `${tournamentMonth}`;
+
+      const matchesCategory =
+        !filters.category || tournament.category.name === filters.category;
+      const matchesMonth =
+        !filters.month || tournamentMonthFormatted === filters.month;
+      const matchesInscriptionStatus =
+        !filters.inscription || tournament.inscription === filters.inscription;
+
+      return matchesCategory && matchesMonth && matchesInscriptionStatus;
+    });
+
+    setFilteredTournaments(filtered);
   };
 
-  const handleClearSearch = () => {
-    setFilteredCategory("");
+  const resetFilters = () => {
+    setFilteredTournaments(tournaments);
   };
+
+  // Aplicar filtros iniciales
+  useEffect(() => {
+    applyFilters({
+      category: "",
+      month: "",
+      inscription: "",
+    });
+  }, [tournaments]);
 
   const handlePlusClick = (status: string) => {
     router.push(`/tournaments/${status}`);
   };
 
   const filterTournaments = (status: string) => {
-    if (!tournaments || tournaments.length === 0) {
+    if (!filteredTournaments || filteredTournaments.length === 0) {
       return [];
     }
 
-    const normalizedStatus = status.trim();
+    const normalizedStatus = status.trim().toLowerCase();
 
-    return tournaments.filter((tournament) => {
-      const normalizedTournamentStatus = tournament.status.trim();
+    return filteredTournaments.filter((tournament) => {
+      const tournamentStatus = tournament?.status?.trim().toLowerCase();
 
-      return (
-        normalizedTournamentStatus === normalizedStatus &&
-        (!filteredCategory || tournament.category.name === filteredCategory)
-      );
+      return tournamentStatus === normalizedStatus;
     });
   };
 
@@ -44,31 +71,20 @@ const TournamentsView: React.FC = ({}) => {
     <div className="min-h-screen">
       <Header />
 
-      <div className="w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
-        <SearchBarDrop
-          onSearch={handleSearch}
-          onClear={handleClearSearch}
-          categorias={
-            categories?.length ? categories.map((cat) => cat.name) : []
-          }
-        />
-      </div>
+      <TournamentFilters
+        categories={categories}
+        onApplyFilters={applyFilters}
+        onResetFilters={resetFilters}
+      />
 
       <section className="bg-white py-2 md:py-6 my-14 min-h-screen w-[90%] mx-auto rounded-3xl">
-        {filteredCategory && (
-          <h2 className="text-4xl radhiumz mt-4 ml-10">
-            Resultados de la búsqueda:{" "}
-            <span className="text-blue-700 underline">{filteredCategory}</span>
-          </h2>
-        )}
-
         {categories?.length === 0 && (
           <div className="text-center text-gray-500 mt-10">
             <p>No hay categorías disponibles en este momento!</p>
           </div>
         )}
 
-        {tournaments?.length === 0 ? (
+        {filteredTournaments?.length === 0 ? (
           <div className="text-center text-gray-500 mt-10">
             <p>No hay torneos disponibles en este momento.</p>
           </div>

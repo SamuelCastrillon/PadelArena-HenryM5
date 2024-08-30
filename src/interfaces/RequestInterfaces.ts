@@ -15,6 +15,21 @@ export interface IUserRegisterReq {
   city: string;
   phone: string;
   address: string;
+  category: string;
+}
+
+export interface IUserGooglePut {
+  id: string;
+  name: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  country: string;
+  city: string;
+  address: string;
+  profileImg: string;
+  category: { name: string };
+  role?: "admin" | "jugador";
 }
 
 export interface IUserLoginRes {
@@ -24,16 +39,19 @@ export interface IUserLoginRes {
 }
 
 export interface IUserLogin {
+  //RESPUESTA DEL BACK DEL POST NEXT AUTH  SAVE CURRENT USER
   id: string;
   name: string;
-  lastName: string;
+  lastName?: string;
   email: string;
-  password: string;
+  password?: string;
   phone: string;
   country: string;
   city: string;
   address: string;
   profileImg: string;
+  role?: "admin" | "jugador";
+  category: { name: string };
 }
 
 //? Tournament Interfaces
@@ -54,7 +72,7 @@ export interface ICreateTournamentReq {
   matchDuration: number;
   courts: number;
   description: string;
-  tournamentImg: string;
+  tournamentFlyer: string;
   category: string;
 }
 
@@ -74,7 +92,7 @@ export interface ICreateTournamentFormData {
   matchDuration: number;
   courts: number;
   description: string;
-  tournamentImg: string;
+  tournamentFlyer: string;
   category: string;
 }
 
@@ -84,4 +102,18 @@ export interface ICategoryRes {
   id: string;
   name: string;
   description: string;
+}
+
+export interface IUserGoogle {
+  name: string;
+  email: string;
+  image: string;
+}
+
+//? Payment Interfaces
+
+export interface IProductPaymentDataReq {
+  title: string;
+  quantity: number;
+  price: number;
 }

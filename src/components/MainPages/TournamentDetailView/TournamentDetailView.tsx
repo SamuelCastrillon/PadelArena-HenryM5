@@ -2,9 +2,11 @@
 import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
+import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useContext, useState } from "react";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -13,11 +15,24 @@ interface TournamentDetailViewProps {
 const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   tournament,
 }) => {
+  console.log(tournament);
+  console.log("Inscripciones:", tournament.inscription);
+  const { currentUser, currentUserGoogle } = useContext(AuthContext);
+  const user = currentUser || currentUserGoogle;
+  const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const handleInscriptionClick = () => {
+    if (user) {
+      router.push(`/tournaments/register/${tournament.id}`);
+    } else {
+      router.push("/register");
+    }
+  };
 
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
@@ -29,19 +44,20 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   };
 
   const statusColor =
-    tournament.inscripciones === "abierta"
+    tournament.inscription === "abiertas"
       ? "text-lime radhiumz text-4xl md:text-6xl uppercase"
       : "text-red-500 radhiumz text-4xl md:text-6xl uppercase";
   const statusText =
-    tournament.inscripciones === "abierta"
+    tournament.inscription === "abiertas"
       ? "Inscripción Abierta"
       : "Inscripción Cerrada";
 
   return (
-    <div className="flex flex-col items-center mt-20">
+    <div className="flex flex-col items-center mt-20 bg-blue-700/20 p-8 rounded-xl">
       {/* Status del Torneo */}
       <div className={`mb-4 w-full text-center ${statusColor}`}>
         {statusText}
+        <hr className="my-2 w-full text-white" />
       </div>
 
       {/* Botón de Navegación */}
@@ -85,19 +101,19 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             Categoría: tournament.category.name,
             Género: tournament.genero ?? "Esta por verse",
             Inscripciones:
-              tournament.inscripciones ?? "Aun en proceso de definir",
+              tournament.inscription ?? "Aun en proceso de definir",
           }}
         />
 
         {/* Botón de Inscripción */}
-        {tournament.inscripciones === "abierta" && (
+        {tournament.inscription === "abiertas" && user?.role !== "admin" && (
           <div className="w-full mt-8 mb-8 mx-auto flex justify-center">
-            <NavigateButton
-              href="/tournaments/register"
-              className="w-full max-w-xs py-4 px-10 rounded-xl h-12 bg-lime text-black radhiumz"
+            <button
+              onClick={handleInscriptionClick}
+              className="w-full  py-6 px-12 rounded-xl text-xl bg-white shadow-lg shadow-blue-700 text-black uppercase radhiumz"
             >
               Inscribite
-            </NavigateButton>
+            </button>
           </div>
         )}
 

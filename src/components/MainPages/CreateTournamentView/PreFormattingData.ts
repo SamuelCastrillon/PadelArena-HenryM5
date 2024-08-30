@@ -1,8 +1,21 @@
-import { ICreateTournamentFormData, ICreateTournamentReq } from "@/interfaces/RequestInterfaces";
+import {
+  ICreateTournamentFormData,
+  ICreateTournamentReq,
+} from "@/interfaces/RequestInterfaces";
 
-export function preFormattingData(data: ICreateTournamentFormData): ICreateTournamentReq {
+export function preFormattingData(
+  data: ICreateTournamentFormData
+): ICreateTournamentReq {
   const { Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo } = data;
-  const playingDaysSelected = [Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo];
+  const playingDaysSelected = [
+    Lunes,
+    Martes,
+    Miercoles,
+    Jueves,
+    Viernes,
+    Sabado,
+    Domingo,
+  ];
 
   const daysToString = playingDaysSelected.map((day) => {
     let daySelect = undefined;
@@ -49,7 +62,7 @@ export function preFormattingData(data: ICreateTournamentFormData): ICreateTourn
     matchDuration: data.matchDuration,
     courts: data.courts,
     description: data.description,
-    tournamentImg: data.tournamentImg,
+    tournamentFlyer: data.tournamentFlyer,
     category: data.category,
   };
 
