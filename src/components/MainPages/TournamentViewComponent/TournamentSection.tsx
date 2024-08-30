@@ -17,7 +17,6 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
   onActionClick,
 }) => {
   // Función para obtener la URL de la imagen, con respaldo en caso de URL inválida
-  console.log(tournaments);
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =
@@ -26,8 +25,9 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
+
   const mapTournamentsToCarousel = (tournaments: ITournament[]) =>
-    tournaments.map((tournament: ITournament) => ({
+    tournaments?.map((tournament: ITournament) => ({
       src: getImageUrl(
         tournament.tournamentFlyer ?? "/images/default-image.jpg"
       ),
@@ -35,9 +35,11 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       title: tournament.name,
       categoria: tournament.category.name || "Sin categoría",
       href: `/tournaments/${tournament.id}`,
-      inscription: tournament.inscription, // Renamed from inscripciones to inscription
+      inscription: tournament.inscription,
     }));
-  console.log(mapTournamentsToCarousel(tournaments));
+
+  const carouselItems = mapTournamentsToCarousel(tournaments);
+
   return (
     <div className="w-[80%] mx-auto mt-10 md:mt-32">
       <div className="flex flex-row items-center justify-between w-[90%] md:w-[60%] mb-4">
@@ -49,12 +51,12 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
           <PlusIcon className="h-6 w-6" />
         </ActionButton>
       </div>
-      {tournaments.length === 0 ? (
+      {carouselItems.length === 0 ? (
         <p className="sfRegular text-xl text-black bg-blue-600/20 rounded-lg px-4 py-2">
-          No hay torneos disponibles.
+          No hay torneos disponibles para mostrar en el carrusel.
         </p>
       ) : (
-        <Carousel images={mapTournamentsToCarousel(tournaments)} />
+        <Carousel images={carouselItems} />
       )}
     </div>
   );
