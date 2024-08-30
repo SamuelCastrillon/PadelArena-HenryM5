@@ -26,3 +26,13 @@ export const updateUserCategory = async (userId: string, category: string) => {
     throw error;
   }
 };
+
+export const getUsersId = async (userId: string) => {
+  try {
+    const response = await axiosInstance.get(`/users/${userId}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -50,6 +50,7 @@ export interface IUserLogin {
   address: string;
   profileImg: string;
   role?: "admin" | "jugador";
+  category: string;
 }
 
 //? Tournament Interfaces
