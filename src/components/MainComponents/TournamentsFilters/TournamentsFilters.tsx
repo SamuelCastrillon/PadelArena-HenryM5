@@ -35,6 +35,14 @@ const TournamentFilters: React.FC<TournamentFiltersProps> = ({
     });
   };
 
+  const handleResetFilters = () => {
+    setFilters({
+      category: "",
+      month: "",
+      inscription: "",
+    });
+    onResetFilters(); // Llama a la función de reinicio de filtros externa
+  };
   return (
     <div className="m-4 max-w-screen-md mx-auto">
       <div className="rounded-xl border border-gray-300 bg-glass p-6 shadow-md shadow-lime">
@@ -110,7 +118,7 @@ const TournamentFilters: React.FC<TournamentFiltersProps> = ({
 
         <div className="mt-6 flex justify-end space-x-4">
           <button
-            onClick={onResetFilters}
+            onClick={handleResetFilters}
             className="rounded-lg bg-gray-200 px-6 py-2 font-medium text-black shadow-sm hover:bg-blue-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-lime"
           >
             Resetear
