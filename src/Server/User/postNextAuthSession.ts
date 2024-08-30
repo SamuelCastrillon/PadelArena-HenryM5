@@ -8,6 +8,6 @@ export const postNextAuthSession = async (user: IUserGoogle) => {
     return response.data;
   } catch (error) {
     console.log(error);
-    throw error; // Opcional: lanzar el error para que pueda ser manejado por la función que llama
+    throw error;
   }
 };

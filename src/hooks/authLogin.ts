@@ -17,10 +17,12 @@ import {
 } from "@/Server/User/updateUserProfile";
 import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 import { useUserCookies } from "@/hooks/useUserCookies";
+import useTournamentData from "./fetchTournamentData";
 
 const useAuth = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const { categories, error } = useTournamentData();
   const { setCurrentUser, setUserIdGoogle, userIdGoogle } =
     useContext(AuthContext);
   const { saveGoogleUser, saveRegularUser } = useUserCookies();
@@ -34,6 +36,7 @@ const useAuth = () => {
     category: "",
   });
 
+  console.log(formData);
   useEffect(() => {
     if (session) {
       handlePostSession();
@@ -43,31 +46,49 @@ const useAuth = () => {
   const handlePostSession = async () => {
     const userGoogleData = session?.user as IUserGoogle;
     if (userGoogleData) {
-      const response = await postNextAuthSession(userGoogleData);
-      console.log(response);
-      if (response?.message.includes("realizado con exito")) {
-        const newUser = response.googleUserWithoutPassword;
-        console.log(newUser);
-        const { phone, country, city, address, category } = newUser;
-        const existingUser = response.newUser;
-
+      try {
+        const response = await postNextAuthSession(userGoogleData);
+        console.log(
+          response.googleUserWithoutPassword || response.newGoogleUser
+        );
+        const newUser =
+          response.googleUserWithoutPassword || response.newGoogleUser;
         if (
-          phone !== null &&
-          country !== null &&
-          city !== null &&
-          address !== null &&
-          category !== null
+          response &&
+          response.message &&
+          typeof response.message === "string" &&
+          response.message.includes("realizado con exito")
         ) {
-          console.log(newUser);
-          saveGoogleUser(newUser);
-          setCurrentUser(newUser);
-          router.push("/dashboard/user/profile");
-        } else if (newUser) {
-          setUserIdGoogle(newUser.id);
-          setIsModalOpen(true);
+          const newUser = response;
+
+          if (newUser) {
+            const phone = newUser.phone || "";
+            const country = newUser.country || "";
+            const city = newUser.city || "";
+            const address = newUser.address || "";
+            const category = newUser.category || "";
+
+            if (!phone || !country || !city || !address || !category) {
+              setUserIdGoogle(newUser.id);
+              console.log(userIdGoogle);
+              setIsModalOpen(true);
+            } else {
+              saveGoogleUser(newUser);
+              setCurrentUser(newUser);
+              router.push("/dashboard/user/profile");
+            }
+          } else {
+            console.error(
+              "Error: El usuario no fue encontrado en la respuesta."
+            );
+          }
         }
-      } else {
-        console.error("Error en el registro o login del usuario.");
+      } catch (error: any) {
+        console.error(
+          "Error al realizar la sesión del usuario:",
+          error.message,
+          error
+        );
       }
     }
   };
@@ -82,10 +103,20 @@ const useAuth = () => {
     try {
       const userId = userIdGoogle;
       if (userId) {
+        if (!formData.category) {
+          Swal.fire({
+            title: "Por favor selecciona una categoría válida.",
+            width: 400,
+            padding: "3em",
+          });
+          return;
+        }
+
         const updatedUser = await updateUserProfile(userId, formData);
+        console.log(updatedUser);
         if (updatedUser) {
-          saveGoogleUser(updatedUser.newUser);
-          setCurrentUser(updatedUser.newUser);
+          saveGoogleUser(updatedUser);
+          setCurrentUser(updatedUser);
           handleCloseModal();
           Swal.fire({
             title: "Tu perfil se actualizó correctamente.",
@@ -105,7 +136,18 @@ const useAuth = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === "category") {
+      // Encuentra la categoría seleccionada por nombre y obtiene el ID
+      const selectedCategory = categories.find(
+        (category) => category.name === value
+      );
+
+      // Asigna el ID de la categoría al formData
+      setFormData({ ...formData, category: selectedCategory?.id || "" });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const logIn = async (data: IUserLoginReq) => {

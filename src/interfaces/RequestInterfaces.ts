@@ -1,5 +1,7 @@
 //? User Interfaces
 
+import { ICategories } from "./ComponentsInterfaces/TournamentCategorias";
+
 export interface IUserLoginReq {
   email: string;
   password: string;
@@ -28,7 +30,7 @@ export interface IUserGooglePut {
   city: string;
   address: string;
   profileImg: string;
-  category: { name: string };
+  category: string;
   role?: "admin" | "jugador";
 }
 
@@ -51,7 +53,7 @@ export interface IUserLogin {
   address: string;
   profileImg: string;
   role?: "admin" | "jugador";
-  category: { name: string };
+  category: string;
 }
 
 //? Tournament Interfaces

@@ -296,6 +296,7 @@ const LogInView: React.FC = () => {
     logIn,
   } = useAuth();
   const { categories, error } = useTournamentData();
+  console.log(categories);
 
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit mt-20">
