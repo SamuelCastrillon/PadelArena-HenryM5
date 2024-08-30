@@ -270,6 +270,7 @@
 
 // export default LogInView;
 
+//! CON EL USEAUTH HOOK
 "use client";
 import React from "react";
 import FormComponent from "@/components/MainComponents/ReusableFormComponent/FormComponent";
@@ -297,7 +298,7 @@ const LogInView: React.FC = () => {
   const { categories, error } = useTournamentData();
 
   return (
-    <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
+    <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit mt-20">
       <FormComponent
         iniValues={logInInitialValues}
         valiSchema={logInSchema}
@@ -309,13 +310,15 @@ const LogInView: React.FC = () => {
         Iniciar sesión con Google
       </ButtonNextAuthSignIn>
       {/* Navigate Button to create an account */}
-      <div className="flex items-center gap-8 m-8">
-        <span className="text-white">Necesitas una cuenta?</span>
+      <div className="flex items-center gap-8 my-20">
+        <span className="text-white text-xl sfRegular">
+          No estas registrado?
+        </span>
         <NavigateButton
           href="/register"
-          className="rounded-md bg-customBlue w-full h-fit py-[5px] px-[10px] text-white hover:shadow-lg"
+          className="rounded-lg bg-customBlue w-full h-fit py-4 px-4 sfRegular text-xl text-white hover:shadow-lg"
         >
-          Crear Cuenta
+          Registrate
         </NavigateButton>
       </div>
       {/* Modal para completar perfil */}
