@@ -1,6 +1,7 @@
 import React from "react";
-import { IButtonUserMenu } from "../../UserMenuReusableInterfaces";
+
 import Link from "next/link";
+import { IButtonUserMenu } from "../UserMenuReusableInterfaces";
 
 const MenuButton: React.FC<IButtonUserMenu> = ({
   children,

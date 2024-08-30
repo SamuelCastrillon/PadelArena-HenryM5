@@ -8,7 +8,7 @@ interface TournamentCardProps {
   title: string;
   genero: string;
   categoria?: string;
-  inscripciones?: "abierta" | "cerrada";
+  inscripciones?: "abiertas" | "cerradas";
   href: string;
   className?: string;
 }

@@ -29,7 +29,7 @@ const TournamentGallery: React.FC<TournamentGalleryProps> = ({
           title={tournament.name}
           genero={tournament.genero || ""}
           categoria={tournament.category.name || "Sin categoría"}
-          inscripciones={tournament.inscripciones}
+          inscripciones={tournament.inscription}
           href={`/tournaments/${tournament.id}`}
         />
       ))}

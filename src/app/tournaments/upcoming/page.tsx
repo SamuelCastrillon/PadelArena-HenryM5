@@ -1,5 +1,5 @@
 import React from "react";
-import { tournamentsHelper } from "@/helpers/tournamentsData";
+
 import TournamentSectionAll from "@/components/MainComponents/TournamentAllGallery/TournamenSectionAll";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { getTournaments } from "@/Server/Tournament/getTournaments";
