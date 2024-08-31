@@ -31,7 +31,10 @@ const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
             <AdminMenu handlerLogOut={handlerLogOut} />
           ) : currentUser.role === "jugador" ? (
             <UserMenu handlerLogOut={handlerLogOut} />
-          ) : null
+          ) : (
+            //SACAR CUANDO TENGAMOS EL ROL DESDE EL BACK Y PONER NULL
+            <PublicButtons />
+          )
         ) : (
           <PublicButtons />
         )}
