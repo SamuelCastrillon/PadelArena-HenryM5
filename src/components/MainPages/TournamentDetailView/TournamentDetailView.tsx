@@ -61,7 +61,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         <hr className="my-2 w-full text-white" />
       </div>
 
-      {/* Botón de Navegación */}
+      {/* Botón de Navegación aqui */}
       <div className="mb-10 flex items-center">
         <NavigateButton href="/tournaments" className="flex items-center gap-2">
           <svg
