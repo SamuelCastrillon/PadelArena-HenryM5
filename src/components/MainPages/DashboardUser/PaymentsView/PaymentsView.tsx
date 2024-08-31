@@ -11,6 +11,17 @@ const payments = [
     transaction_amount: 150.75,
     payment_method_id: "visa",
     payment_type_id: "credit_card",
+    tournament: {
+      name: "Torneo de Verano",
+      team: [
+        {
+          users: [
+            { id: "9851ac66-fa42-4483-895e-b59ad401cf97", name: "rosauer" },
+            { id: "user456", name: "Ana" },
+          ],
+        },
+      ],
+    },
   },
   {
     preference_id: "def456",
@@ -20,6 +31,16 @@ const payments = [
     transaction_amount: 200.0,
     payment_method_id: "master",
     payment_type_id: "debit_card",
+    tournament: {
+      name: "Torneo de Primavera",
+      team: [
+        {
+          users: [
+            { id: "9851ac66-fa42-4483-895e-b59ad401cf97", name: "rosauer" }, // Usuario sin compañero
+          ],
+        },
+      ],
+    },
   },
   {
     preference_id: "ghi789",
@@ -30,6 +51,17 @@ const payments = [
     transaction_amount: 75.5,
     payment_method_id: "paypal",
     payment_type_id: "paypal",
+    tournament: {
+      name: "Torneo de Otoño",
+      team: [
+        {
+          users: [
+            { id: "user123", name: "Carlos" },
+            { id: "user456", name: "Ana" },
+          ],
+        },
+      ],
+    },
   },
   {
     preference_id: "jkl012",
@@ -39,6 +71,17 @@ const payments = [
     transaction_amount: 120.3,
     payment_method_id: "amex",
     payment_type_id: "credit_card",
+    tournament: {
+      name: "Torneo de Invierno",
+      team: [
+        {
+          users: [
+            { id: "user123", name: "Carlos" },
+            { id: "user789", name: "Luis" },
+          ],
+        },
+      ],
+    },
   },
   {
     preference_id: "mno345",
@@ -49,8 +92,17 @@ const payments = [
     transaction_amount: 300.9,
     payment_method_id: "visa",
     payment_type_id: "credit_card",
+    tournament: {
+      name: "Torneo de Primavera",
+      team: [
+        {
+          users: [{ id: "user456", name: "Ana" }],
+        },
+      ],
+    },
   },
 ];
+
 const PaymentsView = () => {
   return (
     <div>

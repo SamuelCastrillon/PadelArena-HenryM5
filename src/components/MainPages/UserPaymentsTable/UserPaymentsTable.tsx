@@ -11,6 +11,12 @@ interface IPaymentDetail {
   transaction_amount: number;
   payment_method_id: string;
   payment_type_id: string;
+  tournament: {
+    name: string;
+    team?: {
+      users: { id: string; name: string }[]; // Ajusta según la estructura real del equipo
+    }[];
+  };
 }
 
 const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
@@ -20,6 +26,11 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
 
   const handleEditPayment = (preference_id: string) => {
     console.log(`Editing payment with Preference ID: ${preference_id}`);
+  };
+
+  const handleCompleteRegistration = () => {
+    console.log("Completing registration...");
+    // Lógica para completar la inscripción
   };
 
   return (
@@ -33,7 +44,7 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
           Lleva el registro de tus cuentas:
         </h2>
       </div>
-      <div className=" p-8 shadow-md bg-white py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl">
+      <div className="p-8 shadow-md bg-white py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl">
         <h3 className="text-lg m-4">
           Historial de Pagos de:{" "}
           <span className="uppercase radhiumz text-x m-2">
@@ -52,6 +63,7 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
                 <th className="px-4 py-2 text-left">Monto de Transacción</th>
                 <th className="px-4 py-2 text-left">Método de Pago</th>
                 <th className="px-4 py-2 text-left">Tipo de Pago</th>
+                <th className="px-4 py-2 text-left">Nombre del Torneo</th>
                 <th className="px-4 py-2 text-left">Acciones</th>
               </tr>
             </thead>
@@ -64,7 +76,9 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
                     className={`px-4 py-2 ${
                       payment.status === "completed"
                         ? "text-green-500"
-                        : "text-orange-500"
+                        : payment.status === "pending"
+                        ? "text-orange-500"
+                        : "text-red-500"
                     }`}
                   >
                     {payment.status}
@@ -73,16 +87,33 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
                   <td className="px-4 py-2">
                     {payment.date_last_update || "N/A"}
                   </td>
-                  <td className="px-4 py-2">${payment.transaction_amount}</td>
+                  <td className="px-4 py-2">
+                    ${payment.transaction_amount.toFixed(2)}
+                  </td>
                   <td className="px-4 py-2">{payment.payment_method_id}</td>
                   <td className="px-4 py-2">{payment.payment_type_id}</td>
+                  <td className="px-4 py-2">{payment.tournament.name}</td>
                   <td className="px-4 py-2">
                     {payment.status === "pending" && (
                       <button
                         onClick={() => handleEditPayment(payment.preference_id)}
-                        className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
+                        className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 mr-2"
                       >
                         Editar
+                      </button>
+                    )}
+
+                    {payment.tournament.team?.some(
+                      (team) =>
+                        team.users.some(
+                          (user) => user.id === currentUser?.id
+                        ) && team.users.length === 1
+                    ) && (
+                      <button
+                        onClick={handleCompleteRegistration}
+                        className="bg-green-500 text-white px-2 py-1 rounded hover:bg-green-600"
+                      >
+                        Completar
                       </button>
                     )}
                   </td>
