@@ -117,5 +117,6 @@ export interface IUserGoogle {
 export interface IProductPaymentDataReq {
   tournament: string;
   host: string;
+  user: string;
   // notification_url: string;
 }

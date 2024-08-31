@@ -21,7 +21,10 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams, currentHost }) => {
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
+  allParams,
+  currentHost,
+}) => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const navigate = useRouter();
@@ -31,21 +34,22 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams, 
   const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
 
   async function payToInscription() {
-    const dataToPay = {
-      tournament: tournamentId,
-      host: TOURNAAMENT_REGISTER_URL,
-      user: currentUser?.id,
-    };
-    console.log(dataToPay);
-    try {
-      const { redirectUrl } = await postPaymentToMP(dataToPay);
-      if (!redirectUrl) {
-        throw new Error("Error al realizar el pago");
-      }
-      navigate.push(redirectUrl);
-    } catch (error) {
-      console.error(error);
-    }
+    // const dataToPay = {
+    //   tournament: tournamentId,
+    //   host: TOURNAAMENT_REGISTER_URL,
+    //   user: currentUser?.id,
+    // };
+    // console.log(dataToPay);
+    // try {
+    //   const { redirectUrl } = await postPaymentToMP(dataToPay);
+    //   if (!redirectUrl) {
+    //     throw new Error("Error al realizar el pago");
+    //   }
+    //   navigate.push(redirectUrl);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    console.log("pago");
   }
 
   const handlerPayment = (values: any) => {

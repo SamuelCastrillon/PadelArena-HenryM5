@@ -5,6 +5,8 @@ import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import { IProductPaymentDataReq } from "@/interfaces/RequestInterfaces";
+import { CURRENT_APP_URL } from "@/Server/AxiosConfig";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
@@ -27,9 +29,35 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleInscriptionClick = () => {
+  // const handleInscriptionClick = () => {
+  //   if (user) {
+  //     router.push(`/tournaments/register/${tournament.id}`);
+  //   } else {
+  //     router.push("/register");
+  //   }
+  // };
+  const currentHost = CURRENT_APP_URL || "";
+  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+
+  //A MERCADOPAGO
+  const handleInscriptionClick = async () => {
     if (user) {
-      router.push(`/tournaments/register/${tournament.id}`);
+      const data: IProductPaymentDataReq = {
+        tournament: tournament.id,
+        host: TOURNAAMENT_REGISTER_URL,
+        user: user.id,
+      };
+      console.log(data);
+      try {
+        const responseUrl = await postPaymentToMP(data);
+        if (!responseUrl.redirectUrl) {
+          throw new Error("Error al realizar el pago");
+        }
+        console.log(responseUrl.redirectUrl);
+        router.push(`${responseUrl.redirectUrl}`);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       router.push("/register");
     }
