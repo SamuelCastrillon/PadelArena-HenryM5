@@ -5,17 +5,15 @@ import { UserCircleIcon } from "@heroicons/react/20/solid";
 import { IMenuReusableData } from "./UserMenuReusableInterfaces";
 import { usePathname, useRouter } from "next/navigation";
 import { AuthContext } from "@/context/GlobalContext";
-import { deletCurrentUser } from "@/helpers/localDataManagment";
-import { useCookies } from "react-cookie";
+
 import { signOut } from "next-auth/react";
 import { useUserCookies } from "@/hooks/useUserCookies";
 const UserMenuReusable: React.FC<IMenuReusableData> = () => {
-  const { currentUser, setCurrentUser, currentUserGoogle } =
-    useContext(AuthContext);
-  const user = currentUser || currentUserGoogle;
+  const { currentUser, setCurrentUser } = useContext(AuthContext);
+  const user = currentUser;
   console.log(user);
   const [menuStatus, setMenuStatus] = React.useState(false);
-  const [cookies, setCookie, removeCookie] = useCookies(["userSignIn"]);
+
   const { deleteGoogleUser, deleteRegularUser } = useUserCookies();
 
   const navigate = usePathname();
