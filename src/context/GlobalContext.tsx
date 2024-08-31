@@ -10,14 +10,13 @@ export const AuthContext = createContext<IAuthcontext>({
   setCurrentUser: () => {},
   userIdGoogle: null,
   setUserIdGoogle: () => {},
-  currentUserGoogle: null,
 });
 
 const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<IUserLogin | null>(null);
   const [userIdGoogle, setUserIdGoogle] = useState<string | null>(null);
-  const [currentUserGoogle, setCurrentUserGoogle] =
-    useState<IUserGooglePut | null>(null);
+  // const [currentUserGoogle, setCurrentUserGoogle] =
+  //   useState<IUserGooglePut | null>(null);
 
   const { getGoogleUser, getRegularUser } = useUserCookies();
 
@@ -25,7 +24,7 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
     const userGoogle = getGoogleUser();
     console.log("aqui el maldito user", userGoogle);
     if (userGoogle) {
-      setCurrentUserGoogle(userGoogle);
+      setCurrentUser(userGoogle);
       console.log(userGoogle);
     } else {
       const regularUser = getRegularUser();
@@ -44,9 +43,7 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
       value={{
         currentUser,
         setCurrentUser,
-        currentUserGoogle,
         userIdGoogle,
-
         setUserIdGoogle,
       }}
     >

@@ -5,6 +5,7 @@ import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 
@@ -12,11 +13,13 @@ interface TournamentDetailViewProps {
   tournament: ITournament;
 }
 
-const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament }) => {
+const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
+  tournament,
+}) => {
   console.log(tournament);
   console.log("Inscripciones:", tournament.inscription);
-  const { currentUser, currentUserGoogle } = useContext(AuthContext);
-  const user = currentUser || currentUserGoogle;
+  const { currentUser } = useContext(AuthContext);
+  const user = currentUser;
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
@@ -35,7 +38,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =
-      src.startsWith("http://") || src.startsWith("https://") || src.startsWith("/");
+      src.startsWith("http://") ||
+      src.startsWith("https://") ||
+      src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
 
@@ -44,7 +49,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
       ? "text-lime radhiumz text-4xl md:text-6xl uppercase"
       : "text-red-500 radhiumz text-4xl md:text-6xl uppercase";
   const statusText =
-    tournament.inscription === "abiertas" ? "Inscripción Abierta" : "Inscripción Cerrada";
+    tournament.inscription === "abiertas"
+      ? "Inscripción Abierta"
+      : "Inscripción Cerrada";
 
   return (
     <div className="flex flex-col items-center p-8 mt-20 bg-blue-700/20 rounded-xl">
@@ -54,15 +61,16 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
         <hr className="w-full my-2 text-white" />
       </div>
 
-      {/* Botón de Navegación */}
-      <div className="flex items-center mb-10">
+      {/* Botón de Navegación aqui */}
+      <div className="mb-10 flex items-center">
         <NavigateButton href="/tournaments" className="flex items-center gap-2">
           <svg
             className="w-4 h-4 text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            viewBox="0 0 6 10">
+            viewBox="0 0 6 10"
+          >
             <path
               stroke="currentColor"
               strokeLinecap="round"
@@ -71,7 +79,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
               d="M5 1L1 5l4 4"
             />
           </svg>
-          <h1 className="text-2xl text-white radhiumz lg:text-4xl">Vuelve a torneos</h1>
+          <h1 className="radhiumz text-white text-2xl lg:text-4xl">
+            Vuelve a torneos
+          </h1>
         </NavigateButton>
       </div>
 
@@ -91,7 +101,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
             "Días de juego": tournament.playingDay?.toString(),
             Categoría: tournament.category.name,
             Género: tournament.genero ?? "Esta por verse",
-            Inscripciones: tournament.inscription ?? "Aun en proceso de definir",
+            Inscripciones:
+              tournament.inscription ?? "Aun en proceso de definir",
           }}
         />
 
@@ -100,7 +111,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
             <button
               onClick={handleInscriptionClick}
-              className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz">
+              className="w-full  py-6 px-12 rounded-xl text-xl bg-white shadow-lg shadow-blue-700 text-black uppercase radhiumz"
+            >
               Inscribite
             </button>
           </div>
@@ -110,7 +122,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
         <div className="flex justify-center w-full mx-auto mt-4">
           <button
             onClick={openModal}
-            className="w-full h-12 max-w-xs px-10 py-4 text-black bg-lime radhiumz">
+            className="w-full max-w-xs py-4 px-10 h-12 bg-lime text-black radhiumz"
+          >
             Ver Fixture
           </button>
         </div>
@@ -127,7 +140,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${i * 0.2}s`,
-              }}></div>
+              }}
+            ></div>
           ))}
         </div>
       )}
@@ -140,7 +154,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
         backgroundColor="bg-white/70"
         textColor="text-black"
         className="shadow-lg shadow-lime"
-        bgImageUrl={tournament.tournamentFlyer}>
+        bgImageUrl={tournament.tournamentFlyer}
+      >
         <h2 className="text-4xl radhiumz text-lime">{`Fixture: ${tournament.name}`}</h2>
         <hr className="h-1 mb-4 bg-lime"></hr>
         <table className="w-full text-left bg-white table-auto min-w-max">

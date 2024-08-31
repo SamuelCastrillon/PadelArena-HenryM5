@@ -15,7 +15,7 @@ export const tournamentsHelper: ITournament[] = [
       "https://img.redbull.com/images/c_limit,w_1500,h_1000,f_auto,q_auto/redbullcom/2023/8/10/wayekhjulogbkd3ctt3p/alejandro-galan-padel-spain",
     ],
     courtsAvailable: 4,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: { id: "1", name: "Segunda", description: "Categoría segunda" },
     genero: "masculino",
@@ -78,7 +78,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 4,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "1",
@@ -156,7 +156,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 3,
-          inscripciones: "cerrada",
+          inscripciones: "cerradas",
           status: "finalizado",
           category: {
             id: "2",
@@ -197,7 +197,7 @@ export const tournamentsHelper: ITournament[] = [
       "https://upload.wikimedia.org/wikipedia/commons/7/76/Padel_match.jpg",
     ],
     courtsAvailable: 5,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: { id: "3", name: "Tercera", description: "Categoría tercera" },
     genero: "masculino",
@@ -248,7 +248,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 5,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "3",
@@ -278,7 +278,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 6,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: { id: "4", name: "Primera", description: "Categoría primera" },
     genero: "femenino",
@@ -329,7 +329,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 6,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "4",
@@ -360,7 +360,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -416,7 +416,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",
@@ -446,7 +446,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -502,7 +502,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",
@@ -532,7 +532,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -588,7 +588,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",
@@ -618,7 +618,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -674,7 +674,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",
@@ -704,7 +704,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -760,7 +760,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",
@@ -791,7 +791,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -847,7 +847,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",
@@ -877,7 +877,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -933,7 +933,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",
@@ -963,7 +963,7 @@ export const tournamentsHelper: ITournament[] = [
     tournamentFlyer: "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
     gallery: ["https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg"],
     courtsAvailable: 8,
-    inscripciones: "abierta",
+    inscripciones: "abiertas",
     status: "por comenzar",
     category: {
       id: "5",
@@ -1019,7 +1019,7 @@ export const tournamentsHelper: ITournament[] = [
           tournamentFlyer:
             "https://www.2playbook.com/uploads/s1/83/44/5/wpt.jpeg",
           courtsAvailable: 8,
-          inscripciones: "abierta",
+          inscripciones: "abiertas",
           status: "por comenzar",
           category: {
             id: "5",

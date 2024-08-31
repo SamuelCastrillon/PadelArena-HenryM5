@@ -15,7 +15,7 @@ const TermsAndConditions: React.FC = () => {
       </div>
       <div className="max-w-4xl p-8 shadow-md  bg-white py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl">
         <div className="overflow-auto w-full h-96 bg-white m-2">
-          <section className="m-6">
+          <section className="mb-6">
             <h2
               className="text-2xl font-thin mb-4 underline"
               style={{ fontFamily: "Radhiumz" }}>

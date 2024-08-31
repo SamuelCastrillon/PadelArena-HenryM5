@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import useTournamentData from "@/hooks/fetchTournamentData";
-import SearchBarDrop from "@/components/MainComponents/SearchBarDropMenu/SearchBarDrop";
+
 import { formatDate } from "@/helpers/dateTimeHelper";
 
 const TournamentsTable: React.FC = () => {
@@ -69,14 +69,16 @@ const TournamentsTable: React.FC = () => {
           <div className="flex items-center justify-center w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
             <label
               htmlFor="category-filter"
-              className="px-4 py-4 bg-lime rounded-l-lg sfBold">
+              className="px-4 py-4 bg-lime rounded-l-lg sfBold"
+            >
               Filtrar por Categoría:
             </label>
             <select
               id="category-filter"
               value={filteredCategory}
               onChange={(e) => handleSearch(e.target.value)}
-              className="px-4 py-4 bg-white border-2 border-slate rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
+              className="px-4 py-4 bg-white border-2 border-slate rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center"
+            >
               <option value="">Todas las categorías</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.name}>
