@@ -5,5 +5,4 @@ export interface IAuthcontext {
   setCurrentUser: (currenUser: IUserLogin | null) => void;
   userIdGoogle: string | null;
   setUserIdGoogle: (userIdGoogle: string | null) => void;
-  currentUserGoogle: IUserGooglePut | null;
 }

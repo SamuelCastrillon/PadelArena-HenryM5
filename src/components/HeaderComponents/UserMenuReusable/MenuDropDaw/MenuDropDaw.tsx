@@ -6,7 +6,6 @@ import {
   DocumentCurrencyDollarIcon,
   PlusCircleIcon,
   UsersIcon,
-  InformationCircleIcon,
   CheckBadgeIcon,
   UserCircleIcon,
   ChartBarIcon,
@@ -19,6 +18,7 @@ const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
   handlerLogOut,
   currentUser,
 }) => {
+  console.log(currentUser);
   return (
     <div
       className={`absolute top-[60px] sm:top-[68px] -right-[20px]  sm:sm:right-0 ${
@@ -31,9 +31,7 @@ const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
             <AdminMenu handlerLogOut={handlerLogOut} />
           ) : currentUser.role === "jugador" ? (
             <UserMenu handlerLogOut={handlerLogOut} />
-          ) : (
-            <PublicButtons />
-          )
+          ) : null
         ) : (
           <PublicButtons />
         )}

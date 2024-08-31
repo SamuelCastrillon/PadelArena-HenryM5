@@ -5,6 +5,7 @@ import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 
@@ -17,8 +18,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 }) => {
   console.log(tournament);
   console.log("Inscripciones:", tournament.inscription);
-  const { currentUser, currentUserGoogle } = useContext(AuthContext);
-  const user = currentUser || currentUserGoogle;
+  const { currentUser } = useContext(AuthContext);
+  const user = currentUser;
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
