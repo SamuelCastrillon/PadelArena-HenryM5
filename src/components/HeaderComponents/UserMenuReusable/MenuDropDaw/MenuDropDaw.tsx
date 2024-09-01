@@ -105,8 +105,8 @@ const UserMenu = ({ handlerLogOut }: { handlerLogOut: () => void }) => {
       </MenuButton>
       <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />
       <MenuButton
-        text="Estadisticas"
-        routeNavigate="/dashboard/user/stadistics"
+        text="Mis Torneos"
+        routeNavigate="/dashboard/user/my-tournaments"
       >
         <ChartBarIcon className="h-10" />
       </MenuButton>

@@ -10,7 +10,7 @@ const TournamentSectionAll: React.FC<TournamentSectionAllProps> = ({
   tournaments,
 }) => {
   return (
-    <section className=" bg-white p-4 mb-20">
+    <section className="  p-4 mb-20">
       {tournaments.length > 0 ? (
         <TournamentGallery tournaments={tournaments} />
       ) : (

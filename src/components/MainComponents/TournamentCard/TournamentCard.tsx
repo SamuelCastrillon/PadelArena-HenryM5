@@ -29,10 +29,10 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
 
   return (
     <div
-      className={`flex-none w-full px-4 cursor-pointer ${className}`}
+      className={`flex-none w-full px-4 cursor-pointer ${className} group`}
       onClick={() => handleImageClick(href)}
     >
-      <div className="w-full h-[300px] rounded-xl overflow-hidden flex flex-col justify-end border-2 border-lime">
+      <div className="w-full h-[300px] bg-white shadow-lg shadow-lime rounded-xl overflow-hidden flex flex-col justify-end border-2 border-lime relative">
         {/* Image */}
         <div className="flex-1">
           <Image
@@ -40,15 +40,19 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
             alt={alt}
             width={500}
             height={300}
-            className="block w-full h-full object-cover "
+            className="block w-full h-full object-cover"
           />
         </div>
         {/* Text */}
-        <div className="border-2 border-lime text-black p-4">
-          <h3 className="text-2xl radhiumz text-black">{title}</h3>
+        <div className="absolute inset-0 flex flex-col justify-end p-4 bg-black/30 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+          <h3 className="text-2xl radhiumz text-white">{title}</h3>
           <p className="text-lg sfRegular">{genero}</p>
-          <p className="text-lg sfRegular">{categoria}</p>
-          <p className="text-lg sfRegular">{inscripciones}</p>
+          {categoria && (
+            <p className="text-lg text-white sfRegular">{categoria}</p>
+          )}
+          {inscripciones && (
+            <p className="text-lg text-white sfRegular">{inscripciones}</p>
+          )}
         </div>
       </div>
     </div>
