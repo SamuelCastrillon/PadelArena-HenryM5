@@ -52,10 +52,6 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
             {currentUser?.name}
           </span>{" "}
           Lleva el registro de tus cuentas
-          <span className="uppercase  radhiumz text-x m-2">
-            {currentUser?.name}
-          </span>{" "}
-          Lleva el registro de tus cuentas
         </h2>
       </div>
       {/* Contenedor con fondo de papel */}
