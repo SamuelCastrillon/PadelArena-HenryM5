@@ -1,18 +1,44 @@
 "use client";
-import { AuthContext } from "@/context/GlobalContext";
 import React, { useContext } from "react";
+import { AuthContext } from "@/context/GlobalContext";
+import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 
-interface IPayment {
-  orderId: string;
+interface IPaymentDetail {
+  preference_id: string;
   status: string;
-  amount: number;
-  date: string;
+  date_created: string;
+  transaction_amount: number;
+  tournament: {
+    name: string;
+    team?: {
+      users: { id: string; name: string }[]; // Ajusta según la estructura real del equipo
+    }[];
+  };
 }
 
-const PaymentHistoryPanel: React.FC<{ payments: IPayment[] }> = ({
+const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
   payments,
 }) => {
   const { currentUser } = useContext(AuthContext);
+
+  const handleEditPayment = (preference_id: string) => {
+    console.log(`Editing payment with Preference ID: ${preference_id}`);
+  };
+
+  const handleCompleteRegistration = () => {
+    console.log("Completing registration...");
+    // Lógica para completar la inscripción
+  };
+
+  const headers = [
+    "ID de Pago",
+    "Estado",
+    "Fecha de Creación",
+    "Monto de Transacción",
+    "Nombre del Torneo",
+    "Acciones",
+  ];
+
   return (
     <>
       <div className="mt-20 justify-start items-center flex-col flex">
@@ -21,45 +47,50 @@ const PaymentHistoryPanel: React.FC<{ payments: IPayment[] }> = ({
           <hr className="h-2 w-full text-white"></hr>
         </h1>
         <h2 className="sfRegular text-md md:text-xl text-white mt-8">
-          Lleva el registro de tus cuentas:
+          <span className="uppercase  radhiumz text-x m-2">
+            {currentUser?.name}
+          </span>{" "}
+          Lleva el registro de tus cuentas
         </h2>
       </div>
-      <div className="max-w-4xl p-8 shadow-md  bg-white py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl">
-        <h3 className="text-lg m-4">
-          Historial de Pagos de:{" "}
-          <span className="uppercase radhiumz text-x m-2">
-            {currentUser?.name}
-          </span>
-        </h3>
-        <div className="overflow-auto w-full h-96 bg-white m-2">
-          <table className="w-full table-auto">
-            <thead>
-              <tr>
-                <th className="px-4 py-2 text-left">Id de Orden</th>
-                <th className="px-4 py-2 text-left">Status</th>
-                <th className="px-4 py-2 text-left">Importe Total</th>
-                <th className="px-4 py-2 text-left">Fecha de la Orden</th>
-              </tr>
-            </thead>
-            <tbody>
-              {payments?.map((payment) => (
-                <tr key={payment.orderId} className="border-t">
-                  <td className="px-4 py-2">{payment.orderId}</td>
-                  <td
-                    className={`px-4 py-2 ${
-                      payment.status === "Completed"
-                        ? "text-green-500"
-                        : "text-orange-500"
-                    }`}>
-                    {payment.status}
-                  </td>
-                  <td className="px-4 py-2">${payment.amount}</td>
-                  <td className="px-4 py-2">{payment.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+      {/* Contenedor con fondo de papel */}
+      <div className="p-8  bg-blue-700/30 shadow-md shadow-lime py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl ">
+        {/* Utiliza el componente CustomTable */}
+        <CustomTable headers={headers}>
+          {payments?.map((payment) => (
+            <tr key={payment.preference_id} className="border-t">
+              <td className="px-4 py-2">{payment.preference_id}</td>
+              <td
+                className={`px-4 py-2 ${
+                  payment.status === "completed"
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
+              >
+                {payment.status}
+              </td>
+              <td className="px-4 py-2">{payment.date_created}</td>
+              <td className="px-4 py-2">
+                ${payment.transaction_amount.toFixed(2)}
+              </td>
+              <td className="px-4 py-2">{payment.tournament.name}</td>
+              <td className="px-4 py-2">
+                {payment.tournament.team?.some(
+                  (team) =>
+                    team.users.length === 1 &&
+                    team.users[0].id === currentUser?.id
+                ) && (
+                  <button
+                    onClick={handleCompleteRegistration}
+                    className="bg-lime text-black radhiumz uppercase text-sm px-2 py-1 rounded hover:bg-green-600"
+                  >
+                    Completar Inscripcion
+                  </button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </CustomTable>
       </div>
     </>
   );
