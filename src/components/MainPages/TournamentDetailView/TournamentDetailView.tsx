@@ -5,6 +5,8 @@ import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import { IProductPaymentDataReq } from "@/interfaces/RequestInterfaces";
+import { CURRENT_APP_URL } from "@/Server/AxiosConfig";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
@@ -27,9 +29,35 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleInscriptionClick = () => {
+  // const handleInscriptionClick = () => {
+  //   if (user) {
+  //     router.push(`/tournaments/register/${tournament.id}`);
+  //   } else {
+  //     router.push("/register");
+  //   }
+  // };
+  const currentHost = CURRENT_APP_URL || "";
+  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+
+  //A MERCADOPAGO
+  const handleInscriptionClick = async () => {
     if (user) {
-      router.push(`/tournaments/register/${tournament.id}`);
+      const data: IProductPaymentDataReq = {
+        tournament: tournament.id,
+        host: TOURNAAMENT_REGISTER_URL,
+        user: user.id,
+      };
+      console.log(data);
+      try {
+        const responseUrl = await postPaymentToMP(data);
+        if (!responseUrl.redirectUrl) {
+          throw new Error("Error al realizar el pago");
+        }
+        console.log(responseUrl.redirectUrl);
+        router.push(`${responseUrl.redirectUrl}`);
+      } catch (error) {
+        console.error(error);
+      }
     } else {
       router.push("/register");
     }
@@ -54,11 +82,11 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
       : "Inscripción Cerrada";
 
   return (
-    <div className="flex flex-col items-center mt-20 bg-blue-700/20 p-8 rounded-xl">
+    <div className="flex flex-col items-center p-8 mt-20 bg-blue-700/20 rounded-xl">
       {/* Status del Torneo */}
       <div className={`mb-4 w-full text-center ${statusColor}`}>
         {statusText}
-        <hr className="my-2 w-full text-white" />
+        <hr className="w-full my-2 text-white" />
       </div>
 
       {/* Botón de Navegación aqui */}
@@ -86,12 +114,12 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
       </div>
 
       {/* Detalle del Torneo */}
-      <div className="w-full md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto mb-20">
+      <div className="w-full mx-auto mb-20 md:w-3/4 lg:w-2/3 xl:w-1/2">
         <Card
           imageUrl={getImageUrl(tournament.tournamentFlyer ?? "")}
           title={tournament.name}
           description={tournament.description}
-          className="rounded-2xl shadow-lime shadow-lg"
+          className="shadow-lg rounded-2xl shadow-lime"
           additionalInfo={{
             "Fecha de inicio": formatDate(tournament.startDate),
             "Fecha de fin": formatDate(tournament.endDate),
@@ -108,7 +136,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
         {/* Botón de Inscripción */}
         {tournament.inscription === "abiertas" && user?.role !== "admin" && (
-          <div className="w-full mt-8 mb-8 mx-auto flex justify-center">
+          <div className="flex justify-center w-full mx-auto mt-8 mb-8">
             <button
               onClick={handleInscriptionClick}
               className="w-full  py-6 px-12 rounded-xl text-xl bg-white shadow-lg shadow-blue-700 text-black uppercase radhiumz"
@@ -119,7 +147,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         )}
 
         {/* Botón para Fixture */}
-        <div className="w-full mt-4 mx-auto flex justify-center">
+        <div className="flex justify-center w-full mx-auto mt-4">
           <button
             onClick={openModal}
             className="w-full max-w-xs py-4 px-10 h-12 bg-lime text-black radhiumz"
@@ -135,7 +163,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
           {[...Array(10)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-12 h-12 bg-lime rounded-full animate-bounce-ball"
+              className="absolute w-12 h-12 rounded-full bg-lime animate-bounce-ball"
               style={{
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
@@ -158,26 +186,26 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
       >
         <h2 className="text-4xl radhiumz text-lime">{`Fixture: ${tournament.name}`}</h2>
         <hr className="h-1 mb-4 bg-lime"></hr>
-        <table className="w-full min-w-max table-auto text-left bg-white">
-          <thead className="bg-zinc-800 text-white">
+        <table className="w-full text-left bg-white table-auto min-w-max">
+          <thead className="text-white bg-zinc-800">
             <tr>
-              <th className="py-2 px-4 border-b">Etapa</th>
-              <th className="py-2 px-4 border-b">Fecha</th>
-              <th className="py-2 px-4 border-b">Hora</th>
+              <th className="px-4 py-2 border-b">Etapa</th>
+              <th className="px-4 py-2 border-b">Fecha</th>
+              <th className="px-4 py-2 border-b">Hora</th>
             </tr>
           </thead>
           <tbody>
             {tournament.fixture && tournament.fixture.length > 0 ? (
               tournament.fixture.map((match) => (
                 <tr key={match.id}>
-                  <td className="py-2 px-4 border-b">{match.stage}</td>
-                  <td className="py-2 px-4 border-b">{match.date}</td>
-                  <td className="py-2 px-4 border-b">{match.time}</td>
+                  <td className="px-4 py-2 border-b">{match.stage}</td>
+                  <td className="px-4 py-2 border-b">{match.date}</td>
+                  <td className="px-4 py-2 border-b">{match.time}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td className="py-2 px-4 border-b" colSpan={3}>
+                <td className="px-4 py-2 border-b" colSpan={3}>
                   No hay fixture para este torneo
                 </td>
               </tr>

@@ -1,5 +1,6 @@
 "use client";
 import React, { useContext } from "react";
+
 import { AuthContext } from "@/context/GlobalContext";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 
@@ -47,6 +48,10 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
           <hr className="h-2 w-full text-white"></hr>
         </h1>
         <h2 className="sfRegular text-md md:text-xl text-white mt-8">
+          <span className="uppercase  radhiumz text-x m-2">
+            {currentUser?.name}
+          </span>{" "}
+          Lleva el registro de tus cuentas
           <span className="uppercase  radhiumz text-x m-2">
             {currentUser?.name}
           </span>{" "}
