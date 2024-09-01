@@ -44,15 +44,17 @@ const TournamentCard: React.FC<TournamentCardProps> = ({
           />
         </div>
         {/* Text */}
-        <div className="absolute inset-0 flex flex-col justify-end p-4 bg-black/30 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+        <div className="absolute inset-0 flex flex-col justify-end p-4 bg-black/50 transition-opacity duration-300 opacity-0 group-hover:opacity-100">
           <h3 className="text-2xl radhiumz text-white">{title}</h3>
-          <p className="text-lg sfRegular">{genero}</p>
-          {categoria && (
-            <p className="text-lg text-white sfRegular">{categoria}</p>
-          )}
-          {inscripciones && (
-            <p className="text-lg text-white sfRegular">{inscripciones}</p>
-          )}
+          <div className="flex w-3/4  justify-start uppercase sfBold">
+            <p className="text-lg ">{genero}</p>
+            {categoria && <p className="text-lg text-white ">{categoria}</p>}
+            {inscripciones && inscripciones === "abiertas" ? (
+              <p className="text-lg text-green-400 ml-10">{inscripciones}</p>
+            ) : (
+              <p className="text-lg text-red-400 ml-10">{inscripciones}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
