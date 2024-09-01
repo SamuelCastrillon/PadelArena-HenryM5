@@ -16,14 +16,12 @@ const CustomTable: React.FC<CustomTableProps> = ({ headers, children }) => {
                 <th
                   key={index}
                   className=" px-4 py-4 font-medium text-black uppercase radhiumz"
-                  className=" px-4 py-4 font-medium text-black uppercase radhiumz"
                 >
                   {header}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody className="text-center">{children}</tbody>
           <tbody className="text-center">{children}</tbody>
         </table>
       </div>
