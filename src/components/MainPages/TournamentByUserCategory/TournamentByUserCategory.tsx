@@ -12,7 +12,7 @@ export interface IFilerProp {
 }
 
 const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
-  const { currentUser, currentUserGoogle } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   const [tournaments, setTournaments] = useState<ITournament[]>([]);
   const [filteredTournaments, setFilteredTournaments] = useState<ITournament[]>(
     []
@@ -26,7 +26,7 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
         const allTournaments: ITournament[] = await getTournaments();
         setTournaments(allTournaments);
 
-        const userId = currentUser?.id || currentUserGoogle?.id;
+        const userId = currentUser?.id;
 
         if (!userId) {
           throw new Error("No se pudo obtener el ID del usuario.");
@@ -52,7 +52,7 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
     };
 
     fetchTournaments();
-  }, [currentUser, currentUserGoogle, category]); // Agrega 'category' como dependencia
+  }, [currentUser, category]);
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>{error}</p>;
@@ -74,7 +74,8 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
             <div className="flex ml-20">
               <NavigateButton
                 className="bg-lime text-black sfBold px-4 rounded-lg hover:bg-black hover:text-white py-2"
-                href="/tournaments">
+                href="/tournaments"
+              >
                 Vuelve a Torneos
               </NavigateButton>
             </div>
@@ -88,7 +89,8 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
           </p>
           <NavigateButton
             className="bg-lime text-black sfBold px-4 rounded-lg hover:bg-black hover:text-white py-2"
-            href="/tournaments">
+            href="/tournaments"
+          >
             Vuelve a Torneos
           </NavigateButton>
         </div>

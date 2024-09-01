@@ -15,8 +15,6 @@ export const AuthContext = createContext<IAuthcontext>({
 const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<IUserLogin | null>(null);
   const [userIdGoogle, setUserIdGoogle] = useState<string | null>(null);
-  // const [currentUserGoogle, setCurrentUserGoogle] =
-  //   useState<IUserGooglePut | null>(null);
 
   const { getGoogleUser, getRegularUser } = useUserCookies();
 
