@@ -8,7 +8,6 @@ interface CardProps {
   additionalInfo?: { [key: string]: string };
   className?: string;
 }
-
 const Card: React.FC<CardProps> = ({
   imageUrl,
   title,
