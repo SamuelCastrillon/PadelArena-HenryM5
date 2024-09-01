@@ -23,7 +23,7 @@ const PersonalizedTournamentView = () => {
   );
 
   return (
-    <div className="flex flex-col justify-center items-center my-10 bg-blue-700/30 p-10">
+    <div className="flex flex-col justify-center items-center   p-10">
       {filteredTournaments && filteredTournaments.length > 0 ? (
         <>
           <h1 className="text-4xl radhiumz text-lime uppercase">
