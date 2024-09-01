@@ -30,7 +30,8 @@ const PersonalizedTournamentView = () => {
             ¡Aún puedes inscribirte a estos torneos!
           </h1>
           <p className="text-white sfRegular text-xl">
-            Especialmente seleccionados de acuerdo a tu categoría
+            Especialmente seleccionados de acuerdo a tu categoría, no te los
+            pierdas
           </p>
 
           <TournamentSectionAll tournaments={filteredTournaments} />
