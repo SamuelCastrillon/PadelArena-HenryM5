@@ -1,6 +1,8 @@
 "use client";
 import React, { useContext } from "react";
+import React, { useContext } from "react";
 import { AuthContext } from "@/context/GlobalContext";
+import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 
 interface IPaymentDetail {
@@ -39,6 +41,15 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
     "Acciones",
   ];
 
+  const headers = [
+    "ID de Pago",
+    "Estado",
+    "Fecha de Creación",
+    "Monto de Transacción",
+    "Nombre del Torneo",
+    "Acciones",
+  ];
+
   return (
     <>
       <div className="mt-20 justify-start items-center flex-col flex">
@@ -47,6 +58,10 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
           <hr className="h-2 w-full text-white"></hr>
         </h1>
         <h2 className="sfRegular text-md md:text-xl text-white mt-8">
+          <span className="uppercase  radhiumz text-x m-2">
+            {currentUser?.name}
+          </span>{" "}
+          Lleva el registro de tus cuentas
           <span className="uppercase  radhiumz text-x m-2">
             {currentUser?.name}
           </span>{" "}
