@@ -1,8 +1,7 @@
 "use client";
 import React, { useContext } from "react";
-import React, { useContext } from "react";
+
 import { AuthContext } from "@/context/GlobalContext";
-import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 
 interface IPaymentDetail {
@@ -31,15 +30,6 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
     console.log("Completing registration...");
     // Lógica para completar la inscripción
   };
-
-  const headers = [
-    "ID de Pago",
-    "Estado",
-    "Fecha de Creación",
-    "Monto de Transacción",
-    "Nombre del Torneo",
-    "Acciones",
-  ];
 
   const headers = [
     "ID de Pago",
