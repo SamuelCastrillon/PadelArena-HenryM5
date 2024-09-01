@@ -68,7 +68,7 @@ const payments = [
     transaction_amount: 120.3,
 
     tournament: {
-      name: "Torneo de Invierno",
+      name: "Torneo de Invierno aca",
       team: [
         {
           users: [
