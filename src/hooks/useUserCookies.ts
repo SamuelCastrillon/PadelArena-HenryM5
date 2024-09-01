@@ -5,19 +5,16 @@ const googleUserKey = "googleUser";
 const regularUserKey = "regularUser";
 
 export function useUserCookies() {
-  // Guardar el usuario de Google en la cookie
   const saveGoogleUser = (newGoogleUser: IUserGooglePut) => {
     const dataToString = JSON.stringify(newGoogleUser);
-    Cookies.set(googleUserKey, dataToString, { expires: 7 }); // Expira en 7 días
+    Cookies.set(googleUserKey, dataToString, { expires: 7 });
   };
 
-  // Guardar un usuario regular en la cookie
   const saveRegularUser = (newRegularUser: IUserLogin) => {
     const dataToString = JSON.stringify(newRegularUser);
-    Cookies.set(regularUserKey, dataToString, { expires: 7 }); // Expira en 7 días
+    Cookies.set(regularUserKey, dataToString, { expires: 7 });
   };
 
-  // Obtener el usuario de Google desde la cookie
   const getGoogleUser = (): IUserGooglePut | null => {
     const googleUser = Cookies.get(googleUserKey);
 
@@ -28,15 +25,14 @@ export function useUserCookies() {
         return cookieParse;
       } catch (error) {
         console.error("Error parsing Google User from cookies:", error);
-        return null; // Retorna null si hay un error en el parseo
+        return null;
       }
     } else {
       console.warn("Google User cookie not found.");
-      return null; // Retorna null si la cookie no existe
+      return null;
     }
   };
 
-  // Obtener el usuario regular desde la cookie
   const getRegularUser = (): IUserLogin | null => {
     const regularUser = Cookies.get(regularUserKey);
 
@@ -47,21 +43,19 @@ export function useUserCookies() {
         return cookieParse;
       } catch (error) {
         console.error("Error parsing Regular User from cookies:", error);
-        return null; // Retorna null si hay un error en el parseo
+        return null;
       }
     } else {
       console.warn("Regular User cookie not found.");
-      return null; // Retorna null si la cookie no existe
+      return null;
     }
   };
 
-  // Eliminar la cookie del usuario de Google
   const deleteGoogleUser = () => {
     Cookies.remove(googleUserKey);
     console.log("Google User cookie removed.");
   };
 
-  // Eliminar la cookie del usuario regular
   const deleteRegularUser = () => {
     Cookies.remove(regularUserKey);
     console.log("Regular User cookie removed.");
