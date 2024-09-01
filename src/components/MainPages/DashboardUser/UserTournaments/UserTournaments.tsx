@@ -9,8 +9,8 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 // Datos de torneos (pueden venir de un hook o de una API)
 const tournamentsData: ITournament[] = [
   {
-    id: "1",
-    name: "Torneo de Verano",
+    id: "ae1da3dd-3844-4499-9764-f0ffab34fa20",
+    name: "Summer Padel Cup",
     startDate: "2024-06-01",
     endDate: "2024-06-15",
     startingTime: "09:00",
