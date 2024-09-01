@@ -7,7 +7,7 @@ interface CustomTableProps {
 
 const CustomTable: React.FC<CustomTableProps> = ({ headers, children }) => {
   return (
-    <div className=" w-[70%] mx-auto my-8 bg-[#f8fafc] rounded-3xl py-6">
+    <div className=" w-[90%] mx-auto my-8 bg-[#f8fafc] rounded-3xl py-6 px-6">
       <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
         <table className="w-full table-auto">
           <thead>
@@ -15,14 +15,14 @@ const CustomTable: React.FC<CustomTableProps> = ({ headers, children }) => {
               {headers.map((header, index) => (
                 <th
                   key={index}
-                  className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz"
+                  className=" px-4 py-4 font-medium text-black uppercase radhiumz"
                 >
                   {header}
                 </th>
               ))}
             </tr>
           </thead>
-          <tbody>{children}</tbody>
+          <tbody className="text-center">{children}</tbody>
         </table>
       </div>
     </div>
