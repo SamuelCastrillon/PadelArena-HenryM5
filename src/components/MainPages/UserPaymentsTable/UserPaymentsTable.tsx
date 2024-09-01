@@ -1,8 +1,8 @@
 "use client";
 import React, { useContext } from "react";
-
 import { AuthContext } from "@/context/GlobalContext";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
+import { useRouter } from "next/navigation";
 
 interface IPaymentDetail {
   preference_id: string;
@@ -10,6 +10,7 @@ interface IPaymentDetail {
   date_created: string;
   transaction_amount: number;
   tournament: {
+    id: string; // Añadido para manejar el ID del torneo
     name: string;
     team?: {
       users: { id: string; name: string }[]; // Ajusta según la estructura real del equipo
@@ -21,14 +22,11 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
   payments,
 }) => {
   const { currentUser } = useContext(AuthContext);
+  const router = useRouter();
 
-  const handleEditPayment = (preference_id: string) => {
-    console.log(`Editing payment with Preference ID: ${preference_id}`);
-  };
-
-  const handleCompleteRegistration = () => {
-    console.log("Completing registration...");
-    // Lógica para completar la inscripción
+  const handleCompleteRegistration = (tournamentId: string) => {
+    router.push(`/tournaments/register/${tournamentId}`);
+    // Lógica para completar la inscripción (si es necesario)
   };
 
   const headers = [
@@ -55,7 +53,7 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
         </h2>
       </div>
       {/* Contenedor con fondo de papel */}
-      <div className="p-8  bg-blue-700/30 shadow-md shadow-lime py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl ">
+      <div className="p-8 bg-blue-700/30 shadow-md shadow-lime py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl ">
         {/* Utiliza el componente CustomTable */}
         <CustomTable headers={headers}>
           {payments?.map((payment) => (
@@ -82,10 +80,12 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
                     team.users[0].id === currentUser?.id
                 ) && (
                   <button
-                    onClick={handleCompleteRegistration}
+                    onClick={() =>
+                      handleCompleteRegistration(payment.tournament.id)
+                    }
                     className="bg-lime text-black radhiumz uppercase text-sm px-2 py-1 rounded hover:bg-green-600"
                   >
-                    Completar Inscripcion
+                    Completar Inscripción
                   </button>
                 )}
               </td>
