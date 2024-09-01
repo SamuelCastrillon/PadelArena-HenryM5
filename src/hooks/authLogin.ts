@@ -105,13 +105,45 @@ const useAuth = () => {
     router.push("/");
   };
 
-  const handleUpdateProfile = async (event: React.FormEvent) => {
-    event.preventDefault();
+  // const handleUpdateProfile = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   try {
+  //     const userId = userIdGoogle;
+
+  //     if (userId) {
+  //       if (!formData.category) {
+  //         Swal.fire({
+  //           title: "Por favor selecciona una categoría válida.",
+  //           width: 400,
+  //           padding: "3em",
+  //         });
+  //         return;
+  //       }
+
+  //       const updatedUser = await updateUserProfile(userId, formData);
+
+  //       if (updatedUser) {
+  //         saveGoogleUser(updatedUser);
+  //         setCurrentUser(updatedUser);
+  //         handleCloseModal();
+  //         Swal.fire({
+  //           title: "Tu perfil se actualizó correctamente.",
+  //           width: 400,
+  //           padding: "3em",
+  //         });
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al actualizar el perfil:", error);
+  //   }
+  // };
+
+  const handleUpdateProfile = async (values: IUpdateUser) => {
     try {
       const userId = userIdGoogle;
 
       if (userId) {
-        if (!formData.category) {
+        if (!values.category) {
           Swal.fire({
             title: "Por favor selecciona una categoría válida.",
             width: 400,
@@ -120,7 +152,7 @@ const useAuth = () => {
           return;
         }
 
-        const updatedUser = await updateUserProfile(userId, formData);
+        const updatedUser = await updateUserProfile(userId, values);
 
         if (updatedUser) {
           saveGoogleUser(updatedUser);

@@ -13,6 +13,12 @@ import ButtonNextAuthSignIn from "@/components/MainComponents/NextAuthButtonSign
 import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import useTournamentData from "@/hooks/fetchTournamentData";
 import useAuth from "@/hooks/authLogin";
+import {
+  buttonsUpdateProfileForm,
+  updateProfileInitialValues,
+  updateProfileSchema,
+} from "./updateData";
+import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 
 const LogInView: React.FC = () => {
   const {
@@ -24,6 +30,44 @@ const LogInView: React.FC = () => {
     logIn,
   } = useAuth();
   const { categories, error } = useTournamentData();
+
+  const updateProfileFields: IDataConstructor[] = [
+    {
+      LabelText: "Teléfono",
+      FieldName: "phone",
+      FieldType: "input",
+      FieldPH: "Teléfono",
+    },
+    {
+      LabelText: "País",
+      FieldName: "country",
+      FieldType: "input",
+      FieldPH: "País",
+    },
+    {
+      LabelText: "Ciudad",
+      FieldName: "city",
+      FieldType: "input",
+      FieldPH: "Ciudad",
+    },
+    {
+      LabelText: "Dirección",
+      FieldName: "address",
+      FieldType: "input",
+      FieldPH: "Dirección",
+    },
+    {
+      LabelText: "Categoría",
+      FieldName: "category",
+      FieldType: "select",
+      selectOptions: categories
+        ? categories.map((category) => ({
+            value: category.id,
+            name: category.name,
+          }))
+        : [],
+    },
+  ];
 
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit mt-20">
@@ -59,19 +103,29 @@ const LogInView: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         blurBackground={true}
-        backgroundColor="bg-white"
+        backgroundColor="bg-transparent"
         textColor="text-black"
         className="p-4"
         bgImageUrl="https://example.com/your-background-image.jpg"
       >
-        <h2 className="text-xl font-bold mb-4">Completa tu perfil</h2>
+        <h2 className="text-xl text-white font-bold mb-4">
+          Completa tu perfil
+        </h2>
+        <FormComponent
+          iniValues={updateProfileInitialValues}
+          valiSchema={updateProfileSchema}
+          handelerSubmit={handleUpdateProfile}
+          butonsForm={buttonsUpdateProfileForm}
+          dataContructor={updateProfileFields}
+        />
+        {/* Campos para completar el perfil
         <form onSubmit={handleUpdateProfile}>
-          {/* Campos para completar el perfil */}
+          
           <div className="mb-4">
             <label className="block mb-2">Teléfono</label>
             <input
               type="text"
-              name="phone"
+              name="phone"s
               value={formData.phone}
               onChange={handleInputChange}
               className="w-full border border-gray-300 p-2 rounded"
@@ -139,6 +193,7 @@ const LogInView: React.FC = () => {
             Actualizar Perfil
           </button>
         </form>
+        */}
       </ReusableModal>
     </section>
   );
