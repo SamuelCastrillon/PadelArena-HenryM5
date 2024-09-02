@@ -120,3 +120,10 @@ export interface IProductPaymentDataReq {
   user: string;
   // notification_url: string;
 }
+
+export interface IPayment {
+  orderId: string;
+  status: string;
+  amount: number;
+  date: string;
+}
