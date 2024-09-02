@@ -154,9 +154,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             "Canchas disponibles": tournament.courtsAvailable.toString(),
             "Días de juego": tournament.playingDay?.toString(),
             Categoría: tournament.category.name,
-            Género: tournament.genero ?? "Esta por verse",
             Inscripciones:
-              tournament.inscription ?? "Aun en proceso de definir",
+              tournament.inscription.toUpperCase() ??
+              "Aun en proceso de definir",
           }}
         />
 

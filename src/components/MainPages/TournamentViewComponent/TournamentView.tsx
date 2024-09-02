@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TournamentSection from "./TournamentSection";
 import Header from "./TournamentHeader";
 import { useRouter } from "next/navigation";
@@ -11,8 +11,10 @@ import TournamentFilters, {
 } from "@/components/MainComponents/TournamentsFilters/TournamentsFilters";
 
 const TournamentsView: React.FC = () => {
-  const { tournaments = [], categories = [] } = useTournamentData();
+  const { tournaments, categories } = useTournamentData();
   const router = useRouter();
+
+  // Inicializa el estado filtrado con todos los torneos
   const [filteredTournaments, setFilteredTournaments] =
     useState<ITournament[]>(tournaments);
 
@@ -45,14 +47,6 @@ const TournamentsView: React.FC = () => {
     setFilteredTournaments(tournaments);
   };
 
-  useEffect(() => {
-    applyFilters({
-      category: "",
-      month: "",
-      inscription: "",
-    });
-  }, [tournaments]);
-
   const handlePlusClick = (status: string) => {
     router.push(`/tournaments/${status}`);
   };
@@ -70,12 +64,21 @@ const TournamentsView: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    // Aplica filtros iniciales (puedes ajustar estos filtros según sea necesario)
+    applyFilters({
+      category: "",
+      month: "",
+      inscription: "",
+    });
+  }, [tournaments]);
+
   return (
     <div className="min-h-screen">
       <Header />
 
       <TournamentFilters
-        categories={categories} // Asegura que categories sea un array vacío si es undefined
+        categories={categories}
         onApplyFilters={applyFilters}
         onResetFilters={resetFilters}
       />

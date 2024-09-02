@@ -24,4 +24,5 @@ export interface ITournament {
   fixture?: IFixture[];
   team?: ITeam[];
   matches?: IMatch[];
+  price?: number;
 }
