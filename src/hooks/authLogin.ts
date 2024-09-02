@@ -194,7 +194,6 @@ const useAuth = () => {
       const response: IUserLoginRes = await HandlerLogIn(data);
 
       if (response?.token) {
-        console.log(response.userClean);
         saveRegularUser(response.userClean);
         setCurrentUser(response.userClean);
         Swal.fire({

@@ -6,7 +6,6 @@ import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable"
 import { useRouter } from "next/navigation";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 
-// Datos de torneos (pueden venir de un hook o de una API)
 const tournamentsData: ITournament[] = [
   {
     id: "ae1da3dd-3844-4499-9764-f0ffab34fa20",
@@ -81,20 +80,8 @@ const UserTournaments = () => {
   const { currentUser } = useContext(AuthContext);
   const { tournaments } = useTournamentData();
 
-  // Verifica el contexto del usuario
-  console.log("Usuario actual:", currentUser);
-
-  // Obtiene la categoría del usuario
   const userCategoryName = currentUser?.category?.name;
 
-  console.log("Nombre de categoría del usuario:", userCategoryName);
-
-  // Filtra los torneos basados en el nombre de la categoría del usuario y el estado de inscripción
-  const filteredTournaments = tournamentsData.filter(
-    (tournament) =>
-      tournament.category.name === userCategoryName && // Coincide con el nombre de la categoría del usuario
-      tournament.inscription === "abiertas" // Inscripciones abiertas
-  );
   const router = useRouter();
   const userTeams = tournamentsData.flatMap(
     (tournament) =>
@@ -110,7 +97,7 @@ const UserTournaments = () => {
     )
   );
 
-  // // Obtén la lista de equipos en los que el usuario está inscrito
+  //CON LOS TOURNAMENTS POSTA
   // const userTeams = tournaments.flatMap(
   //   (tournament) =>
   //     tournament.team?.filter((team) =>
@@ -128,7 +115,6 @@ const UserTournaments = () => {
   // );
 
   const handleViewDetails = (tournamentId: string) => {
-    // Navega a la página de detalles del torneo
     router.push(`/tournaments/${tournamentId}`);
   };
 

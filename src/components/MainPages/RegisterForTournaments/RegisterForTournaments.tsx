@@ -25,7 +25,6 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
   allParams,
   currentHost,
 }) => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const navigate = useRouter();
   const currentPath = usePathname();

@@ -19,8 +19,6 @@ interface TournamentDetailViewProps {
 const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   tournament,
 }) => {
-  console.log(tournament);
-  console.log("Inscripciones:", tournament.inscription);
   const { currentUser } = useContext(AuthContext);
   const user = currentUser;
   const router = useRouter();

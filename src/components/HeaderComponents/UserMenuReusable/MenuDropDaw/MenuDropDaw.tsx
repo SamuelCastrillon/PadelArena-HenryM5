@@ -18,7 +18,6 @@ const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
   handlerLogOut,
   currentUser,
 }) => {
-  console.log(currentUser);
   return (
     <div
       className={`absolute top-[60px] sm:top-[68px] -right-[20px]  sm:sm:right-0 ${

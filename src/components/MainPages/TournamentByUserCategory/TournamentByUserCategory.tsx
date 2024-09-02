@@ -38,7 +38,6 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
           throw new Error("No se pudo obtener la categoría del usuario.");
         }
 
-        // Filtrar los torneos basándose en la categoría proporcionada como prop
         const filtered = allTournaments.filter(
           (tournament) => tournament.category.name === category
         );
