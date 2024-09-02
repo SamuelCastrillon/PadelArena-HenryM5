@@ -119,3 +119,10 @@ export interface IProductPaymentDataReq {
   quantity: number;
   price: number;
 }
+
+export interface IPayment {
+  orderId: string;
+  status: string;
+  amount: number;
+  date: string;
+}
