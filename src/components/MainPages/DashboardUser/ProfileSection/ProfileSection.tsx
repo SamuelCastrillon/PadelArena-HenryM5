@@ -4,9 +4,9 @@ import UserInfoPanel from "../../../MainComponents/UserInfoPanel/UserInfoPanel";
 import { AuthContext } from "@/context/GlobalContext";
 
 const ProfileSection: React.FC = () => {
-  const { currentUser, currentUserGoogle } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
-  const user = currentUser || currentUserGoogle; // Selecciona el usuario disponible
+  const user = currentUser;
 
   console.log(user);
 
@@ -15,7 +15,7 @@ const ProfileSection: React.FC = () => {
       {user ? (
         <UserInfoPanel user={user} />
       ) : (
-        <p>No se encontró un usuario disponible.</p> // Mensaje en caso de no encontrar usuario
+        <p>No se encontró un usuario disponible.</p>
       )}
     </div>
   );

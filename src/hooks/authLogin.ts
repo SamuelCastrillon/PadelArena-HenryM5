@@ -36,7 +36,6 @@ const useAuth = () => {
     category: "",
   });
 
-  console.log(formData);
   useEffect(() => {
     if (session) {
       handlePostSession();
@@ -48,7 +47,7 @@ const useAuth = () => {
     if (userGoogleData) {
       try {
         const response = await postNextAuthSession(userGoogleData);
-        console.log(response);
+
         console.log(
           "los datos del user luego del post session",
           response.googleUserWithoutPassword || response.newGoogleUser
@@ -71,13 +70,12 @@ const useAuth = () => {
             }
 
             setUserIdGoogle(newUser.id);
-            console.log("id del user", userIdGoogle);
+
             const { city, country, address, phone, category } = newUser;
 
             if (!city && !country && !address && !phone && !category) {
               setIsModalOpen(true);
             } else {
-              console.log("usuario completo", newUser);
               saveGoogleUser(newUser);
               setCurrentUser(newUser);
               router.push("/dashboard/user/profile");
@@ -96,10 +94,10 @@ const useAuth = () => {
 
   const isValidUrl = (url: string): boolean => {
     try {
-      new URL(url); // Intentamos crear un objeto URL con la cadena dada
-      return true; // Si la URL es válida, retornamos true
+      new URL(url);
+      return true;
     } catch (error) {
-      return false; // Si falla, la URL no es válida y retornamos false
+      return false;
     }
   };
   const handleCloseModal = () => {
@@ -107,14 +105,45 @@ const useAuth = () => {
     router.push("/");
   };
 
-  const handleUpdateProfile = async (event: React.FormEvent) => {
-    event.preventDefault();
+  // const handleUpdateProfile = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   try {
+  //     const userId = userIdGoogle;
+
+  //     if (userId) {
+  //       if (!formData.category) {
+  //         Swal.fire({
+  //           title: "Por favor selecciona una categoría válida.",
+  //           width: 400,
+  //           padding: "3em",
+  //         });
+  //         return;
+  //       }
+
+  //       const updatedUser = await updateUserProfile(userId, formData);
+
+  //       if (updatedUser) {
+  //         saveGoogleUser(updatedUser);
+  //         setCurrentUser(updatedUser);
+  //         handleCloseModal();
+  //         Swal.fire({
+  //           title: "Tu perfil se actualizó correctamente.",
+  //           width: 400,
+  //           padding: "3em",
+  //         });
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al actualizar el perfil:", error);
+  //   }
+  // };
+
+  const handleUpdateProfile = async (values: IUpdateUser) => {
     try {
       const userId = userIdGoogle;
 
-      console.log("form data", formData);
       if (userId) {
-        if (!formData.category) {
+        if (!values.category) {
           Swal.fire({
             title: "Por favor selecciona una categoría válida.",
             width: 400,
@@ -123,8 +152,8 @@ const useAuth = () => {
           return;
         }
 
-        const updatedUser = await updateUserProfile(userId, formData);
-        console.log(updatedUser);
+        const updatedUser = await updateUserProfile(userId, values);
+
         if (updatedUser) {
           saveGoogleUser(updatedUser);
           setCurrentUser(updatedUser);
@@ -147,15 +176,13 @@ const useAuth = () => {
     const { name, value } = event.target;
 
     if (name === "category") {
-      // Encuentra la categoría seleccionada por nombre y obtiene el ID
       const selectedCategory = categories.find(
         (category) => category.name === value
       );
 
-      // Actualiza el estado con el ID de la categoría seleccionada
       setFormData({
         ...formData,
-        category: selectedCategory?.id || "", // Guarda el ID
+        category: selectedCategory?.id || "",
       });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -165,9 +192,8 @@ const useAuth = () => {
   const logIn = async (data: IUserLoginReq) => {
     try {
       const response: IUserLoginRes = await HandlerLogIn(data);
-      console.log(response);
+
       if (response?.token) {
-        console.log(response.userClean);
         saveRegularUser(response.userClean);
         setCurrentUser(response.userClean);
         Swal.fire({

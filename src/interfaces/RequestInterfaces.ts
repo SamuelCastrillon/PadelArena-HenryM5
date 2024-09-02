@@ -115,9 +115,10 @@ export interface IUserGoogle {
 //? Payment Interfaces
 
 export interface IProductPaymentDataReq {
-  title: string;
-  quantity: number;
-  price: number;
+  tournament: string;
+  host: string;
+  user: string;
+  // notification_url: string;
 }
 
 export interface IPayment {

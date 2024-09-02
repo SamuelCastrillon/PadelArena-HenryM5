@@ -9,5 +9,6 @@ export interface IFormTournametInitiaalValues {
   matchDuration: number | string;
   courts: number | string;
   tournamentImg: string;
+  price: number;
   category: string;
 }
