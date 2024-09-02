@@ -22,7 +22,7 @@ const CustomTable: React.FC<CustomTableProps> = ({ headers, children }) => {
               ))}
             </tr>
           </thead>
-          <tbody className="text-center">{children}</tbody>
+          <tbody className="text-center border-b">{children}</tbody>
         </table>
       </div>
     </div>

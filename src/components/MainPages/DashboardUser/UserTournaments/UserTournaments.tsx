@@ -5,6 +5,7 @@ import useTournamentData from "@/hooks/fetchTournamentData";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { useRouter } from "next/navigation";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 
 const tournamentsData: ITournament[] = [
   {
@@ -133,18 +134,18 @@ const UserTournaments = () => {
         ]}
       >
         {userTournaments.map((tournament) => (
-          <tr key={tournament.id}>
-            <td className="px-4 py-2">{tournament.name}</td>
-            <td className="px-4 py-2">{tournament.category?.name || "N/A"}</td>
-            <td className="px-4 py-2">{tournament.inscription}</td>
-            <td className="px-4 py-2">{tournament.status}</td>
-            <td className="px-4 py-2">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+          <tr key={tournament.id} className="border-t-2 border-lime">
+            <td className="px-4 py-2 ">{tournament.name}</td>
+            <td className="px-4 py-2 ">{tournament.category?.name || "N/A"}</td>
+            <td className="px-4 py-2 ">{tournament.inscription}</td>
+            <td className="px-4 py-2 ">{tournament.status}</td>
+            <td className="px-4 py-2 ">
+              <ActionButton
+                className="bg-lime text-black px-4 py-2 radhiumz uppercase rounded hover:bg-blue-700 hover:text-white"
                 onClick={() => handleViewDetails(tournament.id)}
               >
                 Ver Detalle
-              </button>
+              </ActionButton>
             </td>
           </tr>
         ))}

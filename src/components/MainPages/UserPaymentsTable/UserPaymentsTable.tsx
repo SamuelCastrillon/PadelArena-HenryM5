@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "@/context/GlobalContext";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { useRouter } from "next/navigation";
+import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 
 interface IPaymentDetail {
   preference_id: string;
@@ -55,7 +56,7 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
       <div className="p-8 bg-blue-700/30 shadow-md shadow-lime py-2 md:py-6 my-14 w-[90%] mx-auto rounded-3xl ">
         <CustomTable headers={headers}>
           {payments?.map((payment) => (
-            <tr key={payment.preference_id} className="border-t">
+            <tr key={payment.preference_id} className="border-t-2 border-lime">
               <td className="px-4 py-2">{payment.preference_id}</td>
               <td
                 className={`px-4 py-2 ${
@@ -77,14 +78,14 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
                     team.users.length === 1 &&
                     team.users[0].id === currentUser?.id
                 ) && (
-                  <button
+                  <ActionButton
                     onClick={() =>
                       handleCompleteRegistration(payment.tournament.id)
                     }
-                    className="bg-lime text-black radhiumz uppercase text-sm px-2 py-1 rounded hover:bg-green-600"
+                    className="bg-lime text-black radhiumz uppercase text-sm px-2 py-1 rounded hover:bg-blue-700 hover:text-white"
                   >
                     Completar Inscripción
-                  </button>
+                  </ActionButton>
                 )}
               </td>
             </tr>
