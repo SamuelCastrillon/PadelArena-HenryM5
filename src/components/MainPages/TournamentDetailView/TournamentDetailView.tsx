@@ -4,6 +4,7 @@ import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/Na
 import Card from "@/components/MainComponents/ReusableCard/ReusableCard";
 import { AuthContext } from "@/context/GlobalContext";
 import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
+import { ITeam } from "@/interfaces/ComponentsInterfaces/Team";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { IProductPaymentDataReq } from "@/interfaces/RequestInterfaces";
 import { CURRENT_APP_URL } from "@/Server/AxiosConfig";
@@ -29,15 +30,25 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // const handleInscriptionClick = () => {
-  //   if (user) {
-  //     router.push(`/tournaments/register/${tournament.id}`);
-  //   } else {
-  //     router.push("/register");
-  //   }
-  // };
   const currentHost = CURRENT_APP_URL || "";
   const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+
+  // useEffect(() => {
+  //   const fetchTeams = async () => {
+  //     if (user) {
+  //       try {
+  //         const teams = await getTeamsInTournament(tournament.id);
+  //         const userIsRegistered = teams.some((team: ITeam) =>
+  //           team.users.some((u) => u.id === user.id)
+  //         );
+  //         setIsUserRegistered(userIsRegistered);
+  //       } catch (error) {
+  //         console.error("Error fetching teams:", error);
+  //       }
+  //     }
+  //   };
+  //   fetchTeams();
+  // }, [user, tournament.id]);
 
   //A MERCADOPAGO
   const handleInscriptionClick = async () => {
@@ -80,6 +91,11 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
     tournament.inscription === "abiertas"
       ? "Inscripción Abierta"
       : "Inscripción Cerrada";
+
+  const isUserRegistered =
+    tournament.team?.some((team: ITeam) =>
+      team.users?.some((userInTeam) => userInTeam.id === user?.id)
+    ) ?? false;
 
   return (
     <div className="flex flex-col items-center p-8 mt-20 bg-blue-700/20 rounded-xl">
@@ -134,19 +150,23 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
           }}
         />
 
-        {/* Botón de Inscripción */}
         {tournament.inscription === "abiertas" && user?.role !== "admin" && (
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
-            <button
-              onClick={handleInscriptionClick}
-              className="w-full  py-6 px-12 rounded-xl text-xl bg-white shadow-lg shadow-blue-700 text-black uppercase radhiumz"
-            >
-              Inscribite
-            </button>
+            {isUserRegistered ? (
+              <p className="w-full py-6 px-12 rounded-xl text-xl bg-gray-400 text-white uppercase radhiumz text-center">
+                Ya estás inscrito
+              </p>
+            ) : (
+              <button
+                onClick={handleInscriptionClick}
+                className="w-full py-6 px-12 rounded-xl text-xl bg-white shadow-lg shadow-blue-700 text-black uppercase radhiumz"
+              >
+                Inscribite
+              </button>
+            )}
           </div>
         )}
 
-        {/* Botón para Fixture */}
         <div className="flex justify-center w-full mx-auto mt-4">
           <button
             onClick={openModal}
