@@ -33,7 +33,7 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
         <Image
           src={getImageUrl(userInfo.profileImg || "/images/default-image.jpg")}
           alt="Profile Picture"
-          className="rounded-full mx-auto mb-4 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48"
+          className="rounded-full mx-auto mb-4 w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 hover:scale-110 transition duration-300 ease-in-out"
           width={192}
           height={192}
         />

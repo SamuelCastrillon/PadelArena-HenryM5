@@ -66,6 +66,10 @@ export const PublicButtons = () => {
 const AdminMenu = ({ handlerLogOut }: { handlerLogOut: () => void }) => {
   return (
     <>
+      <MenuButton text="Perfil" routeNavigate="/dashboard/admin/profile">
+        <UserCircleIcon className="h-10" />
+      </MenuButton>
+
       <MenuButton
         text="Crear Torneo"
         routeNavigate="/dashboard/admin/tournaments/create"
