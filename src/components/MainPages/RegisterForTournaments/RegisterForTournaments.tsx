@@ -9,10 +9,11 @@ import {
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface IRegisterForTournaments {
-  id: string;
+  allParams: any;
+  currentHost: string;
 }
 
 interface IDataToForm {
@@ -20,27 +21,34 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
-const dataToPay = {
-  title: "Padel Arena",
-  quantity: 1,
-  price: 12,
-};
-
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ id }) => {
-  const { currentUser, setCurrentUser } = useContext(AuthContext);
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
+  allParams,
+  currentHost,
+}) => {
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const navigate = useRouter();
+  const currentPath = usePathname();
+
+  const tournamentId = allParams.params[0];
+  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
 
   async function payToInscription() {
-    try {
-      const { redirectUrl } = await postPaymentToMP(dataToPay);
-      if (!redirectUrl) {
-        throw new Error("Error al realizar el pago");
-      }
-      navigate.push(redirectUrl);
-    } catch (error) {
-      console.error(error);
-    }
+    // const dataToPay = {
+    //   tournament: tournamentId,
+    //   host: TOURNAAMENT_REGISTER_URL,
+    //   user: currentUser?.id,
+    // };
+    // console.log(dataToPay);
+    // try {
+    //   const { redirectUrl } = await postPaymentToMP(dataToPay);
+    //   if (!redirectUrl) {
+    //     throw new Error("Error al realizar el pago");
+    //   }
+    //   navigate.push(redirectUrl);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    console.log("pago");
   }
 
   const handlerPayment = (values: any) => {

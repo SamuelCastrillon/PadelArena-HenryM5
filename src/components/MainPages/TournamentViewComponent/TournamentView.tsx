@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import TournamentSection from "./TournamentSection";
 import Header from "./TournamentHeader";
@@ -10,21 +11,25 @@ import TournamentFilters, {
 } from "@/components/MainComponents/TournamentsFilters/TournamentsFilters";
 
 const TournamentsView: React.FC = () => {
-  const { tournaments, categories } = useTournamentData();
+  const { tournaments = [], categories = [] } = useTournamentData();
   const router = useRouter();
   const [filteredTournaments, setFilteredTournaments] =
     useState<ITournament[]>(tournaments);
 
-  // Aplicar filtros cuando se actualicen
   const applyFilters = (filters: Filters) => {
+    if (tournaments.length === 0) {
+      console.warn("No hay torneos disponibles para filtrar.");
+      setFilteredTournaments([]);
+      return;
+    }
+
     const filtered = tournaments.filter((tournament) => {
-      // Extraer el mes de la fecha de inicio del torneo
-      const tournamentMonth = new Date(tournament.startDate).getMonth() + 1; // getMonth() devuelve 0-11, así que sumamos 1
+      const tournamentMonth = new Date(tournament.startDate).getMonth() + 1;
       const tournamentMonthFormatted =
         tournamentMonth < 10 ? `0${tournamentMonth}` : `${tournamentMonth}`;
 
       const matchesCategory =
-        !filters.category || tournament.category.name === filters.category;
+        !filters.category || tournament.category?.name === filters.category;
       const matchesMonth =
         !filters.month || tournamentMonthFormatted === filters.month;
       const matchesInscriptionStatus =
@@ -40,7 +45,6 @@ const TournamentsView: React.FC = () => {
     setFilteredTournaments(tournaments);
   };
 
-  // Aplicar filtros iniciales
   useEffect(() => {
     applyFilters({
       category: "",
@@ -54,7 +58,7 @@ const TournamentsView: React.FC = () => {
   };
 
   const filterTournaments = (status: string) => {
-    if (!filteredTournaments || filteredTournaments.length === 0) {
+    if (filteredTournaments.length === 0) {
       return [];
     }
 
@@ -62,7 +66,6 @@ const TournamentsView: React.FC = () => {
 
     return filteredTournaments.filter((tournament) => {
       const tournamentStatus = tournament?.status?.trim().toLowerCase();
-
       return tournamentStatus === normalizedStatus;
     });
   };
@@ -72,19 +75,19 @@ const TournamentsView: React.FC = () => {
       <Header />
 
       <TournamentFilters
-        categories={categories}
+        categories={categories} // Asegura que categories sea un array vacío si es undefined
         onApplyFilters={applyFilters}
         onResetFilters={resetFilters}
       />
 
       <section className="bg-white py-2 md:py-6 my-14 min-h-screen w-[90%] mx-auto rounded-3xl">
-        {categories?.length === 0 && (
+        {categories.length === 0 && (
           <div className="text-center text-gray-500 mt-10">
             <p>No hay categorías disponibles en este momento!</p>
           </div>
         )}
 
-        {filteredTournaments?.length === 0 ? (
+        {filteredTournaments.length === 0 ? (
           <div className="text-center text-gray-500 mt-10">
             <p>No hay torneos disponibles en este momento.</p>
           </div>

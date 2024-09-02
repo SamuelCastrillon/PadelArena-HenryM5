@@ -72,7 +72,7 @@
 }
 
 .swal2-confirm {
-  background-color: #BEF164; /* Cambia este color por el que prefieras */
+  background-color: #bef164; /* Cambia este color por el que prefieras */
   color: #000000; /* Color del texto */
   border: none; /* Elimina el borde si es necesario */
   font-family: radhiumz;
@@ -81,6 +81,6 @@
 }
 
 .swal2-confirm:hover {
-  background-color: #1D4ED7; /* Color en hover */
-  color:#ffffff
+  background-color: #1d4ed7; /* Color en hover */
+  color: #ffffff;
 }

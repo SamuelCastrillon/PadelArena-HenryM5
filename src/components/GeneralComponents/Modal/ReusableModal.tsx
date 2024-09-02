@@ -37,7 +37,7 @@ const ReusableModal: React.FC<ModalProps> = ({
         {/* Imagen de fondo opcional con animación */}
         {bgImageUrl && (
           <div
-            className="absolute inset-0 bg-cover bg-center filter grayscale "
+            className="absolute inset-0 bg-cover bg-center blur-sm  filter grayscale opacity-80"
             style={{ backgroundImage: `url(${bgImageUrl}) ` }}
           >
             <div className="absolute inset-0 bg-cover bg-center bg-gradient-to-b from-black to-black opacity-40"></div>

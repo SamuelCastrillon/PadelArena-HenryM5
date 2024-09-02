@@ -17,10 +17,12 @@ import {
 } from "@/Server/User/updateUserProfile";
 import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 import { useUserCookies } from "@/hooks/useUserCookies";
+import useTournamentData from "./fetchTournamentData";
 
 const useAuth = () => {
   const router = useRouter();
   const { data: session } = useSession();
+  const { categories } = useTournamentData();
   const { setCurrentUser, setUserIdGoogle, userIdGoogle } =
     useContext(AuthContext);
   const { saveGoogleUser, saveRegularUser } = useUserCookies();
@@ -43,49 +45,118 @@ const useAuth = () => {
   const handlePostSession = async () => {
     const userGoogleData = session?.user as IUserGoogle;
     if (userGoogleData) {
-      const response = await postNextAuthSession(userGoogleData);
-      console.log(response);
-      if (response?.message.includes("realizado con exito")) {
-        const newUser = response.googleUserWithoutPassword;
-        console.log(newUser);
-        const { phone, country, city, address, category } = newUser;
-        const existingUser = response.newUser;
+      try {
+        const response = await postNextAuthSession(userGoogleData);
 
+        console.log(
+          "los datos del user luego del post session",
+          response.googleUserWithoutPassword || response.newGoogleUser
+        );
+        const newUser =
+          response.googleUserWithoutPassword || response.newGoogleUser;
         if (
-          phone !== null &&
-          country !== null &&
-          city !== null &&
-          address !== null &&
-          category !== null
+          response &&
+          response.message &&
+          typeof response.message === "string" &&
+          response.message.includes("realizado con exito")
         ) {
-          console.log(newUser);
-          saveGoogleUser(newUser);
-          setCurrentUser(newUser);
-          router.push("/dashboard/user/profile");
-        } else if (newUser) {
-          setUserIdGoogle(newUser.id);
-          setIsModalOpen(true);
+          if (newUser) {
+            if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
+              console.error(
+                "URL de la imagen de perfil no válida:",
+                newUser.profileImg
+              );
+              newUser.profileImg = "/images/default-image.jpg"; // Establecer una imagen predeterminada
+            }
+
+            setUserIdGoogle(newUser.id);
+
+            const { city, country, address, phone, category } = newUser;
+
+            if (!city && !country && !address && !phone && !category) {
+              setIsModalOpen(true);
+            } else {
+              saveGoogleUser(newUser);
+              setCurrentUser(newUser);
+              router.push("/dashboard/user/profile");
+            }
+          }
         }
-      } else {
-        console.error("Error en el registro o login del usuario.");
+      } catch (error: any) {
+        console.error(
+          "Error al realizar la sesión del usuario:",
+          error.message,
+          error
+        );
       }
     }
   };
 
+  const isValidUrl = (url: string): boolean => {
+    try {
+      new URL(url);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
   const handleCloseModal = () => {
     setIsModalOpen(false);
     router.push("/");
   };
 
-  const handleUpdateProfile = async (event: React.FormEvent) => {
-    event.preventDefault();
+  // const handleUpdateProfile = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   try {
+  //     const userId = userIdGoogle;
+
+  //     if (userId) {
+  //       if (!formData.category) {
+  //         Swal.fire({
+  //           title: "Por favor selecciona una categoría válida.",
+  //           width: 400,
+  //           padding: "3em",
+  //         });
+  //         return;
+  //       }
+
+  //       const updatedUser = await updateUserProfile(userId, formData);
+
+  //       if (updatedUser) {
+  //         saveGoogleUser(updatedUser);
+  //         setCurrentUser(updatedUser);
+  //         handleCloseModal();
+  //         Swal.fire({
+  //           title: "Tu perfil se actualizó correctamente.",
+  //           width: 400,
+  //           padding: "3em",
+  //         });
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("Error al actualizar el perfil:", error);
+  //   }
+  // };
+
+  const handleUpdateProfile = async (values: IUpdateUser) => {
     try {
       const userId = userIdGoogle;
+
       if (userId) {
-        const updatedUser = await updateUserProfile(userId, formData);
+        if (!values.category) {
+          Swal.fire({
+            title: "Por favor selecciona una categoría válida.",
+            width: 400,
+            padding: "3em",
+          });
+          return;
+        }
+
+        const updatedUser = await updateUserProfile(userId, values);
+
         if (updatedUser) {
-          saveGoogleUser(updatedUser.newUser);
-          setCurrentUser(updatedUser.newUser);
+          saveGoogleUser(updatedUser);
+          setCurrentUser(updatedUser);
           handleCloseModal();
           Swal.fire({
             title: "Tu perfil se actualizó correctamente.",
@@ -93,8 +164,6 @@ const useAuth = () => {
             padding: "3em",
           });
         }
-      } else {
-        console.error("No se encontró el ID del usuario.");
       }
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
@@ -105,15 +174,26 @@ const useAuth = () => {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
+
+    if (name === "category") {
+      const selectedCategory = categories.find(
+        (category) => category.name === value
+      );
+
+      setFormData({
+        ...formData,
+        category: selectedCategory?.id || "",
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const logIn = async (data: IUserLoginReq) => {
     try {
       const response: IUserLoginRes = await HandlerLogIn(data);
-      console.log(response);
+
       if (response?.token) {
-        console.log(response.userClean);
         saveRegularUser(response.userClean);
         setCurrentUser(response.userClean);
         Swal.fire({

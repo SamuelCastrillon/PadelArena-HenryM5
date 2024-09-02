@@ -15,6 +15,12 @@ import ButtonNextAuthSignIn from "@/components/MainComponents/NextAuthButtonSign
 import useTournamentData from "@/hooks/fetchTournamentData";
 import useAuth from "@/hooks/authLogin"; // Importa el hook useAuth
 import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal"; // Importa el modal reutilizable
+import {
+  buttonsUpdateProfileForm,
+  updateProfileInitialValues,
+  updateProfileSchema,
+} from "../LogInView/updateData";
+import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 
 const RegisterView = () => {
   const {
@@ -27,6 +33,48 @@ const RegisterView = () => {
   } = useAuth(); // Usa el hook para la lógica de autenticación
   const navigate = useRouter();
   const { categories, error } = useTournamentData();
+
+  // Verifica que categories exista y no esté vacío
+  const categoryOptions =
+    categories && categories.length > 0
+      ? categories.map((category) => ({
+          value: category.id,
+          name: category.name,
+        }))
+      : [];
+
+  const updateProfileFields: IDataConstructor[] = [
+    {
+      LabelText: "Teléfono",
+      FieldName: "phone",
+      FieldType: "input",
+      FieldPH: "Teléfono",
+    },
+    {
+      LabelText: "País",
+      FieldName: "country",
+      FieldType: "input",
+      FieldPH: "País",
+    },
+    {
+      LabelText: "Ciudad",
+      FieldName: "city",
+      FieldType: "input",
+      FieldPH: "Ciudad",
+    },
+    {
+      LabelText: "Dirección",
+      FieldName: "address",
+      FieldType: "input",
+      FieldPH: "Dirección",
+    },
+    {
+      LabelText: "Categoría",
+      FieldName: "category",
+      FieldType: "select",
+      selectOptions: categoryOptions, // Usa categoryOptions después de la verificación
+    },
+  ];
 
   async function RegisterHandeler(data: IUserRegisterReq) {
     const transformedData = {
@@ -54,16 +102,11 @@ const RegisterView = () => {
     }
   }
 
-  const categoryOptions = categories.map((category) => ({
-    value: category.id,
-    name: category.name,
-  }));
-
   const updatedInputsFormValues = inputsFormValues.map((input) => {
     if (input.FieldType === "select" && input.FieldName === "category") {
       return {
         ...input,
-        selectOptions: categoryOptions,
+        selectOptions: categoryOptions, // Usa categoryOptions después de la verificación
       };
     }
     return input;
@@ -71,10 +114,10 @@ const RegisterView = () => {
 
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit my-20">
-      <h1 className="text-white text-3xl sfRegular ">
+      <h1 className="text-white text-2xl sfRegular text-center">
         Registrate para ser parte de
         <br />
-        <span className="radhiumz text-5xl text-lime uppercase">
+        <span className="radhiumz text-6xl text-lime uppercase">
           {" "}
           la accion
         </span>
@@ -87,7 +130,7 @@ const RegisterView = () => {
         butonsForm={butonsRegisterForm}
       />
       {/* Botón para registrarse con Google */}
-      <ButtonNextAuthSignIn className="bg-black text-white">
+      <ButtonNextAuthSignIn className=" bg-black text-white">
         Registrate con Google
       </ButtonNextAuthSignIn>
 
@@ -102,77 +145,13 @@ const RegisterView = () => {
         bgImageUrl="https://example.com/your-background-image.jpg"
       >
         <h2 className="text-xl font-bold mb-4">Completa tu perfil</h2>
-        <form onSubmit={handleUpdateProfile}>
-          {/* Campos para completar el perfil */}
-          <div className="mb-4">
-            <label className="block mb-2">Teléfono</label>
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 p-2 rounded"
-              placeholder="Teléfono"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">País</label>
-            <input
-              type="text"
-              name="country"
-              value={formData.country}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 p-2 rounded"
-              placeholder="País"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Ciudad</label>
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 p-2 rounded"
-              placeholder="Ciudad"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Dirección</label>
-            <input
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 p-2 rounded"
-              placeholder="Dirección"
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block mb-2">Categoría</label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 p-2 rounded"
-            >
-              <option value="">Selecciona una categoría</option>
-              {error && <option>Error al cargar categorías</option>}
-              {categories &&
-                categories.map((category) => (
-                  <option key={category.id} value={category.name}>
-                    {category.name}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded"
-          >
-            Actualizar Perfil
-          </button>
-        </form>
+        <FormComponent
+          iniValues={updateProfileInitialValues}
+          valiSchema={updateProfileSchema}
+          handelerSubmit={handleUpdateProfile}
+          butonsForm={buttonsUpdateProfileForm}
+          dataContructor={updateProfileFields}
+        />
       </ReusableModal>
     </section>
   );

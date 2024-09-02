@@ -1,5 +1,7 @@
 //? User Interfaces
 
+import { ICategories } from "./ComponentsInterfaces/TournamentCategorias";
+
 export interface IUserLoginReq {
   email: string;
   password: string;
@@ -113,7 +115,15 @@ export interface IUserGoogle {
 //? Payment Interfaces
 
 export interface IProductPaymentDataReq {
-  title: string;
-  quantity: number;
-  price: number;
+  tournament: string;
+  host: string;
+  user: string;
+  // notification_url: string;
+}
+
+export interface IPayment {
+  orderId: string;
+  status: string;
+  amount: number;
+  date: string;
 }

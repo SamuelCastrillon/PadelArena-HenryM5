@@ -31,7 +31,8 @@ const UsersManagement: React.FC = () => {
     [key: string]: string;
   }>({});
   const [selectedFilterCategory, setSelectedFilterCategory] =
-    useState<string>(""); // Nuevo estado para la categoría seleccionada para filtrar
+    useState<string>(""); // Estado para la categoría seleccionada
+  const [searchQuery, setSearchQuery] = useState<string>(""); // Nuevo estado para el texto de búsqueda
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -92,40 +93,75 @@ const UsersManagement: React.FC = () => {
     setSelectedFilterCategory(categoryId);
   };
 
-  // Filtrar usuarios por categoría seleccionada
-  const filteredUsers = selectedFilterCategory
-    ? users.filter((user) => user.category?.id === selectedFilterCategory)
-    : users;
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
+
+  // Filtrar usuarios por categoría seleccionada y texto de búsqueda
+  const filteredUsers = users.filter((user) => {
+    const matchesCategory = selectedFilterCategory
+      ? user.category?.id === selectedFilterCategory
+      : true;
+    const matchesSearchQuery = `${user.name} ${user.lastName}`
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearchQuery;
+  });
 
   return (
     <>
-      <div className="mt-20 flex flex-col items-center justify-start">
-        <h1 className="text-4xl text-[#f8fafc] uppercase radhiumz">
+      <div className="mt-20 flex flex-col items-center justify-start px-4 sm:px-6 md:px-8">
+        <h1 className="text-3xl md:text-4xl text-[#f8fafc] uppercase radhiumz">
           Tabla de Usuarios
         </h1>
-        <h2 className="text-xl text-[#f8fafc] sfRegular">
+        <h2 className="text-lg md:text-xl text-[#f8fafc] sfRegular">
           Seguimiento de todos los usuarios registrados.
         </h2>
-        <div className="flex items-center justify-center w-[90%] md:w-1/2 px-4 py-6 mx-auto mt-20 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass">
-          <label
-            htmlFor="category-filter"
-            className="px-4 py-4 bg-lime rounded-l-lg sfBold">
-            Filtrar por Categoría:
-          </label>
-          <select
-            id="category-filter"
-            value={selectedFilterCategory}
-            onChange={(e) => handleFilterChange(e.target.value)}
-            className="px-4 py-4 bg-white border-2 border-slate rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
-            <option value="">Todas las categorías</option>
-            {categories.map((cat) => (
-              <option key={cat.id} value={cat.id}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
+
+        <div className="flex flex-col w-full max-w-2xl px-4 py-6 mt-10 bg-glass backdrop-filter-glass border-glass border-2 rounded-glass shadow-glass space-y-4">
+          <div className="w-full relative">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              placeholder="Buscar por nombre"
+              className="w-full px-2 py-2 bg-white border-2 border-slate rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfRegular"
+            />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-3 top-2 text-gray-500 hover:text-gray-700 bg-lime rounded-xl px-1">
+                &#10005;
+              </button>
+            )}
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center w-full">
+            <label
+              htmlFor="category-filter"
+              className="w-full sm:w-1/3 px-2 py-2 bg-lime rounded-t-lg sm:rounded-t-none sm:rounded-l-lg sfBold text-center">
+              Filtrar por Categoría:
+            </label>
+            <select
+              id="category-filter"
+              value={selectedFilterCategory}
+              onChange={(e) => handleFilterChange(e.target.value)}
+              className="w-full sm:w-2/3 px-2 py-2 bg-white border-2 border-slate rounded-b-lg sm:rounded-b-none sm:rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
+              <option value="">Todas las categorías</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
+
       <CustomTable
         headers={[
           "NOMBRE",
@@ -135,44 +171,56 @@ const UsersManagement: React.FC = () => {
           "CATEGORÍA",
           "ACCIONES",
         ]}>
-        {filteredUsers.map((user, index) => (
-          <tr key={index} className="text-center">
-            <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <h5 className="font-medium text-black">{`${user.name} ${user.lastName}`}</h5>
-            </td>
-            <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <p className="text-gray-500">{user.email}</p>
-            </td>
-            <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <p className="text-gray-500">{user.phone}</p>
-            </td>
-            <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <p className="text-gray-500">{`${user.city}, ${user.country}.`}</p>
-            </td>
-            <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <select
-                value={selectedCategories[user.id] || user.category?.id || ""}
-                onChange={(e) => handleCategoryChange(user.id, e.target.value)}
-                className="hover:text-primary text-black font-bold text-center p-1 rounded-lg bg-customBlue/10">
-                <option value="" disabled>
-                  Seleccione una categoría
-                </option>
-                {categories.map((cat) => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.name}
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user, index) => (
+            <tr key={index} className="text-center">
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <h5 className="font-medium text-black">{`${user.name} ${user.lastName}`}</h5>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-gray-500">{user.email}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-gray-500">{user.phone}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <p className="text-gray-500">{`${user.city}, ${user.country}.`}</p>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <select
+                  value={selectedCategories[user.id] || user.category?.id || ""}
+                  onChange={(e) =>
+                    handleCategoryChange(user.id, e.target.value)
+                  }
+                  className="hover:text-primary text-black font-bold text-center p-1 rounded-lg bg-customBlue/10">
+                  <option value="" disabled>
+                    Seleccione una categoría
                   </option>
-                ))}
-              </select>
-            </td>
-            <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-              <ActionButton
-                onClick={() => handleSaveCategory(user.id)}
-                className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz">
-                <p className="radhiumz text-xs">GUARDAR</p>
-              </ActionButton>
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <ActionButton
+                  onClick={() => handleSaveCategory(user.id)}
+                  className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz">
+                  <p className="radhiumz text-xs">GUARDAR</p>
+                </ActionButton>
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td
+              colSpan={6}
+              className="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-center">
+              No se encontraron resultados para la búsqueda.
             </td>
           </tr>
-        ))}
+        )}
       </CustomTable>
     </>
   );

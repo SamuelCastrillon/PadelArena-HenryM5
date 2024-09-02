@@ -11,6 +11,7 @@ import { IFormTournametInitiaalValues } from "./CreateTournamentFormInterfaces";
 export const createTournamentSchema = yup.object({
   name: yup.string().min(2, "Too Short!").max(40, "Too Long!").defined("Required!"),
   startDate: yup.string().defined("Required!"),
+  price: yup.string().defined("Required!"),
 });
 
 export async function getDataToContructFormCreateTournaments() {
@@ -122,6 +123,12 @@ export async function getDataToContructFormCreateTournaments() {
       FieldPH: "Categoria 01",
     },
     {
+      LabelText: "Precio de inscriopcion por equipo",
+      FieldType: "number",
+      FieldName: "price",
+      FieldPH: "12.000",
+    },
+    {
       LabelText: "Categoria del Torneo",
       FieldType: "select",
       FieldName: "category",
@@ -141,6 +148,7 @@ export async function getDataToContructFormCreateTournaments() {
     description:
       "Un torneo de verano de verano con un premio de 5000€. ¡Prepárate para la competición!",
     tournamentImg: "",
+    price: 12000,
     category: categoriesToback ? categoriesToback[0].id : "",
   };
 

@@ -1,4 +1,3 @@
-// components/TournamentFilters.tsx
 import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategorias";
 import React, { useState } from "react";
 
@@ -15,7 +14,7 @@ export interface Filters {
 }
 
 const TournamentFilters: React.FC<TournamentFiltersProps> = ({
-  categories,
+  categories = [],
   onApplyFilters,
   onResetFilters,
 }) => {
@@ -41,8 +40,9 @@ const TournamentFilters: React.FC<TournamentFiltersProps> = ({
       month: "",
       inscription: "",
     });
-    onResetFilters(); // Llama a la función de reinicio de filtros externa
+    onResetFilters();
   };
+
   return (
     <div className="m-4 max-w-screen-md mx-auto">
       <div className="rounded-xl border border-gray-300 bg-glass p-6 shadow-md shadow-lime">
@@ -63,13 +63,18 @@ const TournamentFilters: React.FC<TournamentFiltersProps> = ({
               value={filters.category}
               onChange={handleInputChange}
               className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              disabled={categories.length === 0} // Deshabilita si no hay categorías
             >
               <option value="">Selecciona una categoría</option>
-              {categories.map((category) => (
-                <option key={category.id} value={category.name}>
-                  {category.name}
-                </option>
-              ))}
+              {categories.length > 0 ? (
+                categories.map((category) => (
+                  <option key={category.id} value={category.name}>
+                    {category.name}
+                  </option>
+                ))
+              ) : (
+                <option disabled>No hay categorías disponibles</option>
+              )}
             </select>
           </div>
 

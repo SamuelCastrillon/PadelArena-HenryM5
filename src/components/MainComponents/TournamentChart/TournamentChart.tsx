@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Line } from "react-chartjs-2";
 import {
@@ -71,6 +73,7 @@ const TournamentLineChart = ({
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "top" as const,
@@ -146,7 +149,7 @@ const TournamentLineChart = ({
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-4 bg-black/30 rounded-lg shadow-md">
+    <div className="w-full h-[300px] max-w-lg mx-auto p-4 bg-black/30 rounded-lg shadow-md">
       <Line data={data} options={options} />
     </div>
   );
