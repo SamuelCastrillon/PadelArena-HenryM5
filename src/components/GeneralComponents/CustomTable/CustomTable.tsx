@@ -7,8 +7,8 @@ interface CustomTableProps {
 
 const CustomTable: React.FC<CustomTableProps> = ({ headers, children }) => {
   return (
-    <div className=" w-[90%] mx-auto my-8 bg-[#f8fafc] rounded-lg py-6 px-6">
-      <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
+    <div className=" w-full mx-auto my-8 bg-[#f8fafc] rounded-lg py-6 px-4">
+      <div className="overflow-x-auto overflow-y-auto ">
         <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-2 text-center dark:bg-meta-4">

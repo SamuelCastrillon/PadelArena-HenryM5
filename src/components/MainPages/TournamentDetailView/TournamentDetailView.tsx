@@ -11,6 +11,8 @@ import { CURRENT_APP_URL } from "@/Server/AxiosConfig";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
+import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
+import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -27,9 +29,6 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  const currentHost = CURRENT_APP_URL || "";
-  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
 
   // useEffect(() => {
   //   const fetchTeams = async () => {
@@ -48,7 +47,10 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   //   fetchTeams();
   // }, [user, tournament.id]);
 
-  //A MERCADOPAGO
+  const currentHost = CURRENT_APP_URL || "";
+  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+
+  // Manejo de inscripción
   const handleInscriptionClick = async () => {
     if (user) {
       const data: IProductPaymentDataReq = {
@@ -56,13 +58,11 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         host: TOURNAAMENT_REGISTER_URL,
         user: user.id,
       };
-      console.log(data);
       try {
         const responseUrl = await postPaymentToMP(data);
         if (!responseUrl.redirectUrl) {
           throw new Error("Error al realizar el pago");
         }
-        console.log(responseUrl.redirectUrl);
         router.push(`${responseUrl.redirectUrl}`);
       } catch (error) {
         console.error(error);
@@ -95,6 +95,16 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
       team.users?.some((userInTeam) => userInTeam.id === user?.id)
     ) ?? false;
 
+  const fixtureHeaders = [
+    "Etapa",
+    "Fecha",
+    "Hora",
+    "Equipos",
+    "Partidos",
+    "Ganadores",
+    "Perdedores",
+  ];
+
   return (
     <div className="flex flex-col items-center p-8 mt-20 bg-blue-700/20 rounded-xl">
       {/* Status del Torneo */}
@@ -103,7 +113,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         <hr className="w-full my-2 text-white" />
       </div>
 
-      {/* Botón de Navegación aqui */}
+      {/* Botón de Navegación */}
       <div className="mb-10 flex items-center">
         <NavigateButton href="/tournaments" className="flex items-center gap-2">
           <svg
@@ -197,39 +207,33 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         isOpen={isModalOpen}
         onClose={closeModal}
         blurBackground={blurBackground}
-        backgroundColor="bg-white/70"
+        backgroundColor="bg-white"
         textColor="text-black"
-        className="shadow-lg shadow-lime"
+        className="shadow-lg shadow-lime w-full max-w-screen-lg"
         bgImageUrl={tournament.tournamentFlyer}
       >
-        <h2 className="text-4xl radhiumz text-lime">{`Fixture: ${tournament.name}`}</h2>
-        <hr className="h-1 mb-4 bg-lime"></hr>
-        <table className="w-full text-left bg-white table-auto min-w-max">
-          <thead className="text-white bg-zinc-800">
-            <tr>
-              <th className="px-4 py-2 border-b">Etapa</th>
-              <th className="px-4 py-2 border-b">Fecha</th>
-              <th className="px-4 py-2 border-b">Hora</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tournament.fixture && tournament.fixture.length > 0 ? (
-              tournament.fixture.map((match) => (
-                <tr key={match.id}>
-                  <td className="px-4 py-2 border-b">{match.stage}</td>
-                  <td className="px-4 py-2 border-b">{match.date}</td>
-                  <td className="px-4 py-2 border-b">{match.time}</td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td className="px-4 py-2 border-b" colSpan={3}>
-                  No hay fixture para este torneo
-                </td>
+        <h2 className="text-4xl radhiumz text-white uppercase mb-4">{`Fixture: ${tournament.name}`}</h2>
+
+        <CustomTable headers={fixtureHeaders}>
+          {Array.isArray(tournament?.fixture) &&
+          tournament?.fixture?.length > 0 ? (
+            tournament.fixture.map((match: IFixture) => (
+              <tr key={match.id}>
+                <td className="px-4 py-2 border-b">{match.stage}</td>
+                <td className="px-4 py-2 border-b">{match.date}</td>
+                <td className="px-4 py-2 border-b">{match.time}</td>
+                <td className="px-4 py-2 border-b">{match.matchId}</td>
+                <td className="px-4 py-2 border-b">{match.tournamentId}</td>
               </tr>
-            )}
-          </tbody>
-        </table>
+            ))
+          ) : (
+            <tr>
+              <td className="py-2 border-b text-xl" colSpan={8}>
+                No hay fixture para este torneo
+              </td>
+            </tr>
+          )}
+        </CustomTable>
       </ReusableModal>
     </div>
   );
