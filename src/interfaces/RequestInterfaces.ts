@@ -76,6 +76,7 @@ export interface ICreateTournamentReq {
   description: string;
   tournamentFlyer: string;
   category: string;
+  price: number;
 }
 
 export interface ICreateTournamentFormData {
@@ -96,6 +97,7 @@ export interface ICreateTournamentFormData {
   description: string;
   tournamentFlyer: string;
   category: string;
+  price: number;
 }
 
 //? Category Interfaces

@@ -64,6 +64,7 @@ export function preFormattingData(
     description: data.description,
     tournamentFlyer: data.tournamentFlyer,
     category: data.category,
+    price: data.price,
   };
 
   return dataToSend;

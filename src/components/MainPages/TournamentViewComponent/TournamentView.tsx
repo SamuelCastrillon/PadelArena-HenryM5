@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TournamentSection from "./TournamentSection";
 import Header from "./TournamentHeader";
 import { useRouter } from "next/navigation";
@@ -63,6 +63,15 @@ const TournamentsView: React.FC = () => {
       return tournamentStatus === normalizedStatus;
     });
   };
+
+  useEffect(() => {
+    // Aplica filtros iniciales (puedes ajustar estos filtros según sea necesario)
+    applyFilters({
+      category: "",
+      month: "",
+      inscription: "",
+    });
+  }, [tournaments]);
 
   return (
     <div className="min-h-screen">
