@@ -6,20 +6,16 @@ import useTournamentData from "@/hooks/fetchTournamentData";
 import React, { useContext } from "react";
 
 const PersonalizedTournamentView = () => {
-  // Obtiene los torneos del hook
   const { tournaments } = useTournamentData();
 
-  // Obtiene el contexto del usuario
   const { currentUser } = useContext(AuthContext);
 
-  // Obtiene la categoría del usuario
   const userCategory = currentUser?.category?.name;
 
-  // Filtra los torneos basados en la categoría del usuario y el estado de inscripción
   const filteredTournaments = tournaments.filter(
     (tournament) =>
-      tournament.category?.name === userCategory && // Coincide con la categoría del usuario
-      tournament.inscription === "abiertas" // Inscripciones abiertas
+      tournament.category?.name === userCategory &&
+      tournament.inscription === "abiertas"
   );
 
   return (

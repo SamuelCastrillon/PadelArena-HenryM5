@@ -20,10 +20,9 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
 
   const syncUserWithCookies = () => {
     const userGoogle = getGoogleUser();
-    console.log("aqui el maldito user", userGoogle);
+
     if (userGoogle) {
       setCurrentUser(userGoogle);
-      console.log(userGoogle);
     } else {
       const regularUser = getRegularUser();
       if (regularUser) {

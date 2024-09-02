@@ -2,7 +2,7 @@ import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategor
 import React, { useState } from "react";
 
 export interface TournamentFiltersProps {
-  categories: ICategories[]; // El array de categorías puede estar vacío o ser undefined
+  categories: ICategories[];
   onApplyFilters: (filters: Filters) => void;
   onResetFilters: () => void;
 }
@@ -14,7 +14,7 @@ export interface Filters {
 }
 
 const TournamentFilters: React.FC<TournamentFiltersProps> = ({
-  categories = [], // Inicializa como un array vacío si es undefined
+  categories = [],
   onApplyFilters,
   onResetFilters,
 }) => {
@@ -40,7 +40,7 @@ const TournamentFilters: React.FC<TournamentFiltersProps> = ({
       month: "",
       inscription: "",
     });
-    onResetFilters(); // Llama a la función de reinicio de filtros externa
+    onResetFilters();
   };
 
   return (

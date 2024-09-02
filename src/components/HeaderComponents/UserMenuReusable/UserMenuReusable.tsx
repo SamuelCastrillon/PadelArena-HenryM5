@@ -11,7 +11,7 @@ import { useUserCookies } from "@/hooks/useUserCookies";
 const UserMenuReusable: React.FC<IMenuReusableData> = () => {
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const user = currentUser;
-  console.log(user);
+
   const [menuStatus, setMenuStatus] = React.useState(false);
 
   const { deleteGoogleUser, deleteRegularUser } = useUserCookies();
@@ -20,13 +20,12 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
   const router = useRouter();
   const handlerLogOut = async () => {
     try {
-      console.log("Iniciando cierre de sesión...");
       await signOut();
-      console.log("Sesión cerrada. Eliminando cookies...");
+
       deleteGoogleUser();
       deleteRegularUser();
       setCurrentUser(null);
-      console.log("Redireccionando al home...");
+
       window.location.href = "/";
     } catch (error) {
       console.error("Error al cerrar sesión:", error);

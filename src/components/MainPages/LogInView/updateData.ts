@@ -1,8 +1,5 @@
 import * as yup from "yup";
-import {
-  IButtonForm,
-  IDataConstructor,
-} from "@/components/MainComponents/ReusableFormComponent/FormInterface";
+import { IButtonForm } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 
 export const updateProfileInitialValues = {
   phone: "",
