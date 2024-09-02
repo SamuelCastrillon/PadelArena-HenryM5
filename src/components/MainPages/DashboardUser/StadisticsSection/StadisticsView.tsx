@@ -11,12 +11,12 @@ const perdio = [3, 4, 2, 5, 6, 3, 7, 4, 6, 5, 2, 4];
 
 const StadisticsView = () => {
   return (
-    <div className="flex flex-col justify-center w-full my-6">
+    <div className="flex flex-col justify-center w-full my-6 px-4">
       <h1 className="text-3xl text-center text-white radhiumz uppercase mb-8">
         Una mirada a tu rendimiento
       </h1>
-      <div className="flex flex-row gap-8 w-full px-4 ">
-        <div className="flex-1">
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="flex-1 mb-8 md:mb-0">
           <MatchStatsChart wins={wins} losses={losses} />
         </div>
         <div className="flex-1">

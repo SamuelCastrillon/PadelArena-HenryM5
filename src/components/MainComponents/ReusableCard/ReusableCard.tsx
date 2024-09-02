@@ -35,7 +35,9 @@ const Card: React.FC<CardProps> = ({
           width={500}
           height={500}
         />
-        <div className="radhiumz text-2xl md:text-4xl mb-2 mt-4">{title}</div>
+        <div className="radhiumz text-2xl text-center uppercase md:text-4xl mb-2 mt-4">
+          {title}
+        </div>
         <p className="text-gray-700 text-base sfMedium">{description}</p>
         {additionalInfo && (
           <div className="mt-4 sfBold text-black">

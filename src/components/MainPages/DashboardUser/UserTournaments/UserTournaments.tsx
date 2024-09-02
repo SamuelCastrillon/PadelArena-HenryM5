@@ -5,6 +5,7 @@ import useTournamentData from "@/hooks/fetchTournamentData";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { useRouter } from "next/navigation";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 
 const tournamentsData: ITournament[] = [
   {
@@ -98,14 +99,23 @@ const UserTournaments = () => {
   );
 
   //CON LOS TOURNAMENTS POSTA
+  // Verifica si tournaments tiene datos
+  // if (!tournaments || tournaments.length === 0) {
+  //   return (
+  //     <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
+  //       <h1 className="text-2xl radhiumz uppercase mb-4">
+  //         No hay torneos disponibles para mostrar.
+  //       </h1>
+  //     </div>
+  //   );
+  // }
+
   // const userTeams = tournaments.flatMap(
   //   (tournament) =>
   //     tournament.team?.filter((team) =>
   //       team.users.some((user) => user.id === currentUser?.id)
   //     ) || []
   // );
-
-  // Filtra los torneos en los que el usuario está inscrito
   // const userTournaments = tournaments.filter((tournament) =>
   //   tournament.team?.some(
   //     (team) =>
@@ -119,32 +129,36 @@ const UserTournaments = () => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center bg-white p-10 mt-10">
-      <h1 className="text-3xl radhiumz uppercase mb-4">
-        Torneos en los que estás inscrito
+    <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
+      <h1 className="text-2xl radhiumz uppercase mb-4">
+        Torneos en los que estás inscrito:{" "}
+        <span className="text-blue-600">{currentUser?.name}</span>
       </h1>
       <CustomTable
-        headers={[
-          "Nombre del Torneo",
-          "Categoría",
-          "Estado de Inscripción",
-          "Estado del Torneo",
-          "Acciones",
-        ]}
+        headers={["Nombre", "Categoría", "Inscripción", "Estado", "Acciones"]}
       >
         {userTournaments.map((tournament) => (
-          <tr key={tournament.id}>
-            <td className="px-4 py-2">{tournament.name}</td>
-            <td className="px-4 py-2">{tournament.category?.name || "N/A"}</td>
-            <td className="px-4 py-2">{tournament.inscription}</td>
-            <td className="px-4 py-2">{tournament.status}</td>
-            <td className="px-4 py-2">
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded"
+          <tr key={tournament.id} className="border-t-2 border-lime sfBold">
+            <td className="px-4 py-2 ">{tournament.name}</td>
+            <td className="px-4 py-2 ">{tournament.category?.name || "N/A"}</td>
+            {tournament.inscription === "abiertas" ? (
+              <td className="px-4 py-2 text-green-600 uppercase">
+                {tournament.inscription}
+              </td>
+            ) : (
+              <td className="px-4 py-2 text-red-700 uppercase ">
+                {tournament.inscription}
+              </td>
+            )}
+
+            <td className="px-4 py-2 ">{tournament.status}</td>
+            <td className="px-4 py-2 ">
+              <ActionButton
+                className="bg-lime text-black px-4 py-2 radhiumz uppercase rounded hover:bg-blue-700 hover:text-white"
                 onClick={() => handleViewDetails(tournament.id)}
               >
                 Ver Detalle
-              </button>
+              </ActionButton>
             </td>
           </tr>
         ))}

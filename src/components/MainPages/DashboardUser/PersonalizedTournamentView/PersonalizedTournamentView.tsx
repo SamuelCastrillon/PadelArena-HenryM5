@@ -12,20 +12,20 @@ const PersonalizedTournamentView = () => {
 
   const userCategory = currentUser?.category?.name;
 
-  const filteredTournaments = tournaments.filter(
+  const filteredTournaments = tournaments?.filter(
     (tournament) =>
       tournament.category?.name === userCategory &&
       tournament.inscription === "abiertas"
   );
 
   return (
-    <div className="flex flex-col justify-center items-center   p-10">
+    <div className="flex flex-col justify-center items-center mt-6  p-10">
       {filteredTournaments && filteredTournaments.length > 0 ? (
         <>
           <h1 className="text-4xl radhiumz text-lime uppercase">
             ¡Aún puedes inscribirte a estos torneos!
           </h1>
-          <p className="text-white sfRegular text-xl">
+          <p className="text-white sfBold text-2xl">
             Especialmente seleccionados de acuerdo a tu categoría, no te los
             pierdas
           </p>
