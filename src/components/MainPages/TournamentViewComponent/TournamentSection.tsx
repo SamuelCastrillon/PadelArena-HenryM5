@@ -16,7 +16,7 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
   tournaments,
   onActionClick,
 }) => {
-  // Función para obtener la URL de la imagen, con respaldo en caso de URL inválida
+  console.log(tournaments);
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =

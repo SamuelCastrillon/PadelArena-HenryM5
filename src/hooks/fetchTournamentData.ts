@@ -9,19 +9,25 @@ import { ICategories } from "@/interfaces/ComponentsInterfaces/TournamentCategor
 const useTournamentData = () => {
   const [tournaments, setTournaments] = useState<ITournament[]>([]);
   const [categories, setCategories] = useState<ICategories[]>([]);
-
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [tournamentsData, categoriesData] = await Promise.all([
-          getTournaments(),
-          getCategories(),
-        ]);
+        // Llama a las funciones de obtención de datos y espera sus respuestas
+        const tournamentsData = await getTournaments();
+        const categoriesData = await getCategories();
+
+        // Verifica si los datos son válidos
+        if (!Array.isArray(tournamentsData) || !Array.isArray(categoriesData)) {
+          throw new Error("Datos no válidos recibidos del servidor");
+        }
+
+        // Establece los datos en el estado
         setTournaments(tournamentsData);
         setCategories(categoriesData);
       } catch (error) {
+        console.error("Error al obtener los datos:", error);
         setError(
           "Error al obtener los datos. Por favor, intenta de nuevo más tarde."
         );
@@ -30,7 +36,9 @@ const useTournamentData = () => {
 
     fetchData();
   }, []);
-  console.log(tournaments, categories);
+
+  console.log("Torneos:", tournaments); // Verifica los datos de torneos
+  console.log("Categorías:", categories); // Verifica los datos de categorías
   return { tournaments, categories, error };
 };
 
