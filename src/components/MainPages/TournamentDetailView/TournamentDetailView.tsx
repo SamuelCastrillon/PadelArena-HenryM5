@@ -11,10 +11,9 @@ import { CURRENT_APP_URL } from "@/Server/AxiosConfig";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
-import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
-import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
-import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
-import { fixtureData } from "@/helpers/fixtureData";
+
+import { fixture } from "@/helpers/fixtureData";
+import NewFixtureComponent from "@/components/MainComponents/FixtureComponent/NewFixtureComponent";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -32,6 +31,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
+  console.log(tournament.fixture.id);
   // useEffect(() => {
   //   const fetchTeams = async () => {
   //     if (user) {
@@ -262,13 +262,13 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         blurBackground={blurBackground}
         backgroundColor="bg-white"
         textColor="text-black"
-        className="shadow-lg shadow-lime w-full max-w-screen-lg"
+        className="shadow-lg shadow-lime w-full max-w-screen-lg h-auto max-h-[80vh] overflow-y-auto"
         bgImageUrl={tournament.tournamentFlyer}
       >
         <h2 className="text-4xl radhiumz text-white uppercase mb-2">{`Fixture: ${tournament.name}`}</h2>
         <hr className="h-2 w-full mb-6"></hr>
 
-        <FixtureComponent fixtures={fixtureData} />
+        <NewFixtureComponent fixtureId={tournament.fixture.id} />
       </ReusableModal>
     </div>
   );

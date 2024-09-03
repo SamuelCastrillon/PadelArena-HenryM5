@@ -1,5 +1,12 @@
 import React from "react";
-import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
+
+interface IFixture {
+  id: string;
+  stage: string;
+  date: string;
+  time: string;
+  matchId: number;
+}
 
 interface FixtureProps {
   fixtures: IFixture[];
