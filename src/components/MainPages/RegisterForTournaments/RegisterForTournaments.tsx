@@ -49,10 +49,10 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
       players: [currentUser.id, values.teammate],
     };
 
-    console.log(newTeam);
-    console.log(currentPath);
-    console.log(queryParams);
-    console.log(tournament);
+    // console.log(newTeam);
+    // console.log(currentPath);
+    // console.log(queryParams);
+    // console.log(tournament);
 
     postCreateAndSuscribeNewTeam(tournament, newTeam);
   };
