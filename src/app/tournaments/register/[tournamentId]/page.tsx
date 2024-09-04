@@ -2,7 +2,7 @@ import RegisterForTournaments from "@/components/MainPages/RegisterForTournament
 import React from "react";
 
 const page = async ({ params }: { params: { params: any } }) => {
-  return <RegisterForTournaments allParams={params} />;
+  return <RegisterForTournaments tournamentId={params} />;
 };
 
 export default page;

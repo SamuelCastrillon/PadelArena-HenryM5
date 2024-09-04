@@ -8,11 +8,12 @@ import {
 } from "./RegisterForTournamentsData";
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { log } from "console";
+import SpinnerLoading from "@/components/GeneralComponents/SpinnerLoading/SpinnerLoading";
 
 interface IRegisterForTournaments {
-  allParams: any;
+  tournamentId: any;
 }
 
 interface IDataToForm {
@@ -20,18 +21,31 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams }) => {
+interface IFormValues {
+  name: string;
+  teammate: string;
+}
+
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentId }) => {
   const { currentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
-  const navigate = useRouter();
+  const router = useRouter();
   const currentPath = usePathname();
-  const tournamentId = allParams.params[0];
+  const tournament = tournamentId;
 
-  const handlerPayment = (values: any) => {
-    console.log(values);
-    console.log(currentUser);
+  //? QUERY PARAMS
+  const searchParams = useSearchParams();
+  const queryParams = Object.fromEntries(searchParams.entries());
+
+  const handlerPayment = (values: IFormValues) => {
+    const newTeam = {
+      name: values.name,
+      players: [currentUser?.id, values.teammate],
+    };
+    console.log(newTeam);
     console.log(currentPath);
-    console.log(allParams);
+    console.log(queryParams);
+    console.log(tournament);
   };
 
   useEffect(() => {
@@ -50,8 +64,8 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams }
   }, [currentUser]);
 
   return dataToForm ? (
-    <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
-      <h1 className="text-3xl font-bold text-white">REGISTRO DE TORNEOS</h1>
+    <section className="flex flex-col items-center justify-center w-screen gap-2 py-10 min-h-fit">
+      <h1 className="text-3xl font-bold text-white">REGISTRA TU EQUIPO</h1>
       <FormComponent
         iniValues={dataToForm?.registerTournementInitialValues}
         valiSchema={registerTournamentSchema}
@@ -62,7 +76,8 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams }
     </section>
   ) : (
     <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
-      <h1 className="text-3xl font-bold text-white">CARGANDO...</h1>
+      {/* <h1 className="text-3xl font-bold text-white">CARGANDO...</h1> */}
+      <SpinnerLoading />
     </section>
   );
 };
