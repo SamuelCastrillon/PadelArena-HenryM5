@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture"; // Asegúrate de que la ruta sea correcta
 import { getFixtureById } from "@/Server/Fixture/getFixtureById";
 import { AuthContext } from "@/context/GlobalContext";
+import { selectWinner } from "@/Server/Fixture/selectWinner";
 
 interface FixtureProps {
   fixtureId: string;
@@ -31,14 +32,10 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
   };
 
   const handleSelectWinner = async (matchId: string, teamId: string) => {
+    console.log("este es el matchid", matchId, "aca el team", teamId);
     try {
-      await fetch(`/api/matches/${matchId}/winner`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ winnerId: teamId }),
-      });
+      const response = await selectWinner(matchId, teamId);
+
       setSelectedWinner(teamId);
       setDropdownOpen(null);
     } catch (error) {
@@ -71,6 +68,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
                 key={`${roundIndex}-${matchIndex}`}
                 className="p-4 border-2 border-white bg-blue-700/20 sfBold rounded-lg text-white shadow-md w-full md:w-48 flex flex-col items-center space-y-2 mb-6 "
               >
+                <p className="text-xs">{`Match: ${match.id}`}</p>
                 <p className="text-xs">{`Fecha: ${match.date}`}</p>
                 <p className="text-xs">{`Hora: ${match.time}`}</p>
                 <p className="text-xs">{`Ganador: ${
@@ -79,9 +77,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
 
                 <div className="flex flex-col space-y-1 mt-2">
                   {match.teams.map((team) => (
-                    <p key={team.id} className="text-xs">{`${team.name} ${
-                      team.ableForPlay ? "" : "(No apto)"
-                    }`}</p>
+                    <p key={team.id} className="text-xs">{`${team.name} `}</p>
                   ))}
                 </div>
 
