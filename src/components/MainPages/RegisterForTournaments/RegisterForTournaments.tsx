@@ -57,7 +57,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
     if (queryParams.status === "pending") {
       router.push("/dashboard/user/profile");
     }
-    if (queryParams.status === "failed") {
+    if (queryParams.status === "failed" || queryParams.status === "rejected") {
       router.push(`/tournaments/${tournament}`);
     }
     async function dataConstructor() {
