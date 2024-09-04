@@ -11,6 +11,8 @@ import { AuthContext } from "@/context/GlobalContext";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { log } from "console";
 import SpinnerLoading from "@/components/GeneralComponents/SpinnerLoading/SpinnerLoading";
+import { postCreateAndSuscribeNewTeam } from "@/Server/Tournament/Teams/postCreateAndSuscribeNewTeam";
+import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
 
 interface IRegisterForTournaments {
   tournamentId: any;
@@ -31,21 +33,28 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const router = useRouter();
   const currentPath = usePathname();
-  const tournament = tournamentId;
+  const tournament = tournamentId.tournamentId;
 
   //? QUERY PARAMS
   const searchParams = useSearchParams();
   const queryParams = Object.fromEntries(searchParams.entries());
 
   const handlerPayment = (values: IFormValues) => {
-    const newTeam = {
+    if (!currentUser) {
+      return;
+    }
+
+    const newTeam: IPostNewTeam = {
       name: values.name,
-      players: [currentUser?.id, values.teammate],
+      players: [currentUser.id, values.teammate],
     };
+
     console.log(newTeam);
     console.log(currentPath);
     console.log(queryParams);
     console.log(tournament);
+
+    postCreateAndSuscribeNewTeam(tournament, newTeam);
   };
 
   useEffect(() => {

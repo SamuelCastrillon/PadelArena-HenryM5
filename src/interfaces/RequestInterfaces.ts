@@ -120,7 +120,6 @@ export interface IProductPaymentDataReq {
   tournament: string;
   host: string;
   user: string;
-  // notification_url: string;
 }
 
 export interface IPayment {
@@ -128,4 +127,11 @@ export interface IPayment {
   status: string;
   amount: number;
   date: string;
+}
+
+//? Teams Interfaces
+
+export interface IPostNewTeam {
+  name: string;
+  players: string[];
 }
