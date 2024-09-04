@@ -76,6 +76,7 @@ export interface ICreateTournamentReq {
   description: string;
   tournamentFlyer: string;
   category: string;
+  location: Ilocation;
 }
 
 export interface ICreateTournamentFormData {
@@ -96,6 +97,14 @@ export interface ICreateTournamentFormData {
   description: string;
   tournamentFlyer: string;
   category: string;
+  location: Ilocation; // para el maps
+}
+
+//GoogleMaps
+
+export interface Ilocation {
+  lat: number;
+  lng: number;
 }
 
 //? Category Interfaces

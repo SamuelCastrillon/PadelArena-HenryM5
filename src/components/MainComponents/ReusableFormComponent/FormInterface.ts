@@ -7,6 +7,7 @@ export interface IFormikConstructor {
   handelerSubmit: any;
   butonsForm: IButtonForm[];
   dataContructor: IDataConstructor[];
+  additionalComponent?: React.ReactNode; // para el maps sin romper lo demás
 }
 
 //? Form Components Interface
