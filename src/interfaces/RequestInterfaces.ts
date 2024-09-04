@@ -104,6 +104,7 @@ export interface ICreateTournamentFormData {
   tournamentFlyer: string;
   category: string;
   price: number;
+  location: ilocation;
 }
 
 //? Category Interfaces
