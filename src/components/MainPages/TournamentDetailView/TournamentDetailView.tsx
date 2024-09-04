@@ -31,7 +31,6 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  console.log(tournament.fixture.id);
   // useEffect(() => {
   //   const fetchTeams = async () => {
   //     if (user) {
@@ -268,7 +267,13 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         <h2 className="text-4xl radhiumz text-white uppercase mb-2">{`Fixture: ${tournament.name}`}</h2>
         <hr className="h-2 w-full mb-6"></hr>
 
-        <NewFixtureComponent fixtureId={tournament.fixture.id} />
+        {tournament.fixture?.id ? (
+          <NewFixtureComponent fixtureId={tournament.fixture.id} />
+        ) : (
+          <p className="text-xl text-center">
+            No hay fixture disponible para este torneo.
+          </p>
+        )}
       </ReusableModal>
     </div>
   );
