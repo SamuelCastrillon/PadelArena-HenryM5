@@ -30,6 +30,17 @@ const TournamentsTable: React.FC = () => {
     setSelectedCategory(event.target.value);
   };
 
+  const handleCloseInscription = async (tournamentId: string) => {
+    try {
+      const response = await closeInscription(tournamentId);
+      if (response) {
+        router.push(`/tournaments/${tournamentId}`);
+      }
+    } catch (error) {
+      console.error("Error al cerrar inscripción:", error);
+    }
+  };
+
   const filteredTournaments = tournaments.filter((tournament: any) => {
     const lowercasedTerm = searchTerm.toLowerCase();
     const matchesName = tournament.name.toLowerCase().includes(lowercasedTerm);
@@ -196,7 +207,9 @@ const TournamentsTable: React.FC = () => {
                             <HoverButton
                               secondaryText="Cerrar Inscripciones"
                               className="hover:text-primary  "
-                              onClick={() => closeInscription(tournament.id)}
+                              onClick={() =>
+                                handleCloseInscription(tournament.id)
+                              }
                             >
                               <svg
                                 width="24"
