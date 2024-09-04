@@ -3,10 +3,25 @@ import {
   ICreateTournamentReq,
 } from "@/interfaces/RequestInterfaces";
 
+interface ICreateTournamentFormDataWithPlusCode
+  extends ICreateTournamentFormData {
+  plusCode?: string;
+}
+
+//añadí un pluscode para maps
 export function preFormattingData(
-  data: ICreateTournamentFormData
+  data: ICreateTournamentFormDataWithPlusCode
 ): ICreateTournamentReq {
-  const { Lunes, Martes, Miercoles, Jueves, Viernes, Sabado, Domingo } = data;
+  const {
+    Lunes,
+    Martes,
+    Miercoles,
+    Jueves,
+    Viernes,
+    Sabado,
+    Domingo,
+    plusCode,
+  } = data;
   const playingDaysSelected = [
     Lunes,
     Martes,
@@ -65,6 +80,8 @@ export function preFormattingData(
     tournamentFlyer: data.tournamentFlyer,
     category: data.category,
     price: data.price,
+    location: data.location,
+    plusCode: data.plusCode || "", // Incluye el plusCode aquí
   };
 
   return dataToSend;
