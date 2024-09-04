@@ -78,6 +78,7 @@ export interface ICreateTournamentReq {
   category: string;
   price: number;
   location: ilocation;
+  plusCode?: string;
 }
 
 export interface ilocation {
