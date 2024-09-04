@@ -9,10 +9,11 @@ import {
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { log } from "console";
 import SpinnerLoading from "@/components/GeneralComponents/SpinnerLoading/SpinnerLoading";
 import { postCreateAndSuscribeNewTeam } from "@/Server/Tournament/Teams/postCreateAndSuscribeNewTeam";
 import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
+import { transformQueryToPaymentResponse } from "./transformPramsToPaymentResponse";
+import { IPaymentQueryResponse } from "@/interfaces/MercadoPagoInterfaces/PaymentQueryInterface";
 
 interface IRegisterForTournaments {
   tournamentId: any;
@@ -37,27 +38,30 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
 
   //? QUERY PARAMS
   const searchParams = useSearchParams();
-  const queryParams = Object.fromEntries(searchParams.entries());
+  const queryParams: IPaymentQueryResponse = transformQueryToPaymentResponse(searchParams);
 
   const handlerPayment = (values: IFormValues) => {
     if (!currentUser) {
       return;
     }
 
+    //TODO: POST DATA
     const newTeam: IPostNewTeam = {
       name: values.name,
       players: [currentUser.id, values.teammate],
     };
 
-    // console.log(newTeam);
-    // console.log(currentPath);
-    // console.log(queryParams);
-    // console.log(tournament);
-
     postCreateAndSuscribeNewTeam(tournament, newTeam);
   };
 
   useEffect(() => {
+    console.log("QUERY PARAMS", queryParams);
+    if (queryParams.status === "pending") {
+      router.push("/dashboard/user/profile");
+    }
+    if (queryParams.status === "failed") {
+      router.push(`/tournaments/${tournament}`);
+    }
     async function dataConstructor() {
       try {
         if (!currentUser) {
@@ -72,7 +76,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
     dataConstructor();
   }, [currentUser]);
 
-  return dataToForm ? (
+  return dataToForm && queryParams.status === "approved" ? (
     <section className="flex flex-col items-center justify-center w-screen gap-2 py-10 min-h-fit">
       <h1 className="text-3xl font-bold text-white">REGISTRA TU EQUIPO</h1>
       <FormComponent
