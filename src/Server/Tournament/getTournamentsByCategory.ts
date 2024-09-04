@@ -8,7 +8,7 @@ export const getTournamentByCategory = async (
     const response = await axiosInstance.get(
       `/tournament/category/${category}`
     );
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.error("Error fetching tournament by Category:", error);

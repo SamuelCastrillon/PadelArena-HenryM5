@@ -3,6 +3,7 @@ import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture"; // Asegúr
 import { getFixtureById } from "@/Server/Fixture/getFixtureById";
 import { AuthContext } from "@/context/GlobalContext";
 import { selectWinner } from "@/Server/Fixture/selectWinner";
+import { getOneTeam } from "@/Server/Tournament/getOneTeam";
 
 interface FixtureProps {
   fixtureId: string;
@@ -12,7 +13,9 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
   const [fixture, setFixture] = useState<IFixture | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
   const [selectedWinner, setSelectedWinner] = useState<string | null>(null);
+  const [winnerNames, setWinnerNames] = useState<{ [key: string]: string }>({});
   const { currentUser } = useContext(AuthContext);
+  const [newFixture, setNewFixture] = useState<IFixture | null>(null);
 
   useEffect(() => {
     const getFixture = async () => {
@@ -27,16 +30,61 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
     getFixture();
   }, [fixtureId]);
 
+  console.log(fixture);
+
+  useEffect(() => {
+    const updateWinnerNames = async () => {
+      if (fixture) {
+        const winnerNamePromises = fixture.round.flatMap((round) =>
+          round.matches.map(async (match) => {
+            if (match.teamWinner) {
+              const teamWinner = await getOneTeam(match.teamWinner);
+              return { [match.id]: teamWinner.name };
+            }
+            return null;
+          })
+        );
+
+        const resolvedWinnerNames = await Promise.all(winnerNamePromises);
+        const winnerNamesMap = Object.assign(
+          {},
+          ...resolvedWinnerNames.filter((item) => item !== null)
+        );
+
+        setWinnerNames(winnerNamesMap);
+      }
+    };
+
+    updateWinnerNames();
+  }, [fixture]); // Se ejecuta cuando `fixture` cambia
+
   const handleDropdownToggle = (matchId: string) => {
     setDropdownOpen(dropdownOpen === matchId ? null : matchId);
   };
 
   const handleSelectWinner = async (matchId: string, teamId: string) => {
-    console.log("este es el matchid", matchId, "aca el team", teamId);
     try {
+      console.log(teamId, matchId);
       const response = await selectWinner(matchId, teamId);
+      console.log(response);
+      console.log(response.matches, response.stage);
+      if (response.stage !== undefined && response.matches !== undefined) {
+        // if (fixture && fixture.id) {
+        //   const newFixture = {
+        //     ...fixture,
+        //     round: [...fixture.round, response],
+        //   };
+        //   setFixture(newFixture);
+        // } else {
+        //   console.error("Fixture object is missing id property");
+        // }
+        setNewFixture(response);
+      }
 
+      const teamWinner = await getOneTeam(teamId);
+      setWinnerNames((prev) => ({ ...prev, [matchId]: teamWinner.name }));
       setSelectedWinner(teamId);
+
       setDropdownOpen(null);
     } catch (error) {
       console.log(error);
@@ -52,13 +100,18 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
     Final: 1,
   };
 
-  const stages = Object.keys(stagesConfig);
+  console.log(newFixture);
 
+  const stages = Object.keys(stagesConfig);
+  console.log(stages);
+  console.log(
+    fixture.round.map((round) => round.matches.map((match) => match.teams))
+  );
   return (
     <div className="flex flex-col items-center space-y-6 w-full">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 w-full border-2 border-red-600">
         {stages.map((stage, stageIndex) => {
-          const roundsForStage = fixture.round.filter(
+          const roundsForStage = fixture.round?.filter(
             (round) => round.stage.toLowerCase() === stage.toLowerCase()
           );
 
@@ -68,21 +121,20 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
                 key={`${roundIndex}-${matchIndex}`}
                 className="p-4 border-2 border-white bg-blue-700/20 sfBold rounded-lg text-white shadow-md w-full md:w-48 flex flex-col items-center space-y-2 mb-6 "
               >
-                <p className="text-xs">{`Match: ${match.id}`}</p>
                 <p className="text-xs">{`Fecha: ${match.date}`}</p>
                 <p className="text-xs">{`Hora: ${match.time}`}</p>
                 <p className="text-xs">{`Ganador: ${
-                  match.teamWinner ? match.teamWinner : "Por decidir"
+                  winnerNames[match.id] || "Por decidir"
                 }`}</p>
 
                 <div className="flex flex-col space-y-1 mt-2">
-                  {match.teams.map((team) => (
+                  {match?.teams?.map((team) => (
                     <p key={team.id} className="text-xs">{`${team.name} `}</p>
                   ))}
                 </div>
 
                 {/* Mostrar el botón y el dropdown solo para administradores */}
-                {currentUser?.role === "admin" && (
+                {currentUser?.role === "admin" && match.teamWinner === null && (
                   <div className="relative mt-4 ">
                     <button
                       onClick={() => handleDropdownToggle(match.id)}
@@ -90,6 +142,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
                     >
                       Seleccionar Ganador
                     </button>
+
                     {dropdownOpen === match.id && (
                       <div className="absolute w-full mt-2 bg-white text-black border border-gray-300 rounded shadow-lg">
                         {match.teams.map((team) => (

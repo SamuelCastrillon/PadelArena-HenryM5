@@ -20,7 +20,6 @@ const TournamentsView: React.FC = () => {
 
   const applyFilters = (filters: Filters) => {
     if (tournaments.length === 0) {
-      console.warn("No hay torneos disponibles para filtrar.");
       setFilteredTournaments([]);
       return;
     }

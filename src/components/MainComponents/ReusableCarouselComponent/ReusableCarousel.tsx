@@ -41,13 +41,9 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
     );
   };
 
-  // Manejo del clic en la imagen para redireccionar
   const handleImageClick = (href: string) => {
-    console.log(href);
     router.push(href);
   };
-
-  console.log(images);
 
   return (
     <div className="relative w-full">
