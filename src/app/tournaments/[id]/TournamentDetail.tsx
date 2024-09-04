@@ -5,6 +5,7 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import React from "react";
 import { getTournamentById } from "@/Server/Tournament/getTournamentById";
 import { IFilerProp } from "@/components/MainPages/TournamentByUserCategory/TournamentByUserCategory";
+import { CURRENT_APP_URL } from "@/Server/AxiosConfig";
 
 //peticion get tournament/id
 
@@ -17,7 +18,6 @@ import { IFilerProp } from "@/components/MainPages/TournamentByUserCategory/Tour
 //!con retraso para mostrar el loading
 
 const TournamentDetail = async ({ params }: { params: { id: string } }) => {
-  console.log(params.id);
   const tournamentId: ITournament | null = await getTournamentById(params.id);
   //const tournament = findTournamentById(params.id);
 
@@ -27,7 +27,7 @@ const TournamentDetail = async ({ params }: { params: { id: string } }) => {
   console.log(tournamentId);
   return (
     <div className=" w-[90%] md:w-3/4 mx-auto p-4 justify-center items-center ">
-      <TournamentDetailView tournament={tournamentId} />
+      <TournamentDetailView tournament={tournamentId} currentHost={CURRENT_APP_URL || ""} />
     </div>
   );
 };
