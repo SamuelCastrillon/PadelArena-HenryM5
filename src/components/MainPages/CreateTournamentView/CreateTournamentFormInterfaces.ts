@@ -1,3 +1,5 @@
+import { Ilocation } from "@/interfaces/RequestInterfaces";
+
 export interface IFormTournametInitiaalValues {
   name: string;
   description: string;
@@ -11,4 +13,5 @@ export interface IFormTournametInitiaalValues {
   tournamentImg: string;
   price: number;
   category: string;
+  location: Ilocation;
 }
