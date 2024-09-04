@@ -13,6 +13,8 @@ import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
+import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
+import { fixtureData } from "@/helpers/fixtureData";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -152,9 +154,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             "Canchas disponibles": tournament.courtsAvailable.toString(),
             "Días de juego": tournament.playingDay?.toString(),
             Categoría: tournament.category.name,
-            Género: tournament.genero ?? "Esta por verse",
             Inscripciones:
-              tournament.inscription ?? "Aun en proceso de definir",
+              tournament.inscription.toUpperCase() ??
+              "Aun en proceso de definir",
           }}
         />
 
@@ -202,7 +204,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         </div>
       )}
 
-      {/* Modal del Fixture */}
+      {/* Modal del Fixture 
       <ReusableModal
         isOpen={isModalOpen}
         onClose={closeModal}
@@ -234,6 +236,39 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             </tr>
           )}
         </CustomTable>
+      </ReusableModal>
+      */}
+      {/* Modal del Fixture 
+      <ReusableModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        blurBackground={blurBackground}
+        backgroundColor="bg-white"
+        textColor="text-black"
+        className="shadow-lg shadow-lime w-full max-w-screen-lg"
+        bgImageUrl={tournament.tournamentFlyer}
+      >
+        <h2 className="text-4xl radhiumz text-white uppercase mb-4">{`Fixture: ${tournament.name}`}</h2>
+        {tournament.fixture && tournament.fixture.length > 0 ? (
+          <FixtureComponent fixtures={tournament.fixture} />
+        ) : (
+          <p className="text-xl text-center">No hay fixture para este torneo</p>
+        )}
+      </ReusableModal>
+      */}
+      <ReusableModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        blurBackground={blurBackground}
+        backgroundColor="bg-white"
+        textColor="text-black"
+        className="shadow-lg shadow-lime w-full max-w-screen-lg"
+        bgImageUrl={tournament.tournamentFlyer}
+      >
+        <h2 className="text-4xl radhiumz text-white uppercase mb-2">{`Fixture: ${tournament.name}`}</h2>
+        <hr className="h-2 w-full mb-6"></hr>
+
+        <FixtureComponent fixtures={fixtureData} />
       </ReusableModal>
     </div>
   );

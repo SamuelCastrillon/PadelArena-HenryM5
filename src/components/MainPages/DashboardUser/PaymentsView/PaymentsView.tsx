@@ -16,7 +16,7 @@ const payments = [
       team: [
         {
           users: [
-            { id: "2fdb8177-9457-421f-bc91-ec1d69bc585d", name: "rosita" },
+            { id: "04c7e986-7372-4f3b-856f-2c09ead869e8", name: "rosario" },
           ],
         },
       ],

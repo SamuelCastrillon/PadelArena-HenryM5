@@ -34,6 +34,15 @@ const RegisterView = () => {
   const navigate = useRouter();
   const { categories, error } = useTournamentData();
 
+  // Verifica que categories exista y no esté vacío
+  const categoryOptions =
+    categories && categories.length > 0
+      ? categories.map((category) => ({
+          value: category.id,
+          name: category.name,
+        }))
+      : [];
+
   const updateProfileFields: IDataConstructor[] = [
     {
       LabelText: "Teléfono",
@@ -63,12 +72,7 @@ const RegisterView = () => {
       LabelText: "Categoría",
       FieldName: "category",
       FieldType: "select",
-      selectOptions: categories
-        ? categories.map((category) => ({
-            value: category.id,
-            name: category.name,
-          }))
-        : [],
+      selectOptions: categoryOptions, // Usa categoryOptions después de la verificación
     },
   ];
 
@@ -98,16 +102,11 @@ const RegisterView = () => {
     }
   }
 
-  const categoryOptions = categories.map((category) => ({
-    value: category.id,
-    name: category.name,
-  }));
-
   const updatedInputsFormValues = inputsFormValues.map((input) => {
     if (input.FieldType === "select" && input.FieldName === "category") {
       return {
         ...input,
-        selectOptions: categoryOptions,
+        selectOptions: categoryOptions, // Usa categoryOptions después de la verificación
       };
     }
     return input;

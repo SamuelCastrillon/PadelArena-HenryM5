@@ -9,7 +9,7 @@ import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButt
 
 const tournamentsData: ITournament[] = [
   {
-    id: "ae1da3dd-3844-4499-9764-f0ffab34fa20",
+    id: "84b14867-7a28-4958-8a70-a5146955d045",
     name: "Summer Padel Cup",
     startDate: "2024-06-01",
     endDate: "2024-06-15",
@@ -23,10 +23,10 @@ const tournamentsData: ITournament[] = [
     inscription: "abiertas",
     status: "por comenzar",
     category: {
-      id: "207a290d-bd10-432a-8a71-bc625b68ab37",
-      name: "Segunda",
+      id: "bc615164-15a2-4e6f-a421-de019a63baff",
+      name: "Tercera",
       description:
-        "Jugadores de pádel en un nivel avanzado, pero no tan competitivo como la Categoría A.",
+        "Jugadores de pádel con habilidades intermedias, aún desarrollando su técnica.",
     },
     genero: "masculino",
     teamsQuantity: 10,
@@ -37,15 +37,15 @@ const tournamentsData: ITournament[] = [
         id: "1",
         name: "Equipo A",
         category: {
-          id: "207a290d-bd10-432a-8a71-bc625b68ab37",
-          name: "Segunda",
+          id: "bc615164-15a2-4e6f-a421-de019a63baff",
+          name: "Tercera",
           description:
-            "Jugadores de pádel en un nivel avanzado, pero no tan competitivo como la Categoría A.",
+            "Jugadores de pádel con habilidades intermedias, aún desarrollando su técnica.",
         },
-        users: [{ id: "2fdb8177-9457-421f-bc91-ec1d69bc585d" }],
+        users: [{ id: "04c7e986-7372-4f3b-856f-2c09ead869e8" }],
         tournament: {
-          id: "1",
-          name: "Torneo de Verano",
+          id: "84b14867-7a28-4958-8a70-a5146955d045",
+          name: "Summer Padel Cup",
           startDate: "2024-06-01",
           endDate: "2024-06-15",
           startingTime: "09:00",
@@ -58,10 +58,10 @@ const tournamentsData: ITournament[] = [
           inscription: "abiertas",
           status: "por comenzar",
           category: {
-            id: "207a290d-bd10-432a-8a71-bc625b68ab37",
-            name: "Segunda",
+            id: "bc615164-15a2-4e6f-a421-de019a63baff",
+            name: "Tercera",
             description:
-              "Jugadores de pádel en un nivel avanzado, pero no tan competitivo como la Categoría A.",
+              "Jugadores de pádel con habilidades intermedias, aún desarrollando su técnica.",
           },
           genero: "masculino",
           teamsQuantity: 10,
