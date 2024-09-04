@@ -57,13 +57,14 @@
 // };
 
 // export default MapInputComponent;
+"use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 
 interface MapInputComponentProps {
   onLocationSelect: (
-    location: { lat: number; lng: number },
+    location: { lat: string; lng: string },
     plusCode: string
   ) => void;
 }

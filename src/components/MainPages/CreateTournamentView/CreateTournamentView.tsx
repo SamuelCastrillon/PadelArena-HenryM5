@@ -93,13 +93,17 @@ import MapInputComponent from "./MapInputComponent";
 const handlerSubmit = async (
   values: ICreateTournamentFormData,
   router: ReturnType<typeof useRouter>,
-  location: { lat: number; lng: number },
+  location: { lat: string; lng: string },
   plusCode: string | undefined
 ) => {
   try {
-    // Usa preFormattingData con el plusCode incluido
+    // Convierte la ubicación en un solo string
+    const locationString = `${location.lat},${location.lng}`;
+
+    // Usa preFormattingData con la ubicación como string
     const dataFormattedToSend = preFormattingData({
       ...values,
+      location: locationString, // Asigna la ubicación como string
       plusCode, // Pasa el plusCode aquí
     });
 
@@ -137,8 +141,8 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
     formDataContructor;
 
   const [selectedLocation, setSelectedLocation] = useState<{
-    lat: number;
-    lng: number;
+    lat: string;
+    lng: string;
   } | null>(null);
 
   const [selectedPlusCode, setSelectedPlusCode] = useState<string | null>(null);
@@ -146,7 +150,7 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
   const router = useRouter();
 
   const handleLocationSelect = (
-    location: { lat: number; lng: number },
+    location: { lat: string; lng: string },
     plusCode: string
   ) => {
     setSelectedLocation(location);
