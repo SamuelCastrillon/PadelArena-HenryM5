@@ -14,13 +14,13 @@ import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable"
 import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
 import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
 import { fixtureData } from "@/helpers/fixtureData";
-import { CURRENT_APP_URL } from "@/envsUseClient";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
+  currentHost: string;
 }
 
-const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament }) => {
+const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament, currentHost }) => {
   const { currentUser } = useContext(AuthContext);
   const user = currentUser;
   const router = useRouter();
@@ -47,8 +47,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament 
   //   fetchTeams();
   // }, [user, tournament.id]);
 
-  const currentHost = CURRENT_APP_URL || "";
+  // Manejo de redireccionamiento
   const TOURNAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+  console.log(TOURNAMENT_REGISTER_URL);
 
   // Manejo de inscripción
   const handleInscriptionClick = async () => {

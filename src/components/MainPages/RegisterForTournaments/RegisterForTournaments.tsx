@@ -8,12 +8,11 @@ import {
 } from "./RegisterForTournamentsData";
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
-import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { usePathname, useRouter } from "next/navigation";
+import { log } from "console";
 
 interface IRegisterForTournaments {
   allParams: any;
-  currentHost: string;
 }
 
 interface IDataToForm {
@@ -21,52 +20,34 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
-  allParams,
-  currentHost,
-}) => {
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ allParams }) => {
+  const { currentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const navigate = useRouter();
   const currentPath = usePathname();
-
   const tournamentId = allParams.params[0];
-  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
-
-  async function payToInscription() {
-    // const dataToPay = {
-    //   tournament: tournamentId,
-    //   host: TOURNAAMENT_REGISTER_URL,
-    //   user: currentUser?.id,
-    // };
-    // console.log(dataToPay);
-    // try {
-    //   const { redirectUrl } = await postPaymentToMP(dataToPay);
-    //   if (!redirectUrl) {
-    //     throw new Error("Error al realizar el pago");
-    //   }
-    //   navigate.push(redirectUrl);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    console.log("pago");
-  }
 
   const handlerPayment = (values: any) => {
     console.log(values);
-    payToInscription();
+    console.log(currentUser);
+    console.log(currentPath);
+    console.log(allParams);
   };
 
   useEffect(() => {
     async function dataConstructor() {
       try {
-        const getData = await getDataToContructFormRegisterTournament();
+        if (!currentUser) {
+          return;
+        }
+        const getData = await getDataToContructFormRegisterTournament(currentUser.category.id);
         setDataToForm(getData);
       } catch (error) {
         console.error(error);
       }
     }
     dataConstructor();
-  }, []);
+  }, [currentUser]);
 
   return dataToForm ? (
     <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">

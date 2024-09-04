@@ -18,13 +18,13 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
 
   const { getGoogleUser, getRegularUser } = useUserCookies();
 
-  const syncUserWithCookies = () => {
-    const userGoogle = getGoogleUser();
+  const syncUserWithCookies = async () => {
+    const userGoogle = await getGoogleUser();
 
     if (userGoogle) {
       setCurrentUser(userGoogle);
     } else {
-      const regularUser = getRegularUser();
+      const regularUser = await getRegularUser();
       if (regularUser) {
         setCurrentUser(regularUser);
       }
@@ -42,8 +42,7 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
         setCurrentUser,
         userIdGoogle,
         setUserIdGoogle,
-      }}
-    >
+      }}>
       {children}
     </AuthContext.Provider>
   );
