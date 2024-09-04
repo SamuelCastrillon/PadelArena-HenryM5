@@ -134,7 +134,8 @@ const UsersManagement: React.FC = () => {
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-3 top-2 text-gray-500 hover:text-gray-700 bg-lime rounded-xl px-1">
+                className="absolute right-3 top-2 text-gray-500 hover:text-gray-700 bg-lime rounded-xl px-1"
+              >
                 &#10005;
               </button>
             )}
@@ -143,14 +144,16 @@ const UsersManagement: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center w-full">
             <label
               htmlFor="category-filter"
-              className="w-full sm:w-1/3 px-2 py-2 bg-lime rounded-t-lg sm:rounded-t-none sm:rounded-l-lg sfBold text-center">
+              className="w-full sm:w-1/3 px-2 py-2 bg-lime rounded-t-lg sm:rounded-t-none sm:rounded-l-lg sfBold text-center"
+            >
               Filtrar por Categoría:
             </label>
             <select
               id="category-filter"
               value={selectedFilterCategory}
               onChange={(e) => handleFilterChange(e.target.value)}
-              className="w-full sm:w-2/3 px-2 py-2 bg-white border-2 border-slate rounded-b-lg sm:rounded-b-none sm:rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
+              className="w-full sm:w-2/3 px-2 py-2 bg-white border-2 border-slate rounded-b-lg sm:rounded-b-none sm:rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center"
+            >
               <option value="">Todas las categorías</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
@@ -170,7 +173,9 @@ const UsersManagement: React.FC = () => {
           "DIRECCIÓN",
           "CATEGORÍA",
           "ACCIONES",
-        ]}>
+          "ESTADISTICAS",
+        ]}
+      >
         {filteredUsers.length > 0 ? (
           filteredUsers.map((user, index) => (
             <tr key={index} className="text-center">
@@ -192,7 +197,8 @@ const UsersManagement: React.FC = () => {
                   onChange={(e) =>
                     handleCategoryChange(user.id, e.target.value)
                   }
-                  className="hover:text-primary text-black font-bold text-center p-1 rounded-lg bg-customBlue/10">
+                  className="hover:text-primary text-black font-bold text-center p-1 rounded-lg bg-customBlue/10"
+                >
                   <option value="" disabled>
                     Seleccione una categoría
                   </option>
@@ -206,7 +212,8 @@ const UsersManagement: React.FC = () => {
               <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                 <ActionButton
                   onClick={() => handleSaveCategory(user.id)}
-                  className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz">
+                  className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz"
+                >
                   <p className="radhiumz text-xs">GUARDAR</p>
                 </ActionButton>
               </td>
@@ -216,7 +223,8 @@ const UsersManagement: React.FC = () => {
           <tr>
             <td
               colSpan={6}
-              className="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-center">
+              className="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-center"
+            >
               No se encontraron resultados para la búsqueda.
             </td>
           </tr>
