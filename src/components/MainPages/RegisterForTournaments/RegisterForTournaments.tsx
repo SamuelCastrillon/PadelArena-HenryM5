@@ -8,7 +8,7 @@ import {
 } from "./RegisterForTournamentsData";
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SpinnerLoading from "@/components/GeneralComponents/SpinnerLoading/SpinnerLoading";
 import { postCreateAndSuscribeNewTeam } from "@/Server/Tournament/Teams/postCreateAndSuscribeNewTeam";
 import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
@@ -16,7 +16,7 @@ import { transformQueryToPaymentResponse } from "./transformPramsToPaymentRespon
 import { IPaymentQueryResponse } from "@/interfaces/MercadoPagoInterfaces/PaymentQueryInterface";
 
 interface IRegisterForTournaments {
-  tournamentId: any;
+  tournamentId: { tournamentId: string };
 }
 
 interface IDataToForm {
@@ -33,7 +33,6 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
   const { currentUser } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const router = useRouter();
-  const currentPath = usePathname();
   const tournament = tournamentId.tournamentId;
 
   //? QUERY PARAMS
@@ -55,7 +54,6 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
   };
 
   useEffect(() => {
-    console.log("QUERY PARAMS", queryParams);
     if (queryParams.status === "pending") {
       router.push("/dashboard/user/profile");
     }
@@ -89,7 +87,6 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
     </section>
   ) : (
     <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
-      {/* <h1 className="text-3xl font-bold text-white">CARGANDO...</h1> */}
       <SpinnerLoading />
     </section>
   );
