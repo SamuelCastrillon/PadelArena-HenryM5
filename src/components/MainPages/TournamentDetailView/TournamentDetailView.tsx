@@ -10,10 +10,9 @@ import { IProductPaymentDataReq } from "@/interfaces/RequestInterfaces";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
-import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
-import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
-import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
-import { fixtureData } from "@/helpers/fixtureData";
+
+import { fixture } from "@/helpers/fixtureData";
+import NewFixtureComponent from "@/components/MainComponents/FixtureComponent/NewFixtureComponent";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -249,12 +248,16 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
         blurBackground={blurBackground}
         backgroundColor="bg-white"
         textColor="text-black"
-        className="w-full max-w-screen-lg shadow-lg shadow-lime"
+        className="shadow-lg shadow-lime w-full max-w-screen-lg h-auto max-h-[80vh] overflow-y-auto"
         bgImageUrl={tournament.tournamentFlyer}>
         <h2 className="mb-2 text-4xl text-white uppercase radhiumz">{`Fixture: ${tournament.name}`}</h2>
         <hr className="w-full h-2 mb-6"></hr>
 
-        <FixtureComponent fixtures={fixtureData} />
+        {tournament.fixture?.id ? (
+          <NewFixtureComponent fixtureId={tournament.fixture.id} />
+        ) : (
+          <p className="text-xl text-center">No hay fixture disponible para este torneo.</p>
+        )}
       </ReusableModal>
     </div>
   );

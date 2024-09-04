@@ -31,16 +31,19 @@ const ReusableModal: React.FC<ModalProps> = ({
       onClick={onClose}
     >
       <div
-        className={`${backgroundColor} ${textColor} p-8 rounded-lg max-w-3xl w-full relative overflow-hidden  ${className}`}
+        className={`${backgroundColor} ${textColor} p-8 rounded-lg max-w-3xl w-full max-h-[75vh] h-auto relative overflow-hidden ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Imagen de fondo opcional con animación */}
         {bgImageUrl && (
           <div
-            className="absolute inset-0 bg-cover bg-center blur-sm  filter grayscale opacity-80"
-            style={{ backgroundImage: `url(${bgImageUrl}) ` }}
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat filter blur-sm grayscale opacity-80"
+            style={{
+              backgroundImage: `url(${bgImageUrl})`,
+            }}
           >
-            <div className="absolute inset-0 bg-cover bg-center bg-gradient-to-b from-black to-black opacity-40"></div>
+            {/* Capa de superposición para el efecto de gradiente */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black to-black opacity-40"></div>
           </div>
         )}
         <button
@@ -49,7 +52,9 @@ const ReusableModal: React.FC<ModalProps> = ({
         >
           X
         </button>
-        <div className="relative z-10">{children}</div>
+        <div className="relative z-10 overflow-y-auto max-h-[65vh]">
+          {children}
+        </div>
       </div>
     </div>
   );
