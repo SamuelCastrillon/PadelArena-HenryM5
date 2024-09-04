@@ -77,6 +77,12 @@ export interface ICreateTournamentReq {
   tournamentFlyer: string;
   category: string;
   price: number;
+  location: ilocation;
+}
+
+export interface ilocation {
+  lat: number;
+  lng: number;
 }
 
 export interface ICreateTournamentFormData {
@@ -98,6 +104,7 @@ export interface ICreateTournamentFormData {
   tournamentFlyer: string;
   category: string;
   price: number;
+  location: ilocation;
 }
 
 //? Category Interfaces

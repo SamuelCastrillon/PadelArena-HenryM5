@@ -14,6 +14,7 @@ const FormComponent: React.FC<IFormikConstructor> = ({
   handelerSubmit,
   butonsForm,
   dataContructor,
+  additionalComponent, // para el maps sin romper lo demás
 }) => {
   const fieldsForm: IDataConstructor[] = dataContructor;
 
@@ -22,8 +23,7 @@ const FormComponent: React.FC<IFormikConstructor> = ({
       <Formik
         initialValues={iniValues}
         validationSchema={valiSchema}
-        onSubmit={handelerSubmit}
-      >
+        onSubmit={handelerSubmit}>
         <Form className="flex flex-col items-center p-5 w-[90%] md:w-[60%] m-5 rounded-md bg-blue-950/60 border-blue-950  shadow-md shadow-lime border-2 justify-between">
           {/* Usamos grid para tener dos columnas */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 w-full">
@@ -48,6 +48,7 @@ const FormComponent: React.FC<IFormikConstructor> = ({
                 }
               })}
           </div>
+          {additionalComponent && <div>{additionalComponent}</div>}
 
           {/* Botones del formulario */}
           <div className="flex gap-4 mt-4">

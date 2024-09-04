@@ -9,7 +9,11 @@ import { IFormTournametInitiaalValues } from "./CreateTournamentFormInterfaces";
 
 //? Validations Inpusts form
 export const createTournamentSchema = yup.object({
-  name: yup.string().min(2, "Too Short!").max(40, "Too Long!").defined("Required!"),
+  name: yup
+    .string()
+    .min(2, "Too Short!")
+    .max(40, "Too Long!")
+    .defined("Required!"),
   startDate: yup.string().defined("Required!"),
   price: yup.string().defined("Required!"),
 });
@@ -155,4 +159,6 @@ export async function getDataToContructFormCreateTournaments() {
   return { inputsCreateTournamentFormValues, createTournamentInitialValues };
 }
 
-export const butonsCreateTournamentForm: IButtonForm[] = [{ name: "Crear Torneo", type: "submit" }];
+export const butonsCreateTournamentForm: IButtonForm[] = [
+  { name: "Crear Torneo", type: "submit" },
+];
