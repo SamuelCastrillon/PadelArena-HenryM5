@@ -32,7 +32,6 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
 
   const handleSelectWinner = async (matchId: string, teamId: string) => {
     try {
-      // Aquí deberías enviar la solicitud al backend para registrar el ganador
       await fetch(`/api/matches/${matchId}/winner`, {
         method: "POST",
         headers: {
@@ -49,7 +48,6 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
 
   if (!fixture) return <div>No se encontró el fixture.</div>;
 
-  // Definir todas las etapas posibles y su número fijo de tarjetas
   const stagesConfig: { [key: string]: number } = {
     Octavos: 8,
     Cuartos: 4,
@@ -134,7 +132,6 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
             )
           );
 
-          // Definir el margen superior basado en el índice de la etapa
           const marginTop =
             stageIndex === 1
               ? "mt-10"
