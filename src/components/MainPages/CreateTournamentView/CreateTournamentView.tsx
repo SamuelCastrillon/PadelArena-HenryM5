@@ -96,6 +96,7 @@ const handlerSubmit = async (
   location: { lat: string; lng: string },
   plusCode: string | undefined
 ) => {
+  console.log("AQUÍ ESTOY", location);
   try {
     // Convierte la ubicación en un solo string
     const locationString = `${location.lat},${location.lng}`;
@@ -103,7 +104,6 @@ const handlerSubmit = async (
     // Usa preFormattingData con la ubicación como string
     const dataFormattedToSend = preFormattingData({
       ...values,
-      location: locationString, // Asigna la ubicación como string
       plusCode, // Pasa el plusCode aquí
     });
 

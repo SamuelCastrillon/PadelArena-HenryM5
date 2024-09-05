@@ -25,4 +25,5 @@ export interface ITournament {
   team?: ITeam[];
   matches?: IMatch[];
   price?: number;
+  plusCode?: string;
 }

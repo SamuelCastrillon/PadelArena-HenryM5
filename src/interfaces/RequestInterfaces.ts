@@ -77,7 +77,6 @@ export interface ICreateTournamentReq {
   tournamentFlyer: string;
   category: string;
   price: number;
-  location: string;
   plusCode?: string;
 }
 

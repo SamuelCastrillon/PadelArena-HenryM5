@@ -123,7 +123,7 @@ const MapInputComponent: React.FC<MapInputComponentProps> = ({
         value={plusCode}
         onChange={(e) => setPlusCode(e.target.value)}
         placeholder="Ingrese el Plus Code"
-        className="input-class p-2 mb-6 text-gray-800 rounded h-fit w-[100%]" // Añade tus clases de estilo aquí
+        className="input-class p-2 mb-6 text-gray-800 rounded h-fit w-[100%]"
       />
       <button
         type="button"
