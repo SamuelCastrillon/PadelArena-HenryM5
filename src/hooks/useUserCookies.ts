@@ -21,14 +21,13 @@ export function useUserCookies() {
     if (googleUser) {
       try {
         const cookieParse = JSON.parse(googleUser);
-        console.log("Google User retrieved:", cookieParse);
+
         return cookieParse;
       } catch (error) {
         console.error("Error parsing Google User from cookies:", error);
         return null;
       }
     } else {
-      console.warn("Google User cookie not found.");
       return null;
     }
   };
@@ -39,10 +38,9 @@ export function useUserCookies() {
     if (regularUser) {
       try {
         const cookieParse = JSON.parse(regularUser);
-        console.log("Regular User retrieved:", cookieParse);
+
         return cookieParse;
       } catch (error) {
-        console.error("Error parsing Regular User from cookies:", error);
         return null;
       }
     } else {

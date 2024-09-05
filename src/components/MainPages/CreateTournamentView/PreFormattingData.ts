@@ -80,7 +80,6 @@ export function preFormattingData(
     tournamentFlyer: data.tournamentFlyer,
     category: data.category,
     price: data.price,
-    location: data.location,
     plusCode: data.plusCode || "", // Incluye el plusCode aquí
   };
 

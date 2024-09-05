@@ -1,23 +1,31 @@
-// HoverBadge.tsx
 import React from "react";
 
-interface HoverBadgeProps {
-  primaryText: string;
-  secondaryText: string;
+interface HoverBadgeProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  primaryText?: string; // Texto principal del botón
+  secondaryText?: string; // Texto del tooltip
 }
 
 const HoverButton: React.FC<HoverBadgeProps> = ({
   primaryText,
   secondaryText,
+  children, // Contenido adicional como SVG u otros elementos
+  className = "bg-transparent",
+  onClick,
+  ...rest
 }) => {
   return (
     <div className="relative group">
       {/* Botón con estilo y efectos */}
       <button
         data-ripple-light="true"
-        className="select-none rounded-lg bg-gray-900 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+        className={`select-none rounded-lg  py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ${className}`}
+        onClick={onClick}
+        {...rest}
       >
-        {primaryText}
+        {children} {/* Renderiza el contenido pasado como hijos, como el SVG */}
+        {primaryText && <span className="ml-2">{primaryText}</span>}{" "}
+        {/* Muestra el primaryText al lado del contenido de los hijos */}
       </button>
 
       {/* Tooltip que aparece al hacer hover sobre el botón */}

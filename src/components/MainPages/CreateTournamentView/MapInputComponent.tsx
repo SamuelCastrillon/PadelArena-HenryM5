@@ -57,15 +57,13 @@
 // };
 
 // export default MapInputComponent;
+"use client";
 
 import React, { useState, useEffect, useRef } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 
 interface MapInputComponentProps {
-  onLocationSelect: (
-    location: { lat: number; lng: number },
-    plusCode: string
-  ) => void;
+  onLocationSelect: (plusCode: string) => void;
 }
 
 const MapInputComponent: React.FC<MapInputComponentProps> = ({
@@ -101,10 +99,7 @@ const MapInputComponent: React.FC<MapInputComponentProps> = ({
             map: map,
             position: location,
           });
-          onLocationSelect(
-            { lat: location.lat(), lng: location.lng() },
-            plusCode
-          );
+          onLocationSelect(plusCode);
         } else {
           alert("No se pudo encontrar la ubicación.");
         }
@@ -122,7 +117,7 @@ const MapInputComponent: React.FC<MapInputComponentProps> = ({
         value={plusCode}
         onChange={(e) => setPlusCode(e.target.value)}
         placeholder="Ingrese el Plus Code"
-        className="input-class p-2 mb-6 text-gray-800 rounded h-fit w-[100%]" // Añade tus clases de estilo aquí
+        className="input-class p-2 mb-6 text-gray-800 rounded h-fit w-[100%]"
       />
       <button
         type="button"

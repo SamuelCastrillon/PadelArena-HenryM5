@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture"; // Asegúrate de que la ruta sea correcta
+import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
 import { getFixtureById } from "@/Server/Fixture/getFixtureById";
 import { AuthContext } from "@/context/GlobalContext";
+import { selectWinner } from "@/Server/Fixture/selectWinner";
+import { ITeam } from "@/interfaces/ComponentsInterfaces/Team";
 
 interface FixtureProps {
   fixtureId: string;
@@ -10,7 +12,7 @@ interface FixtureProps {
 const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
   const [fixture, setFixture] = useState<IFixture | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
-  const [selectedWinner, setSelectedWinner] = useState<string | null>(null);
+
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
@@ -32,14 +34,21 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
 
   const handleSelectWinner = async (matchId: string, teamId: string) => {
     try {
-      await fetch(`/api/matches/${matchId}/winner`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ winnerId: teamId }),
-      });
-      setSelectedWinner(teamId);
+      const response = await selectWinner(matchId, teamId);
+      console.log(response);
+
+      console.log(response.matches, response.stage);
+      if (response.stage !== undefined && response.matches !== undefined) {
+        if (fixture && fixture.id) {
+          const newFixture = {
+            ...fixture,
+            round: [...fixture.round, response],
+          };
+          setFixture(newFixture);
+        } else {
+          console.error("Fixture object is missing id property");
+        }
+      }
       setDropdownOpen(null);
     } catch (error) {
       console.log(error);
@@ -61,7 +70,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
     <div className="flex flex-col items-center space-y-6 w-full">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8 w-full border-2 border-red-600">
         {stages.map((stage, stageIndex) => {
-          const roundsForStage = fixture.round.filter(
+          const roundsForStage = fixture.round?.filter(
             (round) => round.stage.toLowerCase() === stage.toLowerCase()
           );
 
@@ -73,20 +82,15 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
               >
                 <p className="text-xs">{`Fecha: ${match.date}`}</p>
                 <p className="text-xs">{`Hora: ${match.time}`}</p>
-                <p className="text-xs">{`Ganador: ${
-                  match.teamWinner ? match.teamWinner : "Por decidir"
-                }`}</p>
 
                 <div className="flex flex-col space-y-1 mt-2">
-                  {match.teams.map((team) => (
-                    <p key={team.id} className="text-xs">{`${team.name} ${
-                      team.ableForPlay ? "" : "(No apto)"
-                    }`}</p>
+                  {match?.teams?.map((team) => (
+                    <p key={team.id} className="text-xs">{`${team.name} `}</p>
                   ))}
                 </div>
 
                 {/* Mostrar el botón y el dropdown solo para administradores */}
-                {currentUser?.role === "admin" && (
+                {currentUser?.role === "admin" && match.teamWinner === null && (
                   <div className="relative mt-4 ">
                     <button
                       onClick={() => handleDropdownToggle(match.id)}
@@ -94,6 +98,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
                     >
                       Seleccionar Ganador
                     </button>
+
                     {dropdownOpen === match.id && (
                       <div className="absolute w-full mt-2 bg-white text-black border border-gray-300 rounded shadow-lg">
                         {match.teams.map((team) => (

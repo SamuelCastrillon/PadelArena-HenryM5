@@ -37,8 +37,6 @@ const useTournamentData = () => {
     fetchData();
   }, []);
 
-  console.log("Torneos:", tournaments); // Verifica los datos de torneos
-  console.log("Categorías:", categories); // Verifica los datos de categorías
   return { tournaments, categories, error };
 };
 

@@ -3,12 +3,17 @@ import React, { useState } from "react";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import useTournamentData from "@/hooks/fetchTournamentData";
 import { formatDate } from "@/helpers/dateTimeHelper";
+import { closeInscription } from "@/Server/Tournament/closeInscription";
+import HoverButton from "@/components/GeneralComponents/HoverBadge/HoverButton";
+import { useRouter } from "next/navigation";
 
 const TournamentsTable: React.FC = () => {
   const { tournaments, categories } = useTournamentData();
   console.log(tournaments);
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+
+  const router = useRouter();
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -23,6 +28,17 @@ const TournamentsTable: React.FC = () => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     setSelectedCategory(event.target.value);
+  };
+
+  const handleCloseInscription = async (tournamentId: string) => {
+    try {
+      const response = await closeInscription(tournamentId);
+      if (response) {
+        router.push(`/tournaments/${tournamentId}`);
+      }
+    } catch (error) {
+      console.error("Error al cerrar inscripción:", error);
+    }
   };
 
   const filteredTournaments = tournaments.filter((tournament: any) => {
@@ -160,7 +176,13 @@ const TournamentsTable: React.FC = () => {
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                           <div className="flex items-center justify-center space-x-3.5">
-                            <button className="hover:text-primary">
+                            <HoverButton
+                              className="hover:text-primary"
+                              secondaryText="Ver Fixture"
+                              onClick={() =>
+                                router.push(`/tournaments/${tournament.id}`)
+                              }
+                            >
                               <svg
                                 width="24"
                                 height="24"
@@ -170,7 +192,7 @@ const TournamentsTable: React.FC = () => {
                               >
                                 <path d="M12 17.925l-.976 2.014-2.217.305 1.615 1.552-.395 2.204 1.973-1.057 1.973 1.056-.393-2.203 1.613-1.552-2.217-.305-.976-2.014zm-7.807 0l-.976 2.014-2.217.305 1.615 1.552-.395 2.204 1.973-1.057 1.973 1.056-.393-2.203 1.613-1.552-2.217-.305-.976-2.014zm15.614 0l-.976 2.014-2.217.305 1.615 1.552-.395 2.204 1.973-1.057 1.973 1.056-.393-2.203 1.613-1.552-2.217-.305-.976-2.014zm-8.307 3.52l-.512-.491.702-.097.31-.639.31.639.703.097-.511.491.125.699-.627-.335-.625.334.125-.698zm-7.807 0l-.512-.491.702-.097.31-.639.31.639.703.097-.511.491.125.699-.627-.335-.625.334.125-.698zm15.614 0l-.512-.491.702-.097.31-.639.31.639.703.097-.511.491.125.699-.627-.335-.625.334.125-.698zm1.693-4.445h-17.997l-.003-1.162c-.009-2.446.372-3.273 2.938-3.858 2.661-.601 3.739-.995 3.126-2.123-1.718-3.16-2.043-5.94-.916-7.828.769-1.29 2.175-2.029 3.852-2.029 1.666 0 3.06.729 3.828 1.999 1.126 1.865.811 4.654-.89 7.854-.632 1.194.621 1.56 3.159 2.135 2.512.573 2.913 1.406 2.903 3.868v1.144zm-16.996-1h15.992c.013-1.965.071-2.536-2.121-3.037-1.783-.404-3.465-.786-3.974-1.89-.229-.499-.178-1.067.151-1.688 1.529-2.878 1.854-5.317.917-6.87-.59-.977-1.645-1.515-2.969-1.515-1.334 0-2.397.547-2.99 1.541-.94 1.572-.607 4.001.936 6.84.336.619.392 1.187.165 1.687-.505 1.108-2.257 1.505-3.952 1.888-2.171.495-2.167.949-2.155 3.044z" />
                               </svg>
-                            </button>
+                            </HoverButton>
                             <button className="hover:text-primary">
                               <svg
                                 width="24"
@@ -182,7 +204,13 @@ const TournamentsTable: React.FC = () => {
                                 <path d="M24 22h-24v-20h24v20zm-1-19h-22v18h22v-18zm-1 16h-19l4-7.492 3 3.048 5.013-7.556 6.987 12zm-11.848-2.865l-2.91-2.956-2.574 4.821h15.593l-5.303-9.108-4.806 7.243zm-4.652-11.135c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5zm0 1c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z" />
                               </svg>{" "}
                             </button>
-                            <button className="hover:text-primary">
+                            <HoverButton
+                              secondaryText="Cerrar Inscripciones"
+                              className="hover:text-primary  "
+                              onClick={() =>
+                                handleCloseInscription(tournament.id)
+                              }
+                            >
                               <svg
                                 width="24"
                                 height="24"
@@ -192,7 +220,7 @@ const TournamentsTable: React.FC = () => {
                               >
                                 <path d="M8.071 21.586l-7.071 1.414 1.414-7.071 14.929-14.929 5.657 5.657-14.929 14.929zm-.493-.921l-4.243-4.243-1.06 5.303 5.303-1.06zm9.765-18.251l-13.3 13.301 4.242 4.242 13.301-13.3-4.243-4.243z" />
                               </svg>
-                            </button>
+                            </HoverButton>
                           </div>
                         </td>
                       </tr>
