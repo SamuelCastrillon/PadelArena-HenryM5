@@ -1,5 +1,6 @@
 import TournamentSectionAll from "@/components/MainComponents/TournamentAllGallery/TournamenSectionAll";
 import PersonalizedTournamentView from "@/components/MainPages/DashboardUser/PersonalizedTournamentView/PersonalizedTournamentView";
+import StadisticsSectionView from "@/components/MainPages/DashboardUser/StadisticsSection/StadisticsSectionView";
 import StadisticsView from "@/components/MainPages/DashboardUser/StadisticsSection/StadisticsView";
 import UserTournaments from "@/components/MainPages/DashboardUser/UserTournaments/UserTournaments";
 
@@ -12,7 +13,7 @@ const Stadistics = () => {
 
       <div className="bg-blue-700/30">
         <PersonalizedTournamentView />
-        <StadisticsView />
+        <StadisticsSectionView />
       </div>
     </div>
   );
