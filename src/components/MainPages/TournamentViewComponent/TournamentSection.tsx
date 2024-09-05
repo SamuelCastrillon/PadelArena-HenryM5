@@ -16,7 +16,6 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
   tournaments,
   onActionClick,
 }) => {
-  console.log(tournaments);
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =

@@ -17,7 +17,6 @@ const Card: React.FC<CardProps> = ({
   className,
   additionalComponent,
 }) => {
-  console.log(description, additionalInfo);
   return (
     <div
       className={`relative group overflow-hidden rounded-lg shadow-lg ${className}`}>

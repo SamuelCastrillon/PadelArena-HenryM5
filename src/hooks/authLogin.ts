@@ -48,10 +48,6 @@ const useAuth = () => {
       try {
         const response = await postNextAuthSession(userGoogleData);
 
-        console.log(
-          "los datos del user luego del post session",
-          response.googleUserWithoutPassword || response.newGoogleUser
-        );
         const newUser =
           response.googleUserWithoutPassword || response.newGoogleUser;
         if (

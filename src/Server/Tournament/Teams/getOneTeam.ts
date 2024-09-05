@@ -1,6 +1,6 @@
 import { axiosInstance } from "@/Server/AxiosConfig";
 
-export const getTeamsInTournament = async (teamId: string) => {
+export const getOneTeam = async (teamId: string) => {
   try {
     const response = await axiosInstance.get(`/tournament-team/oneTeam/${teamId}`);
     return response.data;
