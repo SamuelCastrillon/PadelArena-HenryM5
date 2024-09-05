@@ -63,10 +63,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
 
 interface MapInputComponentProps {
-  onLocationSelect: (
-    location: { lat: string; lng: string },
-    plusCode: string
-  ) => void;
+  onLocationSelect: (plusCode: string) => void;
 }
 
 const MapInputComponent: React.FC<MapInputComponentProps> = ({
@@ -102,10 +99,7 @@ const MapInputComponent: React.FC<MapInputComponentProps> = ({
             map: map,
             position: location,
           });
-          onLocationSelect(
-            { lat: location.lat(), lng: location.lng() },
-            plusCode
-          );
+          onLocationSelect(plusCode);
         } else {
           alert("No se pudo encontrar la ubicación.");
         }

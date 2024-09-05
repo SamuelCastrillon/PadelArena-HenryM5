@@ -93,13 +93,12 @@ import MapInputComponent from "./MapInputComponent";
 const handlerSubmit = async (
   values: ICreateTournamentFormData,
   router: ReturnType<typeof useRouter>,
-  location: { lat: string; lng: string },
   plusCode: string | undefined
 ) => {
-  console.log("AQUÍ ESTOY", location);
+  console.log("AQUÍ ESTOY", plusCode);
   try {
     // Convierte la ubicación en un solo string
-    const locationString = `${location.lat},${location.lng}`;
+    // const locationString = `${location.lat},${location.lng}`;
 
     // Usa preFormattingData con la ubicación como string
     const dataFormattedToSend = preFormattingData({
@@ -149,11 +148,7 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
 
   const router = useRouter();
 
-  const handleLocationSelect = (
-    location: { lat: string; lng: string },
-    plusCode: string
-  ) => {
-    setSelectedLocation(location);
+  const handleLocationSelect = (plusCode: string) => {
     setSelectedPlusCode(plusCode);
   };
 
@@ -170,11 +165,11 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
       <FormComponent
         iniValues={{
           ...createTournamentInitialValues,
-          location: selectedLocation || createTournamentInitialValues.location,
+          location: selectedLocation,
         }}
         valiSchema={createTournamentSchema}
         handelerSubmit={(values: ICreateTournamentFormData) =>
-          handlerSubmit(values, router, selectedLocation!, selectedPlusCode!)
+          handlerSubmit(values, router, selectedPlusCode!)
         }
         dataContructor={inputsCreateTournamentFormValues}
         butonsForm={butonsCreateTournamentForm}
