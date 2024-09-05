@@ -7,6 +7,7 @@ interface CardProps {
   description: string;
   additionalInfo?: { [key: string]: string };
   className?: string;
+  additionalComponent?: React.ReactNode;
 }
 const Card: React.FC<CardProps> = ({
   imageUrl,
@@ -14,16 +15,15 @@ const Card: React.FC<CardProps> = ({
   description,
   additionalInfo,
   className,
+  additionalComponent,
 }) => {
   return (
     <div
-      className={`relative group overflow-hidden rounded-lg shadow-lg ${className}`}
-    >
+      className={`relative group overflow-hidden rounded-lg shadow-lg ${className}`}>
       {/* Fondo con efecto de blur */}
       <div
         className="absolute inset-0 z-0 transition-transform duration-500 transform scale-105 bg-cover bg-center filter blur-sm group-hover:blur-none group-hover:scale-110"
-        style={{ backgroundImage: `url(${imageUrl})` }}
-      ></div>
+        style={{ backgroundImage: `url(${imageUrl})` }}></div>
 
       {/* Contenido principal de la tarjeta */}
       <div className="relative z-10 p-6 bg-white bg-opacity-70 group-hover:bg-opacity-100 transition duration-500">
@@ -47,13 +47,13 @@ const Card: React.FC<CardProps> = ({
                   key === "Inscripciones" && value === "cerrada"
                     ? "text-red-500 uppercase"
                     : ""
-                }`}
-              >
+                }`}>
                 <span className="sfRegular text-gray-600">{key}:</span> {value}
               </div>
             ))}
           </div>
         )}
+        {additionalComponent}
       </div>
 
       {/* Efecto de sombra en hover */}

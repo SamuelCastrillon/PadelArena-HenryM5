@@ -73,9 +73,7 @@
 // };
 
 // export default CreateTournamentView;
-
 "use client";
-
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
@@ -92,18 +90,25 @@ import { IDataConstructor } from "@/components/MainComponents/ReusableFormCompon
 import { IFormTournametInitiaalValues } from "./CreateTournamentFormInterfaces";
 import MapInputComponent from "./MapInputComponent";
 
-async function handlerSubmit(
+const handlerSubmit = async (
   values: ICreateTournamentFormData,
   router: ReturnType<typeof useRouter>,
-  location: { lat: number; lng: number }
-) {
+  location: { lat: string; lng: string },
+  plusCode: string | undefined
+) => {
+  console.log("AQUÍ ESTOY", location);
   try {
-    // Agregamos la ubicación seleccionada a los valores del formulario
-    const dataFormattedToSend = preFormattingData({ ...values, location });
+    // Convierte la ubicación en un solo string
+    const locationString = `${location.lat},${location.lng}`;
+
+    // Usa preFormattingData con la ubicación como string
+    const dataFormattedToSend = preFormattingData({
+      ...values,
+      plusCode, // Pasa el plusCode aquí
+    });
 
     if (dataFormattedToSend) {
       const response = await HandlerNewTournament(dataFormattedToSend);
-      console.log(response);
       Swal.fire({
         title: "Torneo creado con éxito.",
         width: 400,
@@ -120,7 +125,7 @@ async function handlerSubmit(
     });
     console.error(error);
   }
-}
+};
 
 interface IDataAndValuesConstructor {
   formDataContructor: {
@@ -136,18 +141,32 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
     formDataContructor;
 
   const [selectedLocation, setSelectedLocation] = useState<{
-    lat: number;
-    lng: number;
+    lat: string;
+    lng: string;
   } | null>(null);
+
+  const [selectedPlusCode, setSelectedPlusCode] = useState<string | null>(null);
 
   const router = useRouter();
 
-  const handleLocationSelect = (location: { lat: number; lng: number }) => {
+  const handleLocationSelect = (
+    location: { lat: string; lng: string },
+    plusCode: string
+  ) => {
     setSelectedLocation(location);
+    setSelectedPlusCode(plusCode);
   };
 
   return (
     <section className="flex flex-col items-center justify-center w-screen gap-2 h-fit">
+      <div className="mt-20 flex flex-col items-center justify-start px-4 sm:px-6 md:px-8">
+        <h1 className="text-3xl md:text-4xl text-[#f8fafc] uppercase radhiumz">
+          CREÁ UN TORNEO
+        </h1>
+        <h2 className="text-lg md:text-xl text-[#f8fafc] sfRegular">
+          Completá los datos del formulario y gestioná tus propios torneos
+        </h2>
+      </div>
       <FormComponent
         iniValues={{
           ...createTournamentInitialValues,
@@ -155,12 +174,16 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
         }}
         valiSchema={createTournamentSchema}
         handelerSubmit={(values: ICreateTournamentFormData) =>
-          handlerSubmit(values, router, selectedLocation!)
+          handlerSubmit(values, router, selectedLocation!, selectedPlusCode!)
         }
         dataContructor={inputsCreateTournamentFormValues}
         butonsForm={butonsCreateTournamentForm}
+        additionalComponent={
+          <div>
+            <MapInputComponent onLocationSelect={handleLocationSelect} />
+          </div>
+        }
       />
-      <MapInputComponent onLocationSelect={handleLocationSelect} />
     </section>
   );
 };

@@ -30,7 +30,7 @@ export interface IUserGooglePut {
   city: string;
   address: string;
   profileImg: string;
-  category: { name: string };
+  category: { name: string; id: string; description: string };
   role?: "admin" | "jugador";
 }
 
@@ -53,7 +53,7 @@ export interface IUserLogin {
   address: string;
   profileImg: string;
   role?: "admin" | "jugador";
-  category: { name: string };
+  category: { name: string; id: string; description: string };
 }
 
 //? Tournament Interfaces
@@ -77,12 +77,12 @@ export interface ICreateTournamentReq {
   tournamentFlyer: string;
   category: string;
   price: number;
-  location: ilocation;
+  plusCode?: string;
 }
 
-export interface ilocation {
-  lat: number;
-  lng: number;
+export interface location {
+  lat: string;
+  lng: string;
 }
 
 export interface ICreateTournamentFormData {
@@ -104,7 +104,7 @@ export interface ICreateTournamentFormData {
   tournamentFlyer: string;
   category: string;
   price: number;
-  location: ilocation;
+  location: string;
 }
 
 //? Category Interfaces
@@ -127,7 +127,6 @@ export interface IProductPaymentDataReq {
   tournament: string;
   host: string;
   user: string;
-  // notification_url: string;
 }
 
 export interface IPayment {
@@ -135,4 +134,11 @@ export interface IPayment {
   status: string;
   amount: number;
   date: string;
+}
+
+//? Teams Interfaces
+
+export interface IPostNewTeam {
+  name: string;
+  players: string[];
 }
