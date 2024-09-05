@@ -8,6 +8,6 @@ export interface IMatch {
   time: string;
   teams: ITeam[];
   tournament?: ITournament;
-  teamWinner: ITeam;
+  teamWinner: string;
   round?: IRound;
 }

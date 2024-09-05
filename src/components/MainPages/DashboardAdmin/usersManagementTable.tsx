@@ -5,6 +5,8 @@ import { getAllUsers, updateUserCategory } from "@/Server/Users/getUsers";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { getCategories } from "@/Server/Category/getCategories";
 import Swal from "sweetalert2";
+import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
+import StadisticsView from "../DashboardUser/StadisticsSection/StadisticsView";
 
 interface UserProp {
   id: string;
@@ -33,7 +35,15 @@ const UsersManagement: React.FC = () => {
   const [selectedFilterCategory, setSelectedFilterCategory] =
     useState<string>(""); // Estado para la categoría seleccionada
   const [searchQuery, setSearchQuery] = useState<string>(""); // Nuevo estado para el texto de búsqueda
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [blurBackground, setBlurBackground] = useState(true);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
 
+  const openModal = (userId: string) => {
+    setSelectedUserId(userId); // Establecer el ID del usuario seleccionado
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -217,6 +227,14 @@ const UsersManagement: React.FC = () => {
                   <p className="radhiumz text-xs">GUARDAR</p>
                 </ActionButton>
               </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <ActionButton
+                  onClick={() => openModal(user.id)}
+                  className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz"
+                >
+                  <p className="radhiumz text-xs">VER</p>
+                </ActionButton>
+              </td>
             </tr>
           ))
         ) : (
@@ -230,6 +248,18 @@ const UsersManagement: React.FC = () => {
           </tr>
         )}
       </CustomTable>
+      {isModalOpen && (
+        <ReusableModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          blurBackground
+          backgroundColor="bg-blue-700/30"
+          textColor="text-black"
+          className="w-2/3"
+        >
+          {selectedUserId && <StadisticsView userId={selectedUserId} />}
+        </ReusableModal>
+      )}
     </>
   );
 };

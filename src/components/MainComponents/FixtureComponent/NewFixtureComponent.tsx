@@ -4,6 +4,7 @@ import { getFixtureById } from "@/Server/Fixture/getFixtureById";
 import { AuthContext } from "@/context/GlobalContext";
 import { selectWinner } from "@/Server/Fixture/selectWinner";
 import { ITeam } from "@/interfaces/ComponentsInterfaces/Team";
+import { getOneTeam } from "@/Server/Tournament/Teams/getOneTeam";
 
 interface FixtureProps {
   fixtureId: string;
@@ -12,6 +13,12 @@ interface FixtureProps {
 const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
   const [fixture, setFixture] = useState<IFixture | null>(null);
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
+  const [winners, setWinners] = useState<string[]>([]);
+  const [winnersNames, setWinnersNames] = useState<{ [key: string]: string }>(
+    {}
+  );
+  console.log(winners);
+  console.log(winnersNames);
 
   const { currentUser } = useContext(AuthContext);
 
@@ -19,7 +26,26 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
     const getFixture = async () => {
       try {
         const response: IFixture = await getFixtureById(fixtureId);
+        console.log(response);
+        const winnerIds = response.round.flatMap((round) =>
+          round.matches.map((match) => match.teamWinner)
+        );
+
+        setWinners(winnerIds);
         setFixture(response);
+        const winnerPromises = winnerIds.map((id) => getOneTeam(id));
+        const winnerResponses = await Promise.all(winnerPromises);
+        console.log(winnerResponses.map((winner) => winner?.name));
+        const namesMap = winnerResponses.reduce<{ [key: string]: string }>(
+          (acc, team) => {
+            if (team) {
+              acc[team.id] = team.name; // Map ID to name
+            }
+            return acc;
+          },
+          {}
+        );
+        setWinnersNames(namesMap);
       } catch (error) {
         console.log(error);
       }
@@ -78,11 +104,15 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
             round.matches.map((match, matchIndex) => (
               <div
                 key={`${roundIndex}-${matchIndex}`}
-                className="p-4 border-2 border-white bg-blue-700/20 sfBold rounded-lg text-white shadow-md w-full md:w-48 flex flex-col items-center space-y-2 mb-6 "
+                className="p-2 border-2 border-white bg-blue-700/20 sfBold rounded-lg text-white shadow-md w-full md:w-36 flex flex-col items-center space-y-2 mb-6 "
               >
                 <p className="text-xs">{`Fecha: ${match.date}`}</p>
                 <p className="text-xs">{`Hora: ${match.time}`}</p>
-
+                <p className="text-xs">{`Ganador: ${
+                  match.teamWinner === null
+                    ? "por jugar"
+                    : winnersNames[match.teamWinner]
+                }`}</p>
                 <div className="flex flex-col space-y-1 mt-2">
                   {match?.teams?.map((team) => (
                     <p key={team.id} className="text-xs">{`${team.name} `}</p>
