@@ -199,7 +199,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         <div className="flex justify-center w-full mx-auto mt-4">
           <button
             onClick={openModal}
-            className="rounded-md w-[100%] h-fit p-2 mb-6  bg-lime text-xs text-black hover:shadow-lg hover:shadow-blue-700 radhiumz uppercase">
+            className="rounded-md w-[100%] h-fit p-4 mb-6  bg-lime text-lg text-black hover:shadow-lg hover:shadow-blue-700 radhiumz uppercase">
             Ver Fixture
           </button>
         </div>
