@@ -21,6 +21,7 @@ export function preFormattingData(
     Sabado,
     Domingo,
     plusCode,
+    location,
   } = data;
   const playingDaysSelected = [
     Lunes,
