@@ -68,7 +68,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
 
   return (
     <div className="flex flex-col items-center space-y-6 w-full">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 w-full border-2 border-red-600">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 w-full ">
         {stages.map((stage, stageIndex) => {
           const roundsForStage = fixture.round?.filter(
             (round) => round.stage.toLowerCase() === stage.toLowerCase()
@@ -147,16 +147,11 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
               : "";
 
           return (
-            <div
-              key={stageIndex}
-              className="flex flex-col items-center border-2 border-yellow-600"
-            >
+            <div key={stageIndex} className="flex flex-col items-center ">
               <h3 className="text-2xl uppercase text-white mb-4 radhiumz">
                 {stage}
               </h3>
-              <div
-                className={`grid grid-cols-1 gap-4 w-full border-2 border-blue-600 ${marginTop}`}
-              >
+              <div className={`grid grid-cols-1 gap-4 w-full  ${marginTop}`}>
                 {cardsToRender}
                 {additionalCards}
               </div>

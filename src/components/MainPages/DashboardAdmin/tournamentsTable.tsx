@@ -205,11 +205,26 @@ const TournamentsTable: React.FC = () => {
                               </svg>{" "}
                             </button>
                             <HoverButton
-                              secondaryText="Cerrar Inscripciones"
-                              className="hover:text-primary  "
-                              onClick={() =>
-                                handleCloseInscription(tournament.id)
+                              secondaryText={
+                                tournament.inscription === "cerradas"
+                                  ? "Inscripciones Cerradas"
+                                  : "Cerrar Inscripciones"
                               }
+                              className={`hover:text-primary ${
+                                tournament.status === "finalizado"
+                                  ? "border-2 border-red-700"
+                                  : tournament.inscription === "cerradas"
+                                  ? "border-2 border-green-600"
+                                  : "border-2 border-yellow-600"
+                              }`}
+                              onClick={() => {
+                                if (
+                                  tournament.inscription !== "cerradas" &&
+                                  tournament.status !== "finalizado"
+                                ) {
+                                  handleCloseInscription(tournament.id);
+                                }
+                              }}
                             >
                               <svg
                                 width="24"
