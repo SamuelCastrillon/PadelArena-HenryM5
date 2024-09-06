@@ -56,7 +56,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
         </div>
         <div className="flex flex-col items-center">
           <h1 className="text-xl radhiumz text-white">CUARTOS</h1>
-          <p className="sfRegular text-white uppercase">Precalentamiento</p>
+          <p className="sfRegular text-white uppercase">Precalentamiento!</p>
         </div>
         <div className="flex flex-col items-center">
           <h1 className="text-xl radhiumz text-white">SEMIFINALES</h1>
