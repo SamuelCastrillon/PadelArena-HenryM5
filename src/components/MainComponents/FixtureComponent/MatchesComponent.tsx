@@ -1,8 +1,11 @@
 import { AuthContext } from "@/context/GlobalContext";
+import useWindowSize from "@/hooks/useWindowSize";
 import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
 import { IMatch } from "@/interfaces/ComponentsInterfaces/Match";
+import { IStages } from "@/interfaces/ComponentsInterfaces/Round";
 import { selectWinner } from "@/Server/Fixture/selectWinner";
 import React, { useState } from "react";
+import Confetti, { ReactConfetti } from "react-confetti";
 
 interface MatchProps {
   match: IMatch;
@@ -12,6 +15,9 @@ interface MatchProps {
 const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
   const { currentUser } = React.useContext(AuthContext);
+  const [showConfetti, setShowConfetti] = useState<boolean>(false);
+
+  const { width, height } = useWindowSize();
 
   const handleDropdownToggle = (matchId: string) => {
     setDropdownOpen(dropdownOpen === matchId ? null : matchId);
@@ -24,6 +30,12 @@ const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
       if (response) {
         setFixtureState(response);
         setDropdownOpen(null);
+        // Mostrar confetti si es la final
+        if (response.round.some((round: IStages) => round.stage === "final")) {
+          setShowConfetti(true);
+
+          setTimeout(() => setShowConfetti(false), 8000);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -32,6 +44,10 @@ const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
 
   return (
     <div className="relative flex justify-center items-center w-full">
+      {/* Confetti */}
+      {showConfetti && width > 0 && height > 0 && (
+        <Confetti width={width} height={height} />
+      )}
       <div className="p-2 border-2 border-white bg-blue-700/20 sfBold rounded-lg text-white shadow-md w-full md:w-44 flex flex-col items-center space-y-2 mb-6">
         <p className="text-xs text-center text-lime uppercase">{`Ganador: ${
           match.teamWinner?.name || "Por determinar"
