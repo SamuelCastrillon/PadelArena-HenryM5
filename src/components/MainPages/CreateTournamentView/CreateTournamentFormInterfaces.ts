@@ -13,5 +13,4 @@ export interface IFormTournametInitiaalValues {
   tournamentImg: string;
   price: number;
   category: string;
-  location: location;
 }
