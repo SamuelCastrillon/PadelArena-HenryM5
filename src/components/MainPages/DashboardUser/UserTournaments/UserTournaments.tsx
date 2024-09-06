@@ -7,12 +7,11 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { getUserTournament } from "@/Server/User/getUserTournament";
 import { AuthContext } from "@/context/GlobalContext";
+import { ITeam } from "@/interfaces/ComponentsInterfaces/Team";
 
 const UserTournaments = () => {
   const { tournaments } = useTournamentData();
-  const [userTournaments, setUserTournaments] = useState<ITournament | null>(
-    null
-  );
+  const [userTournaments, setUserTournaments] = useState<ITournament[]>([]); // Cambia a un array de torneos
   const { currentUser } = useContext(AuthContext);
   const router = useRouter();
 
@@ -21,7 +20,8 @@ const UserTournaments = () => {
       try {
         if (!currentUser) return;
         const userResponse = await getUserTournament(currentUser.id);
-        setUserTournaments(userResponse.team.tournament);
+        console.log(userResponse.team.map((t: ITeam) => t.tournament)); // Verifica que datos se están recibiendo
+        setUserTournaments(userResponse.team.map((t: ITeam) => t.tournament)); // Asegúrate de que `team` y `tournament` están en el formato esperado
       } catch (error) {
         console.error("Error fetching user tournaments:", error);
       }
@@ -34,7 +34,8 @@ const UserTournaments = () => {
     router.push(`/tournaments/${tournamentId}`);
   };
 
-  if (!userTournaments) {
+  if (userTournaments.length === 0) {
+    // Cambiado de null a longitud del array
     return (
       <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
         <h1 className="text-2xl radhiumz uppercase mb-4">
@@ -53,7 +54,7 @@ const UserTournaments = () => {
       <CustomTable
         headers={["Nombre", "Categoría", "Inscripción", "Estado", "Acciones"]}
       >
-        {/* {userTournaments.map((tournament) => (
+        {userTournaments.map((tournament) => (
           <tr key={tournament.id} className="border-t-2 border-lime sfBold">
             <td className="px-4 py-2">{tournament.name}</td>
             <td className="px-4 py-2">{tournament.category?.name || "N/A"}</td>
@@ -76,32 +77,7 @@ const UserTournaments = () => {
               </ActionButton>
             </td>
           </tr>
-        ))} */}
-
-        <tr key={userTournaments.id} className="border-t-2 border-lime sfBold">
-          <td className="px-4 py-2">{userTournaments.name}</td>
-          <td className="px-4 py-2">
-            {userTournaments.category?.name || "N/A"}
-          </td>
-          <td
-            className={`px-4 py-2 ${
-              userTournaments.inscription === "abiertas"
-                ? "text-green-600"
-                : "text-red-700"
-            } uppercase`}
-          >
-            {userTournaments.inscription}
-          </td>
-          <td className="px-4 py-2">{userTournaments.status}</td>
-          <td className="px-4 py-2">
-            <ActionButton
-              className="bg-lime text-black px-4 py-2 radhiumz uppercase rounded hover:bg-blue-700 hover:text-white"
-              onClick={() => handleViewDetails(userTournaments.id)}
-            >
-              Ver Detalle
-            </ActionButton>
-          </td>
-        </tr>
+        ))}
       </CustomTable>
     </div>
   );
