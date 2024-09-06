@@ -24,7 +24,7 @@ const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
         setFixtureState(response.fixture);
         setDropdownOpen(null);
       } else {
-        console.log("falta el fixture");
+        console.log("falta el fixture por aqui");
       }
     } catch (error) {
       console.log(error);
