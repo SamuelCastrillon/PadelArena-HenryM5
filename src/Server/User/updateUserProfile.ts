@@ -18,7 +18,7 @@ export const updateUserProfile = async (
       `/users/updateProfile/${userId}`,
       updateData
     );
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.log(error);

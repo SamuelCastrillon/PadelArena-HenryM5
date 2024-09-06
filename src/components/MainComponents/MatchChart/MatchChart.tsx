@@ -1,29 +1,24 @@
+"use client";
+
 import React from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const MatchStatsChart = ({
-  wins,
-  losses,
-}: {
-  wins: number;
-  losses: number;
-}) => {
+const MatchStatsChart = ({ won, loss }: { won: number; loss: number }) => {
   const data = {
     labels: ["Partidos Ganados", "Partidos Perdidos"],
     datasets: [
       {
         label: "Partidos",
-        data: [wins, losses],
-        backgroundColor: ["blue", "lime"], // Verde para ganados, rojo para perdidos
+        data: [won, loss],
+        backgroundColor: ["blue", "lime"], // Azul para ganados, verde para perdidos
         hoverBackgroundColor: ["#45a049", "#e35d5b"],
       },
     ],
   };
 
-  // Opciones para personalizar el color de las etiquetas de la leyenda
   const options = {
     plugins: {
       legend: {

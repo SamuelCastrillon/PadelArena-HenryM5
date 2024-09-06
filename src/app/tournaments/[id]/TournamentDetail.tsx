@@ -24,10 +24,13 @@ const TournamentDetail = async ({ params }: { params: { id: string } }) => {
   if (!tournamentId) {
     return <div>Torneo no encontrado</div>;
   }
-  console.log(tournamentId);
+
   return (
     <div className=" w-[90%] md:w-3/4 mx-auto p-4 justify-center items-center ">
-      <TournamentDetailView tournament={tournamentId} currentHost={CURRENT_APP_URL || ""} />
+      <TournamentDetailView
+        tournament={tournamentId}
+        currentHost={CURRENT_APP_URL || ""}
+      />
     </div>
   );
 };
