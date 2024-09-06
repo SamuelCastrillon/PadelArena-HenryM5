@@ -29,6 +29,11 @@ const Footer: React.FC = () => {
                   Terminos y condiciones
                 </a>
               </li>
+              <li>
+                <a href="/chat" className="hover:underline">
+                  Chat Web
+                </a>
+              </li>
             </ul>
           </div>
 
