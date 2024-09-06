@@ -13,6 +13,7 @@ import React, { useContext, useState } from "react";
 
 import { fixture } from "@/helpers/fixtureData";
 import NewFixtureComponent from "@/components/MainComponents/FixtureComponent/NewFixtureComponent";
+import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -293,6 +294,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         {tournament.fixture?.id ? (
           <NewFixtureComponent fixtureId={tournament.fixture.id} />
         ) : (
+          // <FixtureComponent fixtureId={tournament.fixture.id} />
           <p className="text-xl text-center">
             No hay fixture disponible para este torneo.
           </p>
