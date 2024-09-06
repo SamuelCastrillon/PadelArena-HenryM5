@@ -19,7 +19,7 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
     const getFixture = async () => {
       try {
         const response: IFixture = await getFixtureById(fixtureId);
-        console.log(response);
+
         setFixture(response);
       } catch (error) {
         console.log(error);

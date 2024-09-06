@@ -18,7 +18,7 @@ const FixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
     const getFixture = async () => {
       try {
         const response: IFixture = await getFixtureById(fixtureId);
-        console.log(response);
+
         setFixture(response);
       } catch (error) {
         console.log(error);
@@ -35,7 +35,6 @@ const FixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
   const handleSelectWinner = async (matchId: string, teamId: string) => {
     try {
       const response = await selectWinner(matchId, teamId);
-      console.log("Select Winner Response:", response);
 
       // Asegúrate de que la respuesta contiene la estructura correcta
       if (response.round) {

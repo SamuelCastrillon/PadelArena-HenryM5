@@ -19,7 +19,7 @@ const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
   const handleSelectWinner = async (matchId: string, teamId: string) => {
     try {
       const response = await selectWinner(matchId, teamId);
-      console.log(response);
+
       if (response.fixture) {
         setFixtureState(response.fixture);
         setDropdownOpen(null);

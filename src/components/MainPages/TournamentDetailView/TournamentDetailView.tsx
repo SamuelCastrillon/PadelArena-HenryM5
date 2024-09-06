@@ -11,7 +11,6 @@ import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
 
-import { fixture } from "@/helpers/fixtureData";
 import NewFixtureComponent from "@/components/MainComponents/FixtureComponent/NewFixtureComponent";
 import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
 
@@ -52,7 +51,6 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
   // Manejo de redireccionamiento
   const TOURNAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
-  console.log(TOURNAMENT_REGISTER_URL);
 
   // Manejo de inscripción
   const handleInscriptionClick = async () => {

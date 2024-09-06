@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const TournamentsTable: React.FC = () => {
   const { tournaments, categories } = useTournamentData();
-  console.log(tournaments);
+
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
