@@ -21,11 +21,9 @@ const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
     try {
       const response = await selectWinner(matchId, teamId);
       console.log(response);
-      if (response.fixture) {
-        setFixtureState(response.fixture);
+      if (response) {
+        setFixtureState(response);
         setDropdownOpen(null);
-      } else {
-        console.log("falta el fixture por aqui");
       }
     } catch (error) {
       console.log(error);
