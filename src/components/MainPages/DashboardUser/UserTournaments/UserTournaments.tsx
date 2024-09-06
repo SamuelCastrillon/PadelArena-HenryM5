@@ -46,10 +46,10 @@ const UserTournaments = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
-      <h1 className="text-2xl radhiumz uppercase mb-4">
+    <div className="w-full flex flex-col items-center bg-transparent border-2 border-lime rounded-lg p-4 mt-10">
+      <h1 className="text-2xl text-white radhiumz uppercase mb-4">
         Torneos en los que estás inscrito:{" "}
-        <span className="text-blue-600">{currentUser?.name}</span>
+        <span className="text-lime">{currentUser?.name}</span>
       </h1>
       <CustomTable
         headers={["Nombre", "Categoría", "Inscripción", "Estado", "Acciones"]}
