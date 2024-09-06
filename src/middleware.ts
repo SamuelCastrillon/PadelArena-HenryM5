@@ -7,8 +7,6 @@ const regularUserKey = "regularUser";
 export async function middleware(request: NextRequest) {
   const googleUserCookie = request.cookies.get(googleUserKey)?.value;
   const regularUserCookie = request.cookies.get(regularUserKey)?.value;
-  console.log(regularUserCookie);
-  console.log(googleUserCookie);
 
   let user = null;
   let role = null;
@@ -17,7 +15,6 @@ export async function middleware(request: NextRequest) {
     try {
       user = JSON.parse(googleUserCookie);
       role = user.role; // Extraer el rol del usuario para comparar
-      console.log("Usuario autenticado (Google):", user);
     } catch (error) {
       console.error("Error al analizar la cookie de Google User:", error);
     }
@@ -25,7 +22,6 @@ export async function middleware(request: NextRequest) {
     try {
       user = JSON.parse(regularUserCookie);
       role = user.role; // Extraer el rol del usuario
-      console.log("Usuario autenticado (Regular):", user);
     } catch (error) {
       console.error("Error al analizar la cookie de Regular User:", error);
     }

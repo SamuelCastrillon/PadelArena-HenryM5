@@ -5,7 +5,7 @@ export const closeInscription = async (tournamentId: string) => {
     const response = await axiosInstance.put(
       `/tournament/closeInscriptions/${tournamentId}`
     );
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.error("Error al cerrar inscripción:", error);

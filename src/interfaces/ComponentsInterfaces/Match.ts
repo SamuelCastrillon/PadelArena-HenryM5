@@ -1,4 +1,4 @@
-import { IRound } from "./Round";
+import { IStages } from "./Round";
 import { ITeam } from "./Team";
 import { ITournament } from "./Tournament";
 
@@ -9,5 +9,5 @@ export interface IMatch {
   teams: ITeam[];
   tournament?: ITournament;
   teamWinner: ITeam;
-  round?: IRound;
+  round?: IStages;
 }

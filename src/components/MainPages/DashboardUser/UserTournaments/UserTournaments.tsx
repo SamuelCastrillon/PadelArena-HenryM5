@@ -1,132 +1,78 @@
 "use client";
-import React, { useContext } from "react";
-import { AuthContext } from "@/context/GlobalContext";
+import React, { useContext, useEffect, useState } from "react";
 import useTournamentData from "@/hooks/fetchTournamentData";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { useRouter } from "next/navigation";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
-
-const tournamentsData: ITournament[] = [
-  {
-    id: "84b14867-7a28-4958-8a70-a5146955d045",
-    name: "Summer Padel Cup",
-    startDate: "2024-06-01",
-    endDate: "2024-06-15",
-    startingTime: "09:00",
-    finishTime: "17:00",
-    playingDay: ["2024-06-01", "2024-06-02"],
-    description: "Un torneo emocionante de verano.",
-    tournamentFlyer: "url/to/flyer.jpg",
-    gallery: ["url/to/image1.jpg", "url/to/image2.jpg"],
-    courtsAvailable: 5,
-    inscription: "abiertas",
-    status: "por comenzar",
-    category: {
-      id: "bc615164-15a2-4e6f-a421-de019a63baff",
-      name: "Tercera",
-      description:
-        "Jugadores de pádel con habilidades intermedias, aún desarrollando su técnica.",
-    },
-    genero: "masculino",
-    teamsQuantity: 10,
-    matchDuration: 60,
-    fixture: [],
-    team: [
-      {
-        id: "1",
-        name: "Equipo A",
-        category: {
-          id: "bc615164-15a2-4e6f-a421-de019a63baff",
-          name: "Tercera",
-          description:
-            "Jugadores de pádel con habilidades intermedias, aún desarrollando su técnica.",
-        },
-        users: [{ id: "04c7e986-7372-4f3b-856f-2c09ead869e8" }],
-        tournament: {
-          id: "84b14867-7a28-4958-8a70-a5146955d045",
-          name: "Summer Padel Cup",
-          startDate: "2024-06-01",
-          endDate: "2024-06-15",
-          startingTime: "09:00",
-          finishTime: "17:00",
-          playingDay: ["2024-06-01", "2024-06-02"],
-          description: "Un torneo emocionante de verano.",
-          tournamentFlyer: "url/to/flyer.jpg",
-          gallery: ["url/to/image1.jpg", "url/to/image2.jpg"],
-          courtsAvailable: 5,
-          inscription: "abiertas",
-          status: "por comenzar",
-          category: {
-            id: "bc615164-15a2-4e6f-a421-de019a63baff",
-            name: "Tercera",
-            description:
-              "Jugadores de pádel con habilidades intermedias, aún desarrollando su técnica.",
-          },
-          genero: "masculino",
-          teamsQuantity: 10,
-          matchDuration: 60,
-          fixture: [],
-          team: [],
-        },
-        matches: [],
-      },
-    ],
-    matches: [],
-  },
-];
+import { getTeamsInTournament } from "@/Server/Tournament/Teams/getTeamsInTournament";
+import { ITeam } from "@/interfaces/ComponentsInterfaces/Team";
+import { getUserById } from "@/Server/User/getUserById";
+import { AuthContext } from "@/context/GlobalContext";
 
 const UserTournaments = () => {
-  // Obtiene el contexto del usuario
-  const { currentUser } = useContext(AuthContext);
   const { tournaments } = useTournamentData();
-
-  const userCategoryName = currentUser?.category?.name;
-
+  const [userTournaments, setUserTournaments] = useState<ITournament[]>([]);
+  const { currentUser } = useContext(AuthContext);
+  const [teamsInTournaments, setTeamsInTournaments] = useState<{
+    [key: string]: ITeam[];
+  }>({});
   const router = useRouter();
-  const userTeams = tournamentsData.flatMap(
-    (tournament) =>
-      tournament.team?.filter((team) =>
-        team.users.some((user) => user.id === currentUser?.id)
-      ) || []
-  );
-  const userTournaments = tournamentsData.filter((tournament) =>
-    tournament.team?.some(
-      (team) =>
-        userTeams.some((userTeam) => userTeam.id === team.id) &&
-        tournament.inscription === "abiertas"
-    )
-  );
 
-  //CON LOS TOURNAMENTS POSTA
-  // Verifica si tournaments tiene datos
-  // if (!tournaments || tournaments.length === 0) {
-  //   return (
-  //     <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
-  //       <h1 className="text-2xl radhiumz uppercase mb-4">
-  //         No hay torneos disponibles para mostrar.
-  //       </h1>
-  //     </div>
-  //   );
-  // }
+  useEffect(() => {
+    const fetchUserTournaments = async () => {
+      try {
+        // Obtener los equipos del usuario
+        if (!currentUser) return;
+        const userResponse = await getUserById(currentUser.id);
+        const userTeams = userResponse.team || []; // Obtén los equipos del usuario
+        console.log("User Teams:", userTeams);
 
-  // const userTeams = tournaments.flatMap(
-  //   (tournament) =>
-  //     tournament.team?.filter((team) =>
-  //       team.users.some((user) => user.id === currentUser?.id)
-  //     ) || []
-  // );
-  // const userTournaments = tournaments.filter((tournament) =>
-  //   tournament.team?.some(
-  //     (team) =>
-  //       userTeams.some((userTeam) => userTeam.id === team.id) &&
-  //       tournament.inscription === "abiertas"
-  //   )
-  // );
+        if (!tournaments || tournaments.length === 0 || userTeams.length === 0)
+          return;
+
+        const fetchedTeamsInTournaments: { [key: string]: ITeam[] } = {};
+        const matchingTournaments: ITournament[] = [];
+
+        for (const tournament of tournaments) {
+          // Obtener equipos de cada torneo
+          const response = await getTeamsInTournament(tournament.id);
+          console.log(`Equipos en el Torneo "${tournament.name}":`, response);
+          fetchedTeamsInTournaments[tournament.name] = response;
+
+          // Verificar si el equipo del usuario está en el torneo
+          const hasUserTeam = response.some((team: ITeam) =>
+            userTeams.some((userTeam: ITeam) => userTeam.name === team.name)
+          );
+
+          if (hasUserTeam) {
+            matchingTournaments.push(tournament);
+          }
+        }
+
+        setTeamsInTournaments(fetchedTeamsInTournaments);
+        setUserTournaments(matchingTournaments);
+      } catch (error) {
+        console.error("Error fetching user tournaments:", error);
+      }
+    };
+
+    fetchUserTournaments();
+  }, [tournaments]);
 
   const handleViewDetails = (tournamentId: string) => {
     router.push(`/tournaments/${tournamentId}`);
   };
+
+  if (!userTournaments || userTournaments.length === 0) {
+    return (
+      <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
+        <h1 className="text-2xl radhiumz uppercase mb-4">
+          No hay torneos disponibles para mostrar.
+        </h1>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
@@ -139,20 +85,19 @@ const UserTournaments = () => {
       >
         {userTournaments.map((tournament) => (
           <tr key={tournament.id} className="border-t-2 border-lime sfBold">
-            <td className="px-4 py-2 ">{tournament.name}</td>
-            <td className="px-4 py-2 ">{tournament.category?.name || "N/A"}</td>
+            <td className="px-4 py-2">{tournament.name}</td>
+            <td className="px-4 py-2">{tournament.category?.name || "N/A"}</td>
             {tournament.inscription === "abiertas" ? (
               <td className="px-4 py-2 text-green-600 uppercase">
                 {tournament.inscription}
               </td>
             ) : (
-              <td className="px-4 py-2 text-red-700 uppercase ">
+              <td className="px-4 py-2 text-red-700 uppercase">
                 {tournament.inscription}
               </td>
             )}
-
-            <td className="px-4 py-2 ">{tournament.status}</td>
-            <td className="px-4 py-2 ">
+            <td className="px-4 py-2">{tournament.status}</td>
+            <td className="px-4 py-2">
               <ActionButton
                 className="bg-lime text-black px-4 py-2 radhiumz uppercase rounded hover:bg-blue-700 hover:text-white"
                 onClick={() => handleViewDetails(tournament.id)}
