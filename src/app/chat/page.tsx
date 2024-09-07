@@ -1,5 +1,5 @@
 import React from "react";
-import ChatView from "@/components/ChatComponent.tsx/ChatComponent";
+import ChatView from "@/components/ChatComponent/ChatComponent";
 
 const ChatPage: React.FC = () => {
   return <ChatView />;
