@@ -109,10 +109,10 @@ const ChatView: React.FC = () => {
           ¡Logueate para participar!
         </h2>
       </div>
-      <div className="flex flex-col justify-center items-center min-h-screen">
-        <div className="flex h-[500px] max-w-screen-md w-full rounded-glass m-10 shadow-md p-4 bg-glass backdrop-filter backdrop-blur-lg border-glass border-2">
+      <div className="flex flex-col justify-center items-center min-h-screen z-10">
+        <div className="flex h-[500px] max-w-screen-md w-full rounded-glass m-10 shadow-md p-4 bg-glass  border-glass border-2">
           <div className="flex-1 flex flex-col text-white rounded-t-glass rounded-b-xl bg-black/30">
-            <div className="p-4 rounded-t-glass bg-customBlue bg-blur backdrop-filter backdrop-blur text-white flex items-center">
+            <div className="p-4 rounded-t-glass bg-customBlue bg-blur  text-white flex items-center">
               <img
                 src="/avatarJugador.png"
                 alt="Avatar"
