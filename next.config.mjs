@@ -12,6 +12,7 @@ const nextConfig = {
       "flowbite.s3.amazonaws.com",
       "img.redbull.com",
       "resizer.glanacion.com",
+      "example.com",
     ],
   },
 };
