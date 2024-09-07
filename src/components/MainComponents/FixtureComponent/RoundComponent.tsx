@@ -22,11 +22,13 @@ const RoundComponent: React.FC<RoundComponentProps> = ({
   }
 
   return (
-    <div className="border-2 border-red-600 w-full">
+    <div className="w-full">
       {typeof stage === "number"
         ? stageNumber.map((num) => (
             <div key={num}>
-              <h1 className="text-2xl font-bold text-center">Proximamente</h1>
+              <h1 className=" w-3/4 mx-auto mb-6 text-lg radhiumz text-white uppercase text-center border-2 border-white rounded-lg bg-blue-700/30 px-4 py-2">
+                Proximamente
+              </h1>
             </div>
           ))
         : stage.matches.map((match: IMatch) => (
