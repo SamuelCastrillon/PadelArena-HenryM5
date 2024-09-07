@@ -72,7 +72,7 @@ interface Message {
 const ChatView: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
   const socket: Socket = io("http://localhost:3001", {
-    query: { userid: currentUser?.id },
+    query: { userid: currentUser?.id || "" },
   });
 
   const [message, setMessage] = useState<string>("");
@@ -142,7 +142,8 @@ const ChatView: React.FC = () => {
               />
               <button
                 type="submit"
-                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase">
+                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase"
+              >
                 Send
               </button>
             </form>
