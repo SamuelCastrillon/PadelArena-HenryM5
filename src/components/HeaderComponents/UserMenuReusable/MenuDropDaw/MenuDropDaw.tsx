@@ -9,9 +9,20 @@ import {
   CheckBadgeIcon,
   UserCircleIcon,
   ChartBarIcon,
+  ChatBubbleLeftIcon,
 } from "@heroicons/react/24/outline";
 import { IMenuReusableStatus } from "../UserMenuReusableInterfaces";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
+import {
+  ChartBarSquareIcon,
+  ChatBubbleBottomCenterIcon,
+  ChatBubbleLeftEllipsisIcon,
+} from "@heroicons/react/20/solid";
+import {
+  ChatBubbleBottomCenterTextIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
+  ChatBubbleOvalLeftIcon,
+} from "@heroicons/react/16/solid";
 
 const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
   menuStatus,
@@ -88,6 +99,9 @@ const AdminMenu = ({ handlerLogOut }: { handlerLogOut: () => void }) => {
         routeNavigate="/dashboard/admin/paymentsHistory">
         <DocumentCurrencyDollarIcon className="h-10" />
       </MenuButton>
+      <MenuButton text="Ir al chat" routeNavigate="/chat">
+        <ChatBubbleLeftIcon className="h-10" />
+      </MenuButton>
       <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-gradient-to-l from-lime to-customBlue" />
       <MenuButton text="Cerrar Sesión" onClick={handlerLogOut}>
         <ArrowLeftStartOnRectangleIcon className="h-10" />
@@ -111,6 +125,9 @@ const UserMenu = ({ handlerLogOut }: { handlerLogOut: () => void }) => {
       <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />
       <MenuButton text="Pagos" routeNavigate="/dashboard/user/payments">
         <CheckBadgeIcon className="h-10" />
+      </MenuButton>
+      <MenuButton text="Ir al chat" routeNavigate="/chat">
+        <ChatBubbleLeftIcon className="h-10" />
       </MenuButton>
       <hr className="w-full h-[1px] mt-2 mb-2 border-none bg-limeBlue-gradient" />
       <MenuButton text="Cerrar Sesión" onClick={handlerLogOut}>
