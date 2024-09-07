@@ -1,8 +1,4 @@
-import {
-  IAallUserPayments,
-  IPayment,
-  IProductPaymentDataReq,
-} from "@/interfaces/RequestInterfaces";
+import { IAallUserPayments, IProductPaymentDataReq } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
 
 async function postPaymentToMP(productData: IProductPaymentDataReq) {
