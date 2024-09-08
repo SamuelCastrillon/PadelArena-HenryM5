@@ -18,6 +18,7 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
 
   const navigate = usePathname();
   const router = useRouter();
+
   const handlerLogOut = async () => {
     try {
       await signOut();
@@ -26,7 +27,7 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
       deleteRegularUser();
       setCurrentUser(null);
 
-      window.location.href = "/";
+      // window.location.href = "/";
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }

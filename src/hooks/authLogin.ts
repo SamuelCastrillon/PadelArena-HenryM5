@@ -44,53 +44,59 @@ const useAuth = () => {
 
   const handlePostSession = async () => {
     const userGoogleData = session?.user as IUserGoogle;
-    if (userGoogleData) {
-      try {
-        const response = await postNextAuthSession(userGoogleData);
+    if (!userGoogleData) {
+      Swal.fire({
+        title: "No pudimos encontrar tu cuenta de google.",
+        text: "Prueba completar el registro desde nuestra app ;)",
+        icon: "error",
+        width: 400,
+        padding: "3em",
+      });
+      return;
+    }
 
-        const newUser =
-          response.googleUserWithoutPassword || response.newGoogleUser;
-        if (
-          response &&
-          response.message &&
-          typeof response.message === "string" &&
-          response.message.includes("realizado con exito")
-        ) {
-          if (newUser) {
-            if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
-              console.error(
-                "URL de la imagen de perfil no válida:",
-                newUser.profileImg
-              );
-              newUser.profileImg = "/images/default-image.jpg"; // Establecer una imagen predeterminada
-            }
+    try {
+      const response = await postNextAuthSession(userGoogleData);
 
-            setUserIdGoogle(newUser.id);
-
-            const { city, country, address, phone, category } = newUser;
-
-            if (!city && !country && !address && !phone && !category) {
-              setIsModalOpen(true);
-            } else {
-              saveGoogleUser(newUser);
-              setCurrentUser(newUser);
-              router.push("/dashboard/user/profile");
-            }
-          }
+      const newUser =
+        response.googleUserWithoutPassword || response.newGoogleUser;
+      if (
+        response &&
+        response.message &&
+        typeof response.message === "string" &&
+        response.message.includes("realizado con exito")
+      ) {
+        if (!newUser) {
+          Swal.fire({
+            title: "El usuario no existe.",
+            text: "El usuario no existe",
+            icon: "error",
+            width: 400,
+            padding: "3em",
+          });
         }
-      } catch (error: any) {
-        Swal.fire({
-          title: "No pudimos encontrar tu cuenta de google.",
-          text: "Prueba completar el registro desde nuestra app ;)",
-          icon: "error",
-          width: 400,
-          padding: "3em",
-        });
-        console.error(
-          "Error al realizar la sesión del usuario:",
-          error.message
-        );
+        if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
+          console.error(
+            "URL de la imagen de perfil no válida:",
+            newUser.profileImg
+          );
+          newUser.profileImg = "/images/default-image.jpg"; // Establecer una imagen predeterminada
+        }
+
+        setUserIdGoogle(newUser.id);
+
+        const { city, country, address, phone, category } = newUser;
+
+        if (!city && !country && !address && !phone && !category) {
+          setIsModalOpen(true);
+        } else {
+          saveGoogleUser(newUser);
+          setCurrentUser(newUser);
+          router.push("/dashboard/user/profile");
+        }
       }
+    } catch (error: any) {
+      console.error(error);
     }
   };
 
