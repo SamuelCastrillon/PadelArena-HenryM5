@@ -59,45 +59,77 @@
 
 // export default ChatView;
 "use client";
-import { useState, useEffect, useContext } from "react";
-import io, { Socket } from "socket.io-client";
-import { AuthContext } from "@/context/GlobalContext";
+import React, { useContext, useEffect, useState } from "react";
+import { io, Socket } from "socket.io-client";
+import { AuthContext } from "@/context/GlobalContext"; // Asegúrate de que este sea el camino correcto a tu contexto
+import { receiveMessageOnPort } from "worker_threads";
 
-// Tipo para el mensaje
 interface Message {
-  from: string;
+  sender: string;
+  content: string;
   message: string;
 }
 
 const ChatView: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
-  const socket: Socket = io("http://localhost:3001", {
-    query: { userid: currentUser?.id || "" },
-  });
+  console.log("user:", currentUser);
 
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const newMessage: Message = {
-      message,
-      from: "Me",
-    };
-    socket.emit("message", message);
-    setMessage(""); // Vacía el input después de enviar el mensaje
+  // Función para traer los últimos mensajes
+  const fetchMessages = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/chat");
+
+      if (!response.ok) {
+        throw new Error("Error al traer los mensajes");
+      }
+      const data: Message[] = await response.json();
+      setMessages(data); // Actualizar el estado con los mensajes obtenidos
+      console.log("EH", data);
+    } catch (error) {
+      console.error("Error al obtener los mensajes:", error);
+    }
   };
 
   useEffect(() => {
-    const recieveMessage = (message: Message) => {
-      setMessages((state) => [...state, message]);
-    };
+    fetchMessages(); // Traer mensajes cuando el componente se monta
 
-    socket.on("message", recieveMessage);
-    return () => {
-      socket.off("message", recieveMessage);
-    };
-  }, []);
+    if (currentUser?.id) {
+      const newSocket: Socket = io("http://localhost:3001/", {
+        query: { userid: currentUser.id }, // Enviar el userID en la query
+      });
+
+      setSocket(newSocket);
+
+      // Escuchar mensajes entrantes
+      newSocket.on("message", (message: Message) => {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
+
+      // Limpiar la conexión al desmontar el componente
+      return () => {
+        newSocket.disconnect();
+        console.log("Socket desconectado");
+      };
+    }
+  }, [currentUser]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (socket) {
+      const newMessage: Message = {
+        message,
+        content: message,
+        sender: "Me",
+      };
+      socket.emit("message", message); // Emitir el mensaje al servidor
+      setMessages((prevMessages) => [...prevMessages, newMessage]); // Agregar el mensaje localmente
+      setMessage(""); // Vacía el input después de enviar el mensaje
+    }
+  };
 
   return (
     <>
@@ -116,7 +148,7 @@ const ChatView: React.FC = () => {
               <img
                 src="/avatarJugador.png"
                 alt="Avatar"
-                className="w-10 h-10 rounded-full object-cover mr-3" // Agregado object-cover para mantener la proporción
+                className="w-10 h-10 rounded-full object-cover mr-3"
               />
               <div>
                 <p className="font-bold">CLUB PADEL ARENA</p>
@@ -125,9 +157,9 @@ const ChatView: React.FC = () => {
             </div>
             <div className="flex-1 overflow-y-auto p-4 space-y-2">
               <ul className="space-y-2">
-                {messages?.map((msg, i) => (
+                {messages.map((msg, i) => (
                   <li key={i} className="p-2 bg-black/30 rounded">
-                    <strong>{msg.from}:</strong> {msg.message}
+                    <strong>{msg.sender}:</strong> {msg.content}
                   </li>
                 ))}
               </ul>
@@ -142,8 +174,7 @@ const ChatView: React.FC = () => {
               />
               <button
                 type="submit"
-                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase"
-              >
+                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase">
                 Send
               </button>
             </form>
