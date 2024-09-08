@@ -34,7 +34,9 @@ const StadisticsView = ({ userId }: StadisticsViewProps) => {
   if (error) return <p className="text-white text-center">{error}</p>;
   if (!stats)
     return (
-      <p className="text-white text-center">No se encontraron estadísticas.</p>
+      <p className="text-white text-center radhiumz text-2xl mb-10">
+        No se encontraron estadísticas.
+      </p>
     );
 
   return (
