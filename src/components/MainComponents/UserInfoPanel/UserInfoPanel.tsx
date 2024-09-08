@@ -95,12 +95,24 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
     }
   };
 
+  //VALIDACION IMG ALL WORKING
+  const getImageUrl = (src: string) => {
+    const defaultImage = "/images/default-image.jpg";
+    const isValidUrl =
+      src.startsWith("http://") ||
+      src.startsWith("https://") ||
+      src.startsWith("/");
+    return isValidUrl ? src : defaultImage;
+  };
+
   return (
     <div className="bg-blue-700/20 rounded-lg h-auto flex items-center justify-center my-10">
       <div className="bg-gray-100 p-6 m-2 rounded-lg text-center w-full sm:w-3/4 shadow-md shadow-lime">
         <div className="relative w-fit mx-auto">
           <Image
-            src={userInfo.profileImg}
+            src={getImageUrl(
+              userInfo.profileImg || "/images/default-image.jpg"
+            )}
             alt="Profile Picture"
             className="rounded-full w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 hover:scale-110 transition duration-300 ease-in-out"
             width={192}
