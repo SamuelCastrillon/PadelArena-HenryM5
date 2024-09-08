@@ -9,8 +9,8 @@ export const postNextAuthSession = async (user: IUserGoogle) => {
     return response.data;
   } catch (error) {
     Swal.fire({
-      title: "No pudimos encontrar tu cuenta de google.",
-      text: "Prueba completar el registro desde nuestra app ;)",
+      title: "Error al realizar la sesión del usuario.",
+      text: "Por favor, intente nuevamente más tarde.",
       icon: "error",
       width: 400,
       padding: "3em",
