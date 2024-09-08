@@ -77,7 +77,7 @@ const useAuth = () => {
         }
         if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
           console.error(
-            "URL de la imagen de perfil no válida:",
+            "URL de la imagen de perfil no válida!:",
             newUser.profileImg
           );
           newUser.profileImg = "/images/default-image.jpg"; // Establecer una imagen predeterminada
