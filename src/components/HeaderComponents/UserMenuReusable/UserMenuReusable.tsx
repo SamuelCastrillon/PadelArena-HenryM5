@@ -26,8 +26,6 @@ const UserMenuReusable: React.FC<IMenuReusableData> = () => {
       deleteGoogleUser();
       deleteRegularUser();
       setCurrentUser(null);
-
-      // window.location.href = "/";
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
