@@ -52,7 +52,7 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       </div>
       {carouselItems.length === 0 ? (
         <p className="sfRegular text-xl text-black bg-blue-600/20 rounded-lg px-4 py-2">
-          No hay torneos disponibles para mostrar en el carrusel!
+          No hay torneos disponibles!
         </p>
       ) : (
         <Carousel images={carouselItems} />

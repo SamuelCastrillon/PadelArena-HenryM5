@@ -10,6 +10,7 @@ export const AuthContext = createContext<IAuthcontext>({
   setCurrentUser: () => {},
   userIdGoogle: null,
   setUserIdGoogle: () => {},
+  updateUserPhoto: () => {},
 });
 
 const GlobalContext = ({ children }: { children: React.ReactNode }) => {
@@ -35,6 +36,11 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
     syncUserWithCookies();
   }, []);
 
+  const updateUserPhoto = (photo: string) => {
+    if (currentUser) {
+      setCurrentUser({ ...currentUser, profileImg: photo });
+    }
+  };
   return (
     <AuthContext.Provider
       value={{
@@ -42,7 +48,9 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
         setCurrentUser,
         userIdGoogle,
         setUserIdGoogle,
-      }}>
+        updateUserPhoto,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

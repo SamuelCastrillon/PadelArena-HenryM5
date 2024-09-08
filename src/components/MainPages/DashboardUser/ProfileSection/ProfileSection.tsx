@@ -8,8 +8,6 @@ const ProfileSection: React.FC = () => {
 
   const user = currentUser;
 
-  console.log(user);
-
   return (
     <div className="w-3/4 mx-auto">
       {user ? (
