@@ -80,8 +80,8 @@ const useAuth = () => {
         }
       } catch (error: any) {
         Swal.fire({
-          title: "Error al realizar la sesión del usuario.",
-          text: "Por favor, intente nuevamente más tarde.",
+          title: "No pudimos encontrar tu cuenta de google.",
+          text: "Prueba completar el registro desde nuestra app ;)",
           icon: "error",
           width: 400,
           padding: "3em",
