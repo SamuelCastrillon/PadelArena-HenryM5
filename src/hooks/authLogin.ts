@@ -79,10 +79,16 @@ const useAuth = () => {
           }
         }
       } catch (error: any) {
+        Swal.fire({
+          title: "Error al realizar la sesión del usuario.",
+          text: "Por favor, intente nuevamente más tarde.",
+          icon: "error",
+          width: 400,
+          padding: "3em",
+        });
         console.error(
           "Error al realizar la sesión del usuario:",
-          error.message,
-          error
+          error.message
         );
       }
     }
@@ -163,6 +169,13 @@ const useAuth = () => {
       }
     } catch (error) {
       console.error("Error al actualizar el perfil:", error);
+      Swal.fire({
+        title: "Error al actualizar el perfil.",
+        text: "Por favor, intente nuevamente más tarde.",
+        icon: "error",
+        width: 400,
+        padding: "3em",
+      });
     }
   };
 
