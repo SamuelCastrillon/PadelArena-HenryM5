@@ -95,7 +95,7 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
     }
   };
 
-  //VALIDACION IMG
+  //VALIDACION IMG ALL WORKING
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =
