@@ -13,6 +13,7 @@ import React, { useContext, useState } from "react";
 
 import NewFixtureComponent from "@/components/MainComponents/FixtureComponent/NewFixtureComponent";
 import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
+import Swal from "sweetalert2";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
@@ -55,6 +56,14 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   // Manejo de inscripción
   const handleInscriptionClick = async () => {
     if (user) {
+      if (user.category.id !== tournament.category.id) {
+        Swal.fire({
+          title: "Por favor selecciona una categoría válida.",
+          width: 400,
+          padding: "3em",
+        });
+        return;
+      }
       const data: IProductPaymentDataReq = {
         tournament: tournament.id,
         host: TOURNAMENT_REGISTER_URL,
@@ -225,58 +234,6 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         </div>
       )}
 
-      {/* Modal del Fixture 
-      <ReusableModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        blurBackground={blurBackground}
-        backgroundColor="bg-white"
-        textColor="text-black"
-        className="w-full max-w-screen-lg shadow-lg shadow-lime"
-        bgImageUrl={tournament.tournamentFlyer}
-      >
-        <h2 className="mb-4 text-4xl text-white uppercase radhiumz">{`Fixture: ${tournament.name}`}</h2>
-
-        <CustomTable headers={fixtureHeaders}>
-          {Array.isArray(tournament?.fixture) &&
-          tournament?.fixture?.length > 0 ? (
-            tournament.fixture.map((match: IFixture) => (
-              <tr key={match.id}>
-                <td className="px-4 py-2 border-b">{match.stage}</td>
-                <td className="px-4 py-2 border-b">{match.date}</td>
-                <td className="px-4 py-2 border-b">{match.time}</td>
-                <td className="px-4 py-2 border-b">{match.matchId}</td>
-                <td className="px-4 py-2 border-b">{match.tournamentId}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td className="py-2 text-xl border-b" colSpan={8}>
-                No hay fixture para este torneo
-              </td>
-            </tr>
-          )}
-        </CustomTable>
-      </ReusableModal>
-      */}
-      {/* Modal del Fixture 
-      <ReusableModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        blurBackground={blurBackground}
-        backgroundColor="bg-white"
-        textColor="text-black"
-        className="w-full max-w-screen-lg shadow-lg shadow-lime"
-        bgImageUrl={tournament.tournamentFlyer}
-      >
-        <h2 className="mb-4 text-4xl text-white uppercase radhiumz">{`Fixture: ${tournament.name}`}</h2>
-        {tournament.fixture && tournament.fixture.length > 0 ? (
-          <FixtureComponent fixtures={tournament.fixture} />
-        ) : (
-          <p className="text-xl text-center">No hay fixture para este torneo</p>
-        )}
-      </ReusableModal>
-      */}
       <ReusableModal
         isOpen={isModalOpen}
         onClose={closeModal}

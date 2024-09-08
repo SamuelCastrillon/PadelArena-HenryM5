@@ -6,12 +6,17 @@ import { formatDate } from "@/helpers/dateTimeHelper";
 import { closeInscription } from "@/Server/Tournament/closeInscription";
 import HoverButton from "@/components/GeneralComponents/HoverBadge/HoverButton";
 import { useRouter } from "next/navigation";
+import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
+import { updatePhoto } from "@/Server/Tournament/updatePhoto";
 
 const TournamentsTable: React.FC = () => {
   const { tournaments, categories } = useTournamentData();
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedTournamentId, setSelectedTournamentId] = useState<string>("");
 
   const router = useRouter();
 
@@ -41,6 +46,41 @@ const TournamentsTable: React.FC = () => {
     }
   };
 
+  const handleUpdatePhoto = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!selectedFile || !selectedTournamentId) {
+      console.error("Archivo o ID de torneo no seleccionado.");
+      return;
+    }
+
+    try {
+      // Llamar a updatePhoto con el archivo directamente
+      const response = await updatePhoto(selectedTournamentId, selectedFile);
+
+      if (response) {
+        console.log("Imagen subida correctamente:", response);
+        router.push(`/tournaments/${selectedTournamentId}`);
+      } else {
+        console.error("Error al subir la imagen:", response);
+      }
+    } catch (error) {
+      console.error("Error al actualizar la foto:", error);
+    }
+
+    setIsModalOpen(false);
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      console.log("file", event.target.files[0]);
+      setSelectedFile(event.target.files[0]);
+    }
+  };
+
+  const openModal = (tournamentId: string) => {
+    setSelectedTournamentId(tournamentId);
+    setIsModalOpen(true);
+  };
   const filteredTournaments = tournaments.filter((tournament: any) => {
     const lowercasedTerm = searchTerm.toLowerCase();
     const matchesName = tournament.name.toLowerCase().includes(lowercasedTerm);
@@ -193,7 +233,10 @@ const TournamentsTable: React.FC = () => {
                                 <path d="M12 17.925l-.976 2.014-2.217.305 1.615 1.552-.395 2.204 1.973-1.057 1.973 1.056-.393-2.203 1.613-1.552-2.217-.305-.976-2.014zm-7.807 0l-.976 2.014-2.217.305 1.615 1.552-.395 2.204 1.973-1.057 1.973 1.056-.393-2.203 1.613-1.552-2.217-.305-.976-2.014zm15.614 0l-.976 2.014-2.217.305 1.615 1.552-.395 2.204 1.973-1.057 1.973 1.056-.393-2.203 1.613-1.552-2.217-.305-.976-2.014zm-8.307 3.52l-.512-.491.702-.097.31-.639.31.639.703.097-.511.491.125.699-.627-.335-.625.334.125-.698zm-7.807 0l-.512-.491.702-.097.31-.639.31.639.703.097-.511.491.125.699-.627-.335-.625.334.125-.698zm15.614 0l-.512-.491.702-.097.31-.639.31.639.703.097-.511.491.125.699-.627-.335-.625.334.125-.698zm1.693-4.445h-17.997l-.003-1.162c-.009-2.446.372-3.273 2.938-3.858 2.661-.601 3.739-.995 3.126-2.123-1.718-3.16-2.043-5.94-.916-7.828.769-1.29 2.175-2.029 3.852-2.029 1.666 0 3.06.729 3.828 1.999 1.126 1.865.811 4.654-.89 7.854-.632 1.194.621 1.56 3.159 2.135 2.512.573 2.913 1.406 2.903 3.868v1.144zm-16.996-1h15.992c.013-1.965.071-2.536-2.121-3.037-1.783-.404-3.465-.786-3.974-1.89-.229-.499-.178-1.067.151-1.688 1.529-2.878 1.854-5.317.917-6.87-.59-.977-1.645-1.515-2.969-1.515-1.334 0-2.397.547-2.99 1.541-.94 1.572-.607 4.001.936 6.84.336.619.392 1.187.165 1.687-.505 1.108-2.257 1.505-3.952 1.888-2.171.495-2.167.949-2.155 3.044z" />
                               </svg>
                             </HoverButton>
-                            <button className="hover:text-primary">
+                            <HoverButton
+                              className="hover:text-primary"
+                              onClick={() => openModal(tournament.id)}
+                            >
                               <svg
                                 width="24"
                                 height="24"
@@ -203,7 +246,7 @@ const TournamentsTable: React.FC = () => {
                               >
                                 <path d="M24 22h-24v-20h24v20zm-1-19h-22v18h22v-18zm-1 16h-19l4-7.492 3 3.048 5.013-7.556 6.987 12zm-11.848-2.865l-2.91-2.956-2.574 4.821h15.593l-5.303-9.108-4.806 7.243zm-4.652-11.135c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5-2.5-1.12-2.5-2.5 1.12-2.5 2.5-2.5zm0 1c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5-1.5-.672-1.5-1.5.672-1.5 1.5-1.5z" />
                               </svg>{" "}
-                            </button>
+                            </HoverButton>
                             <HoverButton
                               secondaryText={
                                 tournament.inscription === "cerradas"
@@ -267,6 +310,39 @@ const TournamentsTable: React.FC = () => {
             CREAR UN TORNEO
           </NavigateButton>
         </div>
+      )}
+
+      {isModalOpen && (
+        <ReusableModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        >
+          <h2 className="text-2xl font-bold mb-4">Cargar Archivo</h2>
+          <form onSubmit={handleUpdatePhoto} className="space-y-4">
+            <input
+              type="file"
+              name="file"
+              onChange={handleFileChange}
+              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+              required
+            />
+            <div className="flex justify-end space-x-4">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white rounded"
+              >
+                Subir
+              </button>
+            </div>
+          </form>
+        </ReusableModal>
       )}
     </>
   );

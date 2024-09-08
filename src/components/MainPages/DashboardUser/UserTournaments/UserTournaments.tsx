@@ -37,9 +37,9 @@ const UserTournaments = () => {
   if (userTournaments.length === 0) {
     // Cambiado de null a longitud del array
     return (
-      <div className="w-full flex flex-col items-center bg-white p-4 mt-10">
-        <h1 className="text-2xl radhiumz uppercase mb-4">
-          No hay torneos disponibles para mostrar.
+      <div className="w-full flex flex-col items-center border-2 border-white bg-blue-700/30 rounded-lg p-4 mt-10">
+        <h1 className="text-2xl radhiumz uppercase mb-4 text-white">
+          No hay torneos en los que estás inscrito.
         </h1>
       </div>
     );
