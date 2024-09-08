@@ -58,16 +58,14 @@
 // };
 
 // export default ChatView;
-"use client";
+"use client"; //AAAA YA CASI
 import React, { useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { AuthContext } from "@/context/GlobalContext"; // Asegúrate de que este sea el camino correcto a tu contexto
-import { receiveMessageOnPort } from "worker_threads";
 
 interface Message {
   sender: string;
   content: string;
-  message: string;
 }
 
 const ChatView: React.FC = () => {
@@ -104,13 +102,19 @@ const ChatView: React.FC = () => {
 
       setSocket(newSocket);
 
-      // Escuchar mensajes entrantes
-      newSocket.on("message", (message: Message) => {
-        setMessages((prevMessages) => [...prevMessages, message]);
-      });
+      const handleMessage = (data: { message: string; from: string }) => {
+        const newMessage: Message = {
+          content: data.message,
+          sender: data.from,
+        };
+        console.log("Mensaje recibido en cliente:", newMessage);
+        setMessages((state) => [...state, newMessage]);
+      };
 
-      // Limpiar la conexión al desmontar el componente
+      newSocket.on("message", handleMessage);
+
       return () => {
+        newSocket.off("message", handleMessage); // Elimina el manejador del evento
         newSocket.disconnect();
         console.log("Socket desconectado");
       };
@@ -121,11 +125,10 @@ const ChatView: React.FC = () => {
     e.preventDefault();
     if (socket) {
       const newMessage: Message = {
-        message,
         content: message,
-        sender: "Me",
+        sender: "Me", // El remitente debería ser una cadena de texto
       };
-      socket.emit("message", message); // Emitir el mensaje al servidor
+      socket.emit("message", newMessage.content); // Solo el contenido se envía al servidor
       setMessages((prevMessages) => [...prevMessages, newMessage]); // Agregar el mensaje localmente
       setMessage(""); // Vacía el input después de enviar el mensaje
     }
@@ -138,13 +141,13 @@ const ChatView: React.FC = () => {
           Bienvenido a nuestro chat
         </h1>
         <h2 className="text-lg md:text-xl text-[#f8fafc] sfRegular">
-          ¡Logueate para participar!
+          ¡Escribe para participar!
         </h2>
       </div>
       <div className="flex flex-col justify-center items-center min-h-screen z-10">
-        <div className="flex h-[500px] max-w-screen-md w-full rounded-glass m-10 shadow-md p-4 bg-glass  border-glass border-2">
+        <div className="flex h-[500px] max-w-screen-md w-full rounded-glass m-10 shadow-md p-4 bg-glass border-glass border-2">
           <div className="flex-1 flex flex-col text-white rounded-t-glass rounded-b-xl bg-black/30">
-            <div className="p-4 rounded-t-glass bg-customBlue bg-blur  text-white flex items-center">
+            <div className="p-4 rounded-t-glass bg-customBlue bg-blur text-white flex items-center">
               <img
                 src="/avatarJugador.png"
                 alt="Avatar"
@@ -159,7 +162,12 @@ const ChatView: React.FC = () => {
               <ul className="space-y-2">
                 {messages.map((msg, i) => (
                   <li key={i} className="p-2 bg-black/30 rounded">
-                    <strong>{msg.sender}:</strong> {msg.content}
+                    <p>
+                      {typeof msg.sender === "string" ? msg.sender : "Anónimo"}:{" "}
+                      {typeof msg.content === "string"
+                        ? msg.content
+                        : "No se pudo encontrar el mensaje"}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -169,13 +177,13 @@ const ChatView: React.FC = () => {
                 type="text"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
-                className="flex-1 p-2 border border-gray-600 rounded-l-xl bg-glass backdrop-filter  backdrop-blur-lg bg-black/20 text-white"
+                className="flex-1 p-2 border border-gray-600 rounded-l-xl bg-glass backdrop-filter backdrop-blur-lg bg-black/20 text-white"
                 placeholder="Escribe tu mensaje..."
               />
               <button
                 type="submit"
                 className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase">
-                Send
+                Enviar
               </button>
             </form>
           </div>
