@@ -8,13 +8,6 @@ export const postNextAuthSession = async (user: IUserGoogle) => {
 
     return response.data;
   } catch (error) {
-    Swal.fire({
-      title: "Error al realizar la sesión del usuario.",
-      text: "Por favor, intente nuevamente más tarde.",
-      icon: "error",
-      width: 400,
-      padding: "3em",
-    });
     console.log(error);
     throw error;
   }

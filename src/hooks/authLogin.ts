@@ -45,43 +45,31 @@ const useAuth = () => {
   const handlePostSession = async () => {
     const userGoogleData = session?.user as IUserGoogle;
     if (!userGoogleData) {
-      Swal.fire({
-        title: "No pudimos encontrar tu cuenta de google.",
-        text: "Prueba completar el registro desde nuestra app ;)",
-        icon: "error",
-        width: 400,
-        padding: "3em",
-      });
+      console.error("userGoogleData no existe");
       return;
     }
 
     try {
+      console.log(userGoogleData, "userGoogleData");
       const response = await postNextAuthSession(userGoogleData);
 
       const newUser =
         response.googleUserWithoutPassword || response.newGoogleUser;
+
+      console.log(newUser, "newUser");
       if (
         response &&
         response.message &&
         typeof response.message === "string" &&
         response.message.includes("realizado con exito")
       ) {
-        if (!newUser) {
-          Swal.fire({
-            title: "El usuario no existe.",
-            text: "El usuario no existe",
-            icon: "error",
-            width: 400,
-            padding: "3em",
-          });
-        }
-        if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
-          console.error(
-            "URL de la imagen de perfil no válida!:",
-            newUser.profileImg
-          );
-          newUser.profileImg = "/images/default-image.jpg"; // Establecer una imagen predeterminada
-        }
+        // if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
+        //   console.error(
+        //     "URL de la imagen de perfil no válida!:",
+        //     newUser.profileImg
+        //   );
+        //   newUser.profileImg = "/images/default-image.jpg";
+        // }
 
         setUserIdGoogle(newUser.id);
 
@@ -161,7 +149,7 @@ const useAuth = () => {
         }
 
         const updatedUser = await updateUserProfile(userId, values);
-
+        console.log(updatedUser, "updatedUser");
         if (updatedUser) {
           saveGoogleUser(updatedUser);
           setCurrentUser(updatedUser);
@@ -174,14 +162,7 @@ const useAuth = () => {
         }
       }
     } catch (error) {
-      console.error("Error al actualizar el perfil:", error);
-      Swal.fire({
-        title: "Error al actualizar el perfil.",
-        text: "Por favor, intente nuevamente más tarde.",
-        icon: "error",
-        width: 400,
-        padding: "3em",
-      });
+      console.log(error);
     }
   };
 
