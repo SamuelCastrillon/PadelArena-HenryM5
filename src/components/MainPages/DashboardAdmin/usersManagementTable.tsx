@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { getAllUsers, updateUserCategory } from "@/Server/Users/getUsers";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
@@ -7,6 +7,7 @@ import { getCategories } from "@/Server/Category/getCategories";
 import Swal from "sweetalert2";
 import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
 import StadisticsView from "../DashboardUser/StadisticsSection/StadisticsView";
+import { AuthContext } from "@/context/GlobalContext";
 
 interface UserProp {
   id: string;
@@ -28,6 +29,7 @@ interface Category {
 
 const UsersManagement: React.FC = () => {
   const [users, setUsers] = useState<UserProp[]>([]);
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<{
     [key: string]: string;
@@ -38,9 +40,10 @@ const UsersManagement: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [blurBackground, setBlurBackground] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-
+  const { token } = useContext(AuthContext);
+  console.log(token);
   const openModal = (userId: string) => {
-    setSelectedUserId(userId); // Establecer el ID del usuario seleccionado
+    setSelectedUserId(userId);
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
@@ -55,8 +58,9 @@ const UsersManagement: React.FC = () => {
     };
 
     const fetchUsers = async () => {
+      if (!token) return;
       try {
-        const response = await getAllUsers();
+        const response = await getAllUsers(token);
         setUsers(response);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -65,7 +69,7 @@ const UsersManagement: React.FC = () => {
 
     fetchCategories();
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const handleCategoryChange = (userId: string, newCategoryId: string) => {
     setSelectedCategories((prevState) => ({
@@ -79,8 +83,10 @@ const UsersManagement: React.FC = () => {
     if (!newCategoryId) return;
 
     try {
-      await updateUserCategory(userId, newCategoryId);
-      const updatedUsers = await getAllUsers();
+      if (!token) return;
+      await updateUserCategory(userId, newCategoryId, token);
+      console.log(token);
+      const updatedUsers = await getAllUsers(token);
       setUsers(updatedUsers);
 
       Swal.fire({
@@ -112,7 +118,7 @@ const UsersManagement: React.FC = () => {
   };
 
   // Filtrar usuarios por categoría seleccionada y texto de búsqueda
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = users?.filter((user) => {
     const matchesCategory = selectedFilterCategory
       ? user.category?.id === selectedFilterCategory
       : true;
@@ -186,7 +192,7 @@ const UsersManagement: React.FC = () => {
           "ESTADISTICAS",
         ]}
       >
-        {filteredUsers.length > 0 ? (
+        {filteredUsers?.length > 0 ? (
           filteredUsers.map((user, index) => (
             <tr key={index} className="text-center">
               <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
@@ -257,7 +263,9 @@ const UsersManagement: React.FC = () => {
           textColor="text-black"
           className="w-2/3"
         >
-          {selectedUserId && <StadisticsView userId={selectedUserId} />}
+          {selectedUserId && token && (
+            <StadisticsView userId={selectedUserId} token={token} />
+          )}
         </ReusableModal>
       )}
     </>

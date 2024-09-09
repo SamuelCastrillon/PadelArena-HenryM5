@@ -14,7 +14,7 @@ interface MatchProps {
 
 const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
   const [dropdownOpen, setDropdownOpen] = useState<string | null>(null);
-  const { currentUser } = React.useContext(AuthContext);
+  const { currentUser, token } = React.useContext(AuthContext);
   const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
   const { width, height } = useWindowSize();
@@ -25,7 +25,8 @@ const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
 
   const handleSelectWinner = async (matchId: string, teamId: string) => {
     try {
-      const response = await selectWinner(matchId, teamId);
+      if (!token) return;
+      const response = await selectWinner(matchId, teamId, token);
       console.log(response);
       if (response) {
         setFixtureState(response);

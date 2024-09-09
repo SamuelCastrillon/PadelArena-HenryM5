@@ -1,7 +1,7 @@
 import { axiosInstance } from "../AxiosConfig";
 import Swal from "sweetalert2";
 
-export const updatePhoto = async (id: string, photo: File) => {
+export const updatePhoto = async (id: string, photo: File, token: string) => {
   try {
     const formData = new FormData();
     formData.append("file", photo);
@@ -13,6 +13,7 @@ export const updatePhoto = async (id: string, photo: File) => {
         headers: {
           "Content-Type": "multipart/form-data",
           accept: "*/*",
+          authorization: `Bearer ${token}`,
         },
       }
     );

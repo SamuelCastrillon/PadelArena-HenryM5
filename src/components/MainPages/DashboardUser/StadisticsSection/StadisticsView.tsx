@@ -8,16 +8,17 @@ import { getUserById } from "@/Server/User/getUserById";
 
 interface StadisticsViewProps {
   userId: string;
+  token: string;
 }
 
-const StadisticsView = ({ userId }: StadisticsViewProps) => {
-  const { stats, loading, error } = useUserStats(userId);
+const StadisticsView = ({ userId, token }: StadisticsViewProps) => {
+  const { stats, loading, error } = useUserStats(userId, token);
   const [userName, setUserName] = useState<string>("");
   console.log(stats);
 
   useEffect(() => {
     const getUserName = async () => {
-      const response = await getUserById(userId);
+      const response = await getUserById(userId, token);
       console.log(response);
       if (response) {
         setUserName(response.name);

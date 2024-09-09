@@ -5,11 +5,16 @@ import StadisticsView from "./StadisticsView";
 import { AuthContext } from "@/context/GlobalContext";
 
 const StadisticsSectionView = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
   const userId = currentUser?.id ?? "";
+
   return (
     <div>
-      <StadisticsView userId={userId} />
+      {currentUser && token ? (
+        <StadisticsView userId={userId} token={token} />
+      ) : (
+        "Necesitas iniciar sesión para ver tus estadísticas."
+      )}
     </div>
   );
 };

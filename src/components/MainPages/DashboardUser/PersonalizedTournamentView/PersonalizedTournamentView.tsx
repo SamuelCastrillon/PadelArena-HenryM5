@@ -8,7 +8,7 @@ import React, { useContext } from "react";
 const PersonalizedTournamentView = () => {
   const { tournaments } = useTournamentData();
 
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
 
   const userCategory = currentUser?.category?.name;
 

@@ -21,8 +21,13 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
   const [userIdGoogle, setUserIdGoogle] = useState<string | null>(null);
   const [token, setToken] = useState<string | null>(null);
 
-  const { getGoogleUser, getRegularUser, getUserToken, saveUserToken } =
-    useUserCookies();
+  const {
+    getGoogleUser,
+    getRegularUser,
+    getUserToken,
+    saveUserToken,
+    isValidToken,
+  } = useUserCookies();
 
   const syncUserWithCookies = async () => {
     const userGoogle = await getGoogleUser();
@@ -39,7 +44,7 @@ const GlobalContext = ({ children }: { children: React.ReactNode }) => {
 
   const syncTokenCookies = async () => {
     const token = await getUserToken();
-    if (token) {
+    if (token && isValidToken(token)) {
       setToken(token);
     }
   };

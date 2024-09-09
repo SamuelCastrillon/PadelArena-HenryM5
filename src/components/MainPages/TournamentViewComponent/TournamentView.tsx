@@ -64,7 +64,6 @@ const TournamentsView: React.FC = () => {
   };
 
   useEffect(() => {
-    // Aplica filtros iniciales (puedes ajustar estos filtros según sea necesario)
     applyFilters({
       category: "",
       month: "",

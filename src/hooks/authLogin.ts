@@ -197,6 +197,8 @@ const useAuth = () => {
 
         saveRegularUser(responseUser);
         setCurrentUser(responseUser);
+        saveUserToken(response.token);
+        setToken(response.token);
         Swal.fire({
           title: "Te has logueado con éxito.",
           width: 400,
