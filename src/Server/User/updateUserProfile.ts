@@ -11,12 +11,19 @@ export interface IUpdateUser {
 
 export const updateUserProfile = async (
   userId: string,
-  updateData: IUpdateUser
+  updateData: IUpdateUser,
+  token: string | null
 ) => {
   try {
+    console.log(token, "token");
     const response = await axiosInstance.put(
       `/users/updateProfile/${userId}`,
-      updateData
+      updateData,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
     );
 
     return response.data;

@@ -22,7 +22,7 @@ const NavBarComponent: React.FC = () => {
   }, [navigate]);
 
   return (
-    <nav className="relative flex flex-col sm:flex-row w-[95%] min-h-[60px] gap-2 md:gap-4 mt-8 sm:h-[60px] md:w-[95%] backdrop-filter backdrop-blur-lg bg-white/30  border-white/30 sm:justify-between items-center rounded-2xl text-white radhiumz ">
+    <nav className="relative flex flex-col sm:flex-row w-[95%] min-h-[60px] gap-2 md:gap-4 mt-8 sm:h-[60px] md:w-[95%]  bg-white/30  border-white/30 sm:justify-between items-center rounded-2xl text-white radhiumz ">
       <NavigateButton
         href="/"
         className="absolute top-0 left-0 sm:static w-fit h-fit sm:mt-[6px]"

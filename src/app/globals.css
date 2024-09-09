@@ -84,3 +84,18 @@
   background-color: #1d4ed7; /* Color en hover */
   color: #ffffff;
 }
+
+.no-backdrop-filter,
+.no-backdrop-filter::before,
+.no-backdrop-filter::after {
+  --tw-backdrop-blur: none !important;
+  --tw-backdrop-brightness: none !important;
+  --tw-backdrop-contrast: none !important;
+  --tw-backdrop-grayscale: none !important;
+  --tw-backdrop-hue-rotate: none !important;
+  --tw-backdrop-invert: none !important;
+  --tw-backdrop-opacity: none !important;
+  --tw-backdrop-saturate: none !important;
+  --tw-backdrop-sepia: none !important;
+  backdrop-filter: none !important;
+}

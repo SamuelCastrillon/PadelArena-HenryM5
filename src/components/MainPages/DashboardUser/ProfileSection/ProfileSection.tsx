@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UserInfoPanel from "../../../MainComponents/UserInfoPanel/UserInfoPanel";
 import { AuthContext } from "@/context/GlobalContext";
 
@@ -7,8 +7,6 @@ const ProfileSection: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
 
   const user = currentUser;
-
-  console.log(user);
 
   return (
     <div className="w-3/4 mx-auto">

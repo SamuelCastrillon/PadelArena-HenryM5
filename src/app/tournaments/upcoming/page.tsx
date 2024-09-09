@@ -8,7 +8,7 @@ import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/Na
 const UpcomingTournamentsPage = async () => {
   const tournaments: ITournament[] = await getTournaments();
   console.log(tournaments);
-  const filteredTournaments = tournaments.filter(
+  const filteredTournaments = tournaments?.filter(
     (tournament) => tournament.status === "por comenzar"
   );
 
@@ -18,7 +18,7 @@ const UpcomingTournamentsPage = async () => {
         Torneos por comenzar <hr className="text-white h-2 w-full"></hr>
       </h1>
 
-      {filteredTournaments.length > 0 ? (
+      {filteredTournaments?.length > 0 ? (
         <>
           <div className="flex w-full mx-auto my-20">
             <div className="flex">

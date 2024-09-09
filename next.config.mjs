@@ -13,6 +13,7 @@ const nextConfig = {
       "img.redbull.com",
       "resizer.glanacion.com",
       "example.com",
+      "asset.cloudinary.com",
     ],
   },
 };

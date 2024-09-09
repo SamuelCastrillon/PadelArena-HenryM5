@@ -22,10 +22,11 @@ import useTournamentData from "./fetchTournamentData";
 const useAuth = () => {
   const router = useRouter();
   const { data: session } = useSession();
+
   const { categories } = useTournamentData();
-  const { setCurrentUser, setUserIdGoogle, userIdGoogle } =
+  const { setCurrentUser, setUserIdGoogle, userIdGoogle, setToken, token } =
     useContext(AuthContext);
-  const { saveGoogleUser, saveRegularUser } = useUserCookies();
+  const { saveGoogleUser, saveRegularUser, saveUserToken } = useUserCookies();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<IUpdateUser>({
@@ -44,47 +45,48 @@ const useAuth = () => {
 
   const handlePostSession = async () => {
     const userGoogleData = session?.user as IUserGoogle;
-    if (userGoogleData) {
-      try {
-        const response = await postNextAuthSession(userGoogleData);
+    if (!userGoogleData) {
+      Swal.fire({
+        title: "No eres un usuario registrado. Por favor completa el registro.",
+        width: 400,
+        padding: "3em",
+      });
+      console.error("userGoogleData no existe");
+      return;
+    }
 
-        const newUser =
-          response.googleUserWithoutPassword || response.newGoogleUser;
-        if (
-          response &&
-          response.message &&
-          typeof response.message === "string" &&
-          response.message.includes("realizado con exito")
-        ) {
-          if (newUser) {
-            if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
-              console.error(
-                "URL de la imagen de perfil no válida:",
-                newUser.profileImg
-              );
-              newUser.profileImg = "/images/default-image.jpg"; // Establecer una imagen predeterminada
-            }
+    try {
+      const response = await postNextAuthSession(userGoogleData);
 
-            setUserIdGoogle(newUser.id);
+      const newUser =
+        response.newGoogleUser || response.googleUserWithoutPassword;
 
-            const { city, country, address, phone, category } = newUser;
-
-            if (!city && !country && !address && !phone && !category) {
-              setIsModalOpen(true);
-            } else {
-              saveGoogleUser(newUser);
-              setCurrentUser(newUser);
-              router.push("/dashboard/user/profile");
-            }
-          }
+      if (
+        response &&
+        response.message &&
+        typeof response.message === "string" &&
+        response.message.includes("realizado con exito")
+      ) {
+        if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
+          newUser.profileImg = "/images/default-image.jpg";
         }
-      } catch (error: any) {
-        console.error(
-          "Error al realizar la sesión del usuario:",
-          error.message,
-          error
-        );
+        saveUserToken(response.token);
+        setToken(response.token);
+
+        setUserIdGoogle(newUser.id);
+
+        const { city, country, address, phone, category } = newUser;
+
+        if (!city && !country && !address && !phone && !category) {
+          setIsModalOpen(true);
+        } else {
+          saveGoogleUser(newUser);
+          setCurrentUser(newUser);
+          router.push("/dashboard/user/profile");
+        }
       }
+    } catch (error: any) {
+      console.error(error);
     }
   };
 
@@ -137,6 +139,7 @@ const useAuth = () => {
   const handleUpdateProfile = async (values: IUpdateUser) => {
     try {
       const userId = userIdGoogle;
+      const tokenUser = token;
 
       if (userId) {
         if (!values.category) {
@@ -148,7 +151,7 @@ const useAuth = () => {
           return;
         }
 
-        const updatedUser = await updateUserProfile(userId, values);
+        const updatedUser = await updateUserProfile(userId, values, tokenUser);
 
         if (updatedUser) {
           saveGoogleUser(updatedUser);
@@ -162,7 +165,7 @@ const useAuth = () => {
         }
       }
     } catch (error) {
-      console.error("Error al actualizar el perfil:", error);
+      console.log(error);
     }
   };
 
@@ -190,8 +193,10 @@ const useAuth = () => {
       const response: IUserLoginRes = await HandlerLogIn(data);
 
       if (response?.token) {
-        saveRegularUser(response.userClean);
-        setCurrentUser(response.userClean);
+        const responseUser = { ...response.userClean, token: response.token };
+
+        saveRegularUser(responseUser);
+        setCurrentUser(responseUser);
         Swal.fire({
           title: "Te has logueado con éxito.",
           width: 400,

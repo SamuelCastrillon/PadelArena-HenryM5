@@ -32,6 +32,7 @@ export interface IUserGooglePut {
   profileImg: string;
   category: { name: string; id: string; description: string };
   role?: "admin" | "jugador";
+  token: string;
 }
 
 export interface IUserLoginRes {
@@ -54,6 +55,7 @@ export interface IUserLogin {
   profileImg: string;
   role?: "admin" | "jugador";
   category: { name: string; id: string; description: string };
+  token: string;
 }
 
 //? Tournament Interfaces
