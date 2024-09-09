@@ -58,7 +58,7 @@
 // };
 
 // export default ChatView;
-"use client"; //AAAA YA CASI
+"use client";
 import React, { useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import { AuthContext } from "@/context/GlobalContext"; // Asegúrate de que este sea el camino correcto a tu contexto
