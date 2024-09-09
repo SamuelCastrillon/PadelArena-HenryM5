@@ -1,48 +1,48 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "@/context/GlobalContext";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { useRouter } from "next/navigation";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
+import { getAllPayments } from "@/Server/PaymentByMP/PaymentByMP";
+import { IAallUserPayments } from "@/interfaces/RequestInterfaces";
 
-interface IPaymentDetail {
-  preference_id: string;
-  status: string;
-  date_created: string;
-  transaction_amount: number;
-  tournament: {
-    id: string;
-    name: string;
-    team?: {
-      users: { id: string; name: string }[];
-    }[];
-  };
-}
-
-const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
-  payments,
-}) => {
+const PaymentHistoryPanel: React.FC = () => {
   const { currentUser } = useContext(AuthContext);
+  const [paymentsList, setPaymentsList] = React.useState<IAallUserPayments[] | null>(null);
   const router = useRouter();
 
   const handleCompleteRegistration = (tournamentId: string) => {
-    router.push(`/tournaments/register/${tournamentId}`);
+    router.push(`/tournaments/register/${tournamentId}?status=approved`);
   };
 
   const headers = ["ID", "Estado", "Fecha", "Monto", "Nombre", "Acciones"];
 
+  async function getPayments() {
+    if (!currentUser) return;
+    try {
+      const payments = await getAllPayments(currentUser?.id);
+      console.log(payments);
+      if (payments) setPaymentsList(payments);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getPayments();
+  }, []);
+
   return (
     <>
-      <div className="mt-20 justify-start items-center flex-col flex">
-        <h1 className="radhiumz text-3xl mx-4 md:mx-0 md:text-4xl text-center uppercase text-white">
+      <div className="flex flex-col items-center justify-start mt-20">
+        <h1 className="mx-4 text-3xl text-center text-white uppercase radhiumz md:mx-0 md:text-4xl">
           HISTORIAL DE PAGOS
-          <hr className="h-2 w-full text-white" />
+          <hr className="w-full h-2 text-white" />
         </h1>
-        <h2 className="sfRegular text-md md:text-xl text-white mt-8">
-          <span className="uppercase radhiumz text-x m-2">
-            {currentUser?.name}
-          </span>{" "}
-          Lleva el registro de tus cuentas
+        <h2 className="mt-8 text-white sfRegular text-md md:text-xl">
+          <span className="m-2 uppercase radhiumz text-x">{currentUser?.name}</span> Lleva el
+          registro de tus cuentas
         </h2>
       </div>
 
@@ -50,41 +50,28 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
         {/* Versión de escritorio */}
         <div className="hidden md:block">
           <CustomTable headers={headers}>
-            {payments?.map((payment) => (
-              <tr
-                key={payment.preference_id}
-                className="border-t-2 border-lime"
-              >
-                <td className="px-4 py-2">{payment.preference_id}</td>
+            {paymentsList?.map((payment) => (
+              <tr key={payment.message.id} className="border-t-2 border-lime">
+                <td className="px-4 py-2">{payment.message.payment_id}</td>
                 <td
                   className={`px-4 py-2 ${
-                    payment.status === "completed"
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }`}
-                >
-                  {payment.status}
+                    payment.message.status === "approved" ? "text-green-500" : "text-red-500"
+                  }`}>
+                  {payment.message.status}
                 </td>
-                <td className="px-4 py-2">{payment.date_created}</td>
+                <td className="px-4 py-2">{payment.message.date_created}</td>
+                <td className="px-4 py-2">${payment.message.transaction_amount.toFixed(2)}</td>
+                <td className="px-4 py-2">{payment.message.tournament.name}</td>
                 <td className="px-4 py-2">
-                  ${payment.transaction_amount.toFixed(2)}
-                </td>
-                <td className="px-4 py-2">{payment.tournament.name}</td>
-                <td className="px-4 py-2">
-                  {payment.tournament.team?.some(
-                    (team) =>
-                      team.users.length === 1 &&
-                      team.users[0].id === currentUser?.id
-                  ) && (
-                    <ActionButton
-                      onClick={() =>
-                        handleCompleteRegistration(payment.tournament.id)
-                      }
-                      className="bg-lime text-black radhiumz uppercase text-sm px-2 py-1 rounded hover:bg-blue-700 hover:text-white"
-                    >
-                      Completar Inscripción
-                    </ActionButton>
-                  )}
+                  {/* {payment.message.tournament.team?.some(
+                    (team) => team.users.length === 1 && team.users[0].id === currentUser?.id
+                  ) && ( */}
+                  <ActionButton
+                    onClick={() => handleCompleteRegistration(payment.message.tournament.id)}
+                    className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white">
+                    Completar Inscripción
+                  </ActionButton>
+                  {/* )} */}
                 </td>
               </tr>
             ))}
@@ -94,37 +81,26 @@ const PaymentHistoryPanel: React.FC<{ payments: IPaymentDetail[] }> = ({
         {/* Versión móvil */}
         <div className="block md:hidden">
           <CustomTable headers={["ID", "Estado", "Nombre", "Acciones"]}>
-            {payments?.map((payment) => (
-              <tr
-                key={payment.preference_id}
-                className="border-t-2 border-lime"
-              >
-                <td className="px-4 py-2">{payment.preference_id}</td>
+            {paymentsList?.map((payment) => (
+              <tr key={payment.message.id} className="border-t-2 border-lime">
+                <td className="px-4 py-2">{payment.message.payment_id}</td>
                 <td
                   className={`px-4 py-2 ${
-                    payment.status === "completed"
-                      ? "text-green-500"
-                      : "text-red-500"
-                  }`}
-                >
-                  {payment.status}
+                    payment.message.status === "approved" ? "text-green-500" : "text-red-500"
+                  }`}>
+                  {payment.message.status}
                 </td>
-                <td className="px-4 py-2">{payment.tournament.name}</td>
+                <td className="px-4 py-2">{payment.message.tournament.name}</td>
                 <td className="px-4 py-2">
-                  {payment.tournament.team?.some(
-                    (team) =>
-                      team.users.length === 1 &&
-                      team.users[0].id === currentUser?.id
-                  ) && (
-                    <ActionButton
-                      onClick={() =>
-                        handleCompleteRegistration(payment.tournament.id)
-                      }
-                      className="bg-lime text-black radhiumz uppercase text-sm px-2 py-1 rounded hover:bg-blue-700 hover:text-white"
-                    >
-                      Completar Inscripción
-                    </ActionButton>
-                  )}
+                  {/* {payment.meessage.tournament.team?.some(
+                    (team) => team.users.length === 1 && team.users[0].id === currentUser?.id
+                  ) && (  */}
+                  <ActionButton
+                    onClick={() => handleCompleteRegistration(payment.message.tournament.id)}
+                    className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white">
+                    Completar Inscripción
+                  </ActionButton>
+                  {/* )}  */}
                 </td>
               </tr>
             ))}
