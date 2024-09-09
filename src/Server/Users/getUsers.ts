@@ -53,13 +53,9 @@ export const getUsersId = async (userId: string, token: string) => {
   }
 };
 
-export const getUsersByCategory = async (category: string, token: string) => {
+export const getUsersByCategory = async (category: string) => {
   try {
-    const response = await axiosInstance.get(`/users/category/${category}`, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`/users/category/${category}`);
 
     return response.data;
   } catch (error) {

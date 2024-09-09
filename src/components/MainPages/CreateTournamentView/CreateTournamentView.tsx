@@ -74,7 +74,7 @@
 
 // export default CreateTournamentView;
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
@@ -89,11 +89,13 @@ import { ICreateTournamentFormData } from "@/interfaces/RequestInterfaces";
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { IFormTournametInitiaalValues } from "./CreateTournamentFormInterfaces";
 import MapInputComponent from "./MapInputComponent";
+import { AuthContext } from "@/context/GlobalContext";
 
 const handlerSubmit = async (
   values: ICreateTournamentFormData,
   router: ReturnType<typeof useRouter>,
-  plusCode: string | undefined
+  plusCode: string | undefined,
+  token: string
 ) => {
   console.log("AQUÍ ESTOY", plusCode);
   try {
@@ -106,8 +108,8 @@ const handlerSubmit = async (
       plusCode, // Pasa el plusCode aquí
     });
 
-    if (dataFormattedToSend) {
-      const response = await HandlerNewTournament(dataFormattedToSend);
+    if (dataFormattedToSend && token) {
+      const response = await HandlerNewTournament(dataFormattedToSend, token);
       Swal.fire({
         title: "Torneo creado con éxito.",
         width: 400,
@@ -139,6 +141,7 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
   const { inputsCreateTournamentFormValues, createTournamentInitialValues } =
     formDataContructor;
 
+  const { token } = useContext(AuthContext);
   const [selectedLocation, setSelectedLocation] = useState<{
     lat: string;
     lng: string;
@@ -169,7 +172,7 @@ const CreateTournamentView: React.FC<IDataAndValuesConstructor> = ({
         }}
         valiSchema={createTournamentSchema}
         handelerSubmit={(values: ICreateTournamentFormData) =>
-          handlerSubmit(values, router, selectedPlusCode!)
+          handlerSubmit(values, router, selectedPlusCode!, token!)
         }
         dataContructor={inputsCreateTournamentFormValues}
         butonsForm={butonsCreateTournamentForm}
