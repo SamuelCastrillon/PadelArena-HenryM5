@@ -13,16 +13,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { IMenuReusableStatus } from "../UserMenuReusableInterfaces";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
-import {
-  ChartBarSquareIcon,
-  ChatBubbleBottomCenterIcon,
-  ChatBubbleLeftEllipsisIcon,
-} from "@heroicons/react/20/solid";
-import {
-  ChatBubbleBottomCenterTextIcon,
-  ChatBubbleOvalLeftEllipsisIcon,
-  ChatBubbleOvalLeftIcon,
-} from "@heroicons/react/16/solid";
 
 const MenuDropDaw: React.FC<IMenuReusableStatus> = ({
   menuStatus,

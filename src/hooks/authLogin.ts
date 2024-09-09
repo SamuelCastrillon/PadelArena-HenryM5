@@ -44,53 +44,47 @@ const useAuth = () => {
 
   const handlePostSession = async () => {
     const userGoogleData = session?.user as IUserGoogle;
-    if (userGoogleData) {
-      try {
-        const response = await postNextAuthSession(userGoogleData);
+    if (!userGoogleData) {
+      console.error("userGoogleData no existe");
+      return;
+    }
 
-        const newUser =
-          response.googleUserWithoutPassword || response.newGoogleUser;
-        if (
-          response &&
-          response.message &&
-          typeof response.message === "string" &&
-          response.message.includes("realizado con exito")
-        ) {
-          if (newUser) {
-            if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
-              console.error(
-                "URL de la imagen de perfil no válida:",
-                newUser.profileImg
-              );
-              newUser.profileImg = "/images/default-image.jpg"; // Establecer una imagen predeterminada
-            }
+    try {
+      console.log(userGoogleData, "userGoogleData");
+      const response = await postNextAuthSession(userGoogleData);
 
-            setUserIdGoogle(newUser.id);
+      const newUser =
+        response.googleUserWithoutPassword || response.newGoogleUser;
 
-            const { city, country, address, phone, category } = newUser;
+      console.log(newUser, "newUser");
+      if (
+        response &&
+        response.message &&
+        typeof response.message === "string" &&
+        response.message.includes("realizado con exito")
+      ) {
+        // if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
+        //   console.error(
+        //     "URL de la imagen de perfil no válida!:",
+        //     newUser.profileImg
+        //   );
+        //   newUser.profileImg = "/images/default-image.jpg";
+        // }
 
-            if (!city && !country && !address && !phone && !category) {
-              setIsModalOpen(true);
-            } else {
-              saveGoogleUser(newUser);
-              setCurrentUser(newUser);
-              router.push("/dashboard/user/profile");
-            }
-          }
+        setUserIdGoogle(newUser.id);
+
+        const { city, country, address, phone, category } = newUser;
+
+        if (!city && !country && !address && !phone && !category) {
+          setIsModalOpen(true);
+        } else {
+          saveGoogleUser(newUser);
+          setCurrentUser(newUser);
+          router.push("/dashboard/user/profile");
         }
-      } catch (error: any) {
-        Swal.fire({
-          title: "No pudimos encontrar tu cuenta de google.",
-          text: "Prueba completar el registro desde nuestra app ;)",
-          icon: "error",
-          width: 400,
-          padding: "3em",
-        });
-        console.error(
-          "Error al realizar la sesión del usuario:",
-          error.message
-        );
       }
+    } catch (error: any) {
+      console.error(error);
     }
   };
 
@@ -155,7 +149,7 @@ const useAuth = () => {
         }
 
         const updatedUser = await updateUserProfile(userId, values);
-
+        console.log(updatedUser, "updatedUser");
         if (updatedUser) {
           saveGoogleUser(updatedUser);
           setCurrentUser(updatedUser);
@@ -168,14 +162,7 @@ const useAuth = () => {
         }
       }
     } catch (error) {
-      console.error("Error al actualizar el perfil:", error);
-      Swal.fire({
-        title: "Error al actualizar el perfil.",
-        text: "Por favor, intente nuevamente más tarde.",
-        icon: "error",
-        width: 400,
-        padding: "3em",
-      });
+      console.log(error);
     }
   };
 
