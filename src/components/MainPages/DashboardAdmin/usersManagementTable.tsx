@@ -41,7 +41,7 @@ const UsersManagement: React.FC = () => {
   const [blurBackground, setBlurBackground] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const { token } = useContext(AuthContext);
-  console.log(token);
+
   const openModal = (userId: string) => {
     setSelectedUserId(userId);
     setIsModalOpen(true);
@@ -117,7 +117,6 @@ const UsersManagement: React.FC = () => {
     setSearchQuery("");
   };
 
-  // Filtrar usuarios por categoría seleccionada y texto de búsqueda
   const filteredUsers = users?.filter((user) => {
     const matchesCategory = selectedFilterCategory
       ? user.category?.id === selectedFilterCategory
