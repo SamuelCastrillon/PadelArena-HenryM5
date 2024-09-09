@@ -138,9 +138,63 @@ export interface IPayment {
   date: string;
 }
 
+export interface IAallUserPayments {
+  message: {
+    user: {
+      id: string;
+      name: string;
+      lastName: string;
+      email: string;
+      phone: string;
+      country: string;
+      city: string;
+      address: string;
+      profileImg: string;
+      role: string;
+      clientId?: null | string;
+    };
+    id: string;
+    payment_id: string;
+    status: string;
+    date_created: string;
+    date_approved: string;
+    date_last_updated: string;
+    transaction_amount: number;
+    tournament: {
+      id: string;
+      name: string;
+      startDate: string;
+      endDate: string;
+      startingTime: string;
+      finishTime: string;
+      playingDay: string[];
+      status: string;
+      inscription: string;
+      teamsQuantity: number;
+      matchDuration: number;
+      description: string;
+      matchStartTime: string;
+      matchEndTime: string;
+      gallery?: string[] | null;
+      tournamentFlyer: string;
+      courtsAvailable: number;
+      price: number;
+      plusCode: string;
+      team: [] | ITeamToTournement[];
+    };
+  };
+}
+
 //? Teams Interfaces
 
 export interface IPostNewTeam {
   name: string;
   players: string[];
+}
+
+export interface ITeamToTournement {
+  id: string;
+  name: string;
+  order: number;
+  ableForPlay: boolean;
 }
