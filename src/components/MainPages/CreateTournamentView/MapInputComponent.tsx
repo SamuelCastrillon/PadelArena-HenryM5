@@ -112,6 +112,20 @@ const MapInputComponent: React.FC<MapInputComponentProps> = ({
       <label className="text-lg text-slate mb-1">
         Inserte un plus code de Google Maps
       </label>
+      <div className="relative inline-block">
+        <div className="w-12 h-12 bg-blue-500 text-white rounded-full text-center leading-12 text-2xl font-bold cursor-pointer shadow-lg relative animate-spin-slow">
+          i
+          <span className="absolute top-0 left-0 w-full h-full rounded-full border-2 border-blue-500 opacity-70 animate-spin"></span>
+        </div>
+        <div className="absolute top-14 left-1/2 transform -translate-x-1/2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg p-2 hidden group-hover:block">
+          <img
+            src="tu-gif.gif"
+            alt="Información"
+            className="w-full rounded-lg"
+          />
+        </div>
+      </div>
+
       <input
         type="text"
         value={plusCode}
