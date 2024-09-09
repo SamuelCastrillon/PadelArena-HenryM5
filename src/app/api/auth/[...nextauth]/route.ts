@@ -9,7 +9,7 @@ const authHandler = NextAuth({
     Google({
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
-      //authorization: `https://accounts.google.com/o/oauth2/auth/authorize?response_type=code&prompt=login`,
+      authorization: `https://accounts.google.com/o/oauth2/auth/authorize?response_type=code&prompt=login`,
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
