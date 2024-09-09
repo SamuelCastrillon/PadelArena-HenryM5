@@ -15,7 +15,9 @@ const ButtonNextAuthSignIn: React.FC<ButtonNextAuthProps> = ({
 }) => {
   const signInGoogle = () => {
     // Inicia sesión con Google
-    signIn();
+    signIn("google", {
+      prompt: "login",
+    });
   };
 
   return (

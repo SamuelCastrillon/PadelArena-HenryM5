@@ -22,10 +22,11 @@ import useTournamentData from "./fetchTournamentData";
 const useAuth = () => {
   const router = useRouter();
   const { data: session } = useSession();
+
   const { categories } = useTournamentData();
-  const { setCurrentUser, setUserIdGoogle, userIdGoogle } =
+  const { setCurrentUser, setUserIdGoogle, userIdGoogle, setToken, token } =
     useContext(AuthContext);
-  const { saveGoogleUser, saveRegularUser } = useUserCookies();
+  const { saveGoogleUser, saveRegularUser, saveUserToken } = useUserCookies();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<IUpdateUser>({
@@ -45,31 +46,32 @@ const useAuth = () => {
   const handlePostSession = async () => {
     const userGoogleData = session?.user as IUserGoogle;
     if (!userGoogleData) {
+      Swal.fire({
+        title: "No eres un usuario registrado. Por favor completa el registro.",
+        width: 400,
+        padding: "3em",
+      });
       console.error("userGoogleData no existe");
       return;
     }
 
     try {
-      console.log(userGoogleData, "userGoogleData");
       const response = await postNextAuthSession(userGoogleData);
 
       const newUser =
-        response.googleUserWithoutPassword || response.newGoogleUser;
+        response.newGoogleUser || response.googleUserWithoutPassword;
 
-      console.log(newUser, "newUser");
       if (
         response &&
         response.message &&
         typeof response.message === "string" &&
         response.message.includes("realizado con exito")
       ) {
-        // if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
-        //   console.error(
-        //     "URL de la imagen de perfil no válida!:",
-        //     newUser.profileImg
-        //   );
-        //   newUser.profileImg = "/images/default-image.jpg";
-        // }
+        if (newUser.profileImg && !isValidUrl(newUser.profileImg)) {
+          newUser.profileImg = "/images/default-image.jpg";
+        }
+        saveUserToken(response.token);
+        setToken(response.token);
 
         setUserIdGoogle(newUser.id);
 
@@ -137,6 +139,7 @@ const useAuth = () => {
   const handleUpdateProfile = async (values: IUpdateUser) => {
     try {
       const userId = userIdGoogle;
+      const tokenUser = token;
 
       if (userId) {
         if (!values.category) {
@@ -148,8 +151,8 @@ const useAuth = () => {
           return;
         }
 
-        const updatedUser = await updateUserProfile(userId, values);
-        console.log(updatedUser, "updatedUser");
+        const updatedUser = await updateUserProfile(userId, values, tokenUser);
+
         if (updatedUser) {
           saveGoogleUser(updatedUser);
           setCurrentUser(updatedUser);
@@ -190,8 +193,10 @@ const useAuth = () => {
       const response: IUserLoginRes = await HandlerLogIn(data);
 
       if (response?.token) {
-        saveRegularUser(response.userClean);
-        setCurrentUser(response.userClean);
+        const responseUser = { ...response.userClean, token: response.token };
+
+        saveRegularUser(responseUser);
+        setCurrentUser(responseUser);
         Swal.fire({
           title: "Te has logueado con éxito.",
           width: 400,
