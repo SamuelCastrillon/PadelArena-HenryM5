@@ -1,4 +1,5 @@
 import { axiosInstance } from "../AxiosConfig";
+import Swal from "sweetalert2";
 
 export const updatePhoto = async (id: string, photo: File) => {
   try {
@@ -18,6 +19,12 @@ export const updatePhoto = async (id: string, photo: File) => {
 
     return response.data;
   } catch (error) {
+    Swal.fire({
+      title: "Error al subir la foto",
+      text: "Por favor prueba con una más pequeña.",
+      width: 400,
+      padding: "3em",
+    });
     console.error("Error al actualizar la foto:", error);
     throw error;
   }
