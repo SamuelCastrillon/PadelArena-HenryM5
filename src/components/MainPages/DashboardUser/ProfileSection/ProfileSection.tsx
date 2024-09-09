@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import UserInfoPanel from "../../../MainComponents/UserInfoPanel/UserInfoPanel";
 import { AuthContext } from "@/context/GlobalContext";
 
