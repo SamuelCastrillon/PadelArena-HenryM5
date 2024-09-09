@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import { getUserStats } from "@/Server/User/userStats";
 
-const useUserStats = (userId: string) => {
+const useUserStats = (userId: string, token: string) => {
   const [stats, setStats] = useState<{
     won: number;
     loss: number;
@@ -14,8 +14,9 @@ const useUserStats = (userId: string) => {
 
   useEffect(() => {
     const fetchStats = async () => {
+      console.log(userId, token), "datos en usestats";
       try {
-        const response = await getUserStats(userId);
+        const response = await getUserStats(userId, token);
         setStats(response);
         console.log(response);
       } catch (err) {

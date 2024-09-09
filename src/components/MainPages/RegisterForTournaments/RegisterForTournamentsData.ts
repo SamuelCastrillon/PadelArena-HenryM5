@@ -8,12 +8,22 @@ import { IUserLogin } from "@/interfaces/RequestInterfaces";
 
 //? Validations Inpusts form
 export const registerTournamentSchema = yup.object({
-  name: yup.string().min(2, "Demasiado Corto!").max(40, "Demasiado Largo!").defined("Requerido!"),
+  name: yup
+    .string()
+    .min(2, "Demasiado Corto!")
+    .max(40, "Demasiado Largo!")
+    .defined("Requerido!"),
   teammate: yup.string().defined("Requerido!"),
 });
 
-export async function getDataToContructFormRegisterTournament(categrieId: string) {
-  const usersDataSelect: IUserLogin[] = await getUsersByCategory(categrieId);
+export async function getDataToContructFormRegisterTournament(
+  categrieId: string,
+  token: string
+) {
+  const usersDataSelect: IUserLogin[] = await getUsersByCategory(
+    categrieId,
+    token
+  );
 
   const usersToSelect = usersDataSelect.map((user: IUserLogin) => {
     return { value: user.id, name: user.name + " " + user.lastName };
