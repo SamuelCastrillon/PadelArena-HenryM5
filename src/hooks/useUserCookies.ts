@@ -15,6 +15,20 @@ export function useUserCookies() {
     Cookies.set(regularUserKey, dataToString, { expires: 7 });
   };
 
+  const saveUserToken = (token: string) => {
+    const cookieString = JSON.stringify(token);
+    Cookies.set("token", cookieString, { expires: 7 });
+  };
+
+  const getUserToken = (): string | null => {
+    const token = Cookies.get("token");
+    if (token) {
+      return token;
+    } else {
+      return null;
+    }
+  };
+
   const getGoogleUser = (): IUserGooglePut | null => {
     const googleUser = Cookies.get(googleUserKey);
 
@@ -66,5 +80,7 @@ export function useUserCookies() {
     getRegularUser,
     deleteGoogleUser,
     deleteRegularUser,
+    saveUserToken,
+    getUserToken,
   };
 }

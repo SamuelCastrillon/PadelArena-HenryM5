@@ -6,4 +6,6 @@ export interface IAuthcontext {
   userIdGoogle: string | null;
   setUserIdGoogle: (userIdGoogle: string | null) => void;
   updateUserPhoto: (photo: string) => void;
+  token: string | null;
+  setToken: (token: string | null) => void;
 }
