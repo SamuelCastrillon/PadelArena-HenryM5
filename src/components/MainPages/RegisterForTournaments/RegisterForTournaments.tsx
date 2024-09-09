@@ -29,18 +29,21 @@ interface IFormValues {
   teammate: string;
 }
 
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentId }) => {
-  const { currentUser } = useContext(AuthContext);
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
+  tournamentId,
+}) => {
+  const { currentUser, token } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const router = useRouter();
   const tournament = tournamentId.tournamentId;
 
   //? QUERY PARAMS
   const searchParams = useSearchParams();
-  const queryParams: IPaymentQueryResponse = transformQueryToPaymentResponse(searchParams);
+  const queryParams: IPaymentQueryResponse =
+    transformQueryToPaymentResponse(searchParams);
 
   const handlerPayment = (values: IFormValues) => {
-    if (!currentUser) {
+    if (!currentUser || !token) {
       return;
     }
 
@@ -65,7 +68,13 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
         if (!currentUser) {
           return;
         }
-        const getData = await getDataToContructFormRegisterTournament(currentUser.category.id);
+        if (!token) {
+          return;
+        }
+        const getData = await getDataToContructFormRegisterTournament(
+          currentUser.category.id,
+          token
+        );
         setDataToForm(getData);
       } catch (error) {
         console.error(error);
