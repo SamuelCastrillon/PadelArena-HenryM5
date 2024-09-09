@@ -19,21 +19,21 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [modalInputOpen, setModalInputOpen] = useState<boolean>(false);
   const [key, setKey] = useState<String | null>(null);
-  console.log(userInfo.profileImg);
 
+  console.log(user);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
 
-  const { currentUser, updateUserPhoto, setCurrentUser } =
+  const { currentUser, updateUserPhoto, setCurrentUser, token } =
     useContext(AuthContext);
-  const { saveRegularUser } = useUserCookies();
-  const currentPhoto = currentUser?.profileImg;
+
+  const { saveRegularUser, saveGoogleUser } = useUserCookies();
 
   const userId = userInfo.id;
 
-  useEffect(() => {
-    setUserInfo(user);
-  }, [user]);
+  // useEffect(() => {
+  //   setUserInfo(user);
+  // }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -60,15 +60,27 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
       console.error("Archivo o ID de torneo no seleccionado.");
       return;
     }
-
+    if (!token) {
+      console.error("Token no encontrado.");
+      return;
+    }
     try {
-      const response = await updatePhotoUserProfile(userId, selectedFile);
+      const response = await updatePhotoUserProfile(
+        user.id,
+        selectedFile,
+        token
+      );
 
       if (response) {
-        const updatedUserInfo = { ...userInfo, profileImg: response };
+        const updatedUserInfo = {
+          ...userInfo,
+          profileImg: response,
+          lastName: userInfo.lastName ?? "",
+        };
         setUserInfo(updatedUserInfo);
         setCurrentUser(updatedUserInfo);
         saveRegularUser(updatedUserInfo);
+        saveGoogleUser(updatedUserInfo);
       } else {
         console.error("Error al subir la imagen:", response);
       }
@@ -87,15 +99,20 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   const handleSave = async () => {
     setIsUpdating(true);
     try {
-      await updateUserProfile(userInfo.id, {
-        address: userInfo.address,
-        city: userInfo.city,
-        phone: userInfo.phone,
-        country: userInfo.country,
-        category: userInfo.category?.id || "",
-      });
-      setCurrentUser(userInfo);
-      saveRegularUser(userInfo);
+      const response = await updateUserProfile(
+        userInfo.id,
+        {
+          address: userInfo.address,
+          city: userInfo.city,
+          phone: userInfo.phone,
+          country: userInfo.country,
+          category: userInfo.category?.id || "",
+        },
+        token
+      );
+      setCurrentUser(response);
+      saveRegularUser(response);
+      saveGoogleUser(response);
       setIsEditing(false);
     } catch (error) {
       Swal.fire({
