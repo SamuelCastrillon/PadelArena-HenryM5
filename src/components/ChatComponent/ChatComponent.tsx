@@ -79,7 +79,7 @@ const ChatView: React.FC = () => {
   // Función para traer los últimos mensajes
   const fetchMessages = async () => {
     try {
-      const response = await fetch("http://localhost:3001/chat");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
 
       if (!response.ok) {
         throw new Error("Error al traer los mensajes");
@@ -96,7 +96,7 @@ const ChatView: React.FC = () => {
     fetchMessages(); // Traer mensajes cuando el componente se monta
 
     if (currentUser?.id) {
-      const newSocket: Socket = io("http://localhost:3001/", {
+      const newSocket: Socket = io(`${process.env.NEXT_PUBLIC_API_URL}`, {
         query: { userid: currentUser.id }, // Enviar el userID en la query
       });
 
