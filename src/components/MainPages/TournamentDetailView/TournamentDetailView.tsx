@@ -34,6 +34,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const closeModal = () => setIsModalOpen(false);
 
   const TOURNAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+  console.log(tournament);
 
   // Manejo de inscripción
   const handleInscriptionClick = async () => {
@@ -96,7 +97,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
   const isUserRegistered =
     tournament.team?.some((team: ITeam) =>
-      team.users?.some((userInTeam) => userInTeam.id === user?.id)
+      team.user?.some((user) => user.id === currentUser?.id)
     ) ?? false;
 
   const fixtureHeaders = [
@@ -186,7 +187,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
 
         {tournament.inscription === "abiertas" && user?.role !== "admin" && (
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
-            {isUserRegistered ? (
+            {isUserRegistered && user?.role === "jugador" ? (
               <p className="w-full px-12 py-6 text-xl text-center text-white uppercase bg-gray-400 rounded-xl radhiumz">
                 Ya estás inscripto
               </p>
