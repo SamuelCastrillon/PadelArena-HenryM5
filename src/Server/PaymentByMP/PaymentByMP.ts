@@ -49,7 +49,7 @@ export async function getAllPayments(userID: string, token: string) {
   }
 }
 
-export async function getAllPaymentsAdmin(userID: string, token: string) {
+export async function getAllPaymentsAdmin(token: string | null) {
   try {
     const response = await axiosInstance.get(`/mercado-pago/allPayments`, {
       headers: {
@@ -57,7 +57,7 @@ export async function getAllPaymentsAdmin(userID: string, token: string) {
       },
     });
     console.log(response.data);
-    const data: IAallUserPayments[] = response.data;
+    const data: IAallUserPayments[] | undefined = response.data;
     if (!data) {
       throw new Error("No hay pagos");
     }
