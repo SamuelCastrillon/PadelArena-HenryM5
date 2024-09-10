@@ -1,4 +1,5 @@
 import {
+  IAallPayments,
   IAallUserPayments,
   IProductPaymentDataReq,
 } from "@/interfaces/RequestInterfaces";
@@ -57,7 +58,7 @@ export async function getAllPaymentsAdmin(token: string) {
       },
     });
     console.log(response.data);
-    const data: IAallUserPayments[] | undefined = response.data;
+    const data: IAallPayments[] | undefined = response.data;
     if (!data) {
       throw new Error("No hay pagos");
     }
