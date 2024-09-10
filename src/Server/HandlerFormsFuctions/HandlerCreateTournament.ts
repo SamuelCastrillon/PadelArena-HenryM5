@@ -1,9 +1,13 @@
 import { ICreateTournamentReq } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
 
-async function HandlerNewTournament(data: ICreateTournamentReq) {
+async function HandlerNewTournament(data: ICreateTournamentReq, token: string) {
   try {
-    const response = await axiosInstance.post("/tournament/new", data);
+    const response = await axiosInstance.post("/tournament/new", data, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
 
     if (response.status === 200) {
       return response.data;

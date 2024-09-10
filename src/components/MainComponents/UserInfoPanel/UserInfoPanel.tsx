@@ -17,23 +17,23 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [modalInputOpen, setModalInputOpen] = useState<boolean>(false);
-  const [key, setKey] = useState<String | null>(null);
-  console.log(userInfo.profileImg);
+  //const [modalInputOpen, setModalInputOpen] = useState<boolean>(false);
+  //const [key, setKey] = useState<String | null>(null);
 
+  console.log(user);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
 
-  const { currentUser, updateUserPhoto, setCurrentUser } =
+  const { currentUser, updateUserPhoto, setCurrentUser, token, setToken } =
     useContext(AuthContext);
-  const { saveRegularUser } = useUserCookies();
-  const currentPhoto = currentUser?.profileImg;
+
+  const { saveRegularUser, saveGoogleUser, saveUserToken } = useUserCookies();
 
   const userId = userInfo.id;
 
-  useEffect(() => {
-    setUserInfo(user);
-  }, [user]);
+  // useEffect(() => {
+  //   setUserInfo(user);
+  // }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -60,15 +60,27 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
       console.error("Archivo o ID de torneo no seleccionado.");
       return;
     }
-
+    if (!token) {
+      console.error("Token no encontrado.");
+      return;
+    }
     try {
-      const response = await updatePhotoUserProfile(userId, selectedFile);
+      const response = await updatePhotoUserProfile(
+        user.id,
+        selectedFile,
+        token
+      );
 
       if (response) {
-        const updatedUserInfo = { ...userInfo, profileImg: response };
+        const updatedUserInfo = {
+          ...userInfo,
+          profileImg: response,
+          lastName: userInfo.lastName ?? "",
+        };
         setUserInfo(updatedUserInfo);
         setCurrentUser(updatedUserInfo);
         saveRegularUser(updatedUserInfo);
+        saveGoogleUser(updatedUserInfo);
       } else {
         console.error("Error al subir la imagen:", response);
       }
@@ -87,15 +99,21 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   const handleSave = async () => {
     setIsUpdating(true);
     try {
-      await updateUserProfile(userInfo.id, {
-        address: userInfo.address,
-        city: userInfo.city,
-        phone: userInfo.phone,
-        country: userInfo.country,
-        category: userInfo.category?.id || "",
-      });
-      setCurrentUser(userInfo);
-      saveRegularUser(userInfo);
+      const response = await updateUserProfile(
+        userInfo.id,
+        {
+          address: userInfo.address,
+          city: userInfo.city,
+          phone: userInfo.phone,
+          country: userInfo.country,
+          category: userInfo.category?.id || "",
+        },
+        token
+      );
+      setCurrentUser(response);
+
+      saveRegularUser(response);
+      saveGoogleUser(response);
       setIsEditing(false);
     } catch (error) {
       Swal.fire({
@@ -120,18 +138,18 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
     return isValidUrl ? src : defaultImage;
   };
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKey(event.target.value);
-  };
-  const handleInputRoleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    console.log(key);
+  // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setKey(event.target.value);
+  // };
+  // const handleInputRoleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   console.log(key);
 
-    if (!key) {
-      console.error("Key no válida");
-      return;
-    }
-  };
+  //   if (!key) {
+  //     console.error("Key no válida");
+  //     return;
+  //   }
+  // };
 
   return (
     <div className="bg-blue-700/20 rounded-lg h-auto flex items-center justify-center my-10">
@@ -149,13 +167,15 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
           {/* Botón de lápiz para editar la imagen */}
           <button
             onClick={() => setIsModalOpen(true)}
-            className="absolute bottom-2 right-2 bg-white p-1 rounded-full shadow-md hover:bg-gray-200 transition duration-200">
+            className="absolute bottom-2 right-2 bg-white p-1 rounded-full shadow-md hover:bg-gray-200 transition duration-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30px"
               height="30px"
               viewBox="0 -0.5 25 25"
-              fill="none">
+              fill="none"
+            >
               <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -255,28 +275,32 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
         <div>
           <ActionButton
             onClick={toggleEdit}
-            className=" bg-lime text-black px-4 py-2 rounded hover:bg-black hover:text-white">
+            className=" bg-lime text-black px-4 py-2 rounded hover:bg-black hover:text-white"
+          >
             {isEditing ? (isUpdating ? "Guardando..." : "Guardar") : "Editar"}
           </ActionButton>
-          <ActionButton
+          {/* <ActionButton
             onClick={() => setModalInputOpen(true)}
-            className=" mt-4 text-black px-4 py-2 align-bottom rounded-lg border-2 border-lime  hover:focus:ring-4 focus:outline-none focus:ring-blue-300 hover:bg-lime hover:text-white">
+            className=" mt-4 text-black px-4 py-2 align-bottom rounded-lg border-2 border-lime  hover:focus:ring-4 focus:outline-none focus:ring-blue-300 hover:bg-lime hover:text-white"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
               y="0px"
               width="20"
               height="20"
-              viewBox="0 0 30 30">
+              viewBox="0 0 30 30"
+            >
               <path d="M 18.5 3 C 13.806 3 10 6.806 10 11.5 C 10 12.542294 10.19765 13.536204 10.541016 14.458984 L 3 22 L 3 27 L 8 27 L 8 24 L 11 24 L 11 21 L 14 21 L 15.541016 19.458984 C 16.463796 19.80235 17.457706 20 18.5 20 C 23.194 20 27 16.194 27 11.5 C 27 6.806 23.194 3 18.5 3 z M 20.5 7 C 21.881 7 23 8.119 23 9.5 C 23 10.881 21.881 12 20.5 12 C 19.119 12 18 10.881 18 9.5 C 18 8.119 19.119 7 20.5 7 z"></path>
             </svg>
-          </ActionButton>
+          </ActionButton> */}
         </div>
       </div>
       {isModalOpen && (
         <ReusableModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}>
+          onClose={() => setIsModalOpen(false)}
+        >
           <h2 className="text-2xl font-bold mb-4">Cargar Archivo</h2>
           <form onSubmit={handleUpdatePhotoUser} className="space-y-4">
             <input
@@ -290,12 +314,14 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="px-4 py-2 bg-gray-500 text-white rounded">
+                className="px-4 py-2 bg-gray-500 text-white rounded"
+              >
                 Cancelar
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-blue-500 text-white rounded">
+                className="px-4 py-2 bg-blue-500 text-white rounded"
+              >
                 Subir
               </button>
             </div>
@@ -303,10 +329,11 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
         </ReusableModal>
       )}
 
-      {modalInputOpen && (
+      {/* {modalInputOpen && (
         <ReusableModal
           isOpen={modalInputOpen}
-          onClose={() => setModalInputOpen(false)}>
+          onClose={() => setModalInputOpen(false)}
+        >
           <div>
             <h2 className="text-2xl font-bold mb-4">Cargar Key</h2>
             <form className="space-y-4" onClick={handleInputRoleSubmit}>
@@ -321,19 +348,21 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
                 <button
                   type="button"
                   onClick={() => setModalInputOpen(false)}
-                  className="px-4 py-2 bg-gray-500 text-white rounded">
+                  className="px-4 py-2 bg-gray-500 text-white rounded"
+                >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-500 text-white rounded">
+                  className="px-4 py-2 bg-blue-500 text-white rounded"
+                >
                   Enviar
                 </button>
               </div>
             </form>
           </div>
         </ReusableModal>
-      )}
+      )} */}
     </div>
   );
 };

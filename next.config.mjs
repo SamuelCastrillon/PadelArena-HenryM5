@@ -14,6 +14,7 @@ const nextConfig = {
       "resizer.glanacion.com",
       "example.com",
       "asset.cloudinary.com",
+      "assets-decimas-2.s3.amazonaws.com",
     ],
   },
 };

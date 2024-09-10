@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { IUserGooglePut, IUserLogin } from "@/interfaces/RequestInterfaces";
-
+import { decode } from "jsonwebtoken";
 const googleUserKey = "googleUser";
 const regularUserKey = "regularUser";
 
@@ -22,11 +22,11 @@ export function useUserCookies() {
 
   const getUserToken = (): string | null => {
     const token = Cookies.get("token");
-    if (token) {
-      return token;
-    } else {
-      return null;
-    }
+    return token ? JSON.parse(token) : null;
+  };
+
+  const removeUserToken = () => {
+    Cookies.remove("token");
   };
 
   const getGoogleUser = (): IUserGooglePut | null => {
@@ -73,6 +73,26 @@ export function useUserCookies() {
     console.log("Regular User cookie removed.");
   };
 
+  const isValidToken = (token: string) => {
+    try {
+      const decoded = decode(token);
+      if (!decoded) {
+        return false; // Invalid token
+      }
+      if (
+        typeof decoded === "object" &&
+        decoded.exp &&
+        Date.now() >= decoded.exp * 1000
+      ) {
+        return false; // Token has expired
+      }
+      return true; // Token is valid
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return false; // Token is invalid
+    }
+  };
+
   return {
     saveGoogleUser,
     saveRegularUser,
@@ -82,5 +102,7 @@ export function useUserCookies() {
     deleteRegularUser,
     saveUserToken,
     getUserToken,
+    removeUserToken,
+    isValidToken,
   };
 }

@@ -1,7 +1,12 @@
 import { axiosInstance } from "../AxiosConfig";
 
-export const updatePhotoUserProfile = async (id: string, photo: File) => {
+export const updatePhotoUserProfile = async (
+  id: string,
+  photo: File,
+  token: string
+) => {
   try {
+    console.log(token, "token");
     const formData = new FormData();
     formData.append("file", photo);
 
@@ -12,6 +17,7 @@ export const updatePhotoUserProfile = async (id: string, photo: File) => {
         headers: {
           "Content-Type": "multipart/form-data",
           accept: "*/*",
+          authorization: `Bearer ${token}`,
         },
       }
     );

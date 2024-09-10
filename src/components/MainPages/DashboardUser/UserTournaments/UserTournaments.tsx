@@ -11,17 +11,17 @@ import { ITeam } from "@/interfaces/ComponentsInterfaces/Team";
 
 const UserTournaments = () => {
   const { tournaments } = useTournamentData();
-  const [userTournaments, setUserTournaments] = useState<ITournament[]>([]); // Cambia a un array de torneos
-  const { currentUser } = useContext(AuthContext);
+  const [userTournaments, setUserTournaments] = useState<ITournament[]>([]);
+  const { currentUser, token } = useContext(AuthContext);
   const router = useRouter();
 
   useEffect(() => {
     const fetchUserTournaments = async () => {
+      if (!currentUser || !token) return;
       try {
-        if (!currentUser) return;
-        const userResponse = await getUserTournament(currentUser.id);
-        console.log(userResponse.team.map((t: ITeam) => t.tournament)); // Verifica que datos se están recibiendo
-        setUserTournaments(userResponse.team.map((t: ITeam) => t.tournament)); // Asegúrate de que `team` y `tournament` están en el formato esperado
+        const userResponse = await getUserTournament(currentUser.id, token);
+        console.log(userResponse.team.map((t: ITeam) => t.tournament));
+        setUserTournaments(userResponse.team.map((t: ITeam) => t.tournament));
       } catch (error) {
         console.error("Error fetching user tournaments:", error);
       }
@@ -35,7 +35,6 @@ const UserTournaments = () => {
   };
 
   if (userTournaments.length === 0) {
-    // Cambiado de null a longitud del array
     return (
       <div className="w-full flex flex-col items-center border-2 border-white bg-blue-700/30 rounded-lg p-4 mt-10">
         <h1 className="text-2xl radhiumz uppercase mb-4 text-white">
