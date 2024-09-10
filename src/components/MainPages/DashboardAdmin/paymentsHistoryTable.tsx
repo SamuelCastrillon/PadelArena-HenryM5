@@ -276,6 +276,9 @@ const PaymentsTable: React.FC = () => {
                       NÚMERO DE ÓRDEN
                     </th>
                     <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
+                      EQUIPO
+                    </th>
+                    <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
                       FECHA
                     </th>
                     <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
@@ -292,6 +295,9 @@ const PaymentsTable: React.FC = () => {
                       <tr key={key} className="text-center">
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                           <p className="text-gray-500">{payment.payment_id}</p>
+                        </td>
+                        <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                          <p className="text-gray-500">{payment.user.name}</p>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                           <p className="text-gray-500">
