@@ -31,7 +31,7 @@ const PaymentHistoryPanel: React.FC = () => {
 
   useEffect(() => {
     getPayments();
-  }, []);
+  }, [currentUser]);
 
   return (
     <>
