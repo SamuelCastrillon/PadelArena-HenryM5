@@ -71,6 +71,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
         if (!token) {
           return;
         }
+
         const getData = await getDataToContructFormRegisterTournament(
           currentUser.category.id,
           token
