@@ -185,6 +185,33 @@ export interface IAallUserPayments {
   };
 }
 
+// MP - DashboardAdmin
+
+export interface IAallPayments {
+  id: string;
+  payment_id: string;
+  status: string;
+  date_created: string;
+  date_approved: string;
+  date_last_updated: string;
+  transaction_amount: number;
+  successInscription: boolean;
+  user: {
+    id: string;
+    name: string;
+    lastName: string;
+    email: string;
+    password: string;
+    phone: string;
+    country: string;
+    city: string;
+    address: string;
+    profileImg: string;
+    clientId: string | null;
+    role: string;
+  };
+}
+
 //? Teams Interfaces
 
 export interface IPostNewTeam {
