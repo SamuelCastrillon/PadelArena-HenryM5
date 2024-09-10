@@ -3,7 +3,8 @@ import { axiosInstance } from "@/Server/AxiosConfig";
 
 export async function postCreateAndSuscribeNewTeam(
   tournamentId: string,
-  teamPostData: IPostNewTeam
+  teamPostData: IPostNewTeam,
+  token: string
 ) {
   const URL_POST = `/tournament-team/${tournamentId}`;
   const BODY = teamPostData;
@@ -11,7 +12,15 @@ export async function postCreateAndSuscribeNewTeam(
   console.log(URL_POST, BODY);
 
   try {
-    const response = await axiosInstance.post(`/tournament-team/${tournamentId}`, teamPostData);
+    const response = await axiosInstance.post(
+      `/tournament-team/${tournamentId}`,
+      teamPostData,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
     console.log(response.data);
 
     return response.data;

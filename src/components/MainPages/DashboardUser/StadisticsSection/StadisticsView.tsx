@@ -12,9 +12,9 @@ interface StadisticsViewProps {
 }
 
 const StadisticsView = ({ userId, token }: StadisticsViewProps) => {
+  console.log(userId, "userid", token, "estadisticas");
   const { stats, loading, error } = useUserStats(userId, token);
   const [userName, setUserName] = useState<string>("");
-  console.log(stats);
 
   useEffect(() => {
     const getUserName = async () => {
@@ -27,8 +27,6 @@ const StadisticsView = ({ userId, token }: StadisticsViewProps) => {
 
     getUserName();
   });
-
-  const { won, loss } = stats || {};
 
   if (loading)
     return <p className="text-white text-center">Cargando estadísticas...</p>;

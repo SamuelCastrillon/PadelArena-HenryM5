@@ -53,7 +53,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
       players: [currentUser.id, values.teammate],
     };
 
-    postCreateAndSuscribeNewTeam(tournament, newTeam);
+    postCreateAndSuscribeNewTeam(tournament, newTeam, token);
   };
 
   useEffect(() => {
