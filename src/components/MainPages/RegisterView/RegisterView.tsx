@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 import FormComponent from "@/components/MainComponents/ReusableFormComponent/FormComponent";
@@ -21,6 +21,7 @@ import {
   updateProfileSchema,
 } from "../LogInView/updateData";
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
+import { AuthContext } from "@/context/GlobalContext";
 
 const RegisterView = () => {
   const {
@@ -40,6 +41,7 @@ const RegisterView = () => {
       ? categories.map((category) => ({
           value: category.id,
           name: category.name,
+          description: category.description,
         }))
       : [];
 
@@ -130,6 +132,7 @@ const RegisterView = () => {
         butonsForm={butonsRegisterForm}
       />
       {/* Botón para registrarse con Google */}
+
       <ButtonNextAuthSignIn className=" bg-black text-white">
         Registrate con Google
       </ButtonNextAuthSignIn>
@@ -142,7 +145,6 @@ const RegisterView = () => {
         backgroundColor="bg-white"
         textColor="text-black"
         className="p-4"
-        bgImageUrl="https://example.com/your-background-image.jpg"
       >
         <h2 className="text-xl font-bold mb-4">Completa tu perfil</h2>
         <FormComponent

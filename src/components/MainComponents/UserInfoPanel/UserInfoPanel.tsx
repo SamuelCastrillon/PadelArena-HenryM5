@@ -137,7 +137,7 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
       src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
-
+  //EDITAR ADMIN ROLE
   // const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   //   setKey(event.target.value);
   // };
@@ -279,7 +279,8 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
           >
             {isEditing ? (isUpdating ? "Guardando..." : "Guardar") : "Editar"}
           </ActionButton>
-          {/* <ActionButton
+          {/* EDITAR ADMIN ROLE
+           <ActionButton
             onClick={() => setModalInputOpen(true)}
             className=" mt-4 text-black px-4 py-2 align-bottom rounded-lg border-2 border-lime  hover:focus:ring-4 focus:outline-none focus:ring-blue-300 hover:bg-lime hover:text-white"
           >

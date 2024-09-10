@@ -12,6 +12,7 @@ const authHandler = NextAuth({
       authorization: `https://accounts.google.com/o/oauth2/auth/authorize?response_type=code&prompt=login`,
     }),
   ],
+
   secret: process.env.NEXTAUTH_SECRET,
 });
 
