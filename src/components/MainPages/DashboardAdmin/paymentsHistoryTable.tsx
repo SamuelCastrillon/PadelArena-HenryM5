@@ -189,11 +189,11 @@ import React, { useState, useContext, useEffect } from "react";
 import { formatDate } from "@/helpers/dateTimeHelper";
 import { getAllPaymentsAdmin } from "@/Server/PaymentByMP/PaymentByMP";
 import { AuthContext } from "@/context/GlobalContext";
-import { IAallUserPayments } from "@/interfaces/RequestInterfaces";
+import { IAallPayments } from "@/interfaces/RequestInterfaces";
 
 const PaymentsTable: React.FC = () => {
   const { token } = useContext(AuthContext);
-  const [paymentData, setPaymentData] = useState<IAallUserPayments[]>([]);
+  const [paymentData, setPaymentData] = useState<IAallPayments[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   useEffect(() => {
@@ -221,13 +221,11 @@ const PaymentsTable: React.FC = () => {
 
   const filteredPayments = paymentData.filter((payment) => {
     const lowercasedTerm = searchTerm.toLowerCase();
-    const matchesOrderId = payment.message.payment_id
+    const matchesOrderId = payment.payment_id
       .toLowerCase()
       .includes(lowercasedTerm);
-    const matchesStatus = payment.message.status
-      .toLowerCase()
-      .includes(lowercasedTerm);
-    const matchesDate = formatDate(payment.message.date_approved).includes(
+    const matchesStatus = payment.status.toLowerCase().includes(lowercasedTerm);
+    const matchesDate = formatDate(payment.date_approved).includes(
       lowercasedTerm
     );
 
@@ -289,13 +287,11 @@ const PaymentsTable: React.FC = () => {
                     filteredPayments.map((payment, key) => (
                       <tr key={key} className="text-center">
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                          <p className="text-gray-500">
-                            {payment.message.payment_id}
-                          </p>
+                          <p className="text-gray-500">{payment.payment_id}</p>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                           <p className="text-gray-500">
-                            {formatDate(payment.message.date_approved)}
+                            {formatDate(payment.date_approved)}
                           </p>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark relative">
@@ -307,9 +303,9 @@ const PaymentsTable: React.FC = () => {
                               fillRule="evenodd"
                               clipRule="evenodd"
                               className={`${
-                                payment.message.status === "failed"
+                                payment.status === "failed"
                                   ? "text-red-500"
-                                  : payment.message.status === "completed"
+                                  : payment.status === "approved"
                                   ? "text-green-500"
                                   : "text-yellow-500"
                               }`}>
@@ -319,12 +315,12 @@ const PaymentsTable: React.FC = () => {
                               />
                             </svg>
                             <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-75 whitespace-nowrap hidden group-hover:block">
-                              {payment.message.status.toUpperCase()}
+                              {payment.status.toUpperCase()}
                             </span>
                           </p>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
-                          <p className="text-gray-500">{`$${payment.message.transaction_amount}`}</p>
+                          <p className="text-gray-500">{`$${payment.transaction_amount}`}</p>
                         </td>
                       </tr>
                     ))
