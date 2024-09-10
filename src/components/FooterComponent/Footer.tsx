@@ -43,12 +43,12 @@ const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                Phone:{" "}
+                Teléfono:{" "}
                 <a href="tel:+1234567890" className="hover:underline">
                   +123 456 7890
                 </a>
               </li>
-              <li>Address: St. 123, Argentina</li>
+              <li>Dirección: St. 123, Argentina</li>
             </ul>
           </div>
 

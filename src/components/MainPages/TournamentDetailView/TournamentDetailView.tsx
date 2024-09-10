@@ -178,7 +178,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
             {isUserRegistered ? (
               <p className="w-full px-12 py-6 text-xl text-center text-white uppercase bg-gray-400 rounded-xl radhiumz">
-                Ya estás inscrito
+                Ya estás inscripto
               </p>
             ) : (
               <button

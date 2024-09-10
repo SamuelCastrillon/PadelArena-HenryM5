@@ -45,14 +45,13 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
         <h2 className="text-2xl md:text-4xl radhiumz mb-4">{title}</h2>
         <ActionButton
           className="flex items-center justify-center w-10 h-10 bg-lime text-black rounded-full shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          onClick={onActionClick}
-        >
+          onClick={onActionClick}>
           <PlusIcon className="h-6 w-6" />
         </ActionButton>
       </div>
       {carouselItems.length === 0 ? (
         <p className="sfRegular text-xl text-black bg-blue-600/20 rounded-lg px-4 py-2">
-          No hay torneos disponibles!
+          ¡No hay torneos disponibles!
         </p>
       ) : (
         <Carousel images={carouselItems} />
