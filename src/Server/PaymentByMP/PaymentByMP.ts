@@ -19,6 +19,7 @@ async function postPaymentToMP(
       }
     );
     if (redirectUrl.status === 201) {
+      console.log("ACÁ LA URL", redirectUrl);
       return redirectUrl.data;
     } else {
       throw new Error("Error al realizar el pago");
@@ -39,6 +40,24 @@ export async function getAllPayments(userID: string, token: string) {
     });
     console.log(response.data);
     const data: IAallUserPayments[] = response.data;
+    if (!data) {
+      throw new Error("No hay pagos");
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAllPaymentsAdmin(token: string | null) {
+  try {
+    const response = await axiosInstance.get(`/mercado-pago/allPayments`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    const data: IAallUserPayments[] | undefined = response.data;
     if (!data) {
       throw new Error("No hay pagos");
     }
