@@ -2,45 +2,45 @@
 import React, { useState, useContext } from "react";
 import { formatDate } from "@/helpers/dateTimeHelper";
 import { IPayment } from "@/interfaces/RequestInterfaces";
-// import { getAllPaymentsAdmin } from "@/Server/PaymentByMP/PaymentByMP";
-// import { AuthContext } from "@/context/GlobalContext";
+import { getAllPaymentsAdmin } from "@/Server/PaymentByMP/PaymentByMP";
+import { AuthContext } from "@/context/GlobalContext";
 
-export const paymentData: IPayment[] = [
-  {
-    orderId: "ORD12345",
-    status: "completed",
-    amount: 299.99,
-    date: "2024-08-29T10:30:00Z",
-  },
-  {
-    orderId: "ORD12346",
-    status: "failed",
-    amount: 150.0,
-    date: "2024-08-30T14:15:00Z",
-  },
-  {
-    orderId: "ORD12347",
-    status: "failed",
-    amount: 75.5,
-    date: "2024-08-31T09:00:00Z",
-  },
-  {
-    orderId: "ORD12348",
-    status: "completed",
-    amount: 450.25,
-    date: "2024-09-01T12:45:00Z",
-  },
-  {
-    orderId: "ORD12349",
-    status: "failed",
-    amount: 199.99,
-    date: "2024-09-02T16:20:00Z",
-  },
-];
+// export const paymentData: IPayment[] = [
+//   {
+//     orderId: "ORD12345",
+//     status: "completed",
+//     amount: 299.99,
+//     date: "2024-08-29T10:30:00Z",
+//   },
+//   {
+//     orderId: "ORD12346",
+//     status: "failed",
+//     amount: 150.0,
+//     date: "2024-08-30T14:15:00Z",
+//   },
+//   {
+//     orderId: "ORD12347",
+//     status: "failed",
+//     amount: 75.5,
+//     date: "2024-08-31T09:00:00Z",
+//   },
+//   {
+//     orderId: "ORD12348",
+//     status: "completed",
+//     amount: 450.25,
+//     date: "2024-09-01T12:45:00Z",
+//   },
+//   {
+//     orderId: "ORD12349",
+//     status: "failed",
+//     amount: 199.99,
+//     date: "2024-09-02T16:20:00Z",
+//   },
+// ];
 
 const PaymentsTable: React.FC = () => {
-  // const { token } = useContext(AuthContext);
-  // const paymentData = getAllPaymentsAdmin(token);
+  const { token } = useContext(AuthContext);
+  const paymentData = getAllPaymentsAdmin(token);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
 
