@@ -46,15 +46,15 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         });
         return;
       }
+      if (!token) {
+        throw new Error("No hay token");
+      }
       const data: IProductPaymentDataReq = {
         tournament: tournament.id,
         host: TOURNAMENT_REGISTER_URL,
         user: user.id,
       };
       try {
-        if (!token) {
-          throw new Error("No hay token");
-        }
         const responseUrl = await postPaymentToMP(data, token);
         if (!responseUrl.redirectUrl) {
           throw new Error("Error al realizar el pago");

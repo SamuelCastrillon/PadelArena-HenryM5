@@ -24,12 +24,14 @@ const TournamentDetail = async ({ params }: { params: { id: string } }) => {
   if (!tournamentId) {
     return <div>Torneo no encontrado</div>;
   }
+  //process.env -> obtiene las variables de entorno protegidas
+  const host = process.env.CURRENT_APP_URL;
 
   return (
     <div className=" w-[90%] md:w-3/4 mx-auto p-4 justify-center items-center ">
       <TournamentDetailView
         tournament={tournamentId}
-        currentHost={CURRENT_APP_URL || ""}
+        currentHost={host || ""}
       />
     </div>
   );

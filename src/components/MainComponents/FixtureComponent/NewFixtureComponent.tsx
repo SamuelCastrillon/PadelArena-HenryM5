@@ -49,26 +49,36 @@ const NewFixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
       {showConfetti && width > 0 && height > 0 && (
         <ReactConfetti width={width} height={height} />
       )}
-      <div className="w-full grid grid-cols-4 gap-4 mb-6">
+      <div className="w-full grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div className="flex flex-col items-center">
-          <h1 className="text-xl radhiumz text-white">OCTAVOS</h1>
-          <p className="sfRegular text-white uppercase">Arranca el fixture!</p>
+          <h1 className="text-md md:text-xl radhiumz text-white">OCTAVOS</h1>
+          <p className="sfRegular text-md md:text-xl text-white uppercase">
+            Arranca el fixture!
+          </p>
         </div>
         <div className="flex flex-col items-center">
-          <h1 className="text-xl radhiumz text-white">CUARTOS</h1>
-          <p className="sfRegular text-white uppercase">Precalentamiento!</p>
+          <h1 className="text-md md:text-xl radhiumz text-white">CUARTOS</h1>
+          <p className="sfRegular text-md md:text-xl text-white uppercase">
+            Precalentamiento!
+          </p>
         </div>
         <div className="flex flex-col items-center">
-          <h1 className="text-xl radhiumz text-white">SEMIFINALES</h1>
-          <p className="sfRegular text-white uppercase">Empieza la pelea</p>
+          <h1 className="text-md md:text-xl radhiumz text-white">
+            SEMIFINALES
+          </h1>
+          <p className="sfRegular text-md md:text-xl text-white uppercase">
+            Empieza la pelea
+          </p>
         </div>
         <div className="flex flex-col items-center">
-          <h1 className="text-xl radhiumz text-white">FINALES</h1>
-          <p className="sfRegular text-white uppercase">El gran final!</p>
+          <h1 className="text-md md:text-xl radhiumz text-white">FINALES</h1>
+          <p className="sfRegular text-md md:text-xl text-white uppercase">
+            El gran final!
+          </p>
         </div>
       </div>
 
-      <div className="flex  w-full h-fit items-center space-y-8">
+      <div className="flex flex-col md:flex-row  w-full h-fit items-center space-y-8">
         {" "}
         {/* Cambiar a flex-col para una columna */}
         {rounds.map((round, i) => (
