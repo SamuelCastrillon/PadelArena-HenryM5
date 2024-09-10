@@ -15,7 +15,7 @@ export function preFormattingData(
   const {
     Lunes,
     Martes,
-    Miercoles,
+    Miércoles,
     Jueves,
     Viernes,
     Sabado,
@@ -25,7 +25,7 @@ export function preFormattingData(
   const playingDaysSelected = [
     Lunes,
     Martes,
-    Miercoles,
+    Miércoles,
     Jueves,
     Viernes,
     Sabado,
@@ -43,8 +43,8 @@ export function preFormattingData(
         case Martes:
           daySelect = "Martes";
           break;
-        case Miercoles:
-          daySelect = "Miercoles";
+        case Miércoles:
+          daySelect = "Miércoles";
           break;
         case Jueves:
           daySelect = "Jueves";
