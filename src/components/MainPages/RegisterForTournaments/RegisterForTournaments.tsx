@@ -99,6 +99,15 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
       }, 2000);
     }
 
+    if (queryParams.status === "approved") {
+      Swal.fire({
+        title: "Exito",
+        text: "Tu pago ha sido aprobado",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
+
     async function dataConstructor() {
       try {
         if (!currentUser) {
