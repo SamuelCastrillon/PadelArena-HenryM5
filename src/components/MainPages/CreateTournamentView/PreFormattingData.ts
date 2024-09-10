@@ -18,7 +18,7 @@ export function preFormattingData(
     Miércoles,
     Jueves,
     Viernes,
-    Sabado,
+    Sábado,
     Domingo,
     plusCode,
   } = data;
@@ -28,7 +28,7 @@ export function preFormattingData(
     Miércoles,
     Jueves,
     Viernes,
-    Sabado,
+    Sábado,
     Domingo,
   ];
 
@@ -52,8 +52,8 @@ export function preFormattingData(
         case Viernes:
           daySelect = "Viernes";
           break;
-        case Sabado:
-          daySelect = "Sabado";
+        case Sábado:
+          daySelect = "Sábado";
           break;
         case Domingo:
           daySelect = "Domingo";
