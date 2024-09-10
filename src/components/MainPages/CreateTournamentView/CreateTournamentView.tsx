@@ -107,15 +107,24 @@ const handlerSubmit = async (
       ...values,
       plusCode, // Pasa el plusCode aquí
     });
-
-    if (dataFormattedToSend && token) {
-      const response = await HandlerNewTournament(dataFormattedToSend, token);
+    if (!plusCode) {
       Swal.fire({
-        title: "Torneo creado con éxito.",
+        title: "Por favor completa la ubicación del torneo.",
         width: 400,
         padding: "3em",
       });
-      router.push("/dashboard/admin/tournaments/management");
+    }
+
+    if (dataFormattedToSend && token) {
+      const response = await HandlerNewTournament(dataFormattedToSend, token);
+      if (response.status === 200) {
+        Swal.fire({
+          title: "Torneo creado con éxito.",
+          width: 400,
+          padding: "3em",
+        });
+        router.push("/dashboard/admin/tournaments/management");
+      }
     }
   } catch (error: any) {
     Swal.fire({

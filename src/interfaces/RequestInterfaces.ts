@@ -94,7 +94,7 @@ export interface ICreateTournamentFormData {
   endTime: string;
   Lunes?: ["on"] | [] | undefined;
   Martes?: ["on"] | [] | undefined;
-  Miercoles?: ["on"] | [] | undefined;
+  Miércoles?: ["on"] | [] | undefined;
   Jueves?: ["on"] | [] | undefined;
   Viernes?: ["on"] | [] | undefined;
   Sabado?: ["on"] | [] | undefined;

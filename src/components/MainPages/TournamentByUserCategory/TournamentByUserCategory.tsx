@@ -6,13 +6,14 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import { getUsersId } from "@/Server/Users/getUsers";
 import { AuthContext } from "@/context/GlobalContext";
+import Swal from "sweetalert2";
 
 export interface IFilerProp {
   category: string;
 }
 
 const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
   const [tournaments, setTournaments] = useState<ITournament[]>([]);
   const [filteredTournaments, setFilteredTournaments] = useState<ITournament[]>(
     []
