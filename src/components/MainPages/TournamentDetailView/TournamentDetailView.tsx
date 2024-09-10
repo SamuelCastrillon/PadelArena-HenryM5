@@ -30,6 +30,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
   const closeModal = () => setIsModalOpen(false);
 
   const TOURNAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+  console.log(tournament);
 
   // Manejo de inscripción
   const handleInscriptionClick = async () => {
@@ -43,13 +44,20 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
         return;
       }
       if (!token) {
-        throw new Error("No hay token");
+        return;
       }
       const data: IProductPaymentDataReq = {
         tournament: tournament.id,
         host: TOURNAMENT_REGISTER_URL,
         user: user.id,
       };
+      Swal.fire({
+        title: "Atencion",
+        text: `Estas por registrar tu pago de ${tournament.price} para el torneo ${tournament.name}`,
+        icon: "info",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+      });
       try {
         const responseUrl = await postPaymentToMP(data, token);
         console.log(responseUrl.redirectUrl);
@@ -81,7 +89,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
 
   const isUserRegistered =
     tournament.team?.some((team: ITeam) =>
-      team.users?.some((userInTeam) => userInTeam.id === user?.id)
+      team.user?.some((user) => user.id === currentUser?.id)
     ) ?? false;
 
   const fixtureHeaders = [
@@ -163,9 +171,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
 
         {tournament.inscription === "abiertas" && user?.role !== "admin" && (
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
-            {isUserRegistered ? (
+            {isUserRegistered && user?.role === "jugador" ? (
               <p className="w-full px-12 py-6 text-xl text-center text-white uppercase bg-gray-400 rounded-xl radhiumz">
-                Ya estás inscrito
+                Ya estás inscripto
               </p>
             ) : (
               <button
