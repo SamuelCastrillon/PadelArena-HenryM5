@@ -8,7 +8,7 @@ export interface ITeam {
   name: string;
   order: number;
   category?: ICategories;
-  users?: Partial<IUserLogin>[];
+  user?: Partial<IUserLogin>[];
   tournament?: ITournament;
   ableForPlay: boolean;
 }
