@@ -30,6 +30,11 @@ const TournamentGallery: React.FC<TournamentGalleryProps> = ({
           genero={tournament.genero || ""}
           categoria={tournament.category.name || "Sin categoría"}
           inscripciones={tournament.inscription}
+          precio={tournament.price?.toString() || "Sin precio"}
+          fechaInicio={new Date(tournament.startDate).toLocaleDateString(
+            "es-ES"
+          )}
+          fechaFin={new Date(tournament.endDate).toLocaleDateString("es-ES")}
           href={`/tournaments/${tournament.id}`}
         />
       ))}
