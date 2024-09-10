@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { formatDate } from "@/helpers/dateTimeHelper";
 import { IPayment } from "@/interfaces/RequestInterfaces";
+// import { getAllPaymentsAdmin } from "@/Server/PaymentByMP/PaymentByMP";
 
 export const paymentsData: IPayment[] = [
   {
@@ -37,8 +38,7 @@ export const paymentsData: IPayment[] = [
 ];
 
 const PaymentsTable: React.FC = () => {
-  //   const { paymentData } = getAllPayments(); // esta función aún no está disponible en el back
-  const paymentData = paymentsData;
+  // const paymentData = getAllPaymentsAdmin();
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
