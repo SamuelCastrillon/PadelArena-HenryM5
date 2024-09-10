@@ -1,31 +1,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { decode } from "jsonwebtoken";
 
 const googleUserKey = "googleUser";
 const regularUserKey = "regularUser";
+const tokenCookieName = "token";
 
 export async function middleware(request: NextRequest) {
   const googleUserCookie = request.cookies.get(googleUserKey)?.value;
   const regularUserCookie = request.cookies.get(regularUserKey)?.value;
-  console.log(regularUserCookie);
-  console.log(googleUserCookie);
-
+  const userToken = request.cookies.get(tokenCookieName)?.value;
   let user = null;
   let role = null;
 
-  if (googleUserCookie) {
+  if (googleUserCookie && userToken) {
     try {
       user = JSON.parse(googleUserCookie);
       role = user.role; // Extraer el rol del usuario para comparar
-      console.log("Usuario autenticado (Google):", user);
     } catch (error) {
       console.error("Error al analizar la cookie de Google User:", error);
     }
-  } else if (regularUserCookie) {
+  } else if (regularUserCookie && userToken) {
     try {
       user = JSON.parse(regularUserCookie);
       role = user.role; // Extraer el rol del usuario
-      console.log("Usuario autenticado (Regular):", user);
     } catch (error) {
       console.error("Error al analizar la cookie de Regular User:", error);
     }
@@ -79,7 +77,8 @@ export async function middleware(request: NextRequest) {
       // Permitir acceso a rutas públicas y a su propio dashboard
       if (
         publicRoutes.includes(currentPath) ||
-        currentPath.startsWith("/dashboard/user")
+        currentPath.startsWith("/dashboard/user") ||
+        currentPath.startsWith("/chat")
       ) {
         console.log(
           `Permitiendo acceso a jugador/usuario en ruta: ${currentPath}`
@@ -110,5 +109,6 @@ export const config = {
     "/",
     "/dashboard/:path*",
     "/auth/:path*",
+    "/chat",
   ],
 };

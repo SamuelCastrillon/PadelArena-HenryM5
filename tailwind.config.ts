@@ -15,6 +15,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "limeBlue-gradient": "linear-gradient(to right, #BEF164, #1D4ED7)",
       },
+
       colors: {
         lime: "#BEF164",
         customBlue: "#1D4ED7",

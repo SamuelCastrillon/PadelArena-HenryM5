@@ -1,3 +1,5 @@
+import { location } from "@/interfaces/RequestInterfaces";
+
 export interface IFormTournametInitiaalValues {
   name: string;
   description: string;

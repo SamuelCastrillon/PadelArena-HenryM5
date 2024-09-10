@@ -6,13 +6,14 @@ import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/NavigateButton";
 import { getUsersId } from "@/Server/Users/getUsers";
 import { AuthContext } from "@/context/GlobalContext";
+import Swal from "sweetalert2";
 
 export interface IFilerProp {
   category: string;
 }
 
 const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
   const [tournaments, setTournaments] = useState<ITournament[]>([]);
   const [filteredTournaments, setFilteredTournaments] = useState<ITournament[]>(
     []
@@ -31,8 +32,17 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
         if (!userId) {
           throw new Error("No se pudo obtener el ID del usuario.");
         }
+        if (!token) {
+          Swal.fire({
+            title: "Error",
+            text: "No se pudo obtener el token de autenticación.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+          return;
+        }
 
-        const user = await getUsersId(userId);
+        const user = await getUsersId(userId, token);
 
         if (!user || !user.category) {
           throw new Error("No se pudo obtener la categoría del usuario.");

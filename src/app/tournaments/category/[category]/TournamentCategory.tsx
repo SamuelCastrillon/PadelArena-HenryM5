@@ -8,7 +8,6 @@ const TournamentCategory = async ({
 }: {
   params: { category: string };
 }) => {
-  console.log(params.category);
   const TournamentCategory: ITournament | null = await getTournamentByCategory(
     params.category
   );

@@ -8,12 +8,15 @@ import {
 } from "./RegisterForTournamentsData";
 import { IDataConstructor } from "@/components/MainComponents/ReusableFormComponent/FormInterface";
 import { AuthContext } from "@/context/GlobalContext";
-import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import SpinnerLoading from "@/components/GeneralComponents/SpinnerLoading/SpinnerLoading";
+import { postCreateAndSuscribeNewTeam } from "@/Server/Tournament/Teams/postCreateAndSuscribeNewTeam";
+import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
+import { transformQueryToPaymentResponse } from "./transformPramsToPaymentResponse";
+import { IPaymentQueryResponse } from "@/interfaces/MercadoPagoInterfaces/PaymentQueryInterface";
 
 interface IRegisterForTournaments {
-  allParams: any;
-  currentHost: string;
+  tournamentId: { tournamentId: string };
 }
 
 interface IDataToForm {
@@ -21,56 +24,77 @@ interface IDataToForm {
   registerTournementInitialValues: any;
 }
 
+interface IFormValues {
+  name: string;
+  teammate: string;
+}
+
 const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
-  allParams,
-  currentHost,
+  tournamentId,
 }) => {
+  const { currentUser, token } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
-  const navigate = useRouter();
-  const currentPath = usePathname();
+  const router = useRouter();
+  const tournament = tournamentId.tournamentId;
 
-  const tournamentId = allParams.params[0];
-  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+  //? QUERY PARAMS
+  const searchParams = useSearchParams();
+  const queryParams: IPaymentQueryResponse =
+    transformQueryToPaymentResponse(searchParams);
 
-  async function payToInscription() {
-    // const dataToPay = {
-    //   tournament: tournamentId,
-    //   host: TOURNAAMENT_REGISTER_URL,
-    //   user: currentUser?.id,
-    // };
-    // console.log(dataToPay);
-    // try {
-    //   const { redirectUrl } = await postPaymentToMP(dataToPay);
-    //   if (!redirectUrl) {
-    //     throw new Error("Error al realizar el pago");
-    //   }
-    //   navigate.push(redirectUrl);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    console.log("pago");
-  }
+  const handlerPayment = async (values: IFormValues) => {
+    if (!currentUser || !token) {
+      return;
+    }
 
-  const handlerPayment = (values: any) => {
-    console.log(values);
-    payToInscription();
+    //TODO: POST DATA
+    const newTeam: IPostNewTeam = {
+      name: values.name,
+      players: [currentUser.id, values.teammate],
+    };
+
+    const response = await postCreateAndSuscribeNewTeam(
+      tournament,
+      newTeam,
+      token
+    );
+
+    if (response) {
+      router.push(`/tournaments/${tournament}`);
+    }
   };
 
   useEffect(() => {
+    if (queryParams.status === "pending") {
+      router.push("/dashboard/user/profile");
+    }
+    if (queryParams.status === "failed" || queryParams.status === "rejected") {
+      router.push(`/tournaments/${tournament}`);
+    }
     async function dataConstructor() {
       try {
-        const getData = await getDataToContructFormRegisterTournament();
+        if (!currentUser) {
+          return;
+        }
+        if (!token) {
+          return;
+        }
+
+        const getData = await getDataToContructFormRegisterTournament(
+          currentUser.category.id,
+          token
+        );
         setDataToForm(getData);
       } catch (error) {
         console.error(error);
       }
     }
     dataConstructor();
-  }, []);
+  }, [currentUser]);
 
-  return dataToForm ? (
-    <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
-      <h1 className="text-3xl font-bold text-white">REGISTRO DE TORNEOS</h1>
+  return dataToForm && queryParams.status === "approved" ? (
+    <section className="flex flex-col items-center justify-center w-screen gap-2 py-10 min-h-fit">
+      <h1 className="text-3xl font-bold text-white">REGISTRA TU EQUIPO</h1>
       <FormComponent
         iniValues={dataToForm?.registerTournementInitialValues}
         valiSchema={registerTournamentSchema}
@@ -81,7 +105,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
     </section>
   ) : (
     <section className="flex flex-col items-center justify-center w-screen gap-2 min-h-fit">
-      <h1 className="text-3xl font-bold text-white">CARGANDO...</h1>
+      <SpinnerLoading />
     </section>
   );
 };

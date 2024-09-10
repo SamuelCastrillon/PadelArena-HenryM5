@@ -30,8 +30,9 @@ export interface IUserGooglePut {
   city: string;
   address: string;
   profileImg: string;
-  category: { name: string };
+  category: { name: string; id: string; description: string };
   role?: "admin" | "jugador";
+  token: string;
 }
 
 export interface IUserLoginRes {
@@ -53,7 +54,8 @@ export interface IUserLogin {
   address: string;
   profileImg: string;
   role?: "admin" | "jugador";
-  category: { name: string };
+  category: { name: string; id: string; description: string };
+  token: string;
 }
 
 //? Tournament Interfaces
@@ -76,6 +78,13 @@ export interface ICreateTournamentReq {
   description: string;
   tournamentFlyer: string;
   category: string;
+  price: number;
+  plusCode?: string;
+}
+
+export interface location {
+  lat: string;
+  lng: string;
 }
 
 export interface ICreateTournamentFormData {
@@ -85,7 +94,7 @@ export interface ICreateTournamentFormData {
   endTime: string;
   Lunes?: ["on"] | [] | undefined;
   Martes?: ["on"] | [] | undefined;
-  Miercoles?: ["on"] | [] | undefined;
+  Miércoles?: ["on"] | [] | undefined;
   Jueves?: ["on"] | [] | undefined;
   Viernes?: ["on"] | [] | undefined;
   Sabado?: ["on"] | [] | undefined;
@@ -96,6 +105,8 @@ export interface ICreateTournamentFormData {
   description: string;
   tournamentFlyer: string;
   category: string;
+  price: number;
+  location: string;
 }
 
 //? Category Interfaces
@@ -118,7 +129,6 @@ export interface IProductPaymentDataReq {
   tournament: string;
   host: string;
   user: string;
-  // notification_url: string;
 }
 
 export interface IPayment {
@@ -126,4 +136,65 @@ export interface IPayment {
   status: string;
   amount: number;
   date: string;
+}
+
+export interface IAallUserPayments {
+  message: {
+    user: {
+      id: string;
+      name: string;
+      lastName: string;
+      email: string;
+      phone: string;
+      country: string;
+      city: string;
+      address: string;
+      profileImg: string;
+      role: string;
+      clientId?: null | string;
+    };
+    id: string;
+    payment_id: string;
+    status: string;
+    date_created: string;
+    date_approved: string;
+    date_last_updated: string;
+    transaction_amount: number;
+    tournament: {
+      id: string;
+      name: string;
+      startDate: string;
+      endDate: string;
+      startingTime: string;
+      finishTime: string;
+      playingDay: string[];
+      status: string;
+      inscription: string;
+      teamsQuantity: number;
+      matchDuration: number;
+      description: string;
+      matchStartTime: string;
+      matchEndTime: string;
+      gallery?: string[] | null;
+      tournamentFlyer: string;
+      courtsAvailable: number;
+      price: number;
+      plusCode: string;
+      team: [] | ITeamToTournement[];
+    };
+  };
+}
+
+//? Teams Interfaces
+
+export interface IPostNewTeam {
+  name: string;
+  players: string[];
+}
+
+export interface ITeamToTournement {
+  id: string;
+  name: string;
+  order: number;
+  ableForPlay: boolean;
 }

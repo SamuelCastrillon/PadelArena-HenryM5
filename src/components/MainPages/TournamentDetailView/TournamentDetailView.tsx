@@ -7,23 +7,24 @@ import { formatDate, formatTime } from "@/helpers/dateTimeHelper";
 import { ITeam } from "@/interfaces/ComponentsInterfaces/Team";
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
 import { IProductPaymentDataReq } from "@/interfaces/RequestInterfaces";
-import { CURRENT_APP_URL } from "@/Server/AxiosConfig";
 import postPaymentToMP from "@/Server/PaymentByMP/PaymentByMP";
 import { useRouter } from "next/navigation";
 import React, { useContext, useState } from "react";
-import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
-import { IFixture } from "@/interfaces/ComponentsInterfaces/Fixture";
+
+import NewFixtureComponent from "@/components/MainComponents/FixtureComponent/NewFixtureComponent";
 import FixtureComponent from "@/components/MainComponents/FixtureComponent/FixtureComponent";
-import { fixtureData } from "@/helpers/fixtureData";
+import Swal from "sweetalert2";
 
 interface TournamentDetailViewProps {
   tournament: ITournament;
+  currentHost: string;
 }
 
 const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   tournament,
+  currentHost,
 }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
   const user = currentUser;
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,36 +33,30 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // useEffect(() => {
-  //   const fetchTeams = async () => {
-  //     if (user) {
-  //       try {
-  //         const teams = await getTeamsInTournament(tournament.id);
-  //         const userIsRegistered = teams.some((team: ITeam) =>
-  //           team.users.some((u) => u.id === user.id)
-  //         );
-  //         setIsUserRegistered(userIsRegistered);
-  //       } catch (error) {
-  //         console.error("Error fetching teams:", error);
-  //       }
-  //     }
-  //   };
-  //   fetchTeams();
-  // }, [user, tournament.id]);
-
-  const currentHost = CURRENT_APP_URL || "";
-  const TOURNAAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
+  const TOURNAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
 
   // Manejo de inscripción
   const handleInscriptionClick = async () => {
     if (user) {
+      if (user.category.id !== tournament.category.id) {
+        Swal.fire({
+          title: "Por favor selecciona una categoría válida.",
+          width: 400,
+          padding: "3em",
+        });
+        return;
+      }
+      if (!token) {
+        throw new Error("No hay token");
+      }
       const data: IProductPaymentDataReq = {
         tournament: tournament.id,
-        host: TOURNAAMENT_REGISTER_URL,
+        host: TOURNAMENT_REGISTER_URL,
         user: user.id,
       };
       try {
-        const responseUrl = await postPaymentToMP(data);
+        const responseUrl = await postPaymentToMP(data, token);
+        console.log(responseUrl.redirectUrl);
         if (!responseUrl.redirectUrl) {
           throw new Error("Error al realizar el pago");
         }
@@ -116,15 +111,14 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
       </div>
 
       {/* Botón de Navegación */}
-      <div className="mb-10 flex items-center">
+      <div className="flex items-center mb-10">
         <NavigateButton href="/tournaments" className="flex items-center gap-2">
           <svg
             className="w-4 h-4 text-white"
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            viewBox="0 0 6 10"
-          >
+            viewBox="0 0 6 10">
             <path
               stroke="currentColor"
               strokeLinecap="round"
@@ -133,7 +127,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
               d="M5 1L1 5l4 4"
             />
           </svg>
-          <h1 className="radhiumz text-white text-2xl lg:text-4xl">
+          <h1 className="text-2xl text-white radhiumz lg:text-4xl">
             Vuelve a torneos
           </h1>
         </NavigateButton>
@@ -154,23 +148,42 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             "Canchas disponibles": tournament.courtsAvailable.toString(),
             "Días de juego": tournament.playingDay?.toString(),
             Categoría: tournament.category.name,
-            Género: tournament.genero ?? "Esta por verse",
             Inscripciones:
-              tournament.inscription ?? "Aun en proceso de definir",
+              tournament.inscription.toUpperCase() ??
+              "Aun en proceso de definir",
           }}
+          additionalComponent={
+            tournament.plusCode &&
+            tournament.plusCode.trim() !== "" && (
+              <div className="mt-4">
+                <h3 className="text-lg md:text-xl text-black sfBold">
+                  Ubicación:
+                </h3>
+                <iframe
+                  src={`https://www.google.com/maps/embed/v1/place?key=${
+                    process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+                  }&q=${encodeURIComponent(tournament.plusCode)}`}
+                  width="100%"
+                  height="450"
+                  className="w-full h-80 rounded-md shadow-md"
+                  allowFullScreen={true}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            )
+          }
         />
 
         {tournament.inscription === "abiertas" && user?.role !== "admin" && (
           <div className="flex justify-center w-full mx-auto mt-8 mb-8">
             {isUserRegistered ? (
-              <p className="w-full py-6 px-12 rounded-xl text-xl bg-gray-400 text-white uppercase radhiumz text-center">
+              <p className="w-full px-12 py-6 text-xl text-center text-white uppercase bg-gray-400 rounded-xl radhiumz">
                 Ya estás inscrito
               </p>
             ) : (
               <button
                 onClick={handleInscriptionClick}
-                className="w-full py-6 px-12 rounded-xl text-xl bg-white shadow-lg shadow-blue-700 text-black uppercase radhiumz"
-              >
+                className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz">
                 Inscribite
               </button>
             )}
@@ -180,8 +193,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         <div className="flex justify-center w-full mx-auto mt-4">
           <button
             onClick={openModal}
-            className="w-full max-w-xs py-4 px-10 h-12 bg-lime text-black radhiumz"
-          >
+            className="rounded-md w-[100%] h-fit p-2 mb-6  bg-lime text-xs text-black hover:shadow-lg hover:shadow-blue-700 radhiumz uppercase">
             Ver Fixture
           </button>
         </div>
@@ -198,77 +210,30 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${i * 0.2}s`,
-              }}
-            ></div>
+              }}></div>
           ))}
         </div>
       )}
 
-      {/* Modal del Fixture 
       <ReusableModal
         isOpen={isModalOpen}
         onClose={closeModal}
         blurBackground={blurBackground}
         backgroundColor="bg-white"
         textColor="text-black"
-        className="shadow-lg shadow-lime w-full max-w-screen-lg"
-        bgImageUrl={tournament.tournamentFlyer}
-      >
-        <h2 className="text-4xl radhiumz text-white uppercase mb-4">{`Fixture: ${tournament.name}`}</h2>
+        className="shadow-lg shadow-lime w-full max-w-screen-xl h-auto max-h-[90vh] overflow-y-auto"
+        bgImageUrl={tournament.tournamentFlyer}>
+        <h2 className="mb-2 text-4xl text-white uppercase radhiumz">{`Fixture: ${tournament.name}`}</h2>
+        <hr className="w-full h-2 mb-6"></hr>
 
-        <CustomTable headers={fixtureHeaders}>
-          {Array.isArray(tournament?.fixture) &&
-          tournament?.fixture?.length > 0 ? (
-            tournament.fixture.map((match: IFixture) => (
-              <tr key={match.id}>
-                <td className="px-4 py-2 border-b">{match.stage}</td>
-                <td className="px-4 py-2 border-b">{match.date}</td>
-                <td className="px-4 py-2 border-b">{match.time}</td>
-                <td className="px-4 py-2 border-b">{match.matchId}</td>
-                <td className="px-4 py-2 border-b">{match.tournamentId}</td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td className="py-2 border-b text-xl" colSpan={8}>
-                No hay fixture para este torneo
-              </td>
-            </tr>
-          )}
-        </CustomTable>
-      </ReusableModal>
-      */}
-      {/* Modal del Fixture 
-      <ReusableModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        blurBackground={blurBackground}
-        backgroundColor="bg-white"
-        textColor="text-black"
-        className="shadow-lg shadow-lime w-full max-w-screen-lg"
-        bgImageUrl={tournament.tournamentFlyer}
-      >
-        <h2 className="text-4xl radhiumz text-white uppercase mb-4">{`Fixture: ${tournament.name}`}</h2>
-        {tournament.fixture && tournament.fixture.length > 0 ? (
-          <FixtureComponent fixtures={tournament.fixture} />
+        {tournament.fixture?.id ? (
+          <NewFixtureComponent fixtureId={tournament.fixture.id} />
         ) : (
-          <p className="text-xl text-center">No hay fixture para este torneo</p>
+          // <FixtureComponent fixtureId={tournament.fixture.id} />
+          <p className="text-xl text-center">
+            No hay fixture disponible para este torneo.
+          </p>
         )}
-      </ReusableModal>
-      */}
-      <ReusableModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        blurBackground={blurBackground}
-        backgroundColor="bg-white"
-        textColor="text-black"
-        className="shadow-lg shadow-lime w-full max-w-screen-lg"
-        bgImageUrl={tournament.tournamentFlyer}
-      >
-        <h2 className="text-4xl radhiumz text-white uppercase mb-2">{`Fixture: ${tournament.name}`}</h2>
-        <hr className="h-2 w-full mb-6"></hr>
-
-        <FixtureComponent fixtures={fixtureData} />
       </ReusableModal>
     </div>
   );

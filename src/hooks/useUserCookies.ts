@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { IUserGooglePut, IUserLogin } from "@/interfaces/RequestInterfaces";
-
+import { decode } from "jsonwebtoken";
 const googleUserKey = "googleUser";
 const regularUserKey = "regularUser";
 
@@ -15,20 +15,33 @@ export function useUserCookies() {
     Cookies.set(regularUserKey, dataToString, { expires: 7 });
   };
 
+  const saveUserToken = (token: string) => {
+    const cookieString = JSON.stringify(token);
+    Cookies.set("token", cookieString, { expires: 7 });
+  };
+
+  const getUserToken = (): string | null => {
+    const token = Cookies.get("token");
+    return token ? JSON.parse(token) : null;
+  };
+
+  const removeUserToken = () => {
+    Cookies.remove("token");
+  };
+
   const getGoogleUser = (): IUserGooglePut | null => {
     const googleUser = Cookies.get(googleUserKey);
 
     if (googleUser) {
       try {
         const cookieParse = JSON.parse(googleUser);
-        console.log("Google User retrieved:", cookieParse);
+
         return cookieParse;
       } catch (error) {
         console.error("Error parsing Google User from cookies:", error);
         return null;
       }
     } else {
-      console.warn("Google User cookie not found.");
       return null;
     }
   };
@@ -39,10 +52,9 @@ export function useUserCookies() {
     if (regularUser) {
       try {
         const cookieParse = JSON.parse(regularUser);
-        console.log("Regular User retrieved:", cookieParse);
+
         return cookieParse;
       } catch (error) {
-        console.error("Error parsing Regular User from cookies:", error);
         return null;
       }
     } else {
@@ -61,6 +73,26 @@ export function useUserCookies() {
     console.log("Regular User cookie removed.");
   };
 
+  const isValidToken = (token: string) => {
+    try {
+      const decoded = decode(token);
+      if (!decoded) {
+        return false; // Invalid token
+      }
+      if (
+        typeof decoded === "object" &&
+        decoded.exp &&
+        Date.now() >= decoded.exp * 1000
+      ) {
+        return false; // Token has expired
+      }
+      return true; // Token is valid
+    } catch (error) {
+      console.error("Invalid token:", error);
+      return false; // Token is invalid
+    }
+  };
+
   return {
     saveGoogleUser,
     saveRegularUser,
@@ -68,5 +100,9 @@ export function useUserCookies() {
     getRegularUser,
     deleteGoogleUser,
     deleteRegularUser,
+    saveUserToken,
+    getUserToken,
+    removeUserToken,
+    isValidToken,
   };
 }

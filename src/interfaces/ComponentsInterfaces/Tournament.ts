@@ -21,7 +21,9 @@ export interface ITournament {
   genero?: "femenino" | "masculino";
   teamsQuantity: number;
   matchDuration: number;
-  fixture?: IFixture[];
+  fixture: { id: string };
   team?: ITeam[];
   matches?: IMatch[];
+  price?: number;
+  plusCode?: string;
 }

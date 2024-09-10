@@ -1,10 +1,13 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CustomTable from "@/components/GeneralComponents/CustomTable/CustomTable";
 import { getAllUsers, updateUserCategory } from "@/Server/Users/getUsers";
 import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButton";
 import { getCategories } from "@/Server/Category/getCategories";
 import Swal from "sweetalert2";
+import ReusableModal from "@/components/GeneralComponents/Modal/ReusableModal";
+import StadisticsView from "../DashboardUser/StadisticsSection/StadisticsView";
+import { AuthContext } from "@/context/GlobalContext";
 
 interface UserProp {
   id: string;
@@ -26,6 +29,7 @@ interface Category {
 
 const UsersManagement: React.FC = () => {
   const [users, setUsers] = useState<UserProp[]>([]);
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<{
     [key: string]: string;
@@ -33,7 +37,16 @@ const UsersManagement: React.FC = () => {
   const [selectedFilterCategory, setSelectedFilterCategory] =
     useState<string>(""); // Estado para la categoría seleccionada
   const [searchQuery, setSearchQuery] = useState<string>(""); // Nuevo estado para el texto de búsqueda
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [blurBackground, setBlurBackground] = useState(true);
+  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const { token } = useContext(AuthContext);
 
+  const openModal = (userId: string) => {
+    setSelectedUserId(userId);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -45,8 +58,9 @@ const UsersManagement: React.FC = () => {
     };
 
     const fetchUsers = async () => {
+      if (!token) return;
       try {
-        const response = await getAllUsers();
+        const response = await getAllUsers(token);
         setUsers(response);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -55,7 +69,7 @@ const UsersManagement: React.FC = () => {
 
     fetchCategories();
     fetchUsers();
-  }, []);
+  }, [token]);
 
   const handleCategoryChange = (userId: string, newCategoryId: string) => {
     setSelectedCategories((prevState) => ({
@@ -69,8 +83,10 @@ const UsersManagement: React.FC = () => {
     if (!newCategoryId) return;
 
     try {
-      await updateUserCategory(userId, newCategoryId);
-      const updatedUsers = await getAllUsers();
+      if (!token) return;
+      await updateUserCategory(userId, newCategoryId, token);
+      console.log(token);
+      const updatedUsers = await getAllUsers(token);
       setUsers(updatedUsers);
 
       Swal.fire({
@@ -101,8 +117,7 @@ const UsersManagement: React.FC = () => {
     setSearchQuery("");
   };
 
-  // Filtrar usuarios por categoría seleccionada y texto de búsqueda
-  const filteredUsers = users.filter((user) => {
+  const filteredUsers = users?.filter((user) => {
     const matchesCategory = selectedFilterCategory
       ? user.category?.id === selectedFilterCategory
       : true;
@@ -134,7 +149,8 @@ const UsersManagement: React.FC = () => {
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-3 top-2 text-gray-500 hover:text-gray-700 bg-lime rounded-xl px-1">
+                className="absolute right-3 top-2 text-gray-500 hover:text-gray-700 bg-lime rounded-xl px-1"
+              >
                 &#10005;
               </button>
             )}
@@ -143,14 +159,16 @@ const UsersManagement: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center w-full">
             <label
               htmlFor="category-filter"
-              className="w-full sm:w-1/3 px-2 py-2 bg-lime rounded-t-lg sm:rounded-t-none sm:rounded-l-lg sfBold text-center">
+              className="w-full sm:w-1/3 px-2 py-2 bg-lime rounded-t-lg sm:rounded-t-none sm:rounded-l-lg sfBold text-center"
+            >
               Filtrar por Categoría:
             </label>
             <select
               id="category-filter"
               value={selectedFilterCategory}
               onChange={(e) => handleFilterChange(e.target.value)}
-              className="w-full sm:w-2/3 px-2 py-2 bg-white border-2 border-slate rounded-b-lg sm:rounded-b-none sm:rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center">
+              className="w-full sm:w-2/3 px-2 py-2 bg-white border-2 border-slate rounded-b-lg sm:rounded-b-none sm:rounded-r-lg focus:outline-none focus:ring-1 focus:ring-blue-500 sfBold text-center"
+            >
               <option value="">Todas las categorías</option>
               {categories.map((cat) => (
                 <option key={cat.id} value={cat.id}>
@@ -170,8 +188,10 @@ const UsersManagement: React.FC = () => {
           "DIRECCIÓN",
           "CATEGORÍA",
           "ACCIONES",
-        ]}>
-        {filteredUsers.length > 0 ? (
+          "ESTADISTICAS",
+        ]}
+      >
+        {filteredUsers?.length > 0 ? (
           filteredUsers.map((user, index) => (
             <tr key={index} className="text-center">
               <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
@@ -192,7 +212,8 @@ const UsersManagement: React.FC = () => {
                   onChange={(e) =>
                     handleCategoryChange(user.id, e.target.value)
                   }
-                  className="hover:text-primary text-black font-bold text-center p-1 rounded-lg bg-customBlue/10">
+                  className="hover:text-primary text-black font-bold text-center p-1 rounded-lg bg-customBlue/10"
+                >
                   <option value="" disabled>
                     Seleccione una categoría
                   </option>
@@ -206,8 +227,17 @@ const UsersManagement: React.FC = () => {
               <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                 <ActionButton
                   onClick={() => handleSaveCategory(user.id)}
-                  className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz">
+                  className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz"
+                >
                   <p className="radhiumz text-xs">GUARDAR</p>
+                </ActionButton>
+              </td>
+              <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                <ActionButton
+                  onClick={() => openModal(user.id)}
+                  className="bg-lime text-black sfBold px-4 rounded-lg hover:text-white py-2 hover:bg-blue-600 radhiumz"
+                >
+                  <p className="radhiumz text-xs">VER</p>
                 </ActionButton>
               </td>
             </tr>
@@ -216,12 +246,27 @@ const UsersManagement: React.FC = () => {
           <tr>
             <td
               colSpan={6}
-              className="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-center">
+              className="border-b border-[#eee] px-4 py-5 dark:border-strokedark text-center"
+            >
               No se encontraron resultados para la búsqueda.
             </td>
           </tr>
         )}
       </CustomTable>
+      {isModalOpen && (
+        <ReusableModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          blurBackground
+          backgroundColor="bg-blue-700/30"
+          textColor="text-black"
+          className="w-2/3"
+        >
+          {selectedUserId && token && (
+            <StadisticsView userId={selectedUserId} token={token} />
+          )}
+        </ReusableModal>
+      )}
     </>
   );
 };

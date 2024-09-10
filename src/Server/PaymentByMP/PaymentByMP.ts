@@ -1,16 +1,25 @@
 import {
-  IPayment,
+  IAallUserPayments,
   IProductPaymentDataReq,
 } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
 
-async function postPaymentToMP(productData: IProductPaymentDataReq) {
+async function postPaymentToMP(
+  productData: IProductPaymentDataReq,
+  token: string
+) {
   try {
     const redirectUrl = await axiosInstance.post(
       "/mercado-pago/create_preference",
-      productData
+      productData,
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
     );
     if (redirectUrl.status === 201) {
+      console.log("ACÁ LA URL", redirectUrl);
       return redirectUrl.data;
     } else {
       throw new Error("Error al realizar el pago");
@@ -22,16 +31,38 @@ async function postPaymentToMP(productData: IProductPaymentDataReq) {
 
 export default postPaymentToMP;
 
-//hecho por Pili, para dashboardAdmin -> Falta ejecutar en el back
-// export const getAllPayments = async (paymentData: IPayment) => {
-//   try {
-//     const response = await axiosInstance.get(
-//       "/mercado-pago/preferences",
-//       { paymentData }
-//     );
-//     console.log(response.data);
-//     return response.data;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+export async function getAllPayments(userID: string, token: string) {
+  try {
+    const response = await axiosInstance.get(`/mercado-pago/byUser/${userID}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    const data: IAallUserPayments[] = response.data;
+    if (!data) {
+      throw new Error("No hay pagos");
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAllPaymentsAdmin(token: string) {
+  try {
+    const response = await axiosInstance.get(`/mercado-pago/allPayments`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(response.data);
+    const data: IAallUserPayments[] | undefined = response.data;
+    if (!data) {
+      throw new Error("No hay pagos");
+    }
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
