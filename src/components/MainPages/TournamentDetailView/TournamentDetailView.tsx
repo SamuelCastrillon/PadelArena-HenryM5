@@ -47,13 +47,20 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         return;
       }
       if (!token) {
-        throw new Error("No hay token");
+        return;
       }
       const data: IProductPaymentDataReq = {
         tournament: tournament.id,
         host: TOURNAMENT_REGISTER_URL,
         user: user.id,
       };
+      Swal.fire({
+        title: "Atencion",
+        text: `Estas por registrar tu pago de ${tournament.price} para el torneo ${tournament.name}`,
+        icon: "info",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+      });
       try {
         const responseUrl = await postPaymentToMP(data, token);
         console.log(responseUrl.redirectUrl);
