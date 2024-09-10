@@ -29,7 +29,7 @@ export interface IDataConstructor {
   FieldName: string;
   FieldPH?: string;
   containerCheckBox?: IDataConstructor[];
-  selectOptions?: { value: string; name: string; description: string }[];
+  selectOptions?: { value: string; name: string; description?: string }[];
 }
 
 export interface IButtonForm {
