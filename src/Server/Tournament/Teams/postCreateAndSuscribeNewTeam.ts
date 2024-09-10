@@ -11,7 +11,10 @@ export async function postCreateAndSuscribeNewTeam(
   console.log(URL_POST, BODY);
 
   try {
-    const response = await axiosInstance.post(`/tournament-team/${tournamentId}`, teamPostData);
+    const response = await axiosInstance.post(
+      `/tournament-team/${tournamentId}`,
+      teamPostData
+    );
     console.log(response.data);
 
     return response.data;

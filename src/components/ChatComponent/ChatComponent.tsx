@@ -69,7 +69,7 @@ interface Message {
 }
 
 const ChatView: React.FC = () => {
-  const { currentUser, token } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
   console.log("user:", currentUser);
 
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -79,13 +79,7 @@ const ChatView: React.FC = () => {
   // Función para traer los últimos mensajes
   const fetchMessages = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
 
       if (!response.ok) {
         throw new Error("Error al traer los mensajes");

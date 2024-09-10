@@ -46,16 +46,17 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         });
         return;
       }
+      if (!token) {
+        throw new Error("No hay token");
+      }
       const data: IProductPaymentDataReq = {
         tournament: tournament.id,
         host: TOURNAMENT_REGISTER_URL,
         user: user.id,
       };
       try {
-        if (!token) {
-          throw new Error("No hay token");
-        }
         const responseUrl = await postPaymentToMP(data, token);
+        console.log(responseUrl.redirectUrl);
         if (!responseUrl.redirectUrl) {
           throw new Error("Error al realizar el pago");
         }
@@ -117,8 +118,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            viewBox="0 0 6 10"
-          >
+            viewBox="0 0 6 10">
             <path
               stroke="currentColor"
               strokeLinecap="round"
@@ -168,8 +168,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
                   className="w-full h-80 rounded-md shadow-md"
                   allowFullScreen={true}
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
+                  referrerPolicy="no-referrer-when-downgrade"></iframe>
               </div>
             )
           }
@@ -184,8 +183,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
             ) : (
               <button
                 onClick={handleInscriptionClick}
-                className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz"
-              >
+                className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz">
                 Inscribite
               </button>
             )}
@@ -195,8 +193,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         <div className="flex justify-center w-full mx-auto mt-4">
           <button
             onClick={openModal}
-            className="rounded-md w-[100%] h-fit p-2 mb-6  bg-lime text-xs text-black hover:shadow-lg hover:shadow-blue-700 radhiumz uppercase"
-          >
+            className="rounded-md w-[100%] h-fit p-2 mb-6  bg-lime text-xs text-black hover:shadow-lg hover:shadow-blue-700 radhiumz uppercase">
             Ver Fixture
           </button>
         </div>
@@ -213,8 +210,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${i * 0.2}s`,
-              }}
-            ></div>
+              }}></div>
           ))}
         </div>
       )}
@@ -226,8 +222,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         backgroundColor="bg-white"
         textColor="text-black"
         className="shadow-lg shadow-lime w-full max-w-screen-xl h-auto max-h-[90vh] overflow-y-auto"
-        bgImageUrl={tournament.tournamentFlyer}
-      >
+        bgImageUrl={tournament.tournamentFlyer}>
         <h2 className="mb-2 text-4xl text-white uppercase radhiumz">{`Fixture: ${tournament.name}`}</h2>
         <hr className="w-full h-2 mb-6"></hr>
 

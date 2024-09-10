@@ -25,12 +25,10 @@ const TournamentDetail = async ({ params }: { params: { id: string } }) => {
     return <div>Torneo no encontrado</div>;
   }
 
+  const host = process.env.CURRENT_APP_URL || " ";
   return (
     <div className=" w-[90%] md:w-3/4 mx-auto p-4 justify-center items-center ">
-      <TournamentDetailView
-        tournament={tournamentId}
-        currentHost={CURRENT_APP_URL || ""}
-      />
+      <TournamentDetailView tournament={tournamentId} currentHost={host} />
     </div>
   );
 };
