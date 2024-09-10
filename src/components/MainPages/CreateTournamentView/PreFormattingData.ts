@@ -8,7 +8,7 @@ interface ICreateTournamentFormDataWithPlusCode
   plusCode?: string;
 }
 
-//añadí un pluscode para maps
+//añadí un pluscode para maps comment
 export function preFormattingData(
   data: ICreateTournamentFormDataWithPlusCode
 ): ICreateTournamentReq {
