@@ -56,7 +56,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
       };
       Swal.fire({
         title: "Atencion",
-        text: `Estas por registrar tu pago para el torneo ${tournament.name}`,
+        text: `Estas por registrar tu pago de ${tournament.price} para el torneo ${tournament.name}`,
         icon: "info",
         confirmButtonText: "OK",
         allowOutsideClick: false,
