@@ -1,5 +1,7 @@
 import { IUserLoginReq } from "@/interfaces/RequestInterfaces";
 import { axiosInstance } from "../AxiosConfig";
+import Swal from "sweetalert2";
+import { AxiosError } from "axios";
 
 async function HandlerLogIn(data: IUserLoginReq) {
   try {
@@ -12,6 +14,14 @@ async function HandlerLogIn(data: IUserLoginReq) {
     }
   } catch (error) {
     console.error(error);
+    console.log(error);
+    if (error instanceof AxiosError) {
+      Swal.fire({
+        title: `${error.response?.data.message}`,
+        width: 400,
+        padding: "3em",
+      });
+    }
     return error;
   }
 }

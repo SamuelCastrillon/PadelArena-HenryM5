@@ -8,8 +8,10 @@ import { getAllPayments } from "@/Server/PaymentByMP/PaymentByMP";
 import { IAallUserPayments } from "@/interfaces/RequestInterfaces";
 
 const PaymentHistoryPanel: React.FC = () => {
-  const { currentUser } = useContext(AuthContext);
-  const [paymentsList, setPaymentsList] = React.useState<IAallUserPayments[] | null>(null);
+  const { currentUser, token } = useContext(AuthContext);
+  const [paymentsList, setPaymentsList] = React.useState<
+    IAallUserPayments[] | null
+  >(null);
   const router = useRouter();
 
   const handleCompleteRegistration = (tournamentId: string) => {
@@ -19,9 +21,9 @@ const PaymentHistoryPanel: React.FC = () => {
   const headers = ["ID", "Estado", "Fecha", "Monto", "Nombre", "Acciones"];
 
   async function getPayments() {
-    if (!currentUser) return;
+    if (!currentUser || !token) return;
     try {
-      const payments = await getAllPayments(currentUser?.id);
+      const payments = await getAllPayments(currentUser?.id, token);
       console.log(payments);
       if (payments) setPaymentsList(payments);
     } catch (error) {
@@ -41,8 +43,10 @@ const PaymentHistoryPanel: React.FC = () => {
           <hr className="w-full h-2 text-white" />
         </h1>
         <h2 className="mt-8 text-white sfRegular text-md md:text-xl">
-          <span className="m-2 uppercase radhiumz text-x">{currentUser?.name}</span> Lleva el
-          registro de tus cuentas
+          <span className="m-2 uppercase radhiumz text-x">
+            {currentUser?.name}
+          </span>{" "}
+          Lleva el registro de tus cuentas
         </h2>
       </div>
 
@@ -55,20 +59,28 @@ const PaymentHistoryPanel: React.FC = () => {
                 <td className="px-4 py-2">{payment.message.payment_id}</td>
                 <td
                   className={`px-4 py-2 ${
-                    payment.message.status === "approved" ? "text-green-500" : "text-red-500"
-                  }`}>
+                    payment.message.status === "approved"
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
                   {payment.message.status}
                 </td>
                 <td className="px-4 py-2">{payment.message.date_created}</td>
-                <td className="px-4 py-2">${payment.message.transaction_amount.toFixed(2)}</td>
+                <td className="px-4 py-2">
+                  ${payment.message.transaction_amount.toFixed(2)}
+                </td>
                 <td className="px-4 py-2">{payment.message.tournament.name}</td>
                 <td className="px-4 py-2">
                   {/* {payment.message.tournament.team?.some(
                     (team) => team.users.length === 1 && team.users[0].id === currentUser?.id
                   ) && ( */}
                   <ActionButton
-                    onClick={() => handleCompleteRegistration(payment.message.tournament.id)}
-                    className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white">
+                    onClick={() =>
+                      handleCompleteRegistration(payment.message.tournament.id)
+                    }
+                    className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white"
+                  >
                     Completar Inscripción
                   </ActionButton>
                   {/* )} */}
@@ -86,8 +98,11 @@ const PaymentHistoryPanel: React.FC = () => {
                 <td className="px-4 py-2">{payment.message.payment_id}</td>
                 <td
                   className={`px-4 py-2 ${
-                    payment.message.status === "approved" ? "text-green-500" : "text-red-500"
-                  }`}>
+                    payment.message.status === "approved"
+                      ? "text-green-500"
+                      : "text-red-500"
+                  }`}
+                >
                   {payment.message.status}
                 </td>
                 <td className="px-4 py-2">{payment.message.tournament.name}</td>
@@ -96,8 +111,11 @@ const PaymentHistoryPanel: React.FC = () => {
                     (team) => team.users.length === 1 && team.users[0].id === currentUser?.id
                   ) && (  */}
                   <ActionButton
-                    onClick={() => handleCompleteRegistration(payment.message.tournament.id)}
-                    className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white">
+                    onClick={() =>
+                      handleCompleteRegistration(payment.message.tournament.id)
+                    }
+                    className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white"
+                  >
                     Completar Inscripción
                   </ActionButton>
                   {/* )}  */}
