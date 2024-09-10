@@ -38,7 +38,7 @@ const UserTournaments = () => {
     return (
       <div className="w-full flex flex-col items-center border-2 border-white bg-blue-700/30 rounded-lg p-4 mt-10">
         <h1 className="text-2xl radhiumz uppercase mb-4 text-white">
-          No hay torneos en los que estás inscrito.
+          No hay torneos en los que estes inscripto.
         </h1>
       </div>
     );
@@ -47,12 +47,11 @@ const UserTournaments = () => {
   return (
     <div className="w-full flex flex-col items-center bg-transparent border-2 border-lime rounded-lg p-4 mt-10">
       <h1 className="text-2xl text-white radhiumz uppercase mb-4">
-        Torneos en los que estás inscrito:{" "}
+        Torneos en los que estás inscripto:{" "}
         <span className="text-lime">{currentUser?.name}</span>
       </h1>
       <CustomTable
-        headers={["Nombre", "Categoría", "Inscripción", "Estado", "Acciones"]}
-      >
+        headers={["Nombre", "Categoría", "Inscripción", "Estado", "Acciones"]}>
         {userTournaments.map((tournament) => (
           <tr key={tournament.id} className="border-t-2 border-lime sfBold">
             <td className="px-4 py-2">{tournament.name}</td>
@@ -62,16 +61,14 @@ const UserTournaments = () => {
                 tournament.inscription === "abiertas"
                   ? "text-green-600"
                   : "text-red-700"
-              } uppercase`}
-            >
+              } uppercase`}>
               {tournament.inscription}
             </td>
             <td className="px-4 py-2">{tournament.status}</td>
             <td className="px-4 py-2">
               <ActionButton
                 className="bg-lime text-black px-4 py-2 radhiumz uppercase rounded hover:bg-blue-700 hover:text-white"
-                onClick={() => handleViewDetails(tournament.id)}
-              >
+                onClick={() => handleViewDetails(tournament.id)}>
                 Ver Detalle
               </ActionButton>
             </td>

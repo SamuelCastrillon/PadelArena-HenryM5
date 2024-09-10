@@ -87,6 +87,12 @@ const useAuth = () => {
         }
       }
     } catch (error: any) {
+      Swal.fire({
+        title: "Error al autenticar con Google.",
+        text: `${error.response?.data.message}`,
+        icon: "error",
+        confirmButtonText: "Cerrar",
+      });
       console.error(error);
     }
   };
@@ -201,7 +207,7 @@ const useAuth = () => {
         saveUserToken(response.token);
         setToken(response.token);
         Swal.fire({
-          title: "Te has logueado con éxito.",
+          title: "Has iniciado sesión con éxito.",
           width: 400,
           padding: "3em",
         });

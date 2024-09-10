@@ -83,8 +83,7 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
             <div className="flex ml-20">
               <NavigateButton
                 className="bg-lime text-black sfBold px-4 rounded-lg hover:bg-black hover:text-white py-2"
-                href="/tournaments"
-              >
+                href="/tournaments">
                 Vuelve a Torneos
               </NavigateButton>
             </div>
@@ -94,12 +93,11 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
       ) : (
         <div className="flex w-full mx-auto">
           <p className="text-white mr-20">
-            No hay torneos disponibles para tu categoría!
+            ¡No hay torneos disponibles para tu categoría!
           </p>
           <NavigateButton
             className="bg-lime text-black sfBold px-4 rounded-lg hover:bg-black hover:text-white py-2"
-            href="/tournaments"
-          >
+            href="/tournaments">
             Vuelve a Torneos
           </NavigateButton>
         </div>
