@@ -14,6 +14,7 @@ import { postCreateAndSuscribeNewTeam } from "@/Server/Tournament/Teams/postCrea
 import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
 import { transformQueryToPaymentResponse } from "./transformPramsToPaymentResponse";
 import { IPaymentQueryResponse } from "@/interfaces/MercadoPagoInterfaces/PaymentQueryInterface";
+import Swal from "sweetalert2";
 
 interface IRegisterForTournaments {
   tournamentId: { tournamentId: string };
@@ -60,7 +61,15 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
     );
 
     if (response) {
-      router.push(`/tournaments/${tournament}`);
+      Swal.fire({
+        title: "Exito",
+        text: "Se ha registrado tu equipo",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      setTimeout(() => {
+        router.push(`/tournaments/${tournament}`);
+      }, 2000);
     }
   };
 
