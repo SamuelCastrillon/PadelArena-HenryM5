@@ -75,11 +75,30 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
 
   useEffect(() => {
     if (queryParams.status === "pending") {
-      router.push("/dashboard/user/profile");
+      Swal.fire({
+        title: "Espera",
+        text: "Por favor espere mientras procesamos tu pago",
+        icon: "info",
+        confirmButtonText: "OK",
+      });
+      setTimeout(() => {
+        router.push("/dashboard/user/profile");
+      }, 2000);
     }
+
     if (queryParams.status === "failed" || queryParams.status === "rejected") {
-      router.push(`/tournaments/${tournament}`);
+      Swal.fire({
+        title: "Error",
+        text: "Tu pago ha fallado",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+
+      setTimeout(() => {
+        router.push("/dashboard/user/profile");
+      }, 2000);
     }
+
     async function dataConstructor() {
       try {
         if (!currentUser) {
