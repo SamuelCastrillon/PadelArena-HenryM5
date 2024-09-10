@@ -1,67 +1,7 @@
-// ("use client");
-// import { useState, useEffect, useContext } from "react";
-// import io, { Socket } from "socket.io-client";
-// import { AuthContext } from "@/context/GlobalContext";
-
-// // Tipo para el mensaje
-// interface Message {
-//   from: string;
-//   message: string;
-// }
-
-// const ChatView: React.FC = () => {
-//   const { currentUser } = useContext(AuthContext); // Obtener el usuario actual desde el contexto
-//   // Inicializar socket fuera del componente para evitar múltiples conexiones
-//   const socket: Socket = io("http://localhost:3001", {
-//     query: { userid: currentUser?.id },
-//   });
-
-//   const [message, setMessage] = useState<string>("");
-//   const [messages, setMessages] = useState<Message[]>([]);
-
-//   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     const newMessage: Message = {
-//       message,
-//       from: "Me",
-//     };
-//     // setMessages([...messages, newMessage]);
-//     socket.emit("message", message);
-//   };
-
-//   useEffect(() => {
-//     const recieveMessage = (message: Message) => {
-//       setMessages((state) => [...state, message]);
-//     };
-
-//     socket.on("message", recieveMessage);
-//     return () => {
-//       socket.off("message", recieveMessage);
-//     };
-//   }, []);
-
-//   return (
-//     <>
-//       <form onSubmit={handleSubmit}>
-//         <input type="text" onChange={(e) => setMessage(e.target.value)} />
-//         <button>Send</button>
-//         <ul>
-//           {messages?.map((message, i) => (
-//             <li key={i}>
-//               {message.from}: {message.message}
-//             </li>
-//           ))}
-//         </ul>
-//       </form>
-//     </>
-//   );
-// };
-
-// export default ChatView;
 "use client";
 import React, { useContext, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
-import { AuthContext } from "@/context/GlobalContext"; // Asegúrate de que este sea el camino correcto a tu contexto
+import { AuthContext } from "@/context/GlobalContext";
 
 interface Message {
   sender: string;
@@ -69,7 +9,7 @@ interface Message {
 }
 
 const ChatView: React.FC = () => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
   console.log("user:", currentUser);
 
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -79,14 +19,20 @@ const ChatView: React.FC = () => {
   // Función para traer los últimos mensajes
   const fetchMessages = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
+      const host = process.env.NEXT_PUBLIC_API_URL;
+      const response = await fetch(`${host}/chat`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (!response.ok) {
         throw new Error("Error al traer los mensajes");
       }
       const data: Message[] = await response.json();
       setMessages(data); // Actualizar el estado con los mensajes obtenidos
-      console.log("EH", data);
     } catch (error) {
       console.error("Error al obtener los mensajes:", error);
     }
@@ -94,9 +40,10 @@ const ChatView: React.FC = () => {
 
   useEffect(() => {
     fetchMessages(); // Traer mensajes cuando el componente se monta
+    const host = process.env.NEXT_PUBLIC_API_URL;
 
     if (currentUser?.id) {
-      const newSocket: Socket = io(`${process.env.NEXT_PUBLIC_API_URL}`, {
+      const newSocket: Socket = io(`${host}`, {
         query: { userid: currentUser.id }, // Enviar el userID en la query
       });
 
