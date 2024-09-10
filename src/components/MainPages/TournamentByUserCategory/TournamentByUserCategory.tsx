@@ -32,8 +32,17 @@ const UserCategoryTournaments: React.FC<IFilerProp> = ({ category }) => {
         if (!userId) {
           throw new Error("No se pudo obtener el ID del usuario.");
         }
+        if (!token) {
+          Swal.fire({
+            title: "Error",
+            text: "No se pudo obtener el token de autenticación.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+          return;
+        }
 
-        const user = await getUsersId(userId);
+        const user = await getUsersId(userId, token);
 
         if (!user || !user.category) {
           throw new Error("No se pudo obtener la categoría del usuario.");
