@@ -15,6 +15,7 @@ import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
 import { transformQueryToPaymentResponse } from "./transformPramsToPaymentResponse";
 import { IPaymentQueryResponse } from "@/interfaces/MercadoPagoInterfaces/PaymentQueryInterface";
 import Swal from "sweetalert2";
+import { putPaymentInscriptionStatus } from "@/Server/PaymentByMP/PaymentByMP";
 
 interface IRegisterForTournaments {
   tournamentId: { tournamentId: string };
@@ -30,9 +31,7 @@ interface IFormValues {
   teammate: string;
 }
 
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
-  tournamentId,
-}) => {
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentId }) => {
   const { currentUser, token } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const router = useRouter();
@@ -40,8 +39,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
 
   //? QUERY PARAMS
   const searchParams = useSearchParams();
-  const queryParams: IPaymentQueryResponse =
-    transformQueryToPaymentResponse(searchParams);
+  const queryParams: IPaymentQueryResponse = transformQueryToPaymentResponse(searchParams);
 
   const handlerPayment = async (values: IFormValues) => {
     if (!currentUser || !token) {
@@ -54,13 +52,10 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
       players: [currentUser.id, values.teammate],
     };
 
-    const response = await postCreateAndSuscribeNewTeam(
-      tournament,
-      newTeam,
-      token
-    );
+    const response = await postCreateAndSuscribeNewTeam(tournament, newTeam, token);
 
     if (response) {
+      await putPaymentInscriptionStatus(queryParams.payment_id, token);
       Swal.fire({
         title: "Exito",
         text: "Se ha registrado tu equipo",
