@@ -79,17 +79,13 @@ const ChatView: React.FC = () => {
   // Función para traer los últimos mensajes
   const fetchMessages = async () => {
     try {
-<<<<<<< HEAD
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`);
-=======
-      const response = await fetch("http://localhost:3001/chat", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
->>>>>>> develop
 
       if (!response.ok) {
         throw new Error("Error al traer los mensajes");
@@ -192,8 +188,7 @@ const ChatView: React.FC = () => {
               />
               <button
                 type="submit"
-                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase"
-              >
+                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase">
                 Enviar
               </button>
             </form>
