@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { formatDate } from "@/helpers/dateTimeHelper";
 import { IPayment } from "@/interfaces/RequestInterfaces";
 // import { getAllPaymentsAdmin } from "@/Server/PaymentByMP/PaymentByMP";
+// import { AuthContext } from "@/context/GlobalContext";
 
-export const paymentsData: IPayment[] = [
+export const paymentData: IPayment[] = [
   {
     orderId: "ORD12345",
     status: "completed",
@@ -38,7 +39,9 @@ export const paymentsData: IPayment[] = [
 ];
 
 const PaymentsTable: React.FC = () => {
-  // const paymentData = getAllPaymentsAdmin();
+  // const { token } = useContext(AuthContext);
+  // const paymentData = getAllPaymentsAdmin(token);
+
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
