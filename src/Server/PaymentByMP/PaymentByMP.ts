@@ -50,7 +50,7 @@ export async function getAllPayments(userID: string, token: string) {
   }
 }
 
-export async function getAllPaymentsAdmin(token: string | null) {
+export async function getAllPaymentsAdmin(token: string) {
   try {
     const response = await axiosInstance.get(`/mercado-pago/allPayments`, {
       headers: {

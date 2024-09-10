@@ -42,7 +42,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
   const queryParams: IPaymentQueryResponse =
     transformQueryToPaymentResponse(searchParams);
 
-  const handlerPayment = (values: IFormValues) => {
+  const handlerPayment = async (values: IFormValues) => {
     if (!currentUser || !token) {
       return;
     }
@@ -53,7 +53,15 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
       players: [currentUser.id, values.teammate],
     };
 
-    postCreateAndSuscribeNewTeam(tournament, newTeam, token);
+    const response = await postCreateAndSuscribeNewTeam(
+      tournament,
+      newTeam,
+      token
+    );
+
+    if (response) {
+      router.push(`/tournaments/${tournament}`);
+    }
   };
 
   useEffect(() => {
