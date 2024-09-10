@@ -57,13 +57,17 @@ export async function getAllPaymentsAdmin(token: string) {
 }
 
 export async function putPaymentInscriptionStatus(id: string, token: string) {
-  console.log(id, token);
+  console.log("la Funcion: ", id, token);
   try {
-    const response = await axiosInstance.put(`/mercado-pago/inscriptionStatus/${id}`, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.put(
+      `/mercado-pago/inscriptionStatus/${id}`,
+      {},
+      {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
     console.log(response.data);
     return response.data;
   } catch (error) {

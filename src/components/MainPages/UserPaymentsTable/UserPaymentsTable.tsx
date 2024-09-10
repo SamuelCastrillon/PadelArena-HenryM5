@@ -12,8 +12,8 @@ const PaymentHistoryPanel: React.FC = () => {
   const [paymentsList, setPaymentsList] = React.useState<IAallUserPayments[] | null>(null);
   const router = useRouter();
 
-  const handleCompleteRegistration = (tournamentId: string) => {
-    router.push(`/tournaments/register/${tournamentId}?status=approved`);
+  const handleCompleteRegistration = (tournamentId: string, paymenID: string) => {
+    router.push(`/tournaments/register/${tournamentId}?status=approved&payment_id=${paymenID}`);
   };
 
   const headers = ["ID", "Estado", "Fecha", "Monto", "Nombre", "Acciones"];
@@ -65,7 +65,12 @@ const PaymentHistoryPanel: React.FC = () => {
                 <td className="px-4 py-2">
                   {!payment.message.successInscription && (
                     <ActionButton
-                      onClick={() => handleCompleteRegistration(payment.message.tournament.id)}
+                      onClick={() =>
+                        handleCompleteRegistration(
+                          payment.message.tournament.id,
+                          payment.message.payment_id
+                        )
+                      }
                       className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white">
                       Completar Inscripción
                     </ActionButton>
@@ -92,7 +97,12 @@ const PaymentHistoryPanel: React.FC = () => {
                 <td className="px-4 py-2">
                   {!payment.message.successInscription && (
                     <ActionButton
-                      onClick={() => handleCompleteRegistration(payment.message.tournament.id)}
+                      onClick={() =>
+                        handleCompleteRegistration(
+                          payment.message.tournament.id,
+                          payment.message.payment_id
+                        )
+                      }
                       className="px-2 py-1 text-sm text-black uppercase rounded bg-lime radhiumz hover:bg-blue-700 hover:text-white">
                       Completar Inscripción
                     </ActionButton>
