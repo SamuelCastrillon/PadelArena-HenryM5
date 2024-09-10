@@ -14,6 +14,7 @@ import { postCreateAndSuscribeNewTeam } from "@/Server/Tournament/Teams/postCrea
 import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
 import { transformQueryToPaymentResponse } from "./transformPramsToPaymentResponse";
 import { IPaymentQueryResponse } from "@/interfaces/MercadoPagoInterfaces/PaymentQueryInterface";
+import Swal from "sweetalert2";
 
 interface IRegisterForTournaments {
   tournamentId: { tournamentId: string };
@@ -60,17 +61,53 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
     );
 
     if (response) {
-      router.push(`/tournaments/${tournament}`);
+      Swal.fire({
+        title: "Exito",
+        text: "Se ha registrado tu equipo",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      setTimeout(() => {
+        router.push(`/tournaments/${tournament}`);
+      }, 2000);
     }
   };
 
   useEffect(() => {
     if (queryParams.status === "pending") {
-      router.push("/dashboard/user/profile");
+      Swal.fire({
+        title: "Espera",
+        text: "Por favor espere mientras procesamos tu pago",
+        icon: "info",
+        confirmButtonText: "OK",
+      });
+      setTimeout(() => {
+        router.push("/dashboard/user/profile");
+      }, 2000);
     }
+
     if (queryParams.status === "failed" || queryParams.status === "rejected") {
-      router.push(`/tournaments/${tournament}`);
+      Swal.fire({
+        title: "Error",
+        text: "Tu pago ha fallado",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+
+      setTimeout(() => {
+        router.push("/dashboard/user/profile");
+      }, 2000);
     }
+
+    if (queryParams.status === "approved") {
+      Swal.fire({
+        title: "Exito",
+        text: "Tu pago ha sido aprobado",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
+
     async function dataConstructor() {
       try {
         if (!currentUser) {
