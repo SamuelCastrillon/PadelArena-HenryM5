@@ -34,40 +34,9 @@ const FixtureComponent: React.FC<FixtureProps> = ({ fixtureId }) => {
 
   const handleSelectWinner = async (matchId: string, teamId: string) => {
     try {
-      const response = await selectWinner(matchId, teamId);
-
-      // Asegúrate de que la respuesta contiene la estructura correcta
-      if (response.round) {
-        // Actualiza el estado del fixture con la nueva ronda
-        setFixture((prevFixture) => {
-          if (prevFixture) {
-            // Encuentra la ronda actual y actualízala
-            const updatedRounds = prevFixture.round.map((round) =>
-              round.matches.some((match) => match.id === matchId)
-                ? {
-                    ...round,
-                    matches: round.matches.map((match) =>
-                      match.id === matchId
-                        ? { ...match, teamWinner: response.teamWinner }
-                        : match
-                    ),
-                  }
-                : round
-            );
-
-            // Si hay una nueva ronda, añádela a las rondas existentes
-            if (response.newRound) {
-              updatedRounds.push(response.newRound);
-            }
-
-            return { ...prevFixture, round: updatedRounds };
-          }
-          return prevFixture;
-        });
-      }
-      setDropdownOpen(null);
+      console.log("aca va el handle select winner con el token");
     } catch (error) {
-      console.log("Error selecting winner:", error);
+      console.log(error);
     }
   };
 

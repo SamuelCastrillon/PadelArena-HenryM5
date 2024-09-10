@@ -39,13 +39,9 @@ export const updateUserCategory = async (
   }
 };
 
-export const getUsersId = async (userId: string, token: string) => {
+export const getUsersId = async (userId: string) => {
   try {
-    const response = await axiosInstance.get(`/users/${userId}`, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axiosInstance.get(`/users/${userId}`);
 
     return response.data;
   } catch (error) {
