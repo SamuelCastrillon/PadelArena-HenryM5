@@ -47,7 +47,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         return;
       }
       if (!token) {
-        throw new Error("No hay token");
+        return;
       }
       const data: IProductPaymentDataReq = {
         tournament: tournament.id,
