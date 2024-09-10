@@ -54,6 +54,13 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         host: TOURNAMENT_REGISTER_URL,
         user: user.id,
       };
+      Swal.fire({
+        title: "Atencion",
+        text: `Estas por registrar tu pago para el torneo ${tournament.name}`,
+        icon: "info",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+      });
       try {
         const responseUrl = await postPaymentToMP(data, token);
         console.log(responseUrl.redirectUrl);
