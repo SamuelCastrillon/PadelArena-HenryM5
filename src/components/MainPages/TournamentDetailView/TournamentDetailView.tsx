@@ -24,7 +24,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   tournament,
   currentHost,
 }) => {
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, token } = useContext(AuthContext);
   const user = currentUser;
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,24 +33,6 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // useEffect(() => {
-  //   const fetchTeams = async () => {
-  //     if (user) {
-  //       try {
-  //         const teams = await getTeamsInTournament(tournament.id);
-  //         const userIsRegistered = teams.some((team: ITeam) =>
-  //           team.users.some((u) => u.id === user.id)
-  //         );
-  //         setIsUserRegistered(userIsRegistered);
-  //       } catch (error) {
-  //         console.error("Error fetching teams:", error);
-  //       }
-  //     }
-  //   };
-  //   fetchTeams();
-  // }, [user, tournament.id]);
-
-  // Manejo de redireccionamiento
   const TOURNAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
 
   // Manejo de inscripción
@@ -70,7 +52,10 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
         user: user.id,
       };
       try {
-        const responseUrl = await postPaymentToMP(data);
+        if (!token) {
+          throw new Error("No hay token");
+        }
+        const responseUrl = await postPaymentToMP(data, token);
         if (!responseUrl.redirectUrl) {
           throw new Error("Error al realizar el pago");
         }

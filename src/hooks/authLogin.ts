@@ -18,6 +18,7 @@ import {
 import HandlerLogIn from "@/Server/HandlerFormsFuctions/HandlerLogIn";
 import { useUserCookies } from "@/hooks/useUserCookies";
 import useTournamentData from "./fetchTournamentData";
+import { AxiosError } from "axios";
 
 const useAuth = () => {
   const router = useRouter();
@@ -206,9 +207,9 @@ const useAuth = () => {
         });
         router.push("/dashboard/user/profile");
       }
-    } catch (error: any) {
+    } catch (error) {
       Swal.fire({
-        title: "No eres un usuario registrado. Por favor completa el registro.",
+        title: "Error al iniciar sesión.",
         width: 400,
         padding: "3em",
       });
