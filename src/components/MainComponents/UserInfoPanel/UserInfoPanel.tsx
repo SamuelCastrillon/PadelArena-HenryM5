@@ -20,7 +20,6 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   //const [modalInputOpen, setModalInputOpen] = useState<boolean>(false);
   //const [key, setKey] = useState<String | null>(null);
 
-  console.log(user);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
 
