@@ -74,10 +74,10 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
                   className="block w-full h-full rounded-xl transition duration-300 ease-in-out filter grayscale hover:grayscale-0"
                 />
                 <div className="absolute bottom-0 left-0 w-full text-white p-4 bg-gradient-to-t from-black">
-                  <h3 className="text-xl sfBold text-lime uppercase">
+                  <h3 className="text-lg radhiumz text-lime uppercase">
                     {image.title}
                   </h3>
-                  <p className="text-md sfMedium uppercase">{`Categoria:${image.categoria}`}</p>
+                  <p className="text-md sfMedium uppercase mt-4">{`Categoria: ${image.categoria}`}</p>
 
                   <p className="text-sm sfMedium">{`${image.fechaInicio} - ${image.fechaFin}`}</p>
 

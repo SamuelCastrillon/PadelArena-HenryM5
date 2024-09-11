@@ -20,7 +20,7 @@ const UpcomingTournamentsPage = async () => {
 
       {filteredTournaments?.length > 0 ? (
         <>
-          <div className="flex w-full mx-auto my-20">
+          <div className="flex flex-col md:flex-row w-full mx-auto my-20 ">
             <div className="flex">
               <p className="text-white text-xl md:text-2xl sfRegular mb-10">
                 Aun estas a tiempo de anotarte a los torneos!
