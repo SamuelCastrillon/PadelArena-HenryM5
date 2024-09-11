@@ -10,7 +10,7 @@ const useUserStats = (userId: string, token: string) => {
     wonTournaments?: number;
     lossTournaments?: number;
   } | null>(null);
-  const [winner, setWinner] = useState<number | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
