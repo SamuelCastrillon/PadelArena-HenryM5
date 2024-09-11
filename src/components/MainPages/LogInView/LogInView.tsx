@@ -64,6 +64,7 @@ const LogInView: React.FC = () => {
         ? categories.map((category) => ({
             value: category.id,
             name: category.name,
+            description: category.description,
           }))
         : [],
     },
