@@ -13,6 +13,8 @@ import {
   Legend,
 } from "chart.js";
 
+import { Tick } from "chart.js";
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -55,7 +57,8 @@ const TournamentLineChart = ({
         fill: true,
         pointBackgroundColor: "#00FF00", // Lime
         pointBorderColor: "#00FF00", // Lime
-        pointHoverRadius: 8,
+        pointRadius: 8, // Tamaño de los puntos
+        pointHoverRadius: 10, // Tamaño de los puntos al hacer hover
       },
       {
         label: "Torneos Perdidos",
@@ -66,7 +69,8 @@ const TournamentLineChart = ({
         fill: true,
         pointBackgroundColor: "#0000FF", // Blue
         pointBorderColor: "#0000FF", // Blue
-        pointHoverRadius: 8,
+        pointRadius: 8, // Tamaño de los puntos
+        pointHoverRadius: 10, // Tamaño de los puntos al hacer hover
       },
     ],
   };
@@ -133,23 +137,31 @@ const TournamentLineChart = ({
       },
       y: {
         grid: {
-          borderDash: [5, 5],
+          borderDash: [8, 8],
           color: "#D1D5DB",
         },
+        min: 0, // Valor mínimo del eje y
+        max: 10, // Valor máximo del eje y ajustado para reducir el espacio
         ticks: {
           color: "white",
           font: {
             size: 12,
             family: "sfRegular",
           },
-          padding: 10,
+          padding: 12,
+          stepSize: 1,
+          callback: (
+            tickValue: string | number,
+            index: number,
+            ticks: Tick[]
+          ) => Math.floor(tickValue as number),
         },
       },
     },
   };
 
   return (
-    <div className="w-full h-[300px] max-w-lg mx-auto p-4 bg-black/30 rounded-lg shadow-md">
+    <div className="w-full h-[500px] max-w-2xl mx-auto p-4 bg-black/30 rounded-lg shadow-md">
       <Line data={data} options={options} />
     </div>
   );
