@@ -14,6 +14,8 @@ import { postCreateAndSuscribeNewTeam } from "@/Server/Tournament/Teams/postCrea
 import { IPostNewTeam } from "@/interfaces/RequestInterfaces";
 import { transformQueryToPaymentResponse } from "./transformPramsToPaymentResponse";
 import { IPaymentQueryResponse } from "@/interfaces/MercadoPagoInterfaces/PaymentQueryInterface";
+import Swal from "sweetalert2";
+import { putPaymentInscriptionStatus } from "@/Server/PaymentByMP/PaymentByMP";
 
 interface IRegisterForTournaments {
   tournamentId: { tournamentId: string };
@@ -29,9 +31,7 @@ interface IFormValues {
   teammate: string;
 }
 
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
-  tournamentId,
-}) => {
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentId }) => {
   const { currentUser, token } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const router = useRouter();
@@ -39,8 +39,7 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
 
   //? QUERY PARAMS
   const searchParams = useSearchParams();
-  const queryParams: IPaymentQueryResponse =
-    transformQueryToPaymentResponse(searchParams);
+  const queryParams: IPaymentQueryResponse = transformQueryToPaymentResponse(searchParams);
 
   const handlerPayment = async (values: IFormValues) => {
     if (!currentUser || !token) {
@@ -53,24 +52,57 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
       players: [currentUser.id, values.teammate],
     };
 
-    const response = await postCreateAndSuscribeNewTeam(
-      tournament,
-      newTeam,
-      token
-    );
+    const response = await postCreateAndSuscribeNewTeam(tournament, newTeam, token);
 
     if (response) {
-      router.push(`/tournaments/${tournament}`);
+      await putPaymentInscriptionStatus(queryParams.payment_id, token);
+      Swal.fire({
+        title: "Exito",
+        text: "Se ha registrado tu equipo",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+      setTimeout(() => {
+        router.push(`/tournaments/${tournament}`);
+      }, 2000);
     }
   };
 
   useEffect(() => {
     if (queryParams.status === "pending") {
-      router.push("/dashboard/user/profile");
+      Swal.fire({
+        title: "Espera",
+        text: "Por favor espere mientras procesamos tu pago",
+        icon: "info",
+        confirmButtonText: "OK",
+      });
+      setTimeout(() => {
+        router.push("/dashboard/user/profile");
+      }, 2000);
     }
+
     if (queryParams.status === "failed" || queryParams.status === "rejected") {
-      router.push(`/tournaments/${tournament}`);
+      Swal.fire({
+        title: "Error",
+        text: "Tu pago ha fallado",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
+
+      setTimeout(() => {
+        router.push("/dashboard/user/profile");
+      }, 2000);
     }
+
+    if (queryParams.status === "approved") {
+      Swal.fire({
+        title: "Exito",
+        text: "Tu pago ha sido aprobado",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    }
+
     async function dataConstructor() {
       try {
         if (!currentUser) {

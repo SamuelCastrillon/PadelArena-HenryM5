@@ -17,7 +17,8 @@ async function HandlerLogIn(data: IUserLoginReq) {
     console.log(error);
     if (error instanceof AxiosError) {
       Swal.fire({
-        title: `${error.response?.data.message}`,
+        title: "Error al iniciar sesión",
+        text: `${error.response?.data.message}`,
         width: 400,
         padding: "3em",
       });

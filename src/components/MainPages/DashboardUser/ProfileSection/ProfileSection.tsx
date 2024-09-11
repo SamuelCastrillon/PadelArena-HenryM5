@@ -10,11 +10,7 @@ const ProfileSection: React.FC = () => {
 
   return (
     <div className="w-3/4 mx-auto">
-      {user ? (
-        <UserInfoPanel user={user} />
-      ) : (
-        <p>No se encontró un usuario disponible.</p>
-      )}
+      {user ? <UserInfoPanel user={user} /> : <p>No se encontró un usuario.</p>}
     </div>
   );
 };

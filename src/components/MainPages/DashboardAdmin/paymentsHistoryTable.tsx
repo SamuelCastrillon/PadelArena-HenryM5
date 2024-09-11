@@ -260,8 +260,7 @@ const PaymentsTable: React.FC = () => {
               {searchTerm && (
                 <button
                   onClick={handleClearFilters}
-                  className="absolute right-3 top-2 text-gray-500 hover:text-gray-700 bg-lime rounded-xl px-1"
-                >
+                  className="absolute right-3 top-2 text-gray-500 hover:text-gray-700 bg-lime rounded-xl px-1">
                   &#10005;
                 </button>
               )}
@@ -275,6 +274,9 @@ const PaymentsTable: React.FC = () => {
                   <tr className="bg-gray-2 text-center dark:bg-meta-4">
                     <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
                       NÚMERO DE ÓRDEN
+                    </th>
+                    <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
+                      USUARIO
                     </th>
                     <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
                       FECHA
@@ -295,6 +297,9 @@ const PaymentsTable: React.FC = () => {
                           <p className="text-gray-500">{payment.payment_id}</p>
                         </td>
                         <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
+                          <p className="text-gray-500">{payment.user.name}</p>
+                        </td>
+                        <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                           <p className="text-gray-500">
                             {formatDate(payment.date_approved)}
                           </p>
@@ -308,20 +313,23 @@ const PaymentsTable: React.FC = () => {
                               fillRule="evenodd"
                               clipRule="evenodd"
                               className={`${
-                                payment.status === "failed"
+                                payment.status === "rejected"
                                   ? "text-red-500"
                                   : payment.status === "approved"
                                   ? "text-green-500"
                                   : "text-yellow-500"
-                              }`}
-                            >
+                              }`}>
                               <path
                                 d="M12 22c-5.519 0-10-4.48-10-10 0-5.519 4.481-10 10-10 .451 0 .891.04 1.325.098-4.1.687-6.982 3.301-8.252 6.282-2.447 5.743 1.359 10.347 5.599 10.343 2.746 0 5.152-1.853 6.583-4.202 1.336-2.191 2.835-2.584 3.706-2.257.612.229.95.797.885 1.429-.807 4.712-4.905 8.307-9.846 8.307m9.874-11.509c-2.379-1.075-4.844.555-6.326 2.988-1.007 1.652-2.444 2.795-3.941 3.136-3.359.765-6.683-2.785-4.694-7.451 1.341-3.147 5.12-6.292 11.386-4.925 1.886 1.533 3.193 3.74 3.575 6.252m2.126 1.509c0-6.623-5.377-12-12-12s-12 5.377-12 12 5.377 12 12 12c6.68 0 12-5.459 12-12"
                                 fill="currentColor"
                               />
                             </svg>
                             <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-75 whitespace-nowrap hidden group-hover:block">
-                              {payment.status.toUpperCase()}
+                              {payment.status === "approved"
+                                ? "APROBADO"
+                                : payment.status === "rejected"
+                                ? "RECHAZADO"
+                                : "PENDIENTE"}
                             </span>
                           </p>
                         </td>
@@ -334,8 +342,7 @@ const PaymentsTable: React.FC = () => {
                     <tr>
                       <td
                         colSpan={4}
-                        className="text-center py-4 text-gray-500"
-                      >
+                        className="text-center py-4 text-gray-500">
                         No se encontraron resultados para tu búsqueda.
                       </td>
                     </tr>

@@ -16,6 +16,13 @@ const StadisticsView = ({ userId, token }: StadisticsViewProps) => {
   const { stats, loading, error } = useUserStats(userId, token);
   const [userName, setUserName] = useState<string>("");
 
+  const wonTournamentsData: number[] = stats?.wonTournaments
+    ? [stats.wonTournaments]
+    : Array(12).fill(0);
+
+  const lossTournamentsData: number[] = stats?.lossTournaments
+    ? [stats.lossTournaments]
+    : Array(12).fill(0);
   useEffect(() => {
     const getUserName = async () => {
       const response = await getUserById(userId, token);
@@ -43,14 +50,15 @@ const StadisticsView = ({ userId, token }: StadisticsViewProps) => {
       <h1 className="text-3xl text-center text-white radhiumz uppercase mb-8">
         {` Una mirada a tu rendimiento ${userName}`}
       </h1>
+      <hr className="text-white h-2 w-3/4 mx-auto mb-10"></hr>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="flex-1 mb-8 md:mb-0">
           <MatchStatsChart won={stats?.won} loss={stats?.loss} />
         </div>
         <div className="flex-1">
           <TournamentLineChart
-            gano={stats?.gano || []}
-            perdio={stats?.perdio || []}
+            gano={wonTournamentsData}
+            perdio={lossTournamentsData}
           />
         </div>
       </div>

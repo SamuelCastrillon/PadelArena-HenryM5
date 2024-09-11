@@ -97,7 +97,7 @@ export interface ICreateTournamentFormData {
   Miércoles?: ["on"] | [] | undefined;
   Jueves?: ["on"] | [] | undefined;
   Viernes?: ["on"] | [] | undefined;
-  Sabado?: ["on"] | [] | undefined;
+  Sábado?: ["on"] | [] | undefined;
   Domingo?: ["on"] | [] | undefined;
   teamsQuantity: TeamsQuantity;
   matchDuration: number;
@@ -160,6 +160,7 @@ export interface IAallUserPayments {
     date_approved: string;
     date_last_updated: string;
     transaction_amount: number;
+    successInscription?: boolean;
     tournament: {
       id: string;
       name: string;

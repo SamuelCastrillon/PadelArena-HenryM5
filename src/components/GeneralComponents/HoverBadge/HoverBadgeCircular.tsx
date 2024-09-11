@@ -13,7 +13,7 @@ const HoverBadge: React.FC<HoverBadgeProps> = ({ status }) => {
       {/* Círculo indicador */}
       <div
         className={`w-6 h-6 rounded-full ${
-          isOpen ? "bg-green-500" : "bg-red-500"
+          isOpen ? "bg-lime" : "bg-red-500"
         } flex items-center justify-center text-white text-xs font-bold group relative`}
       >
         {/* Tooltip */}

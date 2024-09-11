@@ -27,31 +27,31 @@ export async function getDataToContructFormCreateTournaments() {
   //? Data constructor form
   const inputsCreateTournamentFormValues: IDataConstructor[] = [
     {
-      LabelText: "Nombre Del Torneo",
+      LabelText: "Nombre del torneo",
       FieldType: "text",
       FieldName: "name",
       FieldPH: "Padel Arena",
     },
     {
-      LabelText: "Fecha de Inicio",
+      LabelText: "Fecha de inicio",
       FieldType: "date",
       FieldName: "startDate",
       FieldPH: "01/01/2025",
     },
     {
-      LabelText: "Hora de Inicio",
+      LabelText: "Hora de inicio",
       FieldType: "time",
       FieldName: "startTime",
       FieldPH: "00:00",
     },
     {
-      LabelText: "Hora de Conclusion",
+      LabelText: "Hora de conclusión",
       FieldType: "time",
       FieldName: "endTime",
       FieldPH: "00:00",
     },
     {
-      LabelText: "Dias de Juego",
+      LabelText: "Dias de juego",
       FieldType: "checkboxContainer",
       FieldName: "playingDays",
       containerCheckBox: [
@@ -66,7 +66,7 @@ export async function getDataToContructFormCreateTournaments() {
           FieldType: "checkbox",
         },
         {
-          LabelText: "Miercoles",
+          LabelText: "Miércoles",
           FieldName: "Miercoles",
           FieldType: "checkbox",
         },
@@ -81,7 +81,7 @@ export async function getDataToContructFormCreateTournaments() {
           FieldType: "checkbox",
         },
         {
-          LabelText: "Sabado",
+          LabelText: "Sábado",
           FieldName: "Sabado",
           FieldType: "checkbox",
         },
@@ -103,13 +103,13 @@ export async function getDataToContructFormCreateTournaments() {
       ],
     },
     {
-      LabelText: "Duracion media de partido en minutos",
+      LabelText: "Duración media de partido en minutos",
       FieldType: "number",
       FieldName: "matchDuration",
       FieldPH: "90",
     },
     {
-      LabelText: "Numero de canchas disponibles para el Torneo",
+      LabelText: "Número de canchas disponibles para el Torneo",
       FieldType: "number",
       FieldName: "courts",
       FieldPH: "2",
@@ -121,19 +121,19 @@ export async function getDataToContructFormCreateTournaments() {
       FieldPH: "Descripción del Torneo",
     },
     {
-      LabelText: "Imagen de portada del Torneo",
+      LabelText: "Imagen de portada del torneo",
       FieldType: "file",
       FieldName: "tournamentImg",
       FieldPH: "Categoria 01",
     },
     {
-      LabelText: "Precio de inscriopcion por equipo",
+      LabelText: "Precio de inscripción por equipo",
       FieldType: "number",
       FieldName: "price",
       FieldPH: "12.000",
     },
     {
-      LabelText: "Categoria del Torneo",
+      LabelText: "Categoría del torneo",
       FieldType: "select",
       FieldName: "category",
       selectOptions: categories,
@@ -150,7 +150,7 @@ export async function getDataToContructFormCreateTournaments() {
     matchDuration: 90,
     courts: 4,
     description:
-      "Un torneo de verano de verano con un premio de 5000€. ¡Prepárate para la competición!",
+      "Un torneo de verano con un premio de 5000€. ¡Prepárate para la competición!",
     tournamentImg: "",
     price: 12000,
     category: categoriesToback ? categoriesToback[0].id : "",
