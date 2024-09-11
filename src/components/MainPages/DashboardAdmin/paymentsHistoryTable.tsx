@@ -276,7 +276,7 @@ const PaymentsTable: React.FC = () => {
                       NÚMERO DE ÓRDEN
                     </th>
                     <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
-                      EQUIPO
+                      USUARIO
                     </th>
                     <th className="min-w-[200px] px-4 py-4 font-medium text-black radhiumz">
                       FECHA
@@ -325,7 +325,11 @@ const PaymentsTable: React.FC = () => {
                               />
                             </svg>
                             <span className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-black rounded opacity-75 whitespace-nowrap hidden group-hover:block">
-                              {payment.status.toUpperCase()}
+                              {payment.status === "approved"
+                                ? "APROBADO"
+                                : payment.status === "rejected"
+                                ? "RECHAZADO"
+                                : "PENDIENTE"}
                             </span>
                           </p>
                         </td>

@@ -52,22 +52,34 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
         user: user.id,
       };
       Swal.fire({
-        title: "Atencion",
-        text: `Estas por registrar tu pago de ${tournament.price} para el torneo ${tournament.name}`,
+        title: "Atención",
+        text: `Estás por registrar tu pago de $ ${tournament.price} para el torneo ${tournament.name}. ¿Deseas continuar?`,
         icon: "info",
-        confirmButtonText: "OK",
+        showCancelButton: true,
+        confirmButtonText: "Aceptar",
+        cancelButtonText: "Cancelar",
         allowOutsideClick: false,
-      });
-      try {
-        const responseUrl = await postPaymentToMP(data, token);
-        console.log(responseUrl.redirectUrl);
-        if (!responseUrl.redirectUrl) {
-          throw new Error("Error al realizar el pago");
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          try {
+            const responseUrl = await postPaymentToMP(data, token);
+            console.log(responseUrl.redirectUrl);
+            if (!responseUrl.redirectUrl) {
+              throw new Error("Error al realizar el pago");
+            }
+            router.push(`${responseUrl.redirectUrl}`);
+          } catch (error) {
+            console.error(error);
+          }
+        } else {
+          Swal.fire({
+            title: "Cancelado",
+            text: "El pago ha sido cancelado.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
         }
-        router.push(`${responseUrl.redirectUrl}`);
-      } catch (error) {
-        console.error(error);
-      }
+      });
     } else {
       router.push("/register");
     }
