@@ -61,6 +61,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useJsApiLoader } from "@react-google-maps/api";
+import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 interface MapInputComponentProps {
   onLocationSelect: (plusCode: string) => void;
@@ -110,14 +112,35 @@ const MapInputComponent: React.FC<MapInputComponentProps> = ({
   return (
     <div className="justify-center flex-col items-center w-full h-full p-4">
       <label className="text-lg text-slate mb-1">
-        Copie y pegue un plus code de Google Maps
+        Copie y pegue un plus code de{" "}
+        <Link
+          href="https://www.google.com.ar/maps"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:underline">
+          Google Maps
+        </Link>
       </label>
-      <div className="relative inline-block group">
-        <div className="ml-2 mb-2 w-8 h-8 bg-lime text-black rounded-full text-center text-2xl relative font-semibold">
+      <div className="relative inline-block">
+        <div
+          className="ml-2 mb-2 w-8 h-8 bg-lime text-black rounded-full text-center text-2xl relative font-semibold"
+          onMouseEnter={() => {
+            const gifContainer = document.getElementById("gif-container");
+            if (gifContainer) {
+              gifContainer.classList.remove("hidden");
+            }
+          }}
+          onMouseLeave={() => {
+            const gifContainer = document.getElementById("gif-container");
+            if (gifContainer) {
+              gifContainer.classList.add("hidden");
+            }
+          }}>
           i
-          <span className="absolute top-0 left-0 w-full h-full rounded-full "></span>
         </div>
-        <div className="absolute top-14 left-1/2 transform -translate-x-1/2 w-96 bg-white border border-gray-300 rounded-lg shadow-lg p-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10">
+        <div
+          id="gif-container"
+          className="absolute top-40 left-0 transform -translate-y-1/2 w-96 bg-white border border-gray-300 rounded-lg shadow-lg p-2 hidden z-50">
           <img
             src="/infoPlusCode.gif"
             alt="Información"
@@ -125,7 +148,6 @@ const MapInputComponent: React.FC<MapInputComponentProps> = ({
           />
         </div>
       </div>
-
       <input
         type="text"
         value={plusCode}

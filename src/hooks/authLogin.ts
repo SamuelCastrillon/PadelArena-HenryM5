@@ -89,7 +89,7 @@ const useAuth = () => {
     } catch (error: any) {
       Swal.fire({
         title: "Error al autenticar con Google.",
-        text: `${error.response?.data.message}`,
+        text: `Prueba iniciar sesión desde el formulario.`,
         icon: "error",
         confirmButtonText: "Cerrar",
       });

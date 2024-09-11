@@ -37,13 +37,13 @@ export async function getDataToContructFormRegisterTournament(
   //? Data constructor form
   const inputsRegisterTournamentFormValues: IDataConstructor[] = [
     {
-      LabelText: "Nombre del Equipo",
+      LabelText: "Nombre del ",
       FieldType: "text",
       FieldName: "name",
       FieldPH: "Los saca chispa",
     },
     {
-      LabelText: "Compañero de equipo",
+      LabelText: "Compañero de ",
       FieldType: "select",
       FieldName: "teammate",
       selectOptions: usersToSelect,
@@ -55,5 +55,5 @@ export async function getDataToContructFormRegisterTournament(
   };
 }
 export const butonsRegisterTournamentForm: IButtonForm[] = [
-  { name: "Inscribir Equipo", type: "submit" },
+  { name: "Inscribir ", type: "submit" },
 ];
