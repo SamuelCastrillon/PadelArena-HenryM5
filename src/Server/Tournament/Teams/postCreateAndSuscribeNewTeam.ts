@@ -11,19 +11,12 @@ export async function postCreateAndSuscribeNewTeam(
   const URL_POST = `/tournament-team/${tournamentId}`;
   const BODY = teamPostData;
 
-  console.log(URL_POST, BODY);
-
   try {
-    const response = await axiosInstance.post(
-      `/tournament-team/${tournamentId}`,
-      teamPostData,
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
+    const response = await axiosInstance.post(URL_POST, BODY, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
     return response.data;
   } catch (error) {
     if (isAxiosError(error)) {

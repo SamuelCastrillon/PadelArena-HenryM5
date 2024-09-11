@@ -11,6 +11,9 @@ interface ICarouselProps {
     title: string;
     href: string;
     categoria: string;
+    precio: string;
+    fechaInicio: string;
+    fechaFin: string;
     inscription: "abiertas" | "cerradas";
   }[];
 }
@@ -71,8 +74,14 @@ const Carousel: React.FC<ICarouselProps> = ({ images }) => {
                   className="block w-full h-full rounded-xl transition duration-300 ease-in-out filter grayscale hover:grayscale-0"
                 />
                 <div className="absolute bottom-0 left-0 w-full text-white p-4 bg-gradient-to-t from-black">
-                  <h3 className="text-xl sfBold text-lime">{image.title}</h3>
-                  <p className="text-sm sfMedium">{image.categoria}</p>
+                  <h3 className="text-xl sfBold text-lime uppercase">
+                    {image.title}
+                  </h3>
+                  <p className="text-md sfMedium uppercase">{`Categoria:${image.categoria}`}</p>
+
+                  <p className="text-sm sfMedium">{`${image.fechaInicio} - ${image.fechaFin}`}</p>
+
+                  <p className="text-sm sfMedium text-lime">{`Precio:$${image.precio}`}</p>
                   {/* Badge Optional */}
                   <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
                     <HoverBadge status={image.inscription} />

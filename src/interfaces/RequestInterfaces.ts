@@ -160,6 +160,7 @@ export interface IAallUserPayments {
     date_approved: string;
     date_last_updated: string;
     transaction_amount: number;
+    successInscription?: boolean;
     tournament: {
       id: string;
       name: string;
