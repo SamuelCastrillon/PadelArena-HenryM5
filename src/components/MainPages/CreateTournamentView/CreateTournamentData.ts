@@ -66,7 +66,7 @@ export async function getDataToContructFormCreateTournaments() {
           FieldType: "checkbox",
         },
         {
-          LabelText: "Miercoles",
+          LabelText: "Miércoles",
           FieldName: "Miercoles",
           FieldType: "checkbox",
         },
@@ -81,7 +81,7 @@ export async function getDataToContructFormCreateTournaments() {
           FieldType: "checkbox",
         },
         {
-          LabelText: "Sabado",
+          LabelText: "Sábado",
           FieldName: "Sabado",
           FieldType: "checkbox",
         },

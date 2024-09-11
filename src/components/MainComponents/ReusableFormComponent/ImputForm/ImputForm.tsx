@@ -16,8 +16,9 @@ const ImputForm: React.FC<IDataConstructor> = ({
         type={FieldType}
         name={FieldName}
         placeholder={FieldPH}
-        className="p-1 text-gray-800 rounded"
-      ></Field>
+        className={`font-Medium ${
+          FieldType === "file" ? "text-lime" : "p-1 text-black rounded"
+        }`}></Field>
       <span className="font-Medium text-red-600 bg-slate/70 rounded">
         <ErrorMessage name={FieldName} />
       </span>
