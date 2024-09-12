@@ -16,8 +16,6 @@ async function HandlerNewTournament(data: ICreateTournamentReq, token: string) {
       response.status === 201 ||
       response.status === 201
     ) {
-      console.log("soy el status", response.status);
-
       return response.data;
     } else {
       throw response.data;

@@ -7,7 +7,7 @@ import { NavigateButton } from "@/components/GeneralComponents/NavigateButton/Na
 
 const UpcomingTournamentsPage = async () => {
   const tournaments: ITournament[] = await getTournaments();
-  console.log(tournaments);
+
   const filteredTournaments = tournaments?.filter(
     (tournament) => tournament.status === "por comenzar"
   );

@@ -10,7 +10,6 @@ interface Message {
 
 const ChatView: React.FC = () => {
   const { currentUser, token } = useContext(AuthContext);
-  console.log("user:", currentUser);
 
   const [socket, setSocket] = useState<Socket | null>(null);
   const [message, setMessage] = useState<string>("");
@@ -54,7 +53,7 @@ const ChatView: React.FC = () => {
           content: data.message,
           sender: data.from,
         };
-        console.log("Mensaje recibido en cliente:", newMessage);
+
         setMessages((state) => [...state, newMessage]);
       };
 

@@ -4,6 +4,7 @@ import ActionButton from "@/components/GeneralComponents/ActionButton/ActionButt
 import { PlusIcon } from "@heroicons/react/24/solid";
 
 import { ITournament } from "@/interfaces/ComponentsInterfaces/Tournament";
+import { formatDate } from "@/helpers/dateTimeHelper";
 
 interface TournamentSectionProps {
   title: string;
@@ -34,8 +35,8 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       title: tournament.name,
       categoria: tournament.category.name || "Sin categoría",
       precio: tournament.price?.toString() || "Sin precio",
-      fechaInicio: new Date(tournament.startDate).toLocaleDateString("es-ES"),
-      fechaFin: new Date(tournament.endDate).toLocaleDateString("es-ES"),
+      fechaInicio: formatDate(tournament.startDate),
+      fechaFin: formatDate(tournament.endDate),
       href: `/tournaments/${tournament.id}`,
       inscription: tournament.inscription,
     }));

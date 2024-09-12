@@ -6,7 +6,6 @@ export const updatePhotoUserProfile = async (
   token: string
 ) => {
   try {
-    console.log(token, "token");
     const formData = new FormData();
     formData.append("file", photo);
 

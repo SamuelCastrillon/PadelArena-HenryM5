@@ -7,14 +7,6 @@ import { AuthContext } from "@/context/GlobalContext";
 const StadisticsSectionView = () => {
   const { currentUser, token } = useContext(AuthContext);
   const userId = currentUser?.id ?? "";
-  console.log(
-    currentUser,
-    token,
-    "token",
-    userId,
-    "userid",
-    "datos del stadistics view"
-  );
 
   return (
     <div>

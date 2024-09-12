@@ -49,9 +49,6 @@ export async function middleware(request: NextRequest) {
       const userRestrictedRoutes = ["/dashboard/user"];
 
       if (userRestrictedRoutes.some((route) => currentPath.startsWith(route))) {
-        console.log(
-          `Redirigiendo administrador desde ruta restringida: ${currentPath}`
-        );
         return NextResponse.redirect(
           new URL("/dashboard/admin/profile", request.url)
         );
@@ -62,15 +59,11 @@ export async function middleware(request: NextRequest) {
         currentPath.startsWith("/dashboard/admin") ||
         publicRoutes.includes(currentPath)
       ) {
-        console.log(`Permitiendo acceso a administrador en: ${currentPath}`);
         return NextResponse.next();
       }
     } else if (role === "user" || role === "jugador") {
       // Rutas prohibidas para usuarios regulares o jugadores
       if (currentPath.startsWith("/dashboard/admin/")) {
-        console.log(
-          `Redirigiendo usuario desde ruta restringida: ${currentPath}`
-        );
         return NextResponse.redirect(new URL("/dashboard/user", request.url));
       }
 
@@ -80,9 +73,6 @@ export async function middleware(request: NextRequest) {
         currentPath.startsWith("/dashboard/user") ||
         currentPath.startsWith("/chat")
       ) {
-        console.log(
-          `Permitiendo acceso a jugador/usuario en ruta: ${currentPath}`
-        );
         return NextResponse.next();
       }
     }
@@ -90,12 +80,11 @@ export async function middleware(request: NextRequest) {
 
   // Si el usuario no está autenticado y la ruta no es pública
   if (!user && !publicRoutes.includes(currentPath)) {
-    console.log(`Redirigiendo a login desde ruta protegida: ${currentPath}`);
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
   // Permitir el acceso si no se cumplen las condiciones de restricción
-  console.log(`Permitiendo acceso a: ${currentPath}`);
+
   return NextResponse.next();
 }
 
