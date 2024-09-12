@@ -10,7 +10,7 @@ const MenuButton: React.FC<IButtonUserMenu> = ({
   onClick,
 }) => {
   function handlerClick() {
-    console.log("click");
+    console.log("click button");
 
     if (onClick) {
       onClick();
