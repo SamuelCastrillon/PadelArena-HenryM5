@@ -11,21 +11,26 @@ async function HandlerNewTournament(data: ICreateTournamentReq, token: string) {
       },
     });
 
-    if (response.status === 200) {
+    if (
+      response.status === 200 ||
+      response.status === 201 ||
+      response.status === 201
+    ) {
+      console.log("soy el status", response.status);
+
       return response.data;
     } else {
       throw response.data;
     }
   } catch (error) {
-    if (isAxiosError(error)) {
-      Swal.fire({
-        title: `${error.response?.data.message}`,
-        width: 400,
-        padding: "3em",
-      });
-    }
-    return error;
+    Swal.fire({
+      title: `Error al crear torneo`,
+      text: "Asegurate de completar correctamente todos los campos y recuerda que no puedes crear dos torneos de la misma categoría en la misma fecha.",
+      width: 400,
+      padding: "3em",
+    });
   }
+  return Error;
 }
 
 export default HandlerNewTournament;

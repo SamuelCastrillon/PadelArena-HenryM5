@@ -15,14 +15,14 @@ async function HandlerLogIn(data: IUserLoginReq) {
   } catch (error) {
     console.error(error);
     console.log(error);
-    if (error instanceof AxiosError) {
-      Swal.fire({
-        title: "Error al iniciar sesión",
-        text: `${error.response?.data.message}`,
-        width: 400,
-        padding: "3em",
-      });
-    }
+
+    Swal.fire({
+      title: "Error al iniciar sesión",
+      text: `Usuario o contraseña incorrectos`,
+      width: 400,
+      padding: "3em",
+    });
+
     return error;
   }
 }
