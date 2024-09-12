@@ -6,7 +6,6 @@ export const selectWinner = async (
   token: string
 ) => {
   try {
-    console.log(token, "token");
     const response = await axiosInstance.put(
       `/tournamentfixture/matchWinner/${winnerId}`,
       { matchId },

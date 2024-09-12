@@ -117,7 +117,7 @@ const handlerSubmit = async (
 
     if (dataFormattedToSend && token) {
       const response = await HandlerNewTournament(dataFormattedToSend, token);
-      console.log("SOY LA RESPONSE EN CREATETOURNAMENT", response);
+
       if (response.status === "por comenzar") {
         Swal.fire({
           title: "Torneo creado con éxito.",

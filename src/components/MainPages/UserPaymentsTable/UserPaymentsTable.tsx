@@ -30,7 +30,7 @@ const PaymentHistoryPanel: React.FC = () => {
     if (!currentUser || !token) return;
     try {
       const payments = await getAllPayments(currentUser?.id, token);
-      console.log(payments);
+
       if (payments) setPaymentsList(payments);
     } catch (error) {
       console.log(error);

@@ -16,10 +16,9 @@ const useUserStats = (userId: string, token: string) => {
 
   useEffect(() => {
     const fetchStats = async () => {
-      console.log(userId, token), "datos en usestats";
       try {
         const response = await getUserStats(userId, token);
-        console.log(response, "stats");
+
         setStats(response);
       } catch (err) {
         setError("Error al cargar las estadísticas");

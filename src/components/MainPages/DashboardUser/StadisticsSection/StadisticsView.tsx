@@ -12,7 +12,6 @@ interface StadisticsViewProps {
 }
 
 const StadisticsView = ({ userId, token }: StadisticsViewProps) => {
-  console.log(userId, "userid", token, "estadisticas");
   const { stats, loading, error } = useUserStats(userId, token);
   const [userName, setUserName] = useState<string>("");
 
@@ -26,7 +25,7 @@ const StadisticsView = ({ userId, token }: StadisticsViewProps) => {
   useEffect(() => {
     const getUserName = async () => {
       const response = await getUserById(userId, token);
-      console.log(response);
+
       if (response) {
         setUserName(response.name);
       }

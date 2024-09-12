@@ -25,7 +25,7 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
       src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
-  console.log(tournaments);
+
   const mapTournamentsToCarousel = (tournaments: ITournament[]) =>
     tournaments?.map((tournament: ITournament) => ({
       src: getImageUrl(
@@ -42,7 +42,6 @@ const TournamentSection: React.FC<TournamentSectionProps> = ({
     }));
 
   const carouselItems = mapTournamentsToCarousel(tournaments);
-  console.log(carouselItems);
 
   return (
     <div className="w-[80%] mx-auto mt-10 md:mt-32">

@@ -65,12 +65,10 @@ export function useUserCookies() {
 
   const deleteGoogleUser = () => {
     Cookies.remove(googleUserKey);
-    console.log("Google User cookie removed.");
   };
 
   const deleteRegularUser = () => {
     Cookies.remove(regularUserKey);
-    console.log("Regular User cookie removed.");
   };
 
   const isValidToken = (token: string) => {

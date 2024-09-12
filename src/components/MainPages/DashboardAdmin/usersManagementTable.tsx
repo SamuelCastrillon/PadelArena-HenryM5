@@ -85,7 +85,7 @@ const UsersManagement: React.FC = () => {
     try {
       if (!token) return;
       await updateUserCategory(userId, newCategoryId, token);
-      console.log(token);
+
       const updatedUsers = await getAllUsers(token);
       setUsers(updatedUsers);
 
