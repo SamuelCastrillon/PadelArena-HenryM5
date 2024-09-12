@@ -10,7 +10,6 @@ interface Message {
 
 const ChatView: React.FC = () => {
   const { currentUser, token } = useContext(AuthContext);
-  console.log("user:", currentUser);
 
   const [socket, setSocket] = useState<Socket | null>(null);
   const [message, setMessage] = useState<string>("");
@@ -54,7 +53,7 @@ const ChatView: React.FC = () => {
           content: data.message,
           sender: data.from,
         };
-        console.log("Mensaje recibido en cliente:", newMessage);
+
         setMessages((state) => [...state, newMessage]);
       };
 
@@ -73,7 +72,7 @@ const ChatView: React.FC = () => {
     if (socket) {
       const newMessage: Message = {
         content: message,
-        sender: "Me", // El remitente debería ser una cadena de texto
+        sender: "Yo", // El remitente debería ser una cadena de texto
       };
       socket.emit("message", newMessage.content); // Solo el contenido se envía al servidor
       setMessages((prevMessages) => [...prevMessages, newMessage]); // Agregar el mensaje localmente
@@ -83,11 +82,12 @@ const ChatView: React.FC = () => {
 
   return (
     <>
-      <div className="mt-20 flex flex-col items-center justify-start px-4 sm:px-6 md:px-8">
-        <h1 className="text-3xl md:text-4xl text-[#f8fafc] uppercase radhiumz">
+      <div className="mt-20 justify-start items-center flex-col flex">
+        <h1 className="radhiumz text-3xl mx-4 md:mx-0 md:text-4xl text-center uppercase text-white">
           Bienvenido a nuestro chat
+          <hr className="h-2 w-full text-white"></hr>
         </h1>
-        <h2 className="text-lg md:text-xl text-[#f8fafc] sfRegular">
+        <h2 className="sfRegular text-md md:text-xl text-white mt-8">
           ¡Escribe para participar!
         </h2>
       </div>
@@ -129,7 +129,8 @@ const ChatView: React.FC = () => {
               />
               <button
                 type="submit"
-                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase">
+                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase"
+              >
                 Enviar
               </button>
             </form>

@@ -15,7 +15,6 @@ export const updateUserProfile = async (
   token: string | null
 ) => {
   try {
-    console.log(token, "token");
     const response = await axiosInstance.put(
       `/users/updateProfile/${userId}`,
       updateData,

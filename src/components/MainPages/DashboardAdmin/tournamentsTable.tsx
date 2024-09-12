@@ -19,7 +19,6 @@ const TournamentsTable: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedTournamentId, setSelectedTournamentId] = useState<string>("");
   const { token } = useContext(AuthContext);
-  console.log(token);
 
   const router = useRouter();
 
@@ -42,7 +41,6 @@ const TournamentsTable: React.FC = () => {
     tournamentId: string,
     token: string
   ) => {
-    console.log("token", token);
     try {
       const response = await closeInscription(tournamentId, token);
       if (response) {
@@ -70,7 +68,6 @@ const TournamentsTable: React.FC = () => {
       );
 
       if (response) {
-        console.log("Imagen subida correctamente:", response);
         router.push(`/tournaments/${selectedTournamentId}`);
       } else {
         console.error("Error al subir la imagen:", response);
@@ -84,7 +81,6 @@ const TournamentsTable: React.FC = () => {
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
-      console.log("file", event.target.files[0]);
       setSelectedFile(event.target.files[0]);
     }
   };

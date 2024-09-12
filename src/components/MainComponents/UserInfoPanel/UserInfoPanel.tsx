@@ -20,7 +20,6 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
   //const [modalInputOpen, setModalInputOpen] = useState<boolean>(false);
   //const [key, setKey] = useState<String | null>(null);
 
-  console.log(user);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const router = useRouter();
 
@@ -160,9 +159,9 @@ const UserInfoPanel: React.FC<{ user: IUserLogin }> = ({ user }) => {
               userInfo.profileImg || "/images/default-image.jpg"
             )}
             alt="Profile Picture"
-            className="rounded-full w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 hover:scale-110 transition duration-300 ease-in-out"
-            width={192}
-            height={192}
+            className="rounded-full  sm:w-40  hover:scale-110 transition duration-300 ease-in-out"
+            width={190}
+            height={190}
           />
           {/* Botón de lápiz para editar la imagen */}
           <button

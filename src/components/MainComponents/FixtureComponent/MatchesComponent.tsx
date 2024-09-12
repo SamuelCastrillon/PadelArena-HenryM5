@@ -27,7 +27,7 @@ const MatchesComponent: React.FC<MatchProps> = ({ match, setFixtureState }) => {
     try {
       if (!token) return;
       const response = await selectWinner(matchId, teamId, token);
-      console.log(response);
+
       if (response) {
         setFixtureState(response);
         setDropdownOpen(null);

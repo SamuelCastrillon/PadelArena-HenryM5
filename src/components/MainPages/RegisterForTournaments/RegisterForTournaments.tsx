@@ -31,7 +31,9 @@ interface IFormValues {
   teammate: string;
 }
 
-const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentId }) => {
+const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({
+  tournamentId,
+}) => {
   const { currentUser, token } = useContext(AuthContext);
   const [dataToForm, setDataToForm] = useState<null | IDataToForm>(null);
   const router = useRouter();
@@ -39,32 +41,47 @@ const RegisterForTournaments: React.FC<IRegisterForTournaments> = ({ tournamentI
 
   //? QUERY PARAMS
   const searchParams = useSearchParams();
-  const queryParams: IPaymentQueryResponse = transformQueryToPaymentResponse(searchParams);
+  const queryParams: IPaymentQueryResponse =
+    transformQueryToPaymentResponse(searchParams);
 
   const handlerPayment = async (values: IFormValues) => {
-    if (!currentUser || !token) {
-      return;
-    }
+    try {
+      if (!currentUser || !token) {
+        return;
+      }
 
-    //TODO: POST DATA
-    const newTeam: IPostNewTeam = {
-      name: values.name,
-      players: [currentUser.id, values.teammate],
-    };
+      //TODO: POST DATA
+      const newTeam: IPostNewTeam = {
+        name: values.name,
+        players: [currentUser.id, values.teammate],
+      };
 
-    const response = await postCreateAndSuscribeNewTeam(tournament, newTeam, token);
+      const response = await postCreateAndSuscribeNewTeam(
+        tournament,
+        newTeam,
+        token
+      );
 
-    if (response) {
-      await putPaymentInscriptionStatus(queryParams.payment_id, token);
+      if (response) {
+        await putPaymentInscriptionStatus(queryParams.payment_id, token);
+        Swal.fire({
+          title: "Exito",
+          text: "Se ha registrado tu equipo",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        setTimeout(() => {
+          router.push(`/tournaments/${tournament}`);
+        }, 2000);
+      }
+    } catch (error) {
+      console.error("Error:", error);
       Swal.fire({
-        title: "Exito",
-        text: "Se ha registrado tu equipo",
-        icon: "success",
-        confirmButtonText: "OK",
+        title: "Error al registrar tu equipo",
+        text: `${error}`,
+        width: 400,
+        padding: "3em",
       });
-      setTimeout(() => {
-        router.push(`/tournaments/${tournament}`);
-      }, 2000);
     }
   };
 

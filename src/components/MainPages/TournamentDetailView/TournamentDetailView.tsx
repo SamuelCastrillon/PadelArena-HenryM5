@@ -19,7 +19,10 @@ interface TournamentDetailViewProps {
   currentHost: string;
 }
 
-const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament, currentHost }) => {
+const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({
+  tournament,
+  currentHost,
+}) => {
   const { currentUser, token } = useContext(AuthContext);
   const user = currentUser;
   const router = useRouter();
@@ -30,7 +33,6 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
   const closeModal = () => setIsModalOpen(false);
 
   const TOURNAMENT_REGISTER_URL: string = `${currentHost}/tournaments/register`;
-  console.log(tournament);
 
   // Manejo de inscripción
   const handleInscriptionClick = async () => {
@@ -63,7 +65,7 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
         if (result.isConfirmed) {
           try {
             const responseUrl = await postPaymentToMP(data, token);
-            console.log(responseUrl.redirectUrl);
+
             if (!responseUrl.redirectUrl) {
               throw new Error("Error al realizar el pago");
             }
@@ -88,7 +90,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
   const getImageUrl = (src: string) => {
     const defaultImage = "/images/default-image.jpg";
     const isValidUrl =
-      src.startsWith("http://") || src.startsWith("https://") || src.startsWith("/");
+      src.startsWith("http://") ||
+      src.startsWith("https://") ||
+      src.startsWith("/");
     return isValidUrl ? src : defaultImage;
   };
 
@@ -97,7 +101,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
       ? "text-lime radhiumz text-4xl md:text-6xl uppercase"
       : "text-red-500 radhiumz text-4xl md:text-6xl uppercase";
   const statusText =
-    tournament.inscription === "abiertas" ? "Inscripción Abierta" : "Inscripción Cerrada";
+    tournament.inscription === "abiertas"
+      ? "Inscripción Abierta"
+      : "Inscripción Cerrada";
 
   const isUserRegistered =
     tournament.team?.some((team: ITeam) =>
@@ -130,7 +136,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
-            viewBox="0 0 6 10">
+            viewBox="0 0 6 10"
+          >
             <path
               stroke="currentColor"
               strokeLinecap="round"
@@ -139,7 +146,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
               d="M5 1L1 5l4 4"
             />
           </svg>
-          <h1 className="text-2xl text-white radhiumz lg:text-4xl">Vuelve a torneos</h1>
+          <h1 className="text-2xl text-white radhiumz lg:text-4xl">
+            Vuelve a torneos
+          </h1>
         </NavigateButton>
       </div>
 
@@ -158,14 +167,18 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
             "Canchas disponibles": tournament.courtsAvailable.toString(),
             "Días de juego": tournament.playingDay?.toString(),
             Categoría: tournament.category.name,
-            Inscripciones: tournament.inscription.toUpperCase() ?? "Aun en proceso de definir",
+            Inscripciones:
+              tournament.inscription.toUpperCase() ??
+              "Aun en proceso de definir",
             "Precio por equipo": `$${tournament.price}`,
           }}
           additionalComponent={
             tournament.plusCode &&
             tournament.plusCode.trim() !== "" && (
               <div className="mt-4">
-                <h3 className="text-lg text-black md:text-xl sfBold">Ubicación:</h3>
+                <h3 className="text-lg text-black md:text-xl sfBold">
+                  Ubicación:
+                </h3>
                 <iframe
                   src={`https://www.google.com/maps/embed/v1/place?key=${
                     process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
@@ -175,7 +188,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
                   className="w-full rounded-md shadow-md h-80"
                   allowFullScreen={true}
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"></iframe>
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             )
           }
@@ -190,7 +204,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
             ) : (
               <button
                 onClick={handleInscriptionClick}
-                className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz">
+                className="w-full px-12 py-6 text-xl text-black uppercase bg-white shadow-lg rounded-xl shadow-blue-700 radhiumz"
+              >
                 Inscribite
               </button>
             )}
@@ -200,7 +215,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
         <div className="flex justify-center w-full mx-auto mt-4">
           <button
             onClick={openModal}
-            className="rounded-md w-[100%] h-fit p-2 mb-6  bg-lime text-xs text-black hover:shadow-lg hover:shadow-blue-700 radhiumz uppercase">
+            className="rounded-md w-[100%] h-fit p-2 mb-6  bg-lime text-xs text-black hover:shadow-lg hover:shadow-blue-700 radhiumz uppercase"
+          >
             Ver Fixture
           </button>
         </div>
@@ -217,7 +233,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${i * 0.2}s`,
-              }}></div>
+              }}
+            ></div>
           ))}
         </div>
       )}
@@ -229,7 +246,8 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
         backgroundColor="bg-white"
         textColor="text-black"
         className="shadow-lg shadow-lime w-full max-w-screen-xl h-auto max-h-[90vh] overflow-y-auto"
-        bgImageUrl={tournament.tournamentFlyer}>
+        bgImageUrl={tournament.tournamentFlyer}
+      >
         <h2 className="mb-2 text-4xl text-white uppercase radhiumz">{`Fixture: ${tournament.name}`}</h2>
         <hr className="w-full h-2 mb-6"></hr>
 
@@ -237,7 +255,9 @@ const TournamentDetailView: React.FC<TournamentDetailViewProps> = ({ tournament,
           <NewFixtureComponent fixtureId={tournament.fixture.id} />
         ) : (
           // <FixtureComponent fixtureId={tournament.fixture.id} />
-          <p className="text-xl text-center">No hay fixture disponible para este torneo.</p>
+          <p className="text-xl text-center">
+            No hay fixture disponible para este torneo.
+          </p>
         )}
       </ReusableModal>
     </div>

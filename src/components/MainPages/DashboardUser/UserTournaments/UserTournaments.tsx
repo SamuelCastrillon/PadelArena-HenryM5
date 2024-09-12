@@ -20,7 +20,7 @@ const UserTournaments = () => {
       if (!currentUser || !token) return;
       try {
         const userResponse = await getUserTournament(currentUser.id, token);
-        console.log(userResponse.team.map((t: ITeam) => t.tournament));
+
         setUserTournaments(userResponse.team.map((t: ITeam) => t.tournament));
       } catch (error) {
         console.error("Error fetching user tournaments:", error);
@@ -51,7 +51,8 @@ const UserTournaments = () => {
         <span className="text-lime">{currentUser?.name}</span>
       </h1>
       <CustomTable
-        headers={["Nombre", "Categoría", "Inscripción", "Estado", "Acciones"]}>
+        headers={["Nombre", "Categoría", "Inscripción", "Estado", "Acciones"]}
+      >
         {userTournaments.map((tournament) => (
           <tr key={tournament.id} className="border-t-2 border-lime sfBold">
             <td className="px-4 py-2">{tournament.name}</td>
@@ -61,14 +62,16 @@ const UserTournaments = () => {
                 tournament.inscription === "abiertas"
                   ? "text-green-600"
                   : "text-red-700"
-              } uppercase`}>
+              } uppercase`}
+            >
               {tournament.inscription}
             </td>
             <td className="px-4 py-2">{tournament.status}</td>
             <td className="px-4 py-2">
               <ActionButton
                 className="bg-lime text-black px-4 py-2 radhiumz uppercase rounded hover:bg-blue-700 hover:text-white"
-                onClick={() => handleViewDetails(tournament.id)}>
+                onClick={() => handleViewDetails(tournament.id)}
+              >
                 Ver Detalle
               </ActionButton>
             </td>

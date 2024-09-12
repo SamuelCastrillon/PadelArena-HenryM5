@@ -21,7 +21,11 @@ export const createTournamentSchema = yup.object({
 export async function getDataToContructFormCreateTournaments() {
   const categoriesToback: ICategoryRes[] | undefined = await getCategories();
   const categories = categoriesToback?.map((category) => {
-    return { value: category.id, name: category.name };
+    return {
+      value: category.id,
+      name: category.name,
+      description: category.description,
+    };
   });
 
   //? Data constructor form
