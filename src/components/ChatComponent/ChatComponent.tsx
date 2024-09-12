@@ -130,7 +130,8 @@ const ChatView: React.FC = () => {
               />
               <button
                 type="submit"
-                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase">
+                className="p-2 bg-lime text-xs text-black rounded-r hover:bg-customBlue hover:text-slate radhiumz uppercase"
+              >
                 Enviar
               </button>
             </form>
